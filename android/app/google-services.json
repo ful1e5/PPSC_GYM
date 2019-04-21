@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "492889401918",
+    "firebase_url": "https://ppscgym.firebaseio.com",
+    "project_id": "ppscgym",
+    "storage_bucket": "ppscgym.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:492889401918:android:34542169edca341d",
+        "android_client_info": {
+          "package_name": "com.example.ppscgym"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "492889401918-qq0h6rvqdosqq4kcs3qmmkcqmfevpvon.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ppscgym",
+            "certificate_hash": "9eb2611d0676a8b8a414c9be47679438c570c70e"
+          }
+        },
+        {
+          "client_id": "492889401918-ogeoet9c9ooqe09fj7rmrmg9ce3ud986.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYYSEJ9carkJ2VjBJSv3tJeaZrBYzucBU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "492889401918-ogeoet9c9ooqe09fj7rmrmg9ce3ud986.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

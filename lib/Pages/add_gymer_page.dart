@@ -6,7 +6,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:ppscgym/utils/top_bar.dart';
 import 'package:ppscgym/utils/input_formatters.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-  
 
 class AddGymer extends StatefulWidget {
 
@@ -22,6 +21,7 @@ class AddGymer extends StatefulWidget {
 class _AddGymerState extends State<AddGymer> {
 
   TextStyle style = TextStyle(fontFamily: 'Raleway' ,fontSize: 20.0,color: Colors.black);
+  TextStyle titleStyle = TextStyle(fontFamily: 'Raleway' ,fontSize: 20.0,color: Colors.black,fontWeight: FontWeight.bold);
   TextStyle hintStyle = TextStyle(fontFamily: 'Raleway',fontSize: 20.0,color: Colors.black38);
 
   List<Gymer> _gymerList;
@@ -38,8 +38,6 @@ class _AddGymerState extends State<AddGymer> {
   final FirebaseDatabase _database = FirebaseDatabase.instance;
   StreamSubscription<Event> _onGymerAddedSubscription;
 
-  Color _basicColor = const Color(0xFF3494E6);
-  Color _basicEndColor = const Color(0xFFEC6EAD);
 
   bool _setDate;
 
@@ -48,6 +46,7 @@ class _AddGymerState extends State<AddGymer> {
   String _adhar;
   String _money;
   String _entryDate;
+  String _expireDate;
   DateTime _date = DateTime.now().toLocal();
 
   @override
@@ -146,7 +145,7 @@ class _AddGymerState extends State<AddGymer> {
         labelText: "AdharCard",
         hintStyle: hintStyle,
         hintText: "XXXX XXXX XXXX",
-        prefixIcon: Icon(Icons.assignment_ind),
+        prefixIcon: Icon(Icons.assignment_ind,color: Colors.white,),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25.0)
         ),
@@ -170,7 +169,7 @@ class _AddGymerState extends State<AddGymer> {
         labelText: "Money",
         hintStyle: hintStyle,
         hintText: "XXXX",
-        prefixIcon: Icon(Icons.attach_money),
+        prefixIcon: Icon(Icons.attach_money,color: Colors.white,),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25.0)
         ),
@@ -187,7 +186,7 @@ class _AddGymerState extends State<AddGymer> {
     );
   }
 
-  Widget _showDateButton() {
+  Widget _showEntryDateButton() {
     return  Padding(
         padding: EdgeInsets.all(1),
         child: SizedBox(
@@ -196,7 +195,7 @@ class _AddGymerState extends State<AddGymer> {
           child:  RaisedButton(
             elevation: 5.0,
             shape:  RoundedRectangleBorder(borderRadius:  BorderRadius.circular(25.0)),
-            color: _basicColor,
+            color: Colors.green,
             child: Text(
               _setDate==true ? '$_entryDate':'Entry Date',
               style:  TextStyle(fontSize: 20.0, color: Colors.white),
@@ -211,6 +210,39 @@ class _AddGymerState extends State<AddGymer> {
                   _date=date;
                   _entryDate="${_date.year.toString()}-${_date.month.toString().padLeft(2,'0')}-${_date.day.toString().padLeft(2,'0')}";
                   _setDate=true;
+                  int _mounth= _date.month+1;
+                  _expireDate="${_date.year.toString()}-${_mounth.toString().padLeft(2,'0')}-${_date.day.toString().padLeft(2,'0')}";                });
+              }, 
+              currentTime: DateTime.now(), locale: LocaleType.en);
+            },    
+          ),
+        )
+      );
+    }
+    
+    Widget _showExpireDateButton() {
+    return  Padding(
+        padding: EdgeInsets.all(1),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 60.0,
+          child:  RaisedButton(
+            elevation: 5.0,
+            shape:  RoundedRectangleBorder(borderRadius:  BorderRadius.circular(25.0)),
+            color: Colors.red,
+            child: Text(
+              _setDate==true ? '$_expireDate':'Expire Date',
+              style:  TextStyle(fontSize: 20.0, color: Colors.white),
+            ),
+            onPressed: () {DatePicker.showDatePicker(context,
+              showTitleActions: true,
+              minTime: DateTime(2019, 1, 1),
+              maxTime: DateTime(2019, 31, 12), 
+              onConfirm: (date) {
+                print('confirm $date'); 
+                setState(() {
+                  _date=date;
+                  _expireDate="${_date.year.toString()}-${_date.month.toString().padLeft(2,'0')}-${_date.day.toString().padLeft(2,'0')}";
                 });
               }, 
               currentTime: DateTime.now(), locale: LocaleType.en);
@@ -224,37 +256,23 @@ class _AddGymerState extends State<AddGymer> {
   // _lastNameController.clear();
   // _adharnumberController.clear();
   // _moneyController.clear();
-
-
-  Card _buildCardContent(BuildContext context) {
-    
+  Card _buildCard(Column _list,Color _cardColor) {
     return Card(
+      semanticContainer: true,
+      color: _cardColor,
       elevation: 2.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(25.0),
       ),
       margin: const EdgeInsets.all(15.0),
       child:Container(
-        height:500,
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(32.0),
-                child: Column(
-                  children: <Widget>[
-                    _showTextInput("FirstName ", "John", _firstname,Icon(Icons.person),_firstNameController),
-                    SizedBox(height: 20.0),
-                    _showTextInput("LastName ", "Liccon", _lastname,Icon(Icons.person),_lastNameController),
-                    SizedBox(height: 20.0),
-                    _showAdharNumberInput(),
-                    SizedBox(height: 20.0),
-                    _showMoneyInput(),
-                    SizedBox(height: 20.0),
-                    _showDateButton(),
-                  ],
-                ),
+                child: _list
               ),
             )
           ],
@@ -263,37 +281,60 @@ class _AddGymerState extends State<AddGymer> {
     );
   }
 
+  PageView _buildCardContent(Column _basicList,Column _moreList) {
+    return PageView(
+      children: <Widget>[
+        Container(
+          color: Colors.black,
+          child: _buildCard(_basicList,Colors.blueGrey),
+        ),
+        Container(
+          color: Colors.black,
+          child:  _buildCard(_moreList,Colors.blueGrey),
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: "Add Gymer",
-      child: Container(
-        color: const Color(0xFFEC6EAD),
-        child: Stack(
-          children: <Widget>[
-            TopBar(height: 300.0,header: "ADD GYMER",startColor: _basicColor,endColor: _basicEndColor),
-            Positioned.fill(
-              child: Padding(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).padding.top + 60.0),
-                child: Theme(
-                  data: Theme.of(context).copyWith(
-                    primaryColor: _basicEndColor,
-                    hintColor: _basicColor,
-                    inputDecorationTheme: InputDecorationTheme(
-                      labelStyle: TextStyle(
-                        color: _basicColor
-                      ),
-                    )
-                  ),
-                  child: _buildCardContent(context),
-                )
-              ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("ADD GYMER"),
+        centerTitle: true,
+        backgroundColor: Colors.black,
+        elevation: 0.0,
+      ),
+      body: Hero(
+        tag: "Add Gymer",
+        child: _buildCardContent(
+          Column(children: <Widget>[
+                _showTextInput("FirstName ", "John", _firstname,Icon(Icons.person,color: Colors.white,),_firstNameController),
+                SizedBox(height: 20.0),
+                _showTextInput("LastName ", "Liccon", _lastname,Icon(Icons.group,color: Colors.white,),_lastNameController),
+                SizedBox(height: 20.0),
+              ],
             ),
-          ],
+          Column(children: <Widget>[
+              _showAdharNumberInput(),
+                SizedBox(height: 20.0),
+                _showMoneyInput(),
+                SizedBox(height: 20.0),
+                _showEntryDateButton(),
+                SizedBox(height: 20.0),
+                _showExpireDateButton(),
+                SizedBox(height: 10.0),
+            ],
+          )
         ),
       ),
-      transitionOnUserGestures: true,
+      floatingActionButton: FloatingActionButton(
+        foregroundColor: Colors.black,
+          backgroundColor: Colors.white,
+          elevation: 1.0,
+          child: Icon(Icons.save),
+          onPressed: (){print("save");},
+      ),
     );
   }
 }

@@ -109,22 +109,25 @@ class _MainPageState extends State<MainPage> {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFE64C85),
-      body: Stack(
-        children: <Widget>[
-          TopBar(height: 300.0,header: "GYMER",startColor: Colors.red,endColor: const Color(0xFFE64C85),),
-          Positioned.fill(
-            child: Padding(
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).padding.top + 70.0),
-              child: Column(
-                children: <Widget>[
-                   _views[_page]
-                ],
+      
+      body: Container(
+        color: const Color(0xFFE64C85),
+        child: Stack(
+          children: <Widget>[
+            TopBar(height: 300.0,header: "GYMER",startColor: Colors.red,endColor: const Color(0xFFE64C85),),
+            Positioned.fill(
+              child: Padding(
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).padding.top + 70.0),
+                child: Column(
+                  children: <Widget>[
+                    _views[_page]
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        )
       ),
       bottomNavigationBar: CurvedNavigationBar(
           index: 0,

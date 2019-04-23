@@ -45,8 +45,8 @@ class _AddGymerState extends State<AddGymer> {
 
   String _firstname;
   String _lastname;
-  int _adhar;
-  int _money;
+  String _adhar;
+  String _money;
   String _entryDate;
   DateTime _date = DateTime.now().toLocal();
 
@@ -140,27 +140,50 @@ class _AddGymerState extends State<AddGymer> {
     );
   }
 
-   Widget _showNumberInput(String _label, String _hint, _field,Icon _icon,int _lenght,TextEditingController _ctrl) {
+   Widget _showAdharNumberInput() {
     return TextFormField(
       decoration: InputDecoration(
-        labelText: _label,
+        labelText: "AdharCard",
         hintStyle: hintStyle,
-        hintText: _hint,
-        prefixIcon: _icon,
+        hintText: "XXXX XXXX XXXX",
+        prefixIcon: Icon(Icons.assignment_ind),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25.0)
         ),
       ),
-      controller: _ctrl,
+      controller: _adharnumberController,
       keyboardType: TextInputType.number,
       inputFormatters: [
         WhitelistingTextInputFormatter.digitsOnly,
-        LengthLimitingTextInputFormatter(_lenght),
+        LengthLimitingTextInputFormatter(12), 
         AdharCardNumberInputFormatter()
       ],
       style: style,
       validator: (value) => value.isEmpty ? 'Field can\'t be empty' : 0,
-      onSaved: (value) => _field = value,
+      onSaved: (value) => _adhar = value,
+    );
+  }
+
+  Widget _showMoneyInput() {
+    return TextFormField(
+      decoration: InputDecoration(
+        labelText: "Money",
+        hintStyle: hintStyle,
+        hintText: "XXXX",
+        prefixIcon: Icon(Icons.attach_money),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(25.0)
+        ),
+      ),
+      controller: _moneyController,
+      keyboardType: TextInputType.number,
+      inputFormatters: [
+        WhitelistingTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(4), 
+      ],
+      style: style,
+      validator: (value) => value.isEmpty ? 'Field can\'t be empty' : 0,
+      onSaved: (value) => _money = value,
     );
   }
 
@@ -225,11 +248,11 @@ class _AddGymerState extends State<AddGymer> {
                     SizedBox(height: 20.0),
                     _showTextInput("LastName ", "Liccon", _lastname,Icon(Icons.person),_lastNameController),
                     SizedBox(height: 20.0),
-                    _showNumberInput("AdharCard ", "XXXX XXXX XXXX", _adhar,Icon(Icons.assignment_ind),12,_adharnumberController),
+                    _showAdharNumberInput(),
+                    SizedBox(height: 20.0),
+                    _showMoneyInput(),
                     SizedBox(height: 20.0),
                     _showDateButton(),
-                    SizedBox(height: 20.0),
-                    _showNumberInput("Money ", "\u20B9 XX,XXX", _money,Icon(Icons.attach_money),5,_moneyController),
                   ],
                 ),
               ),

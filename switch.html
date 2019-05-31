@@ -1,0 +1,2925 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><style type="text/css">.source-client-source-editors-shared-ui-SiteMenuStyles-NimaFileIcon-2aKy8 {
+  width: 28px;
+  height: 14px;
+  margin-right: 4px;
+  margin-top: -1px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0; }
+
+.source-client-source-editors-shared-ui-SiteMenuStyles-FlareFileIcon-UyvJd {
+  width: 27px;
+  height: 15px;
+  margin-right: 4px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0; }
+</style><style type="text/css">.source-client-source-Tree-Tree-Line-HGo9V, .source-client-source-Tree-Tree-PropertyLine-11VfL, .source-client-source-Tree-Tree-ConnectorLine-35V7b, .source-client-source-Tree-Tree-IconConnectorLine-1WvLv, .source-client-source-Tree-Tree-IconPropertyConnectorLine-1RMGH {
+  position: absolute;
+  width: 1px;
+  background: #CCC;
+  top: 0;
+  bottom: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0; }
+
+.source-client-source-Tree-Tree-PropertyLine-11VfL {
+  bottom: 1px;
+  background: none;
+  border-left: dashed 1px #CCC; }
+
+.source-client-source-Tree-Tree-IconPropertyConnectorLine-1RMGH {
+  background: none;
+  bottom: 1px;
+  border-left: dashed 1px #CCC; }
+
+.source-client-source-Tree-Tree-ConnectorLine-35V7b {
+  left: 6px; }
+
+.source-client-source-Tree-Tree-HorizontalLine-1R5rU, .source-client-source-Tree-Tree-HorizontalPropertyLine-2eRak {
+  height: 1px;
+  width: 13px;
+  background: #CCC;
+  margin-left: 7px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0; }
+
+.source-client-source-Tree-Tree-HorizontalPropertyLine-2eRak {
+  background: none;
+  border-bottom: dashed 1px #CCC; }
+
+.source-client-source-Tree-Tree-Item-3uTsh {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  font-size: 12.5px;
+  font-weight: 400;
+  color: #666;
+  margin-right: 10px;
+  padding-left: 20px; }
+
+.source-client-source-Tree-Tree-ItemContentWrapper-BipuM {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: 100%;
+  border-top: 2px solid rgba(255, 255, 255, 0);
+  border-bottom: 2px solid rgba(255, 255, 255, 0);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  min-width: 0;
+  position: relative; }
+
+.source-client-source-Tree-Tree-ItemContent-2Epgw {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: calc(100% + 2px);
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin-right: 5px;
+  min-width: 0;
+  padding-left: 5px; }
+
+.source-client-source-Tree-Tree-Selected-EJEOQ {
+  color: #fff;
+  background: #57A5E0;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 6px 15px rgba(0, 88, 166, 0.14);
+          box-shadow: 0px 6px 15px rgba(0, 88, 166, 0.14);
+  z-index: 2; }
+
+.source-client-source-Tree-Tree-Selected-EJEOQ svg {
+  fill: #fff; }
+
+.source-client-source-Tree-Tree-Selected-EJEOQ div {
+  font-weight: 400; }
+
+.source-client-source-Tree-Tree-Hovered-3qQ-T {
+  color: #57A5E0;
+  background: rgba(87, 165, 224, 0.1);
+  border-radius: 5px; }
+
+.source-client-source-Tree-Tree-Hovered-3qQ-T svg {
+  fill: #57A5E0; }
+
+.source-client-source-Tree-Tree-DropTarget-2reLy, .source-client-source-Tree-Tree-DropTargetParent-EVZry {
+  border: 2px solid #57A5E0;
+  border-radius: 5px;
+  padding-left: 3px;
+  height: calc(100% - 2px); }
+
+.source-client-source-Tree-Tree-DropTargetParent-EVZry {
+  border: 2px dashed #57A5E0; }
+
+.source-client-source-Tree-Tree-DropDisabled-3Ua3i {
+  opacity: 0.3; }
+
+.source-client-source-Tree-Tree-DropAbove-3sLkP,
+.source-client-source-Tree-Tree-DropBelow-2qNwU {
+  height: 2px;
+  position: absolute;
+  background: #57A5E0;
+  left: -13px;
+  right: 0;
+  top: -1px; }
+
+.source-client-source-Tree-Tree-DropBelow-2qNwU {
+  top: initial;
+  bottom: -1px; }
+
+.source-client-source-Tree-Tree-SelectionMarker-2eA_2 {
+  position: absolute;
+  top: 0;
+  left: -3px;
+  right: 0;
+  bottom: 0;
+  padding: 0 10px;
+  background: #57A5E0;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 6px 15px rgba(0, 88, 166, 0.14);
+          box-shadow: 0px 6px 15px rgba(0, 88, 166, 0.14); }
+
+.source-client-source-Tree-Tree-ItemName-3v_tc {
+  z-index: 2;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative; }
+
+.source-client-source-Tree-Tree-Hidden-VLwq8 .source-client-source-Tree-Tree-ItemName-3v_tc {
+  opacity: .3; }
+
+.source-client-source-Tree-Tree-ItemName-3v_tc input {
+  color: rgba(0, 0, 0, 0.6);
+  display: block;
+  border: 0;
+  outline: none;
+  -webkit-transition: border 0.1s ease-in-out, color 0.1s ease-in-out;
+  transition: border 0.1s ease-in-out, color 0.1s ease-in-out;
+  background: none;
+  text-overflow: ellipsis;
+  padding: 0;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1; }
+
+.source-client-source-Tree-Tree-Selected-EJEOQ .source-client-source-Tree-Tree-ItemName-3v_tc input {
+  color: white; }
+
+.source-client-source-Tree-Tree-Expander-2Y-eQ, .source-client-source-Tree-Tree-Toggle-HfRQ_ {
+  border: 1px solid #CCC;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 15px;
+  width: 15px;
+  margin-right: 5px;
+  border-radius: 15px;
+  position: relative;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  z-index: 4; }
+
+.source-client-source-Tree-Tree-Toggle-HfRQ_ {
+  margin-left: 5px; }
+
+.source-client-source-Tree-Tree-Toggle-HfRQ_ div {
+  width: 5px;
+  height: 5px;
+  border-radius: 100%;
+  background: #888;
+  margin: 4px auto;
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out; }
+
+.source-client-source-Tree-Tree-ExpandArrow-1THV1 {
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  margin-left: 4px;
+  margin-top: 4px;
+  fill: #666;
+  -webkit-transition: margin-top 0.1s ease-in-out, -webkit-transform 0.1s ease-in-out;
+  transition: margin-top 0.1s ease-in-out, -webkit-transform 0.1s ease-in-out;
+  transition: transform 0.1s ease-in-out, margin-top 0.1s ease-in-out;
+  transition: transform 0.1s ease-in-out, margin-top 0.1s ease-in-out, -webkit-transform 0.1s ease-in-out; }
+
+.source-client-source-Tree-Tree-Expander-2Y-eQ:hover {
+  border: 1px solid #aaa; }
+
+.source-client-source-Tree-Tree-Expander-2Y-eQ:hover .source-client-source-Tree-Tree-ExpandArrow-1THV1 {
+  fill: #333; }
+
+.source-client-source-Tree-Tree-IconContainer-YlDCf {
+  /*border: 1px solid #CCC;*/
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-right: 5px;
+  position: relative; }
+
+.source-client-source-Tree-Tree-HierarchyHideBtn-16VQv {
+  width: 21px;
+  height: 17px;
+  margin-top: -3px;
+  margin-bottom: -2px;
+  margin-left: 5px;
+  margin-right: 5px;
+  opacity: 0.4;
+  -ms-flex-negative: 0;
+      flex-shrink: 0; }
+
+.source-client-source-Tree-Tree-HierarchyLockBtn-3Oca9 {
+  width: 16px;
+  height: 14px;
+  margin-left: 5px;
+  opacity: 0.25;
+  -ms-flex-negative: 0;
+      flex-shrink: 0; }
+
+.source-client-source-Tree-Tree-HierarchyHideBtnHidden-NkrVK,
+.source-client-source-Tree-Tree-HierarchyLockBtnHidden-e28-K {
+  opacity: 0.25; }
+
+.source-client-source-Tree-Tree-Hovered-3qQ-T .source-client-source-Tree-Tree-HierarchyHideBtnHidden-NkrVK,
+.source-client-source-Tree-Tree-Hovered-3qQ-T .source-client-source-Tree-Tree-HierarchyHideBtn-16VQv,
+.source-client-source-Tree-Tree-Hovered-3qQ-T .source-client-source-Tree-Tree-HierarchyLockBtnHidden-e28-K,
+.source-client-source-Tree-Tree-Hovered-3qQ-T .source-client-source-Tree-Tree-HierarchyLockBtn-3Oca9,
+.source-client-source-Tree-Tree-Selected-EJEOQ .source-client-source-Tree-Tree-HierarchyHideBtnHidden-NkrVK,
+.source-client-source-Tree-Tree-Selected-EJEOQ .source-client-source-Tree-Tree-HierarchyHideBtn-16VQv,
+.source-client-source-Tree-Tree-Selected-EJEOQ .source-client-source-Tree-Tree-HierarchyLockBtnHidden-e28-K,
+.source-client-source-Tree-Tree-Selected-EJEOQ .source-client-source-Tree-Tree-HierarchyLockBtn-3Oca9 {
+  opacity: 0.7; }
+
+.source-client-source-Tree-Tree-Hovered-3qQ-T .source-client-source-Tree-Tree-HierarchyHideBtnHidden-NkrVK:hover,
+.source-client-source-Tree-Tree-Hovered-3qQ-T .source-client-source-Tree-Tree-HierarchyHideBtn-16VQv:hover,
+.source-client-source-Tree-Tree-Hovered-3qQ-T .source-client-source-Tree-Tree-HierarchyLockBtnHidden-e28-K:hover,
+.source-client-source-Tree-Tree-Hovered-3qQ-T .source-client-source-Tree-Tree-HierarchyLockBtn-3Oca9:hover,
+.source-client-source-Tree-Tree-Selected-EJEOQ .source-client-source-Tree-Tree-HierarchyHideBtnHidden-NkrVK:hover,
+.source-client-source-Tree-Tree-Selected-EJEOQ .source-client-source-Tree-Tree-HierarchyHideBtn-16VQv:hover,
+.source-client-source-Tree-Tree-Selected-EJEOQ .source-client-source-Tree-Tree-HierarchyLockBtnHidden-e28-K:hover,
+.source-client-source-Tree-Tree-Selected-EJEOQ .source-client-source-Tree-Tree-HierarchyLockBtn-3Oca9:hover {
+  opacity: 1; }
+
+.source-client-source-Tree-Tree-TreeIcon-Wy1yL {
+  fill: #b2b2b2;
+  margin-right: 5px;
+  width: 15px;
+  height: 15px;
+  position: relative;
+  -ms-flex-negative: 0;
+      flex-shrink: 0; }
+
+.source-client-source-Tree-Tree-Hovered-3qQ-T .source-client-source-Tree-Tree-TreeIcon-Wy1yL {
+  fill: #57A5E0; }
+
+.source-client-source-Tree-Tree-Selected-EJEOQ .source-client-source-Tree-Tree-TreeIcon-Wy1yL {
+  fill: #fff; }
+
+.source-client-source-Tree-Tree-Hidden-VLwq8 .source-client-source-Tree-Tree-TreeIcon-Wy1yL {
+  opacity: .3; }
+
+.source-client-source-Tree-Tree-TreeIcon-Wy1yL svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(calc(-50% - 0.5px), calc(-50% - 0.5px));
+      -ms-transform: translate(calc(-50% - 0.5px), calc(-50% - 0.5px));
+          transform: translate(calc(-50% - 0.5px), calc(-50% - 0.5px)); }
+
+.source-client-source-Tree-Tree-TreeIconBG-1xNT9, .source-client-source-Tree-Tree-AssetIconBG-1F6PU {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 3px; }
+
+.source-client-source-Tree-Tree-AssetIconBG-1F6PU {
+  width: 40px;
+  height: 30px; }
+
+/*
+
+This won't work in Edge, so not using for now
+
+.HasDecor
+{
+	//Clips the tumbnail so we don't have to give ThumbDecor a background color to fake transparency.
+
+	clip-path: polygon(0px 0px, 0px 30px, 40px 30px, 40px 0px, 0px 0px, 20px 20px, 40px 20px, 40px 30px, 20px 30px, 20px 20px);
+}
+*/
+.source-client-source-Tree-Tree-ThumbDecor-3WnkQ {
+  position: absolute;
+  bottom: 0;
+  right: -1px;
+  background: #efefef;
+  padding: 3px 0 0 3px;
+  line-height: 0;
+  border-radius: 3px 0 3px 0; }
+
+.source-client-source-Tree-Tree-ThumbDecor-3WnkQ svg {
+  fill: #888;
+  position: initial;
+  left: initial;
+  top: initial;
+  -webkit-transform: none;
+      -ms-transform: none;
+          transform: none; }
+
+.source-client-source-Tree-Tree-PsdDecor-3Y3wz {
+  width: 17px;
+  height: 7px; }
+
+.source-client-source-Tree-Tree-Hovered-3qQ-T .source-client-source-Tree-Tree-ThumbDecor-3WnkQ {
+  background: #e0e8ee; }
+
+.source-client-source-Tree-Tree-Selected-EJEOQ .source-client-source-Tree-Tree-ThumbDecor-3WnkQ {
+  background: #57A5E0; }
+
+.source-client-source-Tree-Tree-Selected-EJEOQ .source-client-source-Tree-Tree-ThumbDecor-3WnkQ svg {
+  fill: #9ecdf1; }
+</style><style type="text/css">.source-client-source-Tree-DarkTree-Line-1hSbD, .source-client-source-Tree-DarkTree-PropertyLine-VuzsF, .source-client-source-Tree-DarkTree-ConnectorLine-PdRdk, .source-client-source-Tree-DarkTree-IconConnectorLine-1Qr1F, .source-client-source-Tree-DarkTree-IconPropertyConnectorLine-s0yJh {
+  position: absolute;
+  width: 1px;
+  background: #fff;
+  opacity: .08;
+  top: 0;
+  bottom: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0; }
+
+.source-client-source-Tree-DarkTree-PropertyLine-VuzsF {
+  bottom: 1px;
+  background: none;
+  border-left: dashed 1px #fff;
+  opacity: .08; }
+
+.source-client-source-Tree-DarkTree-IconPropertyConnectorLine-s0yJh {
+  background: none;
+  bottom: 1px;
+  border-left: dashed 1px #fff; }
+
+.source-client-source-Tree-DarkTree-ConnectorLine-PdRdk {
+  left: 6px; }
+
+.source-client-source-Tree-DarkTree-HorizontalLine-3vN7X, .source-client-source-Tree-DarkTree-HorizontalPropertyLine-I_HN2 {
+  height: 1px;
+  width: 13px;
+  background: #fff;
+  margin-left: 7px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  opacity: .08; }
+
+.source-client-source-Tree-DarkTree-HorizontalPropertyLine-I_HN2 {
+  background: none;
+  border-bottom: dashed 1px #fff; }
+
+.source-client-source-Tree-DarkTree-Item-2mShl {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  font-size: 12.5px;
+  font-weight: 400;
+  color: #fff;
+  margin-right: 10px;
+  padding-left: 20px; }
+
+.source-client-source-Tree-DarkTree-ItemContentWrapper-1A0br {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: 100%;
+  border-top: 2px solid rgba(255, 255, 255, 0);
+  border-bottom: 2px solid rgba(255, 255, 255, 0);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  min-width: 0;
+  position: relative; }
+
+.source-client-source-Tree-DarkTree-ItemContent-1-8zE {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: calc(100% + 2px);
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin-right: 5px;
+  min-width: 0;
+  padding-left: 5px; }
+
+.source-client-source-Tree-DarkTree-Selected-3sybx {
+  color: #fff;
+  background: #57A5E0;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 6px 15px rgba(0, 88, 166, 0.14);
+          box-shadow: 0px 6px 15px rgba(0, 88, 166, 0.14);
+  z-index: 2; }
+
+.source-client-source-Tree-DarkTree-Selected-3sybx svg {
+  fill: #fff; }
+
+.source-client-source-Tree-DarkTree-Selected-3sybx div {
+  font-weight: 400; }
+
+.source-client-source-Tree-DarkTree-Hovered-3pja_ {
+  color: #57A5E0;
+  background: rgba(87, 165, 224, 0.1);
+  border-radius: 5px; }
+
+.source-client-source-Tree-DarkTree-Hovered-3pja_ svg {
+  fill: #57A5E0; }
+
+.source-client-source-Tree-DarkTree-DropTarget-3t2te, .source-client-source-Tree-DarkTree-DropTargetParent-31bFG {
+  border: 2px solid #57A5E0;
+  border-radius: 5px;
+  padding-left: 3px;
+  height: calc(100% - 2px); }
+
+.source-client-source-Tree-DarkTree-DropTargetParent-31bFG {
+  border: 2px dashed #57A5E0; }
+
+.source-client-source-Tree-DarkTree-DropDisabled-3vidC {
+  opacity: 0.3; }
+
+.source-client-source-Tree-DarkTree-DropAbove-z51jY,
+.source-client-source-Tree-DarkTree-DropBelow-1tJnM {
+  height: 2px;
+  position: absolute;
+  background: #57A5E0;
+  left: -13px;
+  right: 0;
+  top: -1px; }
+
+.source-client-source-Tree-DarkTree-DropBelow-1tJnM {
+  top: initial;
+  bottom: -1px; }
+
+.source-client-source-Tree-DarkTree-SelectionMarker-3MMct {
+  position: absolute;
+  top: 0;
+  left: -3px;
+  right: 0;
+  bottom: 0;
+  padding: 0 10px;
+  background: #57A5E0;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 6px 15px rgba(0, 88, 166, 0.14);
+          box-shadow: 0px 6px 15px rgba(0, 88, 166, 0.14); }
+
+.source-client-source-Tree-DarkTree-ItemName-Tg-b2 {
+  z-index: 2;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  opacity: .5; }
+
+.source-client-source-Tree-DarkTree-Hidden-39jly .source-client-source-Tree-DarkTree-ItemName-Tg-b2 {
+  opacity: .2; }
+
+.source-client-source-Tree-DarkTree-ItemName-Tg-b2 input {
+  color: white;
+  display: block;
+  border: 0;
+  outline: none;
+  -webkit-transition: border 0.1s ease-in-out, color 0.1s ease-in-out;
+  transition: border 0.1s ease-in-out, color 0.1s ease-in-out;
+  background: none;
+  text-overflow: ellipsis;
+  padding: 0;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1; }
+
+.source-client-source-Tree-DarkTree-Selected-3sybx .source-client-source-Tree-DarkTree-ItemName-Tg-b2 input {
+  color: white; }
+
+.source-client-source-Tree-DarkTree-Expander-mq_CV, .source-client-source-Tree-DarkTree-Toggle-mApI- {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 15px;
+  width: 15px;
+  margin-right: 5px;
+  border-radius: 15px;
+  position: relative;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  -webkit-transition: opacity 0.1s ease-in-out, border 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out, border 0.1s ease-in-out; }
+
+.source-client-source-Tree-DarkTree-Toggle-mApI- {
+  margin-left: 5px; }
+
+.source-client-source-Tree-DarkTree-Toggle-mApI- div {
+  width: 5px;
+  height: 5px;
+  border-radius: 100%;
+  background: #888;
+  margin: 4px auto;
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out; }
+
+.source-client-source-Tree-DarkTree-ExpandArrow-2wK33 {
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  margin-left: 4px;
+  margin-top: 4px;
+  fill: #fff;
+  opacity: .5;
+  -webkit-transition: margin-top 0.1s ease-in-out, opacity 0.1s ease-in-out, -webkit-transform 0.1s ease-in-out;
+  transition: margin-top 0.1s ease-in-out, opacity 0.1s ease-in-out, -webkit-transform 0.1s ease-in-out;
+  transition: transform 0.1s ease-in-out, margin-top 0.1s ease-in-out, opacity 0.1s ease-in-out;
+  transition: transform 0.1s ease-in-out, margin-top 0.1s ease-in-out, opacity 0.1s ease-in-out, -webkit-transform 0.1s ease-in-out; }
+
+.source-client-source-Tree-DarkTree-Expander-mq_CV:hover, .source-client-source-Tree-DarkTree-Toggle-mApI-:hover {
+  border: 1px solid rgba(255, 255, 255, 0.25); }
+
+.source-client-source-Tree-DarkTree-Expander-mq_CV:hover .source-client-source-Tree-DarkTree-ExpandArrow-2wK33 {
+  opacity: 1; }
+
+.source-client-source-Tree-DarkTree-IconContainer-3O6QF {
+  /*border: 1px solid #CCC;*/
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-right: 5px;
+  position: relative; }
+
+.source-client-source-Tree-DarkTree-HierarchyHideBtn-3nSL3 {
+  width: 21px;
+  height: 17px;
+  margin-top: -3px;
+  margin-bottom: -2px;
+  margin-left: 5px;
+  margin-right: 5px;
+  opacity: 0.4;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  fill: #fff; }
+
+.source-client-source-Tree-DarkTree-HierarchyLockBtn-3pNHR {
+  width: 16px;
+  height: 14px;
+  margin-left: 5px;
+  opacity: 0.2;
+  fill: #fff;
+  -ms-flex-negative: 0;
+      flex-shrink: 0; }
+
+.source-client-source-Tree-DarkTree-HierarchyHideBtnHidden-26lST,
+.source-client-source-Tree-DarkTree-HierarchyLockBtnHidden-2nFmL {
+  opacity: 0.2; }
+
+.source-client-source-Tree-DarkTree-Hovered-3pja_ .source-client-source-Tree-DarkTree-HierarchyHideBtnHidden-26lST,
+.source-client-source-Tree-DarkTree-Hovered-3pja_ .source-client-source-Tree-DarkTree-HierarchyHideBtn-3nSL3,
+.source-client-source-Tree-DarkTree-Hovered-3pja_ .source-client-source-Tree-DarkTree-HierarchyLockBtnHidden-2nFmL,
+.source-client-source-Tree-DarkTree-Hovered-3pja_ .source-client-source-Tree-DarkTree-HierarchyLockBtn-3pNHR,
+.source-client-source-Tree-DarkTree-Selected-3sybx .source-client-source-Tree-DarkTree-HierarchyHideBtnHidden-26lST,
+.source-client-source-Tree-DarkTree-Selected-3sybx .source-client-source-Tree-DarkTree-HierarchyHideBtn-3nSL3,
+.source-client-source-Tree-DarkTree-Selected-3sybx .source-client-source-Tree-DarkTree-HierarchyLockBtnHidden-2nFmL,
+.source-client-source-Tree-DarkTree-Selected-3sybx .source-client-source-Tree-DarkTree-HierarchyLockBtn-3pNHR {
+  opacity: 0.7; }
+
+.source-client-source-Tree-DarkTree-Hovered-3pja_ .source-client-source-Tree-DarkTree-HierarchyHideBtnHidden-26lST:hover,
+.source-client-source-Tree-DarkTree-Hovered-3pja_ .source-client-source-Tree-DarkTree-HierarchyHideBtn-3nSL3:hover,
+.source-client-source-Tree-DarkTree-Hovered-3pja_ .source-client-source-Tree-DarkTree-HierarchyLockBtnHidden-2nFmL:hover,
+.source-client-source-Tree-DarkTree-Hovered-3pja_ .source-client-source-Tree-DarkTree-HierarchyLockBtn-3pNHR:hover,
+.source-client-source-Tree-DarkTree-Selected-3sybx .source-client-source-Tree-DarkTree-HierarchyHideBtnHidden-26lST:hover,
+.source-client-source-Tree-DarkTree-Selected-3sybx .source-client-source-Tree-DarkTree-HierarchyHideBtn-3nSL3:hover,
+.source-client-source-Tree-DarkTree-Selected-3sybx .source-client-source-Tree-DarkTree-HierarchyLockBtnHidden-2nFmL:hover,
+.source-client-source-Tree-DarkTree-Selected-3sybx .source-client-source-Tree-DarkTree-HierarchyLockBtn-3pNHR:hover {
+  opacity: 1; }
+
+.source-client-source-Tree-DarkTree-TreeIcon-AZ8ue {
+  fill: #fff;
+  -webkit-transition: fill .1s ease-in-out;
+  transition: fill .1s ease-in-out;
+  margin-right: 5px;
+  width: 15px;
+  height: 15px;
+  position: relative;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  opacity: .4; }
+
+.source-client-source-Tree-DarkTree-Hovered-3pja_ .source-client-source-Tree-DarkTree-TreeIcon-AZ8ue,
+.source-client-source-Tree-DarkTree-Hovered-3pja_ .source-client-source-Tree-DarkTree-ItemName-Tg-b2 {
+  fill: #57A5E0;
+  opacity: 1; }
+
+.source-client-source-Tree-DarkTree-Selected-3sybx .source-client-source-Tree-DarkTree-TreeIcon-AZ8ue,
+.source-client-source-Tree-DarkTree-Selected-3sybx .source-client-source-Tree-DarkTree-ItemName-Tg-b2 {
+  opacity: 1; }
+
+.source-client-source-Tree-DarkTree-Hidden-39jly .source-client-source-Tree-DarkTree-TreeIcon-AZ8ue {
+  opacity: .2; }
+
+.source-client-source-Tree-DarkTree-TreeIcon-AZ8ue svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(calc(-50% - 0.5px), calc(-50% - 0.5px));
+      -ms-transform: translate(calc(-50% - 0.5px), calc(-50% - 0.5px));
+          transform: translate(calc(-50% - 0.5px), calc(-50% - 0.5px)); }
+
+.source-client-source-Tree-DarkTree-TreeIconBG-1F2xl, .source-client-source-Tree-DarkTree-AssetIconBG-zjOWT {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 3px;
+  opacity: 1; }
+
+.source-client-source-Tree-DarkTree-AssetIconBG-zjOWT {
+  width: 40px;
+  height: 30px; }
+
+/*
+
+This won't work in Edge, so not using for now
+
+.HasDecor
+{
+	//Clips the tumbnail so we don't have to give ThumbDecor a background color to fake transparency.
+
+	clip-path: polygon(0px 0px, 0px 30px, 40px 30px, 40px 0px, 0px 0px, 20px 20px, 40px 20px, 40px 30px, 20px 30px, 20px 20px);
+}
+*/
+.source-client-source-Tree-DarkTree-ThumbDecor-3BEG_ {
+  position: absolute;
+  bottom: 0;
+  right: -1px;
+  background: #313131;
+  padding: 3px 0 0 3px;
+  line-height: 0;
+  border-radius: 3px 0 3px 0; }
+
+.source-client-source-Tree-DarkTree-ThumbDecor-3BEG_ svg {
+  fill: #666;
+  position: initial;
+  left: initial;
+  top: initial;
+  -webkit-transform: none;
+      -ms-transform: none;
+          transform: none; }
+
+.source-client-source-Tree-DarkTree-PsdDecor-3AtJ0 {
+  width: 17px;
+  height: 7px; }
+
+.source-client-source-Tree-DarkTree-Hovered-3pja_ .source-client-source-Tree-DarkTree-ThumbDecor-3BEG_ {
+  background: #353D43; }
+
+.source-client-source-Tree-DarkTree-Selected-3sybx .source-client-source-Tree-DarkTree-ThumbDecor-3BEG_ {
+  background: #57A5E0; }
+
+.source-client-source-Tree-DarkTree-Selected-3sybx .source-client-source-Tree-DarkTree-ThumbDecor-3BEG_ svg {
+  fill: #555; }
+</style><style type="text/css">.source-client-source-editors-flare-ui-Components-Hierarchy-HierarchyKey-HieararchyKey-2dxDU, .source-client-source-editors-flare-ui-Components-Hierarchy-HierarchyKey-HieararchyKeyChanged-2SBYQ, .source-client-source-editors-flare-ui-Components-Hierarchy-HierarchyKey-HieararchyKeyed-z3rKP {
+  position: relative;
+  height: 100%;
+  width: 20px; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-HierarchyKey-HieararchyKey-2dxDU:hover:after {
+  border: 1px solid rgba(255, 255, 255, 0.5); }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-HierarchyKey-HieararchyKey-2dxDU:after, .source-client-source-editors-flare-ui-Components-Hierarchy-HierarchyKey-HieararchyKeyChanged-2SBYQ:after, .source-client-source-editors-flare-ui-Components-Hierarchy-HierarchyKey-HieararchyKeyed-z3rKP:after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  right: 7px;
+  top: 50%;
+  -webkit-transform: rotate(45deg) translate(-50%, -50%);
+      -ms-transform: rotate(45deg) translate(-50%, -50%);
+          transform: rotate(45deg) translate(-50%, -50%);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition: background 0.1s ease-in-out, border 0.1s ease-out;
+  transition: background 0.1s ease-in-out, border 0.1s ease-out; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-HierarchyKey-HieararchyKeyed-z3rKP:after {
+  background: #57a5e0;
+  border: 1px solid rgba(255, 255, 255, 0); }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-HierarchyKey-HieararchyKeyChanged-2SBYQ:after {
+  background: rgba(87, 165, 224, 0);
+  border: 1px solid #ec3e4a; }
+</style><style type="text/css">.source-client-source-editors-flare-ui-Components-Hierarchy-Pane-Pane-2HJfP {
+  position: relative;
+  overflow: hidden; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-Pane-PaneButtonsWrapper-36Cpf {
+  height: 65px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-left: 15px; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-Pane-PaneButton-10rVI {
+  margin-left: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  height: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 10px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #fff;
+  opacity: .5;
+  font-size: 10px;
+  -webkit-transition: background .1s ease-in-out, color .1s ease-in-out;
+  transition: background .1s ease-in-out, color .1s ease-in-out;
+  border: 1px solid rgba(255, 255, 255, 0); }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-Pane-PaneButton-10rVI svg {
+  fill: #fff;
+  -webkit-transition: fill .1s ease-in-out;
+  transition: fill .1s ease-in-out; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-Pane-PaneButton-10rVI:hover {
+  color: #fff;
+  opacity: 1; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-Pane-PaneButton-10rVI:active {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  opacity: 1; }
+</style><style type="text/css">.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabPanel-3UC_w {
+  border-top: 1px solid rgba(255, 255, 255, 0.1); }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabPanel-3UC_w:before {
+  content: "";
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(black));
+  background: linear-gradient(rgba(0, 0, 0, 0), black);
+  height: 10px;
+  position: absolute;
+  width: 100%;
+  opacity: .07;
+  margin-top: -10px;
+  pointer-events: none; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButtonsWrapper-2lR8B {
+  padding-left: 10px; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButton-2UJ50 {
+  height: 48px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-weight: 400;
+  font-size: 11px;
+  text-transform: uppercase;
+  border-top: 1px solid rgba(0, 0, 0, 0);
+  position: relative;
+  cursor: pointer;
+  margin: -1px 10px 0 10px;
+  color: #fff;
+  -webkit-transition: border-top 0.1s ease-in-out, color 0.1s ease-in-out, opacity 0.1s ease-in-out;
+  transition: border-top 0.1s ease-in-out, color 0.1s ease-in-out, opacity 0.1s ease-in-out; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButton-2UJ50:before,
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButton-2UJ50:after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 10px;
+  left: -10px;
+  top: 0; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButton-2UJ50:after {
+  left: initial;
+  right: -10px; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButton-2UJ50:hover span,
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButton-2UJ50:hover .source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabIcon-y23BF {
+  opacity: .6; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButton-2UJ50 span {
+  opacity: .25; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButton-2UJ50 span:after {
+  content: attr(title);
+  font-weight: 600;
+  display: block;
+  height: 0;
+  visibility: hidden; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButtonActive-1rLIm {
+  border-top: 1px solid #fff;
+  font-weight: 600; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButtonActive-1rLIm span,
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButtonActive-1rLIm .source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabIcon-y23BF {
+  opacity: .6; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabIcon-y23BF {
+  fill: #fff;
+  -webkit-transition: fill .1s ease-in-out;
+  transition: fill .1s ease-in-out;
+  margin-right: 5px;
+  width: 15px;
+  height: 15px;
+  position: relative;
+  opacity: .25;
+  -ms-flex-negative: 0;
+      flex-shrink: 0; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabIcon-y23BF svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(calc(-50% + 0.5px), calc(-50% + 0.5px));
+      -ms-transform: translate(calc(-50% + 0.5px), calc(-50% + 0.5px));
+          transform: translate(calc(-50% + 0.5px), calc(-50% + 0.5px)); }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-Pane-FrF6h {
+  position: relative; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-AddButton-2Zlec {
+  width: 100%;
+  height: 26px;
+  background: rgba(228, 228, 228, 0.95);
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 5px; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-PlusIcon-3WZwd {
+  width: 20px;
+  height: 20px;
+  fill: #888; }
+
+.source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-AddButton-2Zlec:hover .source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-PlusIcon-3WZwd {
+  fill: #333; }
+</style><style type="text/css">.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-SelectionPanelContent-8YCh7 {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  overflow-y: auto; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignGroup-1vVHH {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 20px;
+  padding: 15px 20px 15px 0; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignBtn-1fWH3 {
+  width: 13px;
+  height: 14px;
+  border: 5px solid rgba(0, 0, 0, 0);
+  opacity: .5;
+  -webkit-transition: opacity .1s ease-in-out;
+  transition: opacity .1s ease-in-out;
+  fill: #fff;
+  -ms-flex-negative: 0;
+      flex-shrink: 0; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignBtn-1fWH3:hover {
+  opacity: 1; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignBtn-1fWH3:first-child {
+  margin-left: -5px; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignBtn-1fWH3:last-child {
+  margin-right: -5px; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignSpacer-D1s5F {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignBtnDisabled-6Oh5D,
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignBtnDisabled-6Oh5D:hover {
+  opacity: .15 !important; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationPanel-3Ib2r {
+  height: 304px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  overflow-y: auto; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationPanel-3Ib2r:before {
+  content: "";
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(black));
+  background: linear-gradient(rgba(0, 0, 0, 0), black);
+  height: 10px;
+  position: absolute;
+  width: 100%;
+  opacity: .07;
+  margin-top: -10px;
+  pointer-events: none; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationContent-2iF4D {
+  margin-left: 20px;
+  padding: 20px 20px 20px 0;
+  position: relative; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationPanelTitle-3bJ0_ {
+  font-size: 11px;
+  opacity: .6;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 20px; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationGraph-144gt {
+  width: 100%;
+  padding-bottom: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 5px;
+  position: relative;
+  margin-bottom: 16px; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationGraph-144gt canvas {
+  position: fixed;
+  top: 0px;
+  height: 100%;
+  margin-left: -20px;
+  z-index: 10;
+  pointer-events: none; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationGraphLineTop-2T9-5,
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationGraphLineBot-Q3Nmr {
+  position: absolute;
+  height: 1px;
+  background: #fff;
+  opacity: .06;
+  width: 100%;
+  top: 10%; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationGraphLineBot-Q3Nmr {
+  top: initial;
+  bottom: 10%; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationPresetRow-34Lgy {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 10px; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationPresetThumb-15TlY {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationPresetLabel-22wKx {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  opacity: .5; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationNoSelection-_ABMF {
+  opacity: .3;
+  pointer-events: none; }
+
+.source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationGraphNoSelection-2QW6G {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  opacity: .3; }
+</style><style type="text/css">.source-client-source-editors-shared-ui-Components-AlertPanelStyles-ArtistLink-2bPmh,
+.source-client-source-editors-shared-ui-Components-AlertPanelStyles-ArtistLink-2bPmh + div a {
+  color: #fff;
+  text-decoration: none; }
+
+.source-client-source-editors-shared-ui-Components-AlertPanelStyles-ArtistLink-2bPmh:hover,
+.source-client-source-editors-shared-ui-Components-AlertPanelStyles-ArtistLink-2bPmh:hover + div a,
+.source-client-source-editors-shared-ui-Components-AlertPanelStyles-ArtistLink-2bPmh + div a:hover {
+  text-decoration: underline; }
+</style><style type="text/css">
+</style><style type="text/css">.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-Toolbar-3nb9a {
+  font-weight: 400;
+  height: 60px;
+  background: rgba(29, 29, 29, 0.9);
+  position: absolute;
+  top: 0;
+  left: 300px;
+  right: 200px;
+  -webkit-backdrop-filter: blur(20px);
+          backdrop-filter: blur(20px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  pointer-events: auto;
+  padding: 0 10px;
+  -webkit-transition: margin-right 0.4s cubic-bezier(0.8, 0, 0, 1);
+  transition: margin-right 0.4s cubic-bezier(0.8, 0, 0, 1);
+  z-index: 2001; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarDivider-2LcUF {
+  position: absolute;
+  height: 1px;
+  bottom: 0px;
+  left: 20px;
+  right: 20px;
+  background: #fff;
+  opacity: .1; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButton-Q6LcJ {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 50px;
+  padding: 0 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButton-Q6LcJ svg {
+  opacity: .4;
+  -webkit-transition: opacity 0.1s ease-in-out, fill 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out, fill 0.1s ease-in-out; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButton-Q6LcJ:hover .source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButtonIcon-dUimn {
+  opacity: 1; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButtonSelected-3CKIJ .source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIcon-3tht2,
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButtonSelected-3CKIJ .source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuLabel-39rCn,
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButtonSelected-3CKIJ .source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuShortcut-3atX1 {
+  opacity: 1;
+  font-weight: 600;
+  letter-spacing: -0.1px; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButtonIcon-dUimn {
+  width: 20px;
+  height: 20px;
+  fill: #fff; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButtonDisabled-1AhfQ {
+  opacity: .25;
+  pointer-events: none; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarDropdownArrow-2li1x {
+  width: 5px;
+  height: 5px;
+  fill: #fff;
+  opacity: 0.6;
+  margin-left: 5px;
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenu-2uYy3,
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRight-2CxtA,
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarSubMenu-2biFb {
+  background: rgba(51, 51, 51, 0.95);
+  -webkit-backdrop-filter: blur(20px);
+          backdrop-filter: blur(20px);
+  width: 200px;
+  position: absolute;
+  left: 10px;
+  top: 50px;
+  border-radius: 5px;
+  padding: 10px 0;
+  -webkit-box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  z-index: 2001;
+  -webkit-transition: opacity 0.1s ease-out;
+  transition: opacity 0.1s ease-out; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRight-2CxtA {
+  left: initial;
+  right: 10px; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarSubMenu-2biFb {
+  left: 100%;
+  top: 0; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_ {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 40px;
+  padding: 0 20px;
+  -webkit-transition: background 0.1s ease-in-out;
+  transition: background 0.1s ease-in-out;
+  position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIcon-3tht2,
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIconBone-1WBhq {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+  margin-right: 8px;
+  opacity: .4;
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIconBone-1WBhq {
+  width: 15px;
+  height: 15px;
+  margin: 3px 11px 2px 2px; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuLabel-39rCn {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  opacity: .5;
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out;
+  color: #fff; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuShortcut-3atX1 {
+  opacity: .5;
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out;
+  color: #fff; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_:hover {
+  background: rgba(255, 255, 255, 0.03); }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_:hover > .source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIcon-3tht2,
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_:hover > .source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuLabel-39rCn,
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_:hover > .source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuShortcut-3atX1,
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_:hover > .source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuExpand-1ZER4 {
+  opacity: 1; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuDivider-2_MBB {
+  height: 1px;
+  background: #fff;
+  opacity: .08;
+  margin: 10px 0; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuExpand-1ZER4 {
+  width: 6px;
+  height: 9px;
+  fill: #fff;
+  opacity: 0.5;
+  margin-left: 5px;
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarSpacer-ATjFZ {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ZoomInput-121u6 {
+  text-align: center;
+  width: 60px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: none;
+  font-size: 13px;
+  color: #fff;
+  opacity: .4;
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ZoomInput-121u6:hover {
+  opacity: 1; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ZoomInput-121u6:focus, .source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ZoomInput-121u6:active {
+  opacity: 1; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ActiveTransformTool-1IjIA {
+  fill: #FF5678;
+  opacity: 1 !important; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ActiveCreateTool-xOzP8 {
+  fill: #33A7FF;
+  opacity: 1 !important; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-VertexToolbarWrapper-JZ7DO {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-VertexToolbarWrapper-JZ7DO .source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_ {
+  padding: 0 10px; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-VertexToolbarWrapper-JZ7DO .source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_:hover {
+  background: none; }
+
+.source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-VertexToolbarWrapper-JZ7DO .source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_ .source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIcon-3tht2 {
+  margin-right: 5px; }
+</style><style type="text/css">@-webkit-keyframes source-client-source-2d-Components-FileBrowser-FileBrowser-spin-CU3uK {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg); }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+@keyframes source-client-source-2d-Components-FileBrowser-FileBrowser-spin-CU3uK {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg); }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+input {
+  outline: none; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-SidePanel-25FDw {
+  width: 270px;
+  height: 100%;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  background: #fff;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #888;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-top: 52px;
+  border-right: 1px solid #EAEAEA; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-SidePanelFooter-22HSz {
+  padding: 30px;
+  background: #FAFAFA;
+  border-top: 1px solid #EBEBEB; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-SearchInput-30WwG {
+  position: absolute;
+  left: 0;
+  top: -5px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.04);
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 10px 10px 35px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  -webkit-transition: opacity 0.3s ease-in-out, -webkit-transform 0.4s cubic-bezier(0.42, 0, 0.01, 1);
+  transition: opacity 0.3s ease-in-out, -webkit-transform 0.4s cubic-bezier(0.42, 0, 0.01, 1);
+  transition: transform 0.4s cubic-bezier(0.42, 0, 0.01, 1), opacity 0.3s ease-in-out;
+  transition: transform 0.4s cubic-bezier(0.42, 0, 0.01, 1), opacity 0.3s ease-in-out, -webkit-transform 0.4s cubic-bezier(0.42, 0, 0.01, 1); }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-SearchClose-9ntU9 {
+  width: 15px;
+  height: 15px;
+  right: 6px;
+  top: 6px;
+  position: absolute;
+  opacity: .3;
+  -webkit-transition: opacity 0.4s ease-in-out, -webkit-transform 0.4s cubic-bezier(0.42, 0, 0.01, 1);
+  transition: opacity 0.4s ease-in-out, -webkit-transform 0.4s cubic-bezier(0.42, 0, 0.01, 1);
+  transition: transform 0.4s cubic-bezier(0.42, 0, 0.01, 1), opacity 0.4s ease-in-out;
+  transition: transform 0.4s cubic-bezier(0.42, 0, 0.01, 1), opacity 0.4s ease-in-out, -webkit-transform 0.4s cubic-bezier(0.42, 0, 0.01, 1); }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-SearchClose-9ntU9:hover {
+  opacity: 1; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-SearchClose-9ntU9 .source-client-source-2d-Components-FileBrowser-FileBrowser-AddIconCross1-2wjkl,
+.source-client-source-2d-Components-FileBrowser-FileBrowser-SearchClose-9ntU9 .source-client-source-2d-Components-FileBrowser-FileBrowser-AddIconCross2-2Wc_w {
+  background: #000; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-SidePanelHeader-17YnG {
+  padding-bottom: 10px;
+  padding-right: 20px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  margin-left: 20px;
+  position: relative; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-SidePanelToolbar-pv5te {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  position: relative; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-HeaderIcon-mTmQe {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  opacity: .3;
+  -webkit-transition: opacity 0.1s ease-in-out, -webkit-transform 0.4s cubic-bezier(0.42, 0, 0.01, 1);
+  transition: opacity 0.1s ease-in-out, -webkit-transform 0.4s cubic-bezier(0.42, 0, 0.01, 1);
+  transition: transform 0.4s cubic-bezier(0.42, 0, 0.01, 1), opacity 0.1s ease-in-out;
+  transition: transform 0.4s cubic-bezier(0.42, 0, 0.01, 1), opacity 0.1s ease-in-out, -webkit-transform 0.4s cubic-bezier(0.42, 0, 0.01, 1); }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-HeaderIcon-mTmQe:hover {
+  opacity: .65; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-AddBtn-2HwNl {
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  position: relative;
+  border: 1px solid #bbb;
+  -webkit-transition: opacity .4s ease-in-out, background .2s ease-in-out, border .1s ease-in-out, -webkit-transform .2s ease-in-out, -webkit-box-shadow .2s ease-in-out;
+  transition: opacity .4s ease-in-out, background .2s ease-in-out, border .1s ease-in-out, -webkit-transform .2s ease-in-out, -webkit-box-shadow .2s ease-in-out;
+  transition: opacity .4s ease-in-out, transform .2s ease-in-out, background .2s ease-in-out, box-shadow .2s ease-in-out, border .1s ease-in-out;
+  transition: opacity .4s ease-in-out, transform .2s ease-in-out, background .2s ease-in-out, box-shadow .2s ease-in-out, border .1s ease-in-out, -webkit-transform .2s ease-in-out, -webkit-box-shadow .2s ease-in-out; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-AddBtn-2HwNl:hover {
+  border: 1px solid #666; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-AddBtn-2HwNl:hover .source-client-source-2d-Components-FileBrowser-FileBrowser-AddIconCross1-2wjkl,
+.source-client-source-2d-Components-FileBrowser-FileBrowser-AddBtn-2HwNl:hover .source-client-source-2d-Components-FileBrowser-FileBrowser-AddIconCross2-2Wc_w {
+  background: #666; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-AddIcon-1a_K9 {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.42, 0, 0.01, 1);
+  transition: -webkit-transform 0.4s cubic-bezier(0.42, 0, 0.01, 1);
+  transition: transform 0.4s cubic-bezier(0.42, 0, 0.01, 1);
+  transition: transform 0.4s cubic-bezier(0.42, 0, 0.01, 1), -webkit-transform 0.4s cubic-bezier(0.42, 0, 0.01, 1); }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-AddIconCross1-2wjkl {
+  position: absolute;
+  height: 100%;
+  width: 1px;
+  top: 0;
+  left: 7px;
+  background: #bbb;
+  -webkit-transition: background .1s ease-in-out;
+  transition: background .1s ease-in-out; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-AddIconCross2-2Wc_w {
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  top: 7px;
+  left: 0;
+  background: #bbb;
+  -webkit-transition: background .1s ease-in-out;
+  transition: background .1s ease-in-out; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-TreeContent-3FiX- {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  overflow-y: auto;
+  -webkit-transition: opacity .2s ease-in-out;
+  transition: opacity .2s ease-in-out; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-TreeContent-3FiX- > div {
+  will-change: initial !important; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-TreeContent-3FiX- > div > div > div > div {
+  margin-right: 15px; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-Main-3qYOZ {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding: 27px 40px 0 40px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  position: relative; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-MainHeader-1and4 {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 20px 0;
+  z-index: 2;
+  height: 60px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-FilesList-2_Uyn {
+  margin: 0 auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  grid-gap: 40px;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-Main-3qYOZ .source-client-source-2d-Components-FileBrowser-FileBrowser-FilesList-2_Uyn {
+  padding-top: 17px;
+  padding-bottom: 40px; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-FolderItem-3nfTO, .source-client-source-2d-Components-FileBrowser-FileBrowser-FolderItemSelected-22ZTd {
+  position: relative;
+  height: 50px;
+  background: #f1f1f1;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 15px; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-FolderTitle-2IHGE {
+  width: 100%;
+  font-size: 14px;
+  color: #333;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: 400; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-FolderTitle-2IHGE input {
+  display: block;
+  border: 0;
+  outline: none;
+  background: none;
+  padding: 0; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-FolderItemSelected-22ZTd {
+  background: #fff; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-FolderItemSelected-22ZTd .source-client-source-2d-Components-FileBrowser-FileBrowser-FolderTitle-2IHGE {
+  color: #57A5E0; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-FolderItemSelected-22ZTd .source-client-source-2d-Components-FileBrowser-FileBrowser-FolderFile-2Ox9z {
+  fill: #57A5E0; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-FileListHeader-EUi_o {
+  font-size: 13px;
+  position: relative;
+  font-weight: 400;
+  color: #888; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-FileNameLabel-3inMH {
+  font-size: 13px;
+  font-weight: 500;
+  color: #888;
+  margin-bottom: -7px; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-FileNameInput-AFSge {
+  border: 0;
+  outline: 0;
+  background: none;
+  padding: 16px 0;
+  border-radius: 0;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  -webkit-transition: border 0.1s ease-in-out;
+  transition: border 0.1s ease-in-out;
+  margin-bottom: 21px;
+  font-weight: 400;
+  width: 100%;
+  font-size: 16px; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-FileNameInput-AFSge:focus {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.6); }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-FileNameBtn-168k6, .source-client-source-2d-Components-FileBrowser-FileBrowser-FileNameBtnDisabled-CegqK {
+  background: #57A5E0;
+  color: white;
+  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.14);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.14);
+  border: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 32px;
+  padding: 0 18px;
+  border-radius: 32px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: normal;
+  -webkit-transition: color 0.1s ease-in-out, border 0.1s ease-in-out;
+  transition: color 0.1s ease-in-out, border 0.1s ease-in-out;
+  -webkit-animation: source-client-source-2d-Components-FileBrowser-FileBrowser-glow-2E4g1 1s ease-out infinite alternate;
+          animation: source-client-source-2d-Components-FileBrowser-FileBrowser-glow-2E4g1 1s ease-out infinite alternate; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-FileNameBtnDisabled-CegqK {
+  opacity: .25;
+  -webkit-animation: initial;
+          animation: initial; }
+
+@-webkit-keyframes source-client-source-2d-Components-FileBrowser-FileBrowser-glow-2E4g1 {
+  0% {
+    -webkit-box-shadow: 0px 0px 20px rgba(87, 165, 224, 0);
+            box-shadow: 0px 0px 20px rgba(87, 165, 224, 0);
+    background: #4B8DBF; }
+  100% {
+    -webkit-box-shadow: 0px 0px 40px rgba(99, 188, 255, 0.4);
+            box-shadow: 0px 0px 40px rgba(99, 188, 255, 0.4);
+    background: #63BCFF; } }
+
+@keyframes source-client-source-2d-Components-FileBrowser-FileBrowser-glow-2E4g1 {
+  0% {
+    -webkit-box-shadow: 0px 0px 20px rgba(87, 165, 224, 0);
+            box-shadow: 0px 0px 20px rgba(87, 165, 224, 0);
+    background: #4B8DBF; }
+  100% {
+    -webkit-box-shadow: 0px 0px 40px rgba(99, 188, 255, 0.4);
+            box-shadow: 0px 0px 40px rgba(99, 188, 255, 0.4);
+    background: #63BCFF; } }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-NimaFileIcon-_T1Km {
+  width: 28px !important;
+  height: 14px !important;
+  margin-right: 4px;
+  margin-top: -1px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-FlareFileIcon-11vuz {
+  width: 27px !important;
+  height: 15px !important;
+  margin-right: 4px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-PrivateIcon-1NmF6 {
+  width: 16px;
+  height: 14px;
+  fill: #888;
+  margin-left: 5px; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-Marquee-3YPrv {
+  z-index: 1;
+  position: absolute;
+  background: rgba(87, 165, 224, 0.3); }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-TreeItemName-1XyqE {
+  z-index: 2;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  font-size: 16px;
+  font-weight: 400;
+  pointer-events: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-TreeItemName-1XyqE input {
+  display: block;
+  border: 0;
+  outline: none;
+  background: none;
+  padding: 0; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-TreeFolderIcon-1jrZ_ {
+  width: 15px;
+  height: 13px;
+  z-index: 2;
+  -ms-flex-negative: 0;
+      flex-shrink: 0; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-TreeTrashIcon-3TOi2 {
+  width: 15px;
+  height: 19px;
+  z-index: 2;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  margin-top: -1px; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-PermanentFolder-3b7Rd {
+  margin-left: -20px; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-PermanentFolderDivider-2xDBM {
+  height: 1px;
+  position: absolute;
+  background: #EAEAEA;
+  left: 20px;
+  right: 0px;
+  top: 15px; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-TreeDragGhost-3uFVo {
+  position: absolute;
+  color: #888;
+  z-index: 100;
+  pointer-events: none; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-DragGhostWrapper-3DOHV {
+  position: absolute;
+  z-index: 2003;
+  -webkit-box-shadow: 0 15px 75px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 15px 75px rgba(0, 0, 0, 0.15);
+  pointer-events: none; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-DragGhostStack-avmOu {
+  position: absolute;
+  border-radius: 10px;
+  background: #F5F5F5;
+  height: 50px;
+  width: 100%;
+  left: -5px;
+  top: -5px; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-DragGhost-1LHGz {
+  position: absolute;
+  border-radius: 10px;
+  background: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 50px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-shadow: 0 55px 100px rgba(0, 0, 0, 0.35);
+          box-shadow: 0 55px 100px rgba(0, 0, 0, 0.35); }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-DragGhostTitle-3wG3P {
+  font-size: 14px;
+  color: #666;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0 15px; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-DragGhostCount-18JKi {
+  background: #EB3D49;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px;
+  color: #fff;
+  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.14);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.14);
+  position: absolute;
+  top: -11px;
+  right: -10px;
+  min-width: 14px;
+  text-align: center;
+  z-index: 100; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-DraggingFolderItem-17_R_ {
+  position: relative;
+  height: 50px;
+  cursor: none;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.15);
+  opacity: .2; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-DraggingFolderItem-17_R_ div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px dashed #000;
+  border-radius: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-FileGrid-1-Hy4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #F00; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-SelectOverlay-fco7J {
+  position: absolute;
+  left: -4px;
+  top: -4px;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  border: 4px solid #57A5E0;
+  border-radius: 14px;
+  -webkit-box-shadow: 0 15px 55px rgba(0, 185, 255, 0.2);
+          box-shadow: 0 15px 55px rgba(0, 185, 255, 0.2); }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-FolderFile-2Ox9z {
+  width: 15px;
+  height: 13px;
+  margin-right: 5px;
+  margin-top: -1px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  fill: #888; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-AddFolderIcon-8_WS- {
+  width: 17px !important;
+  height: 13px !important;
+  margin-right: 11px;
+  margin-left: 4px; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-DraggingCharacterItem-22s9I {
+  position: relative;
+  cursor: none;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.15);
+  opacity: .2; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-DraggingCharacterItemRatio-6bgX5 {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-DraggingCharacterItemBorder-j-wMp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px dashed #000;
+  border-radius: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-CharacterItem-1_K3E {
+  position: relative;
+  border-radius: 10px;
+  -webkit-transition: opacity 0.4s ease-in-out, width 0.2s ease-in-out, margin 0.2s ease-in-out, background 0.1s ease-in-out, -webkit-transform 0.1s ease-in-out;
+  transition: opacity 0.4s ease-in-out, width 0.2s ease-in-out, margin 0.2s ease-in-out, background 0.1s ease-in-out, -webkit-transform 0.1s ease-in-out;
+  transition: opacity 0.4s ease-in-out, width 0.2s ease-in-out, margin 0.2s ease-in-out, transform 0.1s ease-in-out, background 0.1s ease-in-out;
+  transition: opacity 0.4s ease-in-out, width 0.2s ease-in-out, margin 0.2s ease-in-out, transform 0.1s ease-in-out, background 0.1s ease-in-out, -webkit-transform 0.1s ease-in-out; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-CharacterItem-1_K3E .source-client-source-2d-Components-FileBrowser-FileBrowser-CharacterItemRatio-o8tOf {
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+  position: relative;
+  padding-bottom: 100%; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-PreviewThumbWrapper-S93m9 {
+  background: #666;
+  background-image: url(https://cdn.2dimensions.com/file_background.png);
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 42px);
+  border-radius: 10px 10px 0 0; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-PreviewThumb-3zwoG {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: contain; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-CharacterItemHover-1SYsI .source-client-source-2d-Components-FileBrowser-FileBrowser-CharacterTitle-3D7Nv {
+  background: white;
+  color: #222;
+  /*transform:scale(1.03);
+	box-shadow: 0 30px 90px rgba(0,0,0,0.1);*/ }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-CharacterItemHover-1SYsI .source-client-source-2d-Components-FileBrowser-FileBrowser-NimaFile-N6MW1 {
+  fill: #333; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-CharacterTitle-3D7Nv {
+  height: 42px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-left: 15px;
+  font-size: 14px;
+  font-weight: 400;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding-right: 10px;
+  background: #f1f1f1;
+  color: #333;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  border-radius: 0 0 10px 10px; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-CharacterTitle-3D7Nv div {
+  font-size: 14px; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-CharacterTitleSelected-VxFF2 {
+  background: #fff; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-CharacterTitleSelected-VxFF2 div {
+  color: #57A5E0; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-CharacterTitleSelected-VxFF2 .source-client-source-2d-Components-FileBrowser-FileBrowser-NimaFile-N6MW1 {
+  fill: #57A5E0; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-CharacterTitle-3D7Nv span {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-right: 10px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-CharacterTitle-3D7Nv input {
+  display: block;
+  border: 0;
+  outline: none;
+  background: none;
+  padding: 0; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-CopyOverlay-3g6O5 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: background 0.2s ease-in-out;
+  transition: background 0.2s ease-in-out;
+  cursor: default;
+  z-index: 3;
+  border-radius: 10px;
+  background: #fff;
+  color: #888; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-Loader-1d5vl {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #888;
+  border-radius: 100px;
+  border-right: transparent;
+  border-bottom: transparent;
+  -webkit-animation: source-client-source-2d-Components-FileBrowser-FileBrowser-spin-CU3uK 0.75s infinite linear;
+          animation: source-client-source-2d-Components-FileBrowser-FileBrowser-spin-CU3uK 0.75s infinite linear;
+  -webkit-transition: opacity .8s ease-in-out;
+  transition: opacity .8s ease-in-out; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-CopyingTxt-1pjml {
+  margin-top: 20px;
+  font-weight: 400; }
+
+.source-client-source-2d-Components-FileBrowser-FileBrowser-NoFiles-U5KOz {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  pointer-events: none;
+  color: #888;
+  font-size: 16px;
+  font-weight: 400; }
+</style><style type="text/css">/* Right Click Menu */
+.source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickMenu-3UcsH, .source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickSubMenu-pBmtQ {
+  position: absolute;
+  white-space: nowrap;
+  left: 700px;
+  top: 200px;
+  background: #fff;
+  -webkit-box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.3);
+          box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  pointer-events: auto;
+  cursor: default;
+  padding: 8px 0;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+  min-width: 150px;
+  max-width: 200px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 400;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none; }
+
+.source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickSubMenu-pBmtQ {
+  top: -10px;
+  left: 100%; }
+
+.source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickListItem-2OVfe, .source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickListItemActive-2S516 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0px 20px;
+  color: #909090;
+  height: 35px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: background 0.1s ease-in-out, color 0.1s ease-in-out;
+  transition: background 0.1s ease-in-out, color 0.1s ease-in-out;
+  position: relative; }
+
+.source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickListItemActive-2S516 {
+  color: #222; }
+
+.source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickListItemActive-2S516 .source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickListIcon-2HdQS {
+  opacity: 1;
+  fill: #222; }
+
+.source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickListItem-2OVfe:hover, .source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickListItemActive-2S516:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: #333; }
+
+.source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickListIcon-2HdQS {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  fill: #b2b2b2;
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out;
+  margin-top: -1px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  -webkit-transition: fill 0.1s ease-in-out;
+  transition: fill 0.1s ease-in-out; }
+
+.source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickListItem-2OVfe:hover .source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickListIcon-2HdQS, .source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickListItemActive-2S516:hover .source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickListIcon-2HdQS {
+  fill: #333; }
+
+.source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickListItem-2OVfe span, .source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickListItemActive-2S516 span {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; }
+
+.source-client-source-2d-Components-ContextMenu-ContextMenu-ListItemSubMenu-3GXDM {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
+
+.source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickDivider-21Wcb {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  margin-top: 9px;
+  margin-bottom: 9px; }
+
+.source-client-source-2d-Components-ContextMenu-ContextMenu-SubMenuArrow-1Tls5 {
+  width: 5px;
+  height: 5px;
+  overflow: hidden;
+  margin-left: 5px;
+  fill: #b2b2b2;
+  -webkit-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  -webkit-transition: fill 0.1s ease-in-out;
+  transition: fill 0.1s ease-in-out; }
+
+.source-client-source-2d-Components-ContextMenu-ContextMenu-RightClickListItem-2OVfe:hover .source-client-source-2d-Components-ContextMenu-ContextMenu-SubMenuArrow-1Tls5 {
+  fill: #000; }
+
+.source-client-source-2d-Components-ContextMenu-ContextMenu-Container-1FllM {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 2003;
+  pointer-events: none; }
+</style><style type="text/css">.source-client-source-2d-Components-DropdownStyles-Dropdown-1NsIn {
+  position: relative; }
+
+.source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq {
+  position: absolute;
+  background: #fff;
+  padding: 10px 0 10px 0;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 50px 100px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 50px 100px rgba(0, 0, 0, 0.3);
+  margin-top: -29px;
+  margin-left: -20px;
+  -webkit-transition: height 0.2s ease-in-out, padding 0.2s ease-in-out, margin-top 0.2s ease-in-out, opacity 0.2s ease-out;
+  transition: height 0.2s ease-in-out, padding 0.2s ease-in-out, margin-top 0.2s ease-in-out, opacity 0.2s ease-out;
+  z-index: 2003;
+  overflow: hidden;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+
+.source-client-source-2d-Components-DropdownStyles-DropdownOption-1Rbo9,
+.source-client-source-2d-Components-DropdownStyles-DropdownOptionActive-3woE9 {
+  cursor: pointer;
+  padding: 10px 20px;
+  -webkit-transition: background 0.1s ease-in-out, color 0.1s ease-in-out;
+  transition: background 0.1s ease-in-out, color 0.1s ease-in-out;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 15px; }
+
+.source-client-source-2d-Components-DropdownStyles-DropdownOptionActive-3woE9 {
+  color: #222; }
+
+.source-client-source-2d-Components-DropdownStyles-DropdownOption-1Rbo9:hover,
+.source-client-source-2d-Components-DropdownStyles-DropdownOptionActive-3woE9:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: #222; }
+
+.source-client-source-2d-Components-DropdownStyles-DropdownCurrent-3-WbN {
+  -webkit-transition: border-bottom .1s ease-in-out, color .1s ease-in-out, opacity .1s ease-in-out;
+  transition: border-bottom .1s ease-in-out, color .1s ease-in-out, opacity .1s ease-in-out;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.source-client-source-2d-Components-DropdownStyles-DropdownCurrent-3-WbN span {
+  display: block;
+  position: relative;
+  -webkit-transition: top 0.2s ease-in-out, opacity 0.3s ease-in-out;
+  transition: top 0.2s ease-in-out, opacity 0.3s ease-in-out;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1; }
+
+.source-client-source-2d-Components-DropdownStyles-DropdownArrow-2Gk4l {
+  width: 5px;
+  height: 5px;
+  overflow: hidden;
+  margin-left: 5px;
+  margin-top: 5px;
+  fill: #666; }
+
+.source-client-source-2d-Components-DropdownStyles-OverflowMenu-2hYjX {
+  height: 20px;
+  margin-left: 12px;
+  margin-right: -8px; }
+
+.source-client-source-2d-Components-DropdownStyles-OverflowIcon-3dJzf {
+  width: 20px;
+  height: 20px;
+  -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+          transform: rotate(90deg);
+  fill: #888;
+  -webkit-transition: fill 0.1s ease-in-out;
+  transition: fill 0.1s ease-in-out;
+  cursor: pointer;
+  position: relative; }
+
+.source-client-source-2d-Components-DropdownStyles-CommentAuthor-1RyBA .source-client-source-2d-Components-DropdownStyles-OverflowIcon-3dJzf:hover {
+  fill: #333; }
+
+.source-client-source-2d-Components-DropdownStyles-OverflowIcon-3dJzf:active {
+  top: 1px; }
+
+.source-client-source-2d-Components-DropdownStyles-SortMenu-1apWf,
+.source-client-source-2d-Components-DropdownStyles-FollowingMenu-2nkHF {
+  margin-left: 20px; }
+
+.source-client-source-2d-Components-DropdownStyles-SortMenu-1apWf .source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq,
+.source-client-source-2d-Components-DropdownStyles-FollowingMenu-2nkHF .source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq {
+  right: -10px; }
+
+.source-client-source-2d-Components-DropdownStyles-MobileSubNav-TRfGZ {
+  visibility: visible;
+  position: static;
+  left: auto;
+  display: none; }
+
+.source-client-source-2d-Components-DropdownStyles-MobileSubNav-TRfGZ .source-client-source-2d-Components-DropdownStyles-DropdownCurrent-3-WbN span,
+.source-client-source-2d-Components-DropdownStyles-MobileSubNav-TRfGZ .source-client-source-2d-Components-DropdownStyles-DropdownOptionActive-3woE9 {
+  font-weight: 600;
+  color: #222; }
+
+.source-client-source-2d-Components-DropdownStyles-SettingsDropdown-1xKQN {
+  margin-bottom: 20px; }
+
+.source-client-source-2d-Components-DropdownStyles-SettingsDropdown-1xKQN .source-client-source-2d-Components-DropdownStyles-DropdownCurrent-3-WbN {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  padding: 13px 0;
+  font-weight: 400;
+  color: #333; }
+
+.source-client-source-2d-Components-DropdownStyles-SettingsDropdown-1xKQN .source-client-source-2d-Components-DropdownStyles-DropdownOptionActive-3woE9 {
+  font-weight: 400; }
+
+.source-client-source-2d-Components-DropdownStyles-SettingsDropdown-1xKQN .source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq {
+  top: 35px; }
+
+.source-client-source-2d-Components-DropdownStyles-SettingsDropdown-1xKQN .source-client-source-2d-Components-DropdownStyles-DropdownArrow-2Gk4l {
+  margin-top: 14px; }
+
+.source-client-source-2d-Components-DropdownStyles-AnimationsDropdown-1sOog {
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  height: 100%;
+  font-weight: 400;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.source-client-source-2d-Components-DropdownStyles-SpeedDropdown-2KUyk {
+  width: 79px;
+  font-size: 13px;
+  font-weight: 400; }
+
+.source-client-source-2d-Components-DropdownStyles-SpeedDropdown-2KUyk .source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq {
+  min-width: 79px !important; }
+
+.source-client-source-2d-Components-DropdownStyles-AnimationsDropdown-1sOog:hover .source-client-source-2d-Components-DropdownStyles-DropdownCurrent-3-WbN,
+.source-client-source-2d-Components-DropdownStyles-SpeedDropdown-2KUyk:hover .source-client-source-2d-Components-DropdownStyles-DropdownCurrent-3-WbN {
+  opacity: 1; }
+
+.source-client-source-2d-Components-DropdownStyles-AnimationsDropdown-1sOog .source-client-source-2d-Components-DropdownStyles-DropdownArrow-2Gk4l {
+  margin-top: 7px;
+  fill: #fff; }
+
+.source-client-source-2d-Components-DropdownStyles-SpeedDropdown-2KUyk .source-client-source-2d-Components-DropdownStyles-DropdownArrow-2Gk4l {
+  margin-top: 5px;
+  fill: #fff; }
+
+.source-client-source-2d-Components-DropdownStyles-AnimationsDropdown-1sOog .source-client-source-2d-Components-DropdownStyles-DropdownCurrent-3-WbN {
+  width: 100px;
+  padding: 20px;
+  color: #fff;
+  opacity: .75; }
+
+.source-client-source-2d-Components-DropdownStyles-SpeedDropdown-2KUyk .source-client-source-2d-Components-DropdownStyles-DropdownCurrent-3-WbN {
+  padding: 20px;
+  color: #fff;
+  opacity: .75; }
+
+.source-client-source-2d-Components-DropdownStyles-AnimationsDropdown-1sOog .source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq {
+  margin-left: 0;
+  top: 36px;
+  min-width: 100px;
+  background: black;
+  border-radius: 0 0 5px 0; }
+
+.source-client-source-2d-Components-DropdownStyles-SpeedDropdown-2KUyk .source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq {
+  margin-left: 0;
+  top: 25px;
+  background: black;
+  min-width: auto;
+  border-radius: 0 0 0 5px; }
+
+.source-client-source-2d-Components-DropdownStyles-AnimationsDropdown-1sOog .source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq .source-client-source-2d-Components-DropdownStyles-DropdownOption-1Rbo9,
+.source-client-source-2d-Components-DropdownStyles-SpeedDropdown-2KUyk .source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq .source-client-source-2d-Components-DropdownStyles-DropdownOption-1Rbo9 {
+  color: #fff;
+  opacity: .5;
+  -webkit-transition: opacity .1s ease-in-out;
+  transition: opacity .1s ease-in-out; }
+
+.source-client-source-2d-Components-DropdownStyles-AnimationsDropdown-1sOog .source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq .source-client-source-2d-Components-DropdownStyles-DropdownOption-1Rbo9:hover,
+.source-client-source-2d-Components-DropdownStyles-SpeedDropdown-2KUyk .source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq .source-client-source-2d-Components-DropdownStyles-DropdownOption-1Rbo9:hover {
+  opacity: .75; }
+
+.source-client-source-2d-Components-DropdownStyles-AnimationsDropdown-1sOog .source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq .source-client-source-2d-Components-DropdownStyles-DropdownOptionActive-3woE9,
+.source-client-source-2d-Components-DropdownStyles-SpeedDropdown-2KUyk .source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq .source-client-source-2d-Components-DropdownStyles-DropdownOptionActive-3woE9 {
+  color: #fff;
+  opacity: 1; }
+
+.source-client-source-2d-Components-DropdownStyles-AnimationsDropdown-1sOog .source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq .source-client-source-2d-Components-DropdownStyles-DropdownOptionActive-3woE9:hover,
+.source-client-source-2d-Components-DropdownStyles-SpeedDropdown-2KUyk .source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq .source-client-source-2d-Components-DropdownStyles-DropdownOptionActive-3woE9:hover,
+.source-client-source-2d-Components-DropdownStyles-AnimationsDropdown-1sOog .source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq .source-client-source-2d-Components-DropdownStyles-DropdownOption-1Rbo9:hover,
+.source-client-source-2d-Components-DropdownStyles-SpeedDropdown-2KUyk .source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq .source-client-source-2d-Components-DropdownStyles-DropdownOption-1Rbo9:hover {
+  background: rgba(255, 255, 255, 0.11); }
+
+.source-client-source-2d-Components-DropdownStyles-FilesSortDropdown-wknVq {
+  position: absolute;
+  top: 0;
+  right: 0; }
+
+.source-client-source-2d-Components-DropdownStyles-FilesSortDropdown-wknVq .source-client-source-2d-Components-DropdownStyles-DropdownPanel-2Oblq {
+  min-width: 92px !important; }
+
+@media (max-width: 759px) {
+  .source-client-source-2d-Components-DropdownStyles-MobileSubNav-TRfGZ {
+    display: initial; }
+  .source-client-source-2d-Components-DropdownStyles-AnimationsDropdown-1sOog {
+    font-size: 13px; }
+  .source-client-source-2d-Components-DropdownStyles-AnimationsDropdown-1sOog .source-client-source-2d-Components-DropdownStyles-DropdownCurrent-3-WbN {
+    max-width: 20vw;
+    padding: 13px 20px; }
+  .source-client-source-2d-Components-DropdownStyles-AnimationsDropdown-1sOog .source-client-source-2d-Components-DropdownStyles-DropdownArrow-2Gk4l {
+    margin-top: 5px; } }
+</style><style type="text/css">.source-client-source-2d-Components-RadioButtonStyles-RadioBtn-1qUUe {
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 10px; }
+
+.source-client-source-2d-Components-RadioButtonStyles-RadioBtn-1qUUe:hover {
+  border: 1px solid rgba(0, 0, 0, 0.75); }
+
+.source-client-source-2d-Components-RadioButtonStyles-RadioBtnOn-rCV62,
+.source-client-source-2d-Components-RadioButtonStyles-RadioBtnOff-1t9X5 {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: #000;
+  opacity: .75;
+  margin: 5px 0 0 5px;
+  -webkit-transition: opacity .1s ease-in-out;
+  transition: opacity .1s ease-in-out; }
+
+.source-client-source-2d-Components-RadioButtonStyles-RadioBtnOff-1t9X5 {
+  opacity: 0; }
+</style><style type="text/css">.source-client-source-2d-Components-UpgradeProcessStyles-UpgradeProcess-1HkBj {
+  max-width: 530px;
+  margin: 0 auto;
+  -webkit-transition: height .6s ease-in-out;
+  transition: height .6s ease-in-out;
+  font-size: 16px;
+  font-weight: 400; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-UpgradeHeadline-1lU3S {
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 0;
+  color: #333;
+  line-height: 35px;
+  text-align: center; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-UpgradeSubHeadline-2gCo_ {
+  font-size: 13px;
+  font-weight: 400;
+  margin-bottom: 0;
+  color: #999;
+  line-height: 22px;
+  text-align: center; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-PaymentWrapper-PfBi6 {
+  margin-top: 25px;
+  width: 100%;
+  text-align: left;
+  line-height: 25px; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-UpgradeLabel-1o8yR {
+  font-size: 13px;
+  font-weight: 500;
+  color: #888;
+  margin-bottom: -7px;
+  padding-top: 12px;
+  white-space: nowrap; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-UpgradeLabel-1o8yR:first-child {
+  padding-top: 0; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-MultiRow-2d5jQ {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-MultiRowItem-3ae7K {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin-left: 40px; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-MultiRowItem-3ae7K:first-child {
+  margin-left: 0; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-PaymentMethods-2n7We {
+  margin: 20px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-PayMethod-2Ju7n {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-PayMethod-2Ju7n * {
+  pointer-events: none; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-PaymentFooter-2xWpk {
+  text-align: center;
+  margin-top: 23px; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-PaymentTotal-3Ya6- {
+  line-height: 40px;
+  font-size: 20px;
+  text-align: center;
+  font-weight: 400;
+  color: #333;
+  margin: 0 auto; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-PaymentSummary-1yBw5 {
+  margin-top: 7px;
+  color: #666;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 25px; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-PaymentTotal-3Ya6- span {
+  font-weight: 600; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-PaymentBtn-hG8Yv {
+  background: #333;
+  color: #fff;
+  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.14);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.14);
+  display: inline-block;
+  padding: 13px 21px 12px 21px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: normal;
+  cursor: pointer;
+  -webkit-transition: color 0.1s ease-in-out;
+  transition: color 0.1s ease-in-out;
+  margin-top: 43px;
+  width: 200px; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-DowngradeBtn-1bNQj {
+  color: #EB3D49;
+  border: 1px solid #EB3D49;
+  display: inline-block;
+  padding: 13px 21px 12px 21px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: normal;
+  cursor: pointer;
+  -webkit-transition: color 0.1s ease-in-out;
+  transition: color 0.1s ease-in-out;
+  margin-top: 43px;
+  width: 200px; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-Radio-1jwfv {
+  margin-right: 10px;
+  display: none; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-RadioLabel-gra6B {
+  margin-left: 10px;
+  margin-right: 50px;
+  color: #333; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-CreditCardIcon-u5vIT {
+  width: 20px;
+  height: 20px;
+  fill: #888;
+  position: relative;
+  top: 3px;
+  margin-right: 10px; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-SuccessMessage-3LfJB {
+  text-align: center;
+  line-height: 25px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-SuccessHeadline-1Df6_ {
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 13px;
+  margin-top: 17px;
+  color: #333;
+  line-height: 35px;
+  text-align: center; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-DoneBtn-22aFI {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 32px;
+  padding: 0 18px;
+  border-radius: 32px;
+  color: #777;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: normal;
+  cursor: pointer;
+  background: #333;
+  color: white;
+  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.14);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.14);
+  border: 1px solid #333;
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 135px; }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-SuccessSVG-IjvbB {
+  width: 100px;
+  display: block;
+  margin: 0 auto;
+  -webkit-animation: source-client-source-2d-Components-UpgradeProcessStyles-bounceIn-L-iML 1s cubic-bezier(0.8, 0, 0, 1);
+          animation: source-client-source-2d-Components-UpgradeProcessStyles-bounceIn-L-iML 1s cubic-bezier(0.8, 0, 0, 1); }
+
+.source-client-source-2d-Components-UpgradeProcessStyles-Path-PZzer {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 0; }
+  .source-client-source-2d-Components-UpgradeProcessStyles-Path-PZzer.source-client-source-2d-Components-UpgradeProcessStyles-Circle-6--Fb {
+    -webkit-animation: source-client-source-2d-Components-UpgradeProcessStyles-dash-hTQEm 1s ease-in-out;
+            animation: source-client-source-2d-Components-UpgradeProcessStyles-dash-hTQEm 1s ease-in-out; }
+  .source-client-source-2d-Components-UpgradeProcessStyles-Path-PZzer.source-client-source-2d-Components-UpgradeProcessStyles-Check-3sdcu {
+    stroke-dashoffset: -100;
+    -webkit-animation: source-client-source-2d-Components-UpgradeProcessStyles-dash-check-1H8XL 1s .5s ease-in-out forwards;
+            animation: source-client-source-2d-Components-UpgradeProcessStyles-dash-check-1H8XL 1s .5s ease-in-out forwards; }
+
+@-webkit-keyframes source-client-source-2d-Components-UpgradeProcessStyles-dash-hTQEm {
+  0% {
+    stroke-dashoffset: 1000; }
+  100% {
+    stroke-dashoffset: 0; } }
+
+@keyframes source-client-source-2d-Components-UpgradeProcessStyles-dash-hTQEm {
+  0% {
+    stroke-dashoffset: 1000; }
+  100% {
+    stroke-dashoffset: 0; } }
+
+@-webkit-keyframes source-client-source-2d-Components-UpgradeProcessStyles-dash-check-1H8XL {
+  0% {
+    stroke-dashoffset: -100; }
+  100% {
+    stroke-dashoffset: 900; } }
+
+@keyframes source-client-source-2d-Components-UpgradeProcessStyles-dash-check-1H8XL {
+  0% {
+    stroke-dashoffset: -100; }
+  100% {
+    stroke-dashoffset: 900; } }
+
+@-webkit-keyframes source-client-source-2d-Components-UpgradeProcessStyles-bounceIn-L-iML {
+  0% {
+    -webkit-transform: scale(1.3);
+            transform: scale(1.3);
+    opacity: 0;
+    visibility: visible; }
+  100% {
+    -webkit-transform: none;
+            transform: none;
+    opacity: 1;
+    visibility: visible; } }
+
+@keyframes source-client-source-2d-Components-UpgradeProcessStyles-bounceIn-L-iML {
+  0% {
+    -webkit-transform: scale(1.3);
+            transform: scale(1.3);
+    opacity: 0;
+    visibility: visible; }
+  100% {
+    -webkit-transform: none;
+            transform: none;
+    opacity: 1;
+    visibility: visible; } }
+</style><style type="text/css">.source-client-source-2d-Components-FilePropertiesStyles-MainPanel-3fqVI {
+  width: 340px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+
+.source-client-source-2d-Components-FilePropertiesStyles-UpgradePanel-3bn5S {
+  width: 0px;
+  overflow: hidden;
+  border-left: 1px solid rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  position: relative;
+  -webkit-transition: width 0.4s cubic-bezier(0.8, 0, 0, 1), opacity 0.4s ease-in-out;
+  transition: width 0.4s cubic-bezier(0.8, 0, 0, 1), opacity 0.4s ease-in-out; }
+
+.source-client-source-2d-Components-FilePropertiesStyles-UpgradePanelOpen-1igaR {
+  width: 620px;
+  opacity: 1; }
+
+.source-client-source-2d-Components-FilePropertiesStyles-UpgradeProcessWrapper-2aoYy {
+  width: 620px;
+  padding-top: 38px; }
+
+.source-client-source-2d-Components-FilePropertiesStyles-NimaLogo-2yghs {
+  margin: 0 auto;
+  width: 50px;
+  height: 26px;
+  display: block;
+  margin-bottom: 15px;
+  margin-top: 5px; }
+
+.source-client-source-2d-Components-FilePropertiesStyles-FlareLogo-3ijZU {
+  margin: 0 auto;
+  width: 47px;
+  height: 26px;
+  display: block;
+  margin-bottom: 15px;
+  margin-top: 5px; }
+
+.source-client-source-2d-Components-FilePropertiesStyles-PropertyRow-2JEfs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.source-client-source-2d-Components-FilePropertiesStyles-PropertyLabel-33cUR {
+  font-size: 16px;
+  font-weight: 400;
+  color: #333; }
+
+.source-client-source-2d-Components-FilePropertiesStyles-PropertyRow-2JEfs .source-client-source-2d-Components-FilePropertiesStyles-PropertyLabel-33cUR {
+  margin-left: 10px; }
+
+.source-client-source-2d-Components-FilePropertiesStyles-PropertyDescription-oAqwo {
+  margin-left: 30px;
+  font-size: 13px;
+  line-height: 21px;
+  color: #888;
+  margin-bottom: 24px;
+  margin-top: 5px; }
+
+.source-client-source-2d-Components-FilePropertiesStyles-PropertyDescription-oAqwo a {
+  text-decoration: underline;
+  color: #333; }
+
+.source-client-source-2d-Components-FilePropertiesStyles-SubProperties-3Ui-J {
+  padding-top: 30px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  -webkit-transition: opacity .1s ease-in-out;
+  transition: opacity .1s ease-in-out;
+  height: 200px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; }
+
+.source-client-source-2d-Components-FilePropertiesStyles-SubPropertyRow-3B5dO {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 20px; }
+
+.source-client-source-2d-Components-FilePropertiesStyles-LicenseRow-3GELf {
+  display: block;
+  margin-bottom: 20px;
+  text-align: right; }
+
+.source-client-source-2d-Components-FilePropertiesStyles-LicenseRow-3GELf .source-client-source-2d-Components-FilePropertiesStyles-PropertyLabel-33cUR {
+  float: left; }
+
+.source-client-source-2d-Components-FilePropertiesStyles-SubPropertyRow-3B5dO .source-client-source-2d-Components-FilePropertiesStyles-PropertyLabel-33cUR {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1; }
+
+.source-client-source-2d-Components-FilePropertiesStyles-SubPropertyDescription-1dXfh {
+  font-size: 13px;
+  line-height: 21px;
+  color: #888;
+  margin-top: -15px; }
+
+.source-client-source-2d-Components-FilePropertiesStyles-SubPropertyDescription-1dXfh a {
+  color: #333;
+  text-decoration: underline; }
+</style><style type="text/css">.source-client-source-editors-flare-ui-Components-Settings-ShortcutsStyles-ShortcutsWrapper-3XFhE {
+  overflow: hidden;
+  overflow-y: auto; }
+
+.source-client-source-editors-flare-ui-Components-Settings-ShortcutsStyles-ShortcutsContent-1aPhK {
+  padding: 0 30px;
+  font-weight: 400;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #888;
+  -webkit-user-select: text;
+     -moz-user-select: text;
+      -ms-user-select: text;
+          user-select: text;
+  line-height: 21px;
+  position: relative; }
+
+.source-client-source-editors-flare-ui-Components-Settings-ShortcutsStyles-Column-3Nd7f {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border-left: 1px solid #eaeaea;
+  padding-left: 30px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-left: 30px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1; }
+
+.source-client-source-editors-flare-ui-Components-Settings-ShortcutsStyles-Column-3Nd7f:first-child {
+  margin-left: 0;
+  border-left: 0;
+  padding-left: 0; }
+
+.source-client-source-editors-flare-ui-Components-Settings-ShortcutsStyles-SectionDivider-1vZRu {
+  height: 1px;
+  background: #eaeaea;
+  margin-left: -30px;
+  margin-right: -30px;
+  margin-top: -19px;
+  margin-bottom: 37px; }
+
+.source-client-source-editors-flare-ui-Components-Settings-ShortcutsStyles-ShortcutsModal-1TTBv {
+  width: 860px !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.source-client-source-editors-flare-ui-Components-Settings-ShortcutsStyles-Section-1qlYg {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin-bottom: 60px; }
+
+.source-client-source-editors-flare-ui-Components-Settings-ShortcutsStyles-Section-1qlYg:first-child {
+  margin-top: 0; }
+
+.source-client-source-editors-flare-ui-Components-Settings-ShortcutsStyles-ShortcutWrapper-28inX {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 32px; }
+
+.source-client-source-editors-flare-ui-Components-Settings-ShortcutsStyles-Header-3ix05 {
+  font-size: 20px;
+  font-weight: 400;
+  color: #333; }
+
+.source-client-source-editors-flare-ui-Components-Settings-ShortcutsStyles-Action-3zYTs {
+  -webkit-box-flex: 1.8;
+      -ms-flex: 1.8;
+          flex: 1.8;
+  font-weight: 400;
+  margin-right: 10px; }
+
+.source-client-source-editors-flare-ui-Components-Settings-ShortcutsStyles-Commands-71ock {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  list-style: circle;
+  padding: 0;
+  margin: 0; }
+
+.source-client-source-editors-flare-ui-Components-Settings-ShortcutsStyles-Shortcut-17QrY {
+  margin-top: 20px;
+  text-align: right;
+  color: #666;
+  font-weight: 600; }
+
+.source-client-source-editors-flare-ui-Components-Settings-ShortcutsStyles-Shortcut-17QrY:first-child {
+  margin-top: 0; }
+
+.source-client-source-editors-flare-ui-Components-Settings-ShortcutsStyles-Note-2VZiN {
+  font-style: oblique;
+  margin-top: 10px;
+  line-height: 21px;
+  background: #f7f7f7;
+  border-radius: 10px;
+  padding: 15px 15px 15px 56px; }
+
+.source-client-source-editors-flare-ui-Components-Settings-ShortcutsStyles-Note-2VZiN::before {
+  content: "Note:";
+  position: absolute;
+  margin-left: -41px; }
+
+.source-client-source-editors-flare-ui-Components-Settings-ShortcutsStyles-kbd-Hewjq {
+  font-family: 'Roboto', sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-style: normal;
+  padding: 3px 5px;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase; }
+</style>
+    <title>switch</title>
+    <meta name="description" content="Bring your apps and games to life with real-time animation. Flare is a powerful design and animation tool, which allows designers and developers to easily add high-quality animation to Flutter, iOS, Android, Unity, OpenGL, C++, C#, OpenTK, HTML, JS, and other apps and games.">
+	
+	
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+	
+    <link rel="stylesheet" type="text/css" href="switch_files/roboto.css">
+	
+    <link rel="stylesheet" type="text/css" href="switch_files/normalize.css">
+	
+    <link rel="stylesheet" type="text/css" href="switch_files/flare.css">
+	
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="https://www.2dimensions.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="https://www.2dimensions.com/flare-favicon-32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://www.2dimensions.com/flare-favicon-16.png" sizes="16x16">
+    <link rel="manifest" href="https://www.2dimensions.com/manifest.json">
+    <link rel="mask-icon" href="https://www.2dimensions.com/safari-pinned-tab.svg" color="#000000">
+    <meta name="theme-color" content="#ffffff">
+    <script async="" src="switch_files/fbevents.js"></script><script async="" src="switch_files/analytics.js"></script><script src="switch_files/a.js"></script>
+</head>
+<body style=""><canvas id="stage0" class="Stage" width="1329" height="615" style=""></canvas>
+    <div id="container"><div class="UIPanels"><div class="SiteMenuWrapper" style="background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; pointer-events: none;"><div class="SiteMenu" style="left: -300px;"><svg class="logo"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-logo"></use></svg><svg class="CloseButton"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-close3"></use></svg><div class="SiteMenuScroll"><a href="https://www.2dimensions.com/a/kaiz" class="SiteMenuRow SiteMenuRowProfile"><div class="CommentAvatar" style="background: rgba(0, 0, 0, 0) url(&quot;https://cdn.2dimensions.com/avatars/29542-1-1553229450-gotham&quot;) repeat scroll 0% 0% / cover;"></div>K a i z</a><div class="SiteMenuRowDivider"></div><div class="SiteMenuRow">Open...</div><div class="SiteMenuRow">New Flare</div><div class="SiteMenuRow">New Nima</div><div class="SiteMenuRowDivider"></div><div class="SiteMenuRowHeader">Recent Files</div><a href="https://www.2dimensions.com/a/kaiz/files/flare/new-file" class="SiteMenuRow"><img class="source-client-source-editors-shared-ui-SiteMenuStyles-FlareFileIcon-UyvJd" src="switch_files/flare_small.svg">New File</a><div class="SiteMenuRowDivider"></div><a href="https://www.2dimensions.com/explore" class="SiteMenuRow">Explore</a><a href="https://www.2dimensions.com/artists" class="SiteMenuRow">Artists</a><a href="https://www.2dimensions.com/made-with-2d" class="SiteMenuRow">Made with 2D</a><a href="https://docs.2dimensions.com/support" class="SiteMenuRow">Manual</a><a href="https://medium.com/2dimensions" class="SiteMenuRow">Blog</a><a href="https://www.2dimensions.com/runtimes" class="SiteMenuRow">Runtimes</a><a href="https://www.2dimensions.com/pricing" class="SiteMenuRow">Pricing</a><a href="https://www.2dimensions.com/my/settings" class="SiteMenuRow">Account Settings</a><div class="SiteMenuRow">Sign Out</div></div></div></div><div id="HierarchyPanel" style="width: 300px;"><div><div class="EditorHeader"><svg class="MenuIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-menu"></use></svg><div class="CharacterName"><input class="ProjectTitle" autocomplete="off" type="text" style="width: 55px;" value="switch"><div class="ProjectTitle" style="visibility: hidden; white-space: pre; display: inline-block; position: absolute;">switch</div></div><svg class="InfoIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-info"></use></svg></div><div class="WorkspaceToggle"><div id="SetupButton">DESIGN</div><div id="AnimateButton" class="workspaceToggleActive">ANIMATE</div><div id="ToggleHighlight" class="ToggleHighlightAnimate"></div></div></div><div class="source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabPanel-3UC_w"><div class="source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButtonsWrapper-2lR8B"><div class="source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButton-2UJ50 source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButtonActive-1rLIm"><div class="source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabIcon-y23BF"><svg class="icon-character"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-character"></use></svg></div><span title="Hierarchy">Hierarchy</span></div><div class="source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButton-2UJ50"><div class="source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabIcon-y23BF"><svg class="icon-order"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-order"></use></svg></div><span title="Draw Order">Draw Order</span><div class="source-client-source-editors-flare-ui-Components-Hierarchy-HierarchyKey-HieararchyKey-2dxDU" style="margin-top: 1px;"></div></div></div><div class="source-client-source-editors-flare-ui-Components-Hierarchy-Pane-Pane-2HJfP"><div style="overflow: auto; will-change: transform; height: 276.71px; width: 100%;"><div style="position: relative; width: 100%; min-height: 100%; height: 140px;"><div style="position: absolute; top: 0px; left: 0px; width: 100%; height: 35px;"><div class="source-client-source-Tree-DarkTree-Item-2mShl" style="margin-left: 0px;"><div class="source-client-source-Tree-DarkTree-Expander-mq_CV"><svg class="source-client-source-Tree-DarkTree-ExpandArrow-2wK33" style="margin-top: 5px;"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-arrow"></use></svg></div><div class="source-client-source-Tree-DarkTree-IconConnectorLine-1Qr1F" style="margin-left: 32px; top: 25px;"></div><div class="source-client-source-Tree-DarkTree-ItemContentWrapper-1A0br"><div class="source-client-source-Tree-DarkTree-ItemContent-1-8zE"><div class="source-client-source-Tree-DarkTree-TreeIcon-AZ8ue"><svg class="HierarchyCharIcon" style="pointer-events: none;"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-artboard"></use></svg></div><div class="source-client-source-Tree-DarkTree-ItemName-Tg-b2">Artboard</div></div></div></div></div><div style="position: absolute; top: 35px; left: 0px; width: 100%; height: 35px;"><div class="source-client-source-Tree-DarkTree-Item-2mShl" style="margin-left: 25px;"><div class="source-client-source-Tree-DarkTree-Expander-mq_CV"><svg class="source-client-source-Tree-DarkTree-ExpandArrow-2wK33" style="transform: rotate(-90deg);"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-arrow"></use></svg><div class="source-client-source-Tree-DarkTree-ConnectorLine-PdRdk" style="height: 10px; top: -11px; bottom: initial;"></div><div class="source-client-source-Tree-DarkTree-ConnectorLine-PdRdk" style="height: 10px; top: 14px; bottom: initial;"></div></div><div class="source-client-source-Tree-DarkTree-ItemContentWrapper-1A0br"><div class="source-client-source-Tree-DarkTree-ItemContent-1-8zE"><div class="source-client-source-Tree-DarkTree-TreeIcon-AZ8ue source-client-source-Tree-DarkTree-TreeIconBG-1F2xl" style="background-image: url(&quot;blob:https://www.2dimensions.com/4336bc31-c33c-42dd-9871-b6f8f155e696&quot;);"></div><div class="source-client-source-Tree-DarkTree-ItemName-Tg-b2">Rectangle</div></div></div></div></div><div style="position: absolute; top: 70px; left: 0px; width: 100%; height: 35px;"><div class="source-client-source-Tree-DarkTree-Item-2mShl" style="margin-left: 25px;"><div class="source-client-source-Tree-DarkTree-Expander-mq_CV"><svg class="source-client-source-Tree-DarkTree-ExpandArrow-2wK33" style="transform: rotate(-90deg);"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-arrow"></use></svg><div class="source-client-source-Tree-DarkTree-ConnectorLine-PdRdk" style="height: 10px; top: -11px; bottom: initial;"></div><div class="source-client-source-Tree-DarkTree-ConnectorLine-PdRdk" style="height: 10px; top: 14px; bottom: initial;"></div></div><div class="source-client-source-Tree-DarkTree-ItemContentWrapper-1A0br"><div class="source-client-source-Tree-DarkTree-ItemContent-1-8zE"><div class="source-client-source-Tree-DarkTree-TreeIcon-AZ8ue"><svg class="HierarchyNodeIcon" style="pointer-events: none;"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-node"></use></svg></div><div class="source-client-source-Tree-DarkTree-ItemName-Tg-b2">Switch Controller</div></div></div></div></div><div style="position: absolute; top: 105px; left: 0px; width: 100%; height: 35px;"><div class="source-client-source-Tree-DarkTree-Item-2mShl" style="margin-left: 25px;"><div class="source-client-source-Tree-DarkTree-Expander-mq_CV"><svg class="source-client-source-Tree-DarkTree-ExpandArrow-2wK33" style="transform: rotate(-90deg);"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-arrow"></use></svg><div class="source-client-source-Tree-DarkTree-ConnectorLine-PdRdk" style="height: 10px; top: -11px; bottom: initial;"></div></div><div class="source-client-source-Tree-DarkTree-ItemContentWrapper-1A0br"><div class="source-client-source-Tree-DarkTree-ItemContent-1-8zE source-client-source-Tree-DarkTree-Selected-3sybx"><div class="source-client-source-Tree-DarkTree-TreeIcon-AZ8ue source-client-source-Tree-DarkTree-TreeIconBG-1F2xl" style="background-image: url(&quot;blob:https://www.2dimensions.com/aad3c929-ae15-4a40-81ad-1923b9b89af6&quot;);"></div><div class="source-client-source-Tree-DarkTree-ItemName-Tg-b2">Switch On BG</div></div></div></div></div></div></div></div></div><div class="resizeGrabber horizontalResizeGrabber" style="bottom: 181.29px;"></div><div class="source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabPanel-3UC_w"><div class="source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButtonsWrapper-2lR8B"><div class="source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButton-2UJ50 source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabButtonActive-1rLIm"><div class="source-client-source-editors-flare-ui-Components-Hierarchy-TabPanel-TabIcon-y23BF"><svg class="icon-animations"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-animations"></use></svg></div><span title="Animations">Animations</span></div></div><div class="source-client-source-editors-flare-ui-Components-Hierarchy-Pane-Pane-2HJfP"><div style="overflow: auto; will-change: transform; height: 71.29px; width: 100%;"><div style="position: relative; width: 100%; min-height: 100%; height: 70px;"><div style="position: absolute; top: 0px; left: 0px; width: 100%; height: 35px;"><div class="source-client-source-Tree-DarkTree-Item-2mShl" style="margin-left: 0px;"><div class="source-client-source-Tree-DarkTree-ItemContentWrapper-1A0br"><div style="display: inline-block;" class="source-client-source-Tree-DarkTree-Toggle-mApI-"><div style="opacity: 1;"></div></div><div class="source-client-source-Tree-DarkTree-ItemContent-1-8zE"><div class="source-client-source-Tree-DarkTree-TreeIcon-AZ8ue"><svg class="HierarchyPlayIcon" style="pointer-events: none;"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-play-small"></use></svg></div><div class="source-client-source-Tree-DarkTree-ItemName-Tg-b2">On</div></div></div></div></div><div style="position: absolute; top: 35px; left: 0px; width: 100%; height: 35px;"><div class="source-client-source-Tree-DarkTree-Item-2mShl" style="margin-left: 0px;"><div class="source-client-source-Tree-DarkTree-ItemContentWrapper-1A0br"><div style="display: inline-block;" class="source-client-source-Tree-DarkTree-Toggle-mApI-"><div style="opacity: 0;"></div></div><div class="source-client-source-Tree-DarkTree-ItemContent-1-8zE"><div class="source-client-source-Tree-DarkTree-TreeIcon-AZ8ue"><svg class="HierarchyPlayIcon" style="pointer-events: none;"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-play-small"></use></svg></div><div class="source-client-source-Tree-DarkTree-ItemName-Tg-b2">Off</div></div></div></div></div></div></div><div class="source-client-source-editors-flare-ui-Components-Hierarchy-Pane-PaneButtonsWrapper-36Cpf"><div class="source-client-source-editors-flare-ui-Components-Hierarchy-Pane-PaneButton-10rVI"><svg class="icon-plus"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-plus"></use></svg></div></div></div></div><div style="display: none; animation: 0.1s cubic-bezier(0, 0.01, 1, 0) 0s 1 normal both running bounceFilterOut;" class="HierarchyFilter"><div class="HierarchyFilterMain"><input type="text" placeholder="Type to find..."><svg class="CloseButton"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-close3"></use></svg></div><div class="HierarchyFilterOptions"><svg class="HierarchyIcon HierarchyImageIcon HierarchyFilterGroupIconActive"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-picture"></use></svg><svg class="HierarchyIcon HierarchyBoneIcon HierarchyFilterGroupIconActive"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-bone"></use></svg></div></div></div><div class="resizeGrabber HierarchyResizer" style="left: 300px;"></div><div class="resizeGrabber SelectionResizer" style="right: 234px;"></div><div id="SelectionPanel" style="width: 234px;" class="SelectionPanelAnimating"><div class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-SelectionPanelContent-8YCh7" style="display: block;"><div class="SelectionPanelGroup" style="padding-top: 17px; padding-bottom: 16px;"><svg class="SelectionPanelCurrentIcon SelectionImageIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-picture"></use></svg><div class="SelectedName">Switch On BG</div><div class="SelectedItemType">Shape</div></div><div class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignGroup-1vVHH"><svg class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignBtn-1fWH3 source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignBtnDisabled-6Oh5D"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-distribute-horizontal"></use></svg><svg class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignBtn-1fWH3 source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignBtnDisabled-6Oh5D"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-distribute-vertical"></use></svg><div class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignSpacer-D1s5F"></div><svg class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignBtn-1fWH3"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-align-left"></use></svg><svg class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignBtn-1fWH3"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-align-vcenter"></use></svg><svg class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignBtn-1fWH3"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-align-right"></use></svg><div class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignSpacer-D1s5F"></div><svg class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignBtn-1fWH3"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-align-top"></use></svg><svg class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignBtn-1fWH3"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-align-hcenter"></use></svg><svg class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-AlignBtn-1fWH3"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-align-bottom"></use></svg></div><div class="SelectionPanelGroup" _key="_TransformOpts"><div class="SelectionPanelProperty"><div class="SelectionPanelPropertyTitle">Position</div><div class="SelectionPanelInputField"><div class="SelectionPanelInputLabel">X</div><span class="InputSpan"><input style="cursor: ns-resize; padding-right: 12px;" type="text" value="250"></span><div class="SelectionPanelKey"><div></div></div></div><div class="SelectionPanelInputField"><div class="SelectionPanelInputLabel">Y</div><span class="InputSpan"><input style="cursor: ns-resize; padding-right: 12px;" type="text" value="75"></span><div class="SelectionPanelKeyed"><div></div></div></div></div><div class="SelectionPanelProperty"><div class="SelectionPanelPropertyTitle">Size</div><div class="SelectionPanelInputField"><div class="SelectionPanelInputLabel">Width</div><span class="InputSpan"><input style="cursor: ns-resize; padding-right: 12px;" type="text" value="200"></span><div class="SelectionPanelKey"><div></div></div></div><div class="SelectionPanelInputField"><div class="SelectionPanelInputLabel">Height</div><span class="InputSpan"><input style="cursor: ns-resize; padding-right: 12px;" type="text" value="100"></span><div class="SelectionPanelKey"><div></div></div></div></div><div class="SelectionPanelProperty"><div class="SelectionPanelPropertyTitle">Scale</div><div class="SelectionPanelInputField"><div class="SelectionPanelInputLabel">X</div><span class="InputSpan"><input style="cursor: ns-resize; padding-right: 12px;" type="text" value="1"></span><div class="SelectionPanelKey"><div></div></div></div><div class="SelectionPanelInputField"><div class="SelectionPanelInputLabel">Y</div><span class="InputSpan"><input style="cursor: ns-resize; padding-right: 12px;" type="text" value="1"></span><div class="SelectionPanelKey"><div></div></div></div></div><div class="SelectionPanelProperty"><div class="SelectionPanelPropertyTitle">Rotation</div><div class="SelectionPanelInputField"><span class="InputSpan"><input style="cursor: ns-resize; padding-right: 12px;" type="text" value="0 °"></span><div class="SelectionPanelKey"><div></div></div></div><div class="Spacer"></div></div></div><div class="SelectionPanelGroup"><div class="SelectionPanelProperty"><div class="SelectionPanelPropertyTitle" style="white-space: nowrap;">Corner Radius</div><div class="Spacer"></div><div class="SelectionPanelInputField"><span class="InputSpan"><input style="cursor: ns-resize; padding-right: 12px;" type="text" value="50"></span><div class="SelectionPanelKey"><div></div></div></div></div></div><div class="SelectionPanelGroup"><div class="SelectionPanelProperty"><div class="SelectionPanelPropertyTitle">Opacity</div><div class="Spacer"></div><div class="SelectionPanelInputField"><span class="InputSpan"><input style="cursor: ns-resize; padding-right: 12px;" type="text" value="1"></span><div class="SelectionPanelKey"><div></div></div></div></div></div><div class="SelectionPanelGroup" _key="_FillOpts"><div class="SelectionPanelProperty CenterPropertyTitle"><div class="SelectionPanelPropertyTitle" style="flex: 1 1 0%; white-space: nowrap;">Fill</div><div class="Spacer" style="flex: initial; width: 35px;"></div><div class="SelectionPanelPickerMarker"></div><div class="SelectionPanelInputField"><div class="ClrPck"><div class="ClrPckPrv" style="background: rgb(20, 0, 255) none repeat scroll 0% 0%;"></div><div class="ClrPckMenu" style="left: 885px; top: 97.5px; display: none;"><div class="ClrPckSVGraph" style="background: rgb(20, 0, 255) none repeat scroll 0% 0%;"><div class="ClrPckSVLighten"></div><div class="ClrPckSVDarken"></div><div class="ClrPckSVGrabber" style="left: 100%; top: 0%;"><div style="background: rgb(20, 0, 255) none repeat scroll 0% 0%;"><div></div></div></div></div><div class="ClrPckHGraph"><div class="ClrPckHGrabber" style="left: 68%; background: rgb(20, 0, 255) none repeat scroll 0% 0%;"></div></div><div class="ClrPckInput"><div><div>H</div><input style="cursor: ns-resize;" type="text" value="245"><div>S</div><input style="cursor: ns-resize;" type="text" value="100%"><div>B</div><input style="cursor: ns-resize;" type="text" value="100%"></div><div><div>R</div><input style="cursor: ns-resize;" type="text" value="20"><div>G</div><input style="cursor: ns-resize;" type="text" value="0"><div>B</div><input style="cursor: ns-resize;" type="text" value="255"></div><div><div>Hex</div><input class="ClrPckInputLong" type="text" value="#1400ff"><div>A</div><input style="cursor: ns-resize;" type="text" value="100%"></div></div></div></div><div class="SelectionPanelKeyed ColorPickerKey"><div></div></div></div></div><div class="SelectionPanelProperty"><div class="SelectionPanelPropertyTitle">Fill Opacity</div><div class="Spacer"></div><div class="SelectionPanelInputField"><span class="InputSpan"><input style="cursor: ns-resize; padding-right: 12px;" type="text" value="1"></span><div class="SelectionPanelKey"><div></div></div></div></div></div><div class="SelectionPanelGroup" _key="_StrokeOpts"><div class="SelectionPanelProperty CenterPropertyTitle"><div class="SelectionPanelPropertyTitle" style="flex: 1 1 0%; white-space: nowrap;">Stroke</div><div class="Spacer" style="flex: initial; width: 35px;"></div><div class="SelectionPanelPickerMarker"></div><div class="SelectionPanelInputField"><div class="ClrPck"><div class="ClrPckPrv" style="background: rgb(20, 0, 255) none repeat scroll 0% 0%;"></div><div class="ClrPckMenu" style="left: 885px; top: 196px;"><div class="ClrPckSVGraph" style="background: rgb(20, 0, 255) none repeat scroll 0% 0%;"><div class="ClrPckSVLighten"></div><div class="ClrPckSVDarken"></div><div class="ClrPckSVGrabber" style="left: 100%; top: 0%;"><div style="background: rgb(20, 0, 255) none repeat scroll 0% 0%;"><div></div></div></div></div><div class="ClrPckHGraph"><div class="ClrPckHGrabber" style="left: 67.9739%; background: rgb(20, 0, 255) none repeat scroll 0% 0%;"></div></div><div class="ClrPckInput"><div><div>H</div><input style="cursor: ns-resize;" type="text" value="245"><div>S</div><input style="cursor: ns-resize;" type="text" value="100%"><div>B</div><input style="cursor: ns-resize;" type="text" value="100%"></div><div><div>R</div><input style="cursor: ns-resize;" type="text" value="20"><div>G</div><input style="cursor: ns-resize;" type="text" value="0"><div>B</div><input style="cursor: ns-resize;" type="text" value="255"></div><div><div>Hex</div><input class="ClrPckInputLong" type="text" value="#1400ff"><div>A</div><input style="cursor: ns-resize;" type="text" value="100%"></div></div></div></div><div class="SelectionPanelKeyed ColorPickerKey"><div></div></div></div></div><div class="SelectionPanelProperty"><div class="SelectionPanelPropertyTitle">Thickness</div><div class="Spacer"></div><div class="SelectionPanelInputField"><span class="InputSpan"><input style="cursor: ns-resize; padding-right: 12px;" type="text" value="5"></span><div class="SelectionPanelKey"><div></div></div></div></div><div class="SelectionPanelProperty"><div class="SelectionPanelPropertyTitle" style="white-space: nowrap;">Stroke Opacity</div><div class="Spacer"></div><div class="SelectionPanelInputField"><span class="InputSpan"><input style="cursor: ns-resize; padding-right: 12px;" type="text" value="1"></span><div class="SelectionPanelKey"><div></div></div></div></div></div></div><div class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationPanel-3Ib2r"><div class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationContent-2iF4D"><div class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationPanelTitle-3bJ0_">Key Interpolation</div><div class="SelectionPanelProperty source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationNoSelection-_ABMF"><div class="SelectionPanelPropertyTitle">Type</div><div class="SelectionPanelProperties"><div class="Dropdown"><div class="DropdownCurrent"><span style="top: 0px; opacity: 1;"></span><svg class="DropdownArrow"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-arrow"></use></svg></div></div></div></div><div class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationGraph-144gt"><div class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationGraphLineTop-2T9-5"></div><div class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationGraphLineBot-Q3Nmr"></div><canvas width="222" height="615"></canvas><div class="source-client-source-editors-flare-ui-Components-SelectionPanel-SelectionPanelStyles-InterpolationGraphNoSelection-2QW6G">No Key Selected</div></div></div></div></div><div class="StagePanel" style="left: 300px; right: 234px; bottom: 260px;"><div></div><div style="display: none;" class="TopGuideRuler"><div class="TopGuideRulerTicks"><canvas class="GuideRulerTicks" width="765" height="30"></canvas></div></div><div style="display: none;" class="LeftGuideRuler"><div class="LeftGuideRulerTicks"><canvas class="GuideRulerTicks" width="30" height="265"></canvas></div></div></div><div class="AnimationPanel" style="height: 260px; left: 300px; right: 234px;"><div class="AnimationPanelShadowLeft"></div><div class="AnimationPanelShadowRight"></div><div class="resizeGrabber horizontalResizeGrabber"></div><div class="ApHeader"><div class="ApTransportControls"><svg class="PlayButton"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-play"></use></svg><svg class="RewButton"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-rewind"></use></svg></div><div class="ApTransportHeader"><input class="TimelineCurrentInput" type="text" value="00:01:24"><div class="FpsInput"><div class="FpsLabel">FPS</div><input class="TimelineFpsInput" type="text" value="60"></div><input class="TimelineTotalInput" type="text" value="00:01:24"></div></div><div class="ApTimelineHeaderWrapper"><div class="ApTimelineHeaderButtons" style="margin-top: 0px;"><div class="AutoKeyTimelineButtonActive"><svg class="AutoKeyIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-timer"></use></svg><span>AUTOKEY</span></div><div class="SelectionTimelineButton"><svg><use xlink:href="/static/2225/images/symbol-defs.svg#icon-timeline-selected"></use></svg></div><div class="LoopTimelineButton"><svg><use xlink:href="/static/2225/images/symbol-defs.svg#icon-loop"></use></svg></div><div class="WorkAreaTimelineButton"><svg><use xlink:href="/static/2225/images/symbol-defs.svg#icon-work-area"></use></svg></div></div><div class="ApTimelineHeader"><div class="ApTimelineHorizontalScrollTrack"><div class="TimelineScrollGrabber" style="width: 100%; margin-left: 0%;"><div class="TimelineScrollLeftHandle"></div><div class="TimelineScrollMiddle"></div><div class="TimelineScrollRightHandle"></div></div></div><div class="ApTimelineHeaderTicks" style="padding-left: 10px;"><div class="WorkArea" style="opacity: 0; left: 10px; width: 475px;"><div class="WorkAreaLeftHandle"></div><div class="WorkAreaRightHandle"></div></div><div class="PlaybarHead" style="transform: scaleX(0.65) translate3d(746.154px, 0px, 0px);"><div></div></div><div style="pointer-events: none; margin-left: 0px;"><div class="ApTimelineHeaderTickUnit" style="width: 113.095px;"><div class="ApTimelineHeaderTick"></div><div class="ApTimelineHeaderUnit">00:00f</div></div><div class="ApTimelineHeaderTickUnit" style="width: 113.095px;"><div class="ApTimelineHeaderTick"></div><div class="ApTimelineHeaderUnit">20f</div></div><div class="ApTimelineHeaderTickUnit" style="width: 113.095px;"><div class="ApTimelineHeaderTick"></div><div class="ApTimelineHeaderUnit">40f</div></div><div class="ApTimelineHeaderTickUnit" style="width: 113.095px;"><div class="ApTimelineHeaderTick"></div><div class="ApTimelineHeaderUnit">01:00f</div></div><div class="ApTimelineHeaderTickUnit" style="width: 113.095px;"><div class="ApTimelineHeaderTick"></div><div class="ApTimelineHeaderUnit">20f</div></div><div class="ApTimelineHeaderTickUnit" style="width: 113.095px;"><div class="ApTimelineHeaderTick"></div><div class="ApTimelineHeaderUnit">40f</div></div></div><div class="HeaderTicksBottomBorder"></div></div></div></div><div class="ApTimelineWrapper"><div class="ApTimelineSources" style="margin-top: 0px; opacity: 1;"><div style="overflow: auto; will-change: transform; height: 173px; width: 100%;"><div style="position: relative; width: 100%; min-height: 100%; height: 280px;"><div class="ApAnimationName"><span>On</span></div><div class="TimelineRow" style="position: absolute; top: 35px; left: 0px; width: 100%; height: 35px;"><div class="TimelineRowContent"><div class="TimelineExpandBtn"><svg class="ExpandArrow" style="transform: rotate(-90deg);"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-arrow"></use></svg></div><svg class="TimelineIcon TimelineImageIcon TimelineIconBG" style="background-image: url(&quot;blob:https://www.2dimensions.com/4336bc31-c33c-42dd-9871-b6f8f155e696&quot;);"></svg><div class="TimelineItemTxt">Rectangle</div></div><div></div></div><div class="TimelineRow" style="position: absolute; top: 70px; left: 0px; width: 100%; height: 35px;"><div class="TimelineRowContent"><div class="TimelineExpandBtn"><svg class="ExpandArrow" style="transform: rotate(-90deg);"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-arrow"></use></svg></div><svg class="TimelineIcon TimelineNodeIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-node"></use></svg><div class="TimelineItemTxt">Switch Controller</div></div><div></div></div><div class="TimelineRow" style="position: absolute; top: 105px; left: 0px; width: 100%; height: 35px;"><div class="TimelineRowContent"><div class="TimelineExpandBtn"><svg class="ExpandArrow" style="transform: rotate(-90deg);"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-arrow"></use></svg></div><svg class="TimelineIcon TimelineImageIcon TimelineIconBG" style="background-image: url(&quot;blob:https://www.2dimensions.com/5e7c2c3b-7b38-4b2b-a22c-24431a73ef32&quot;);"></svg><div class="TimelineItemTxt">Right Eye</div></div><div></div></div><div class="TimelineRow" style="position: absolute; top: 140px; left: 0px; width: 100%; height: 35px;"><div class="TimelineRowContent"><div class="TimelineExpandBtn"><svg class="ExpandArrow" style="transform: rotate(-90deg);"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-arrow"></use></svg></div><svg class="TimelineIcon TimelineImageIcon TimelineIconBG" style="background-image: url(&quot;blob:https://www.2dimensions.com/0771a035-8e90-462c-b32d-cbb45c128495&quot;);"></svg><div class="TimelineItemTxt">Left Eye</div></div><div></div></div><div class="TimelineRow" style="position: absolute; top: 175px; left: 0px; width: 100%; height: 35px;"><div class="TimelineRowContent"><div class="TimelineExpandBtn"><svg class="ExpandArrow" style="transform: rotate(-90deg);"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-arrow"></use></svg></div><svg class="TimelineIcon TimelineImageIcon TimelineIconBG" style="background-image: url(&quot;blob:https://www.2dimensions.com/4dba96bd-204d-47a7-a19b-e64d47970c49&quot;);"></svg><div class="TimelineItemTxt">Mouth</div></div><div></div></div><div class="TimelineRow" style="position: absolute; top: 210px; left: 0px; width: 100%; height: 35px;"><div class="TimelineRowContent"><div class="TimelineExpandBtn"><svg class="ExpandArrow" style="transform: rotate(-90deg);"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-arrow"></use></svg></div><svg class="TimelineIcon TimelineImageIcon TimelineIconBG" style="background-image: url(&quot;blob:https://www.2dimensions.com/8c4909eb-c7e4-4dcd-af75-2b3d5ffb90d7&quot;);"></svg><div class="TimelineItemTxt">Ellipse</div></div><div></div></div><div class="TimelineRow" style="position: absolute; top: 245px; left: 0px; width: 100%; height: 35px;"><div class="TimelineRowContentSelected"><div class="TimelineExpandBtn"><svg class="ExpandArrow" style="transform: rotate(-90deg);"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-arrow"></use></svg></div><svg class="TimelineIcon TimelineImageIcon TimelineIconBG" style="background-image: url(&quot;blob:https://www.2dimensions.com/aad3c929-ae15-4a40-81ad-1923b9b89af6&quot;);"></svg><div class="TimelineItemTxt">Switch On BG</div></div><div></div></div></div></div></div><div class="ApTimelineScrollWrapper"><div class="ApTimelineCanvasMarker"><div style="width: 500px; height: 173px;"></div><canvas width="500" height="173"></canvas></div><div style="width: 500px; height: 173px;"><div class="Playbar" style="transform: translate3d(485px, 0px, 0px); opacity: 1;"></div></div><div class="Scrollbar" style="height: 173px;"><div class="ScrollbarGrabber" style="height: 106.889px; top: 66.1107px;"><div></div></div></div></div></div></div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-Toolbar-3nb9a" style="left: 300px; right: 234px;"><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButton-Q6LcJ"><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ActiveTransformTool-1IjIA source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButtonIcon-dUimn" style=""><use xlink:href="/static/2225/images/symbol-defs.svg#icon-move"></use></svg><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarDropdownArrow-2li1x"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-arrow"></use></svg><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenu-2uYy3" style="visibility: hidden; opacity: 0;"><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_ source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButtonSelected-3CKIJ"><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIcon-3tht2 source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ActiveTransformTool-1IjIA"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-move"></use></svg><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuLabel-39rCn">Translate</div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuShortcut-3atX1">T</div></div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_"><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIcon-3tht2"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-rotate"></use></svg><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuLabel-39rCn">Rotate</div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuShortcut-3atX1">R</div></div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_"><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIcon-3tht2"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-scale-flare"></use></svg><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuLabel-39rCn">Scale</div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuShortcut-3atX1">S</div></div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_"><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIcon-3tht2"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-arrow-divert"></use></svg><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuLabel-39rCn">IK Pose</div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuShortcut-3atX1">X</div></div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_ source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButtonDisabled-1AhfQ"><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIcon-3tht2"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-move-pivot"></use></svg><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuLabel-39rCn">Move Pivot</div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuShortcut-3atX1"></div></div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuDivider-2_MBB"></div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_"><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIcon-3tht2" style=""><use xlink:href="/static/2225/images/symbol-defs.svg#icon-axis-local"></use></svg><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuLabel-39rCn">Show Axis</div><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuExpand-1ZER4"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-menu-expand"></use></svg><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarSubMenu-2biFb" style="visibility: hidden; opacity: 0;"><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_"><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIcon-3tht2"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-axis-local"></use></svg><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuLabel-39rCn">Local</div></div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_"><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIcon-3tht2"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-axis-parent"></use></svg><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuLabel-39rCn">Parent</div></div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_"><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIcon-3tht2"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-axis-world"></use></svg><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuLabel-39rCn">World</div></div></div></div></div></div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarSpacer-ATjFZ"></div><input class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ZoomInput-121u6" type="text" value="40%"><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButton-Q6LcJ"><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButtonIcon-dUimn"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-eye"></use></svg><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarDropdownArrow-2li1x"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-arrow"></use></svg><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRight-2CxtA" style="visibility: hidden; opacity: 0;"><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_"><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIcon-3tht2"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-shapes"></use></svg><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuLabel-39rCn">Hide Shapes</div></div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_"><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIconBone-1WBhq"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-bone"></use></svg><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuLabel-39rCn">Hide Bones</div></div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_"><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIcon-3tht2"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-rulers"></use></svg><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuLabel-39rCn">Show Rulers</div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuShortcut-3atX1">⌘;</div></div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuRow-2POs_"><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuIcon-3tht2"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-rulers"></use></svg><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuLabel-39rCn">Reset Rulers</div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarMenuShortcut-3atX1">⌘⇧;</div></div></div></div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButton-Q6LcJ"><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButtonIcon-dUimn"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-cog"></use></svg></div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButton-Q6LcJ"><svg class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolButtonIcon-dUimn"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-export"></use></svg></div><div class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ToolbarDivider-2LcUF"></div></div><div id="Toolbar" style="right: 0px;"><div class="WeightsToolbar" style="opacity: 0; visibility: hidden;"><div class="ToolGroup"><div class="ToolButton" id="PaintWeightTool"><div class="ToolSelected" style="opacity: 0;"></div><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-brush"></use></svg></div><div class="ToolButton" id="VertexWeightTool"><div class="ToolSelected" style="opacity: 0;"></div><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-select-vertices"></use></svg></div></div><div class="ToolGroup"><div class="VisibilityToggle" id="MeshVisibility"><svg class="ToggleIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-mesh"></use></svg><div class="ToggleHighlight ToggleHidden"></div></div></div><div class="ToolButton" id="VisibilityOptions"><div class="ToolSelectedPopup" style="opacity: 0;"><div class="ToggleWrapper"><div class="TogglesSizeCalc"><div class="ImageToggle"><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-picture"></use></svg><div class="OptionHighlight OptionHighlightSome"></div></div><div class="BoneToggle"><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-bone"></use></svg><div class="OptionHighlight OptionHighlightAll"></div></div></div></div></div><svg class="ToolPopupArrow"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-popup-arrow"></use></svg><div class="OptionStatuses"><div class="OptionStatusHalf"></div><div class="OptionStatus"></div></div><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-eye"></use></svg></div><div class="ToolGroup"><input class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ZoomInput-121u6" type="text" value="40%"></div></div><div class="MeshToolbar" style="opacity: 0; visibility: hidden;"><div class="ToolGroup"><div class="ToolButton" id="DrawMeshTool"><div class="ToolSelected" style="opacity: 0;"></div><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-pen"></use></svg></div></div><div class="ToolGroup"><input class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ZoomInput-121u6" type="text" value="40%"></div></div><div class="DefaultToolbar"><div class="ToolGroup"><div class="ToolButton" id="TranslateTool"><div class="ToolSelected" style="opacity: 1;"></div><svg class="ToolIcon ToolIconActive"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-move"></use></svg></div><div class="ToolButton" id="RotateTool"><div class="ToolSelected" style="opacity: 0;"></div><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-rotate"></use></svg></div><div class="ToolButton" id="ScaleTool"><div class="ToolSelected" style="opacity: 0;"></div><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-scale"></use></svg></div><div class="ToolButton" id="IKTool"><div class="ToolSelected" style="opacity: 0;"></div><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-arrow-divert"></use></svg></div></div><div class="Flyout CreateTools" style="display: none;"><div class="ToolSelectedPopup" style="opacity: 0;"><div class="ToggleWrapper"><div class="TogglesSizeCalc"><div class="ToolButton" id="CreateBoneTool"><div class="ToolSelected" style="opacity: 0;"></div><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-bone-add"></use></svg></div><div class="ToolButton" id="CreateNodeTool"><div class="ToolSelected" style="opacity: 0;"></div><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-node-add"></use></svg></div><div class="ToolButton"><div class="ToolSelected" style="opacity: 0;"></div><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-solo-add"></use></svg></div></div></div></div><div class="ToolPopupArrow"></div><div class="FlyoutIcon"><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-plus"></use></svg><div class="ToolSelected" style="opacity: 0;"></div></div></div><div class="Flyout SelectionFilters"><div class="ToolSelectedPopup" style="opacity: 0;"><div class="ToggleWrapper"><div class="TogglesSizeCalc"><div class="ToolButton" id="SelectionFilter"><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-select-all"></use></svg></div><div class="ToolButton" id="BoneSelectionFilter"><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-select-bones"></use></svg></div><div class="ToolButton" id="ImageSelectionFilter"><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-select-images"></use></svg></div><div class="ToolButton" id="VertexSelectionFilter"><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-select-vertices"></use></svg></div></div></div></div><div class="ToolPopupArrow"></div><div class="FlyoutIcon"><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-select-all"></use></svg><div class="ToolSelected" style="opacity: 0;"></div></div></div><div class="ToolButton" id="VisibilityOptions"><div class="ToolSelectedPopup" style="opacity: 0;"><div class="ToggleWrapper"><div class="TogglesSizeCalc"><div class="ImageToggle"><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-picture"></use></svg><div class="OptionHighlight OptionHighlightSome"></div></div><div class="BoneToggle"><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-bone"></use></svg><div class="OptionHighlight OptionHighlightAll"></div></div></div></div></div><svg class="ToolPopupArrow"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-popup-arrow"></use></svg><div class="OptionStatuses"><div class="OptionStatusHalf"></div><div class="OptionStatus"></div></div><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-eye"></use></svg></div><div class="ToolButton" id="AxisOptions"><div class="ToolSelectedPopup" style="opacity: 0;"><div class="ToggleWrapper"><div class="TogglesSizeCalc"><div class="TextToggleActive"><div class="ToolIcon">Local</div></div><div class="TextToggle"><div class="ToolIcon">Parent</div></div><div class="TextToggle"><div class="ToolIcon">World</div></div></div></div></div><svg class="ToolPopupArrow"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-popup-arrow"></use></svg><div class="AxisSpace">L</div><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-axis"></use></svg></div><div class="ToolButton" id="GridOptions"><div class="ToolSelectedPopup" style="opacity: 0;"><div class="ToggleWrapper"><div class="TogglesSizeCalc"><div class="GridAxisToggle"><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-grid-axis"></use></svg><div class="OptionHighlight OptionHighlightAll"></div></div><div class="GridSubToggle"><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-grid-sub"></use></svg><div class="OptionHighlight OptionHighlightAll"></div></div><div class="GridSubToggle"><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-rulers"></use></svg><div class="OptionHighlight OptionHighlightNone"></div></div></div></div></div><svg class="ToolPopupArrow"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-popup-arrow"></use></svg><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-grid-sub-axis"></use></svg></div><div class="ToolGroup"><input class="source-client-source-editors-flare-ui-Components-Toolbar-Toolbar-ZoomInput-121u6" type="text" value="40%"></div><div class="ToolGroup"><div class="ToolButton" id="ExportButton"><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-export"></use></svg></div><div class="ToolButton" id="SettingsButton"><svg class="ToolIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-cog"></use></svg></div></div></div></div><div id="SettingsPanel" style="width: 0px;"><div class="SettingsHeader"><svg class="BackButton" style="opacity: 0;"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-back"></use></svg><svg class="CloseButton"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-close3"></use></svg></div><div class="SettingsPages" style="left: 0px;"><div class="SettingsPage1"><div class="SettingsListRow">Preferences</div><div class="SettingsListRow">Revision History</div><div class="SettingsListDivider"></div><a class="SettingsListRow" href="https://docs.2dimensions.com/support/flare/core-concepts" target="_blank">Flare Manual</a><div class="SettingsListRow">Keyboard Shortcuts</div></div><div class="SettingsPage2"><div class="RevisionHistoryContent" style="display: none;"><div class="RevisionHistoryAlert"><svg class="HistoryIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-clock"></use></svg><p>Select a revision from the list below.</p><div class="RevisionHistoryBtns"><div><div class="SelectionPanelButtonWrapper"><div class="SelectionPanelButtonDisabled"><span>RESTORE THIS REVISION</span></div><div class="SelectionPanelKey" style="display: none;"><div></div></div></div></div><div class="SelectionPanelButtonWrapper"><div class="SelectionPanelButtonDisabled"><span>CANCEL</span></div><div class="SelectionPanelKey" style="display: none;"><div></div></div></div></div></div><div class="RevisionHistoryList"><div class="SettingsListRow">Revision History</div></div></div><div class="GettingStartedContent" style="display: none;"><svg class="GettingStartedIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-lightbulb"></use></svg><div class="SettingsHeadline">Getting Started</div><p>Welcome
+ to Nima! To get started, drag and drop some images to the stage. 
+Flatten your layers if you're dragging a PSD, so everything loads 
+correctly.</p><p>You're going to be doing most of your work on the stage. The rest of the interface is divided into a few main panels.</p><div class="SettingsListDivider"></div><div class="HierarchyPanelIcon"><div class="HierarchyPanelIcon1"></div><div class="HierarchyPanelIcon2"></div><div class="HierarchyPanelIcon3"></div><div class="HierarchyPanelIcon4"></div></div><div class="SettingsHeadline">Hierarchy Panel</div><p>On
+ the far left, you have the Hierarchy panel. Here you can toggle between
+ Setup and Animate modes.  All the items that make up your character 
+appear below. These are divided by Stage, Assets, and Draw Order. Stage 
+reflects everything that's currently on the stage, and the hierarchical 
+structure of your skeleton. Assets is a list of all the files that are 
+available to be used on this project. Not all of them might be on the 
+stage. When you delete an image from the Stage, it does not get removed 
+from your Assets. Draw Order reflects the order that images are rendered
+ on the screen, which you may want to be different from the hierarchical
+ order of your character's skeleton.</p><div class="SettingsListDivider"></div><div class="SelectionPanelIcon"><div class="SelectionPanelIcon1"></div><div class="SelectionPanelIcon2"></div><div class="SelectionPanelIcon3"></div><div class="SelectionPanelIcon4"></div></div><div class="SettingsHeadline">Selection Panel</div><p>The
+ Selection panel is to the right of the Hierarchy panel. All the 
+properties of the item you have selected are available here. Most of 
+these can be animated when you toggle to Animate mode.</p><div class="SettingsListDivider"></div><div class="ToolbarIcon"><div class="ToolbarIcon1"></div><div class="ToolbarIcon2"></div><div class="ToolbarIcon3"></div><div class="ToolbarIcon4"></div></div><div class="SettingsHeadline">Toolbar</div><p>The
+ Toolbar is on the far right. It displays the tools you have available 
+to manipulate and create objects on the stage. Note that these change 
+based on whether you are in Setup or Animate mode.</p></div><div class="KeyboardShortcutsContent" style="display: none;"><svg class="GettingStartedIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-keyboard"></use></svg><div class="SettingsHeadline">Keyboard Shortcuts</div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc">Translate</div><div class="KeyboardShortcutKey">T</div></div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc">Rotate</div><div class="KeyboardShortcutKey">R</div></div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc">Scale</div><div class="KeyboardShortcutKey">S</div></div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc">IK</div><div class="KeyboardShortcutKey">W</div></div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc">Create Bone</div><div class="KeyboardShortcutKey">B</div></div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc">Create Node</div><div class="KeyboardShortcutKey">G</div></div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc">Pan Stage &amp; Timeline</div><div class="KeyboardShortcutKey">Spacebar</div></div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc">Zoom In</div><div class="KeyboardShortcutKey">⌘ +</div></div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc">Zoom Out</div><div class="KeyboardShortcutKey">⌘ –</div></div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc">Actual Size</div><div class="KeyboardShortcutKey">⌘ 0</div></div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc">Zoom to Fit</div><div class="KeyboardShortcutKey">F</div></div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc">Deselect</div><div class="KeyboardShortcutKey">⌘ D</div></div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc" style="width: 90px; flex: initial;">Move Playhead 1 Frame</div><div class="KeyboardShortcutKey">⌘ <span style="font-size: 65%; position: relative; top: -1px;">◀ ▶</span></div></div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc" style="width: 70px; flex: initial;">Move Playhead 10 Frames</div><div class="KeyboardShortcutKey">⌘ Shift <span style="font-size: 65%; position: relative; top: -1px;">◀ ▶</span></div></div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc" style="width: 90px; flex: initial;">Pick Children</div><div class="KeyboardShortcutKey">C</div></div></div><div class="KeyboardShortcutsContent" style="display: none;"><svg class="GettingStartedIcon"><use xlink:href="/static/2225/images/symbol-defs.svg#icon-adjustments"></use></svg><div class="SettingsHeadline">Preferences</div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc" style="flex: 2 1 0%;">Show Guides</div><div class="KeyboardShortcutKey"><div class="SelectionPanelToggleField"><div class="SelectionPanelToggle"><div class="SelectionPanelToggleHandle"></div></div></div></div></div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc" style="flex: 2 1 0%;">Scale for Retina</div><div class="KeyboardShortcutKey"><div class="SelectionPanelToggleField"><div class="SelectionPanelToggle"><div class="SelectionPanelToggleHandle"></div></div></div></div></div><div class="KeyboardShortcutRow"><div class="KeyboardShortcutDesc" style="flex: 2 1 0%;">Show Image Contour</div><div class="KeyboardShortcutKey"><div class="SelectionPanelToggleField"><div class="SelectionPanelToggle"><div class="SelectionPanelToggleHandle SelectionPanelToggleHandleSelected"></div></div></div></div></div></div></div><div class="SettingsFooter"><div class="NimaText">FLARE</div><div class="NimaVersion">1.1.0 (2225)</div></div></div></div><div class="Tooltip" style="opacity: 0; top: 60px; left: 1029.5px;"><div class="TooltipTitle">Export</div></div><div></div></div></div>
+    <script>var __props = {"environment":"gotham","buildNumber":"2225","user":{"signedIn":true,"id":29542,"name":"K a i z","username":"kaiz","avatar":"https://cdn.2dimensions.com/avatars/29542-1-1553229450-gotham","isAdmin":false,"isPaid":false,"notificationCount":0,"verified":true},"stripe":"pk_live_Ll558WThbg2hS1vpf3D7O6m9","fb":"173377143125979","staticPath":"/static/2225","file":{"id":2,"name":"switch","revision":"29542-2-revis-0-gotham","updated":1557049425,"access":"write","isPublic":true,"showProperties":true,"canFork":true,"isForked":true,"license":"CC BY","preferences":{},"product":"flare","favicon":"flare","previewPage":"/a/kaiz/files/flare/switch/preview","owner":{"id":29542,"name":"K a i z","username":"kaiz","avatar":"https://cdn.2dimensions.com/avatars/29542-1-1553229450-gotham"}},"preferences":{},"workers":{"AtlasWorker.js":"/lib/AtlasWorker.54d0b57329fc2c2f4455.js","AutoMeshWorker.js":"/lib/AutoMeshWorker.db0b81c17ea1fea46f48.js","AutoWeightWorker.js":"/lib/AutoWeightWorker.4cc1e0aa8b8944b48911.js","BitmapWorker.js":"/lib/BitmapWorker.2048db1f69f7fcfeb365.js","FlareZipImporter.js":"/lib/FlareZipImporter.24fb7639c0a3feaffbcd.js","ImageSequenceWorker.js":"/lib/ImageSequenceWorker.e655c3a2b8a1a33ae996.js","PsdImporter.js":"/lib/PsdImporter.18881e88c939d8d1c1bc.js","SkinWorker.js":"/lib/SkinWorker.cdd132baf083a4d6d242.js","SvgImporter.js":"/lib/SvgImporter.fcea083f666d1fb29202.js","ZipImporter.js":"/lib/ZipImporter.5b7b6f454cf1597fd37c.js"}};</script>
+	
+    <script src="switch_files/vendor.js"></script>
+	
+    <script src="switch_files/Components.js"></script>
+	
+    <script src="switch_files/tri.js"></script>
+	
+    <script src="switch_files/canvaskit.js"></script>
+	
+    <script src="switch_files/FlareBase.js"></script>
+	
+    <script src="switch_files/Flare.js"></script>
+	
+
+
+<iframe allowtransparency="true" scrolling="no" name="__privateStripeMetricsController0" allowpaymentrequest="true" src="switch_files/outer.html" aria-hidden="true" tabindex="-1" style="border: medium none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; visibility: hidden !important; position: fixed !important; height: 1px !important; pointer-events: none !important;" frameborder="0"></iframe><iframe allowtransparency="true" scrolling="no" name="__privateStripeController1" allowpaymentrequest="true" src="switch_files/controller-f7f3a6f6ceba93a7080646cefc5f2cb7.html" aria-hidden="true" tabindex="-1" style="border: medium none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; visibility: hidden !important; position: fixed !important; height: 1px !important; pointer-events: none !important;" frameborder="0"></iframe><canvas id="canvas0" style="top: -99999px; position: absolute;" width="60" height="60"></canvas><canvas id="canvas1" style="top: -99999px; position: absolute;" width="768" height="1024"></canvas></body></html>

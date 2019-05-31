@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="27px" height="15px" viewBox="0 0 27 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>flare_small</title>
+    <defs>
+        <linearGradient x1="5.29828519%" y1="0%" x2="100%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FF5678" offset="0%"></stop>
+            <stop stop-color="#AF32CF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Shot-Streamlined" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD-Copy-46" transform="translate(-698.000000, -994.000000)" fill="url(#linearGradient-1)">
+            <g id="Group-19-Copy" transform="translate(679.000000, 984.000000)">
+                <g id="flare_small" transform="translate(32.250000, 17.500000) rotate(-270.000000) translate(-32.250000, -17.500000) translate(24.750000, 4.500000)">
+                    <path d="M14.121812,21.6263768 C13.9281384,22.018359 13.6211355,22.3522895 13.2295553,22.5783684 L10,24.442953 L10,18.25 L12.2430447,19.5363637 C13.0912508,20.0228015 13.7418153,20.7613805 14.121812,21.6263768 Z" id="Combined-Shape"></path>
+                    <path d="M9,25.0203033 L8.30222093,25.4231662 C7.60609191,25.8250765 6.74842558,25.8250765 6.05229656,25.4231662 L5,24.8156225 L5,10.0743672 L7,11.25 C8.39667574,12.0506687 9,13.6437511 9,15.25 L9,25.0203033 Z" id="Combined-Shape"></path>
+                    <path d="M4,24.2382723 L1.12496219,22.5783684 C0.428833163,22.1764581 2.05657212e-15,21.4336973 1.95813249e-15,20.6298767 L-6.99440506e-15,0.17470001 L2,1.25 C3.39613364,2.05066871 4,3.64375107 4,5.25 L4,24.2382723 Z" id="Combined-Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

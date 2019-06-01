@@ -320,7 +320,7 @@ class _AddGymerState extends State<AddGymer> {
         currentIndex--;
         controller.animateToPage(currentIndex, 
           duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInCubic);
+          curve: Curves.easeIn);
       }
     });
   }

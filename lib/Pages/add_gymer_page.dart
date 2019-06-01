@@ -47,8 +47,12 @@ class _AddGymerState extends State<AddGymer> {
   StreamSubscription<Event> _onGymerAddedSubscription;
 
 
+  //Flags
+  //for auto genrating _expire_date
   bool _setDate;
 
+  //Data
+  //TODO : Inherite from Model
   String _firstname;
   String _lastname;
   String _adhar;
@@ -87,6 +91,7 @@ class _AddGymerState extends State<AddGymer> {
 
   @override
   void dispose() {
+    _refresh();
     _onGymerAddedSubscription.cancel();
     super.dispose();
   }
@@ -133,7 +138,6 @@ class _AddGymerState extends State<AddGymer> {
 
 
   // Custom Widgets For Form
-  //TODO: Compact Code 
   Widget _showTextInput(String _label, String _hint, _field,Icon _icon,TextEditingController _ctrl) {
     return TextFormField(
       decoration: InputDecoration(
@@ -153,7 +157,44 @@ class _AddGymerState extends State<AddGymer> {
     );
   }
 
-   Widget _showAdharNumberInput() {
+
+  Widget _showSession(){
+    return Padding(
+      padding: EdgeInsets.all(1),
+      child: SizedBox(
+        width: 150.0,
+        height: 70.0,
+        child: Card(
+          elevation: 5.0,
+          shape:  RoundedRectangleBorder(borderRadius:  BorderRadius.circular(25.0)),
+          color: Colors.white,
+          child:Center(
+            child: DropdownButton<String>(
+              style: dropStyle,
+              hint: (_session==null)?Text("Session",style: TextStyle(color: Colors.black),) : Text("$_session",style: TextStyle(color: Colors.black),) ,
+              iconSize: 20,
+              value: _session,
+              onChanged: (String newValue) {
+                setState(() {
+                  _session = newValue;
+                });
+              },
+              items: <String>['Morning', 'Evening']
+                .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value,style: TextStyle(color: Colors.black),),
+                  );
+                })
+                .toList(),
+            )
+          )
+        )
+      )
+    );
+  }
+
+  Widget _showAdharNumberInput() {
     return TextFormField(
       decoration: InputDecoration(
         labelText: "AdharCard",
@@ -201,75 +242,39 @@ class _AddGymerState extends State<AddGymer> {
   }
 
   Widget _showJoinDateButton() {
-    return  Padding(
-        padding: EdgeInsets.all(1),
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: 60.0,
-          child:  RaisedButton(
-            elevation: 5.0,
-            shape:  RoundedRectangleBorder(borderRadius:  BorderRadius.circular(25.0)),
-            color: Colors.green,
-            child: Text(
-              _setDate==true ? '$_joinDate':'Join Date',
-              style:  TextStyle(fontSize: 20.0, color: Colors.white),
-            ),
-            onPressed: () {DatePicker.showDatePicker(context,
-              showTitleActions: true,
-              minTime: DateTime(2019, 1, 1),
-              maxTime: DateTime(2019, 31, 12), 
-              onConfirm: (date) {
-                print('confirm $date'); 
-                setState(() {
-                  _date=date;
-                  _joinDate="${_date.day.toString().padLeft(2,'0')}-${_date.month.toString().padLeft(2,'0')}-${_date.year.toString()}";
-                  _setDate=true;
-                  int _mounth= _date.month+1;
-                  _expireDate="${_date.day.toString().padLeft(2,'0')}-${_mounth.toString().padLeft(2,'0')}-${_date.year.toString()}";                });
-              }, 
-              currentTime: DateTime.now(), locale: LocaleType.en);
-            },    
-          ),
-        )
-      );
-    }
-
-  Widget _showSession(){
-    return Padding(
+  return  Padding(
       padding: EdgeInsets.all(1),
       child: SizedBox(
-        width: 150.0,
-        height: 70.0,
-        child: Card(
+        width: MediaQuery.of(context).size.width,
+        height: 60.0,
+        child:  RaisedButton(
           elevation: 5.0,
           shape:  RoundedRectangleBorder(borderRadius:  BorderRadius.circular(25.0)),
-          color: Colors.white,
-          child:Center(
-            child: DropdownButton<String>(
-              style: dropStyle,
-              hint: Text("Session",style: TextStyle(color: Colors.black),),
-              iconSize: 20,
-              value: _session,
-              onChanged: (String newValue) {
-                setState(() {
-                  _session = newValue;
-                });
-              },
-              items: <String>['Morning', 'Evening']
-                .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value,style: TextStyle(color: Colors.black),),
-                  );
-                })
-                .toList(),
-            )
-          )
-        )
+          color: Colors.green,
+          child: Text(
+            _setDate==true ? '$_joinDate':'Join Date',
+            style:  TextStyle(fontSize: 20.0, color: Colors.white),
+          ),
+          onPressed: () {DatePicker.showDatePicker(context,
+            showTitleActions: true,
+            minTime: DateTime(2019, 1, 1),
+            maxTime: DateTime(2019, 31, 12), 
+            onConfirm: (date) {
+              print('confirm $date'); 
+              setState(() {
+                _date=date;
+                _joinDate="${_date.day.toString().padLeft(2,'0')}-${_date.month.toString().padLeft(2,'0')}-${_date.year.toString()}";
+                _setDate=true;
+                int _mounth= _date.month+1;
+                _expireDate="${_date.day.toString().padLeft(2,'0')}-${_mounth.toString().padLeft(2,'0')}-${_date.year.toString()}";                });
+            }, 
+            currentTime: DateTime.now(), locale: LocaleType.en);
+          },    
+        ),
       )
     );
   }
-    
+ 
   Widget _showExpireDateButton() {
   return  Padding(
       padding: EdgeInsets.all(1),
@@ -302,12 +307,24 @@ class _AddGymerState extends State<AddGymer> {
     );
   }
 
-  //TODO: clear
-  // _firstNameController.clear();
-  // _lastNameController.clear();
-  // _adharnumberController.clear();
-  // _moneyController.clear();
-
+  //Methods Here
+  void  _refresh(){
+    _firstNameController.clear();
+    _lastNameController.clear();
+    _adharnumberController.clear();
+    _moneyController.clear();
+    setState(() {
+      _session=null;  
+      _setDate=false;
+      if(currentIndex==1){
+        currentIndex--;
+        controller.animateToPage(currentIndex, 
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInCubic);
+      }
+    });
+  }
+  
 
   Container _buildCard(Column _list) {
     return Container(
@@ -345,7 +362,7 @@ class _AddGymerState extends State<AddGymer> {
             currentIndex++;
             controller.animateToPage(currentIndex, 
               duration: const Duration(milliseconds: 300),
-              curve: Curves.easeIn);
+              curve: Curves.easeInCubic);
           })
         },
         color: Colors.white
@@ -361,6 +378,17 @@ class _AddGymerState extends State<AddGymer> {
         centerTitle: true,
         backgroundColor: Colors.red,
         elevation: 0.0,
+        automaticallyImplyLeading: true,
+        actions: <Widget>[
+          IconButton(
+          icon: Icon(Icons.refresh),
+          tooltip: 'Refresh Form',
+          onPressed: () {
+            _refresh();
+            print('Form is Refreshed.');
+          },
+        ),
+        ],
       ),
       body:PageView(
         onPageChanged: (index){

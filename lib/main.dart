@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ppscgym/services/authentication.dart';
-import 'package:ppscgym/Pages/root_page.dart';
-import 'package:ppscgym/services/connection_status_singleton.dart';
 
-void main() {
-  ConnectionStatusSingleton connectionStatus = ConnectionStatusSingleton.getInstance();
-  connectionStatus.initialize();
-  runApp(MyApp());
-  }
+void main() => ({MyApp()});
 
 class MyApp extends StatelessWidget {
   
@@ -19,14 +12,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
         hintColor: Colors.white,
         primaryColor: Colors.red,
-        inputDecorationTheme: InputDecorationTheme(
-          labelStyle: TextStyle(
-            color: Colors.white
-          ),
-        )
       ),
       debugShowCheckedModeBanner: false,
-      home: RootPage(auth: Auth())
     );
   }
 }

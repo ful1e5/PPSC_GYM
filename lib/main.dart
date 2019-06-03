@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.onAuthStateChanged
         ),
 
-        //StreamProvider<SuperHero>.value(stream: firestoreStream),
+        //StreamProvider<Client>.value(stream: firestoreStream),
       ],
       
       child: MaterialApp(
@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
 class HeroScreen extends StatelessWidget {
   
   final auth = FirebaseAuth.instance;
+  final db = DatabaseService();
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +57,14 @@ class HeroScreen extends StatelessWidget {
       children: <Widget>[ 
         //IF User Logged In
         if (loggedIn)...[
+          RaisedButton(
+            child: Text('AddData'),
+            onPressed: () => db.createClient('test1',user),
+          ),
+          RaisedButton(
+            child: Text('UpdateData'),
+            onPressed: () => db.updateClient('test1',user),
+          ),
           RaisedButton(
             child: Text('SignOut'),
             onPressed: () => authSercice.signOut(),

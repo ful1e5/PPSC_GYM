@@ -8,35 +8,46 @@ class DatabaseService{
 
   final Firestore _db =  Firestore.instance;
 
-  Future<SuperHero> getHero(String id) async{
 
-    var snap = await _db.collection('heroes').document(id).get();
-
-    return SuperHero.fromMap(snap.data);
-
-  }
-
-  //Get a stream of a single document
-  Stream<SuperHero> streamHero(String id){
+  /// Get a stream of a single Client
+  Stream<Client> streamClient(String id,FirebaseUser user){
     return _db
-      .collection('heroes')
+      .collection('user')
+      .document(user.uid)
+      .collection('clients')
       .document(id)
       .snapshots()
-      .map((snap) => SuperHero.fromMap(snap.data));
+      .map((snap) => Client.fromMap(snap.data));
   }
 
-  //Query a subcollection 
-  Stream<List<Weapon>> streamWeapon(FirebaseUser user){
-    var ref = _db.collection('heroes').document(user.uid).collection('weapons');
+  /// Query a subcollection 
+  Stream<List<Weapon>> streamMoney(String heroId,FirebaseUser user){
+    var ref = _db.collection('user').document(user.uid).collection('clients').document(heroId).collection('money');
 
     return ref.snapshots().map((list) =>
       list.documents.map((doc) => Weapon.fromFirestore(doc)).toList());
   }
 
-  /// Write data
-  Future<void> createHero(String heroId) {
-    return _db.collection('heroes').document(heroId).setData({ 
-      /* some data */ 
+
+  /// Write data by Id and data 
+  /// TODO: herId to clientId
+  Future<void> createClient(String heroId,FirebaseUser user) {
+    return _db.collection('user').document(user.uid).collection('clients').document(heroId).setData({
+     'firstname': "kaiz",
+      'lastname' : "khatri",
+      'adhar' : "123456789321",
+      'session': "morining"
     });
   }
+
+  /// Update data by Id and data 
+  Future<void> updateClient(String heroId,FirebaseUser user) {
+    return _db.collection('user').document(user.uid).collection('clients').document(heroId).setData({
+     'firstname': "kai",
+      'lastname' : "katri",
+      'adhar' : "12356789321",
+      'session': "mining"
+    },merge: true);
+  }
+
 }

@@ -1,16 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class SuperHero{
+class Client{
 
-  final String name;
-  final int strength;
+  final String firstname;
+  final String lastname;
+  final String adhar;
+  final String session;
 
-  SuperHero({this.name, this.strength});
+  Client({this.firstname, this.lastname, this.adhar, this.session});
 
-  factory SuperHero.fromMap(Map data){
-    return SuperHero(
-      name: data['name'] ?? '',
-      strength: data['strength'] ?? '100',
+  factory Client.fromMap(Map data){
+    return Client(
+      firstname: data['firstname'] ?? '',
+      lastname: data['lastname'] ?? '',
+      adhar: data['adhar'] ?? '',
+      session: data['session'] ?? ''
     );
   }
 }

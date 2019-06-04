@@ -2,39 +2,47 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Client{
 
+  final String id ;
   final String firstname;
   final String lastname;
   final String adhar;
   final String session;
+  final String joindate;
+  final String mobile;
 
-  Client({this.firstname, this.lastname, this.adhar, this.session});
+  Client({this.id, this.firstname, this.lastname, this.adhar, this.session,this.joindate,this.mobile});
 
-  factory Client.fromMap(Map data){
+  factory Client.fromFirestore(DocumentSnapshot doc){
+    Map data =doc.data;
+
     return Client(
+      id: doc.documentID,
       firstname: data['firstname'] ?? '',
       lastname: data['lastname'] ?? '',
       adhar: data['adhar'] ?? '',
-      session: data['session'] ?? ''
+      session: data['session'] ?? '',
+      joindate: data['joindate'] ?? '',
+      mobile: data['mobile'] ?? ''
     );
   }
 }
 
-class Weapon{
+class Money{
   final String id;
-  final String name;
-  final String hitpoints;
-  final String img;
+  final String money;
+  final String from;
+  final String expiry;
 
-  Weapon({this.id, this.name, this.hitpoints, this.img});
+  Money({this.id, this.money, this.from, this.expiry});
 
-  factory Weapon.fromFirestore(DocumentSnapshot doc){
+  factory Money.fromFirestore(DocumentSnapshot doc){
     Map data =doc.data;
 
-    return Weapon(
+    return Money(
       id: doc.documentID,
-      name: data['name'] ?? '',
-      hitpoints: data['hitpoints'] ?? 0,
-      img: data['img'] ?? ''
+      money: data['money'] ?? '',
+      from: data['from'] ?? 0,
+      expiry: data['expiry'] ?? ''
     );
   }
 }

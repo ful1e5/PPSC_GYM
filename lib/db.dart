@@ -8,45 +8,77 @@ class DatabaseService{
 
   final Firestore _db =  Firestore.instance;
 
-
-  /// Get a stream of a single Client
-  Stream<Client> streamClient(String id,FirebaseUser user){
-    return _db
-      .collection('user')
-      .document(user.uid)
-      .collection('clients')
-      .document(id)
-      .snapshots()
-      .map((snap) => Client.fromMap(snap.data));
-  }
-
-  /// Query a subcollection 
-  Stream<List<Weapon>> streamMoney(String heroId,FirebaseUser user){
-    var ref = _db.collection('user').document(user.uid).collection('clients').document(heroId).collection('money');
+  /// DB Operation For Client
+  /// Query a subcollection to get list of Clinets
+  Stream<List<Client>> streamClient(FirebaseUser user){
+    var ref = _db.collection('user').document(user.uid).collection('clients');
 
     return ref.snapshots().map((list) =>
-      list.documents.map((doc) => Weapon.fromFirestore(doc)).toList());
+      list.documents.map((doc) => Client.fromFirestore(doc)).toList());
   }
 
+  /// Query a subcollection to get list of Deleted Clinets
+  Stream<List<Client>> streamDeletedClient(FirebaseUser user){
+    var ref = _db.collection('user').document(user.uid).collection('clients');
 
-  /// Write data by Id and data 
-  /// TODO: herId to clientId
-  Future<void> createClient(String heroId,FirebaseUser user) {
-    return _db.collection('user').document(user.uid).collection('clients').document(heroId).setData({
-     'firstname': "kaiz",
+    return ref.snapshots().map((list) =>
+      list.documents.map((doc) => Client.fromFirestore(doc)).toList());
+  }
+
+  /// Write data by Id 
+  /// TODO: Add model to complete operation
+  /// TODO: Handle auto Id
+  Future<void> createClient(FirebaseUser user) {
+    return _db.collection('user').document(user.uid).collection('clients').document().setData({
+      'firstname': "kaiz",
       'lastname' : "khatri",
-      'adhar' : "123456789321",
-      'session': "morining"
+      'adhar'    : "123456789321",
+      'session'  : "morining",
+      'joindate' : "Today",
+      'mobile'   : "23829323"
     });
   }
 
-  /// Update data by Id and data 
-  Future<void> updateClient(String heroId,FirebaseUser user) {
-    return _db.collection('user').document(user.uid).collection('clients').document(heroId).setData({
-     'firstname': "kai",
+  /// Update data by Id  
+  /// TODO: Add model to complete operation
+  Future<void> updateClient(String clientId,FirebaseUser user) {
+    return _db.collection('user').document(user.uid).collection('clients').document(clientId).setData({
+      'firstname': "kai",
       'lastname' : "katri",
-      'adhar' : "12356789321",
-      'session': "mining"
+      'adhar'    : "12356789321",
+      'session'  : "mining",
+      'joindate' : "Today",
+      'mobile'   : "23829323"
+    },merge: true);
+  }
+
+  /// DB Operation For Money
+  /// Query a subcollection to get list of Money
+  Stream<List<Money>> streamMoney(String clientId,FirebaseUser user){
+    var ref = _db.collection('user').document(user.uid).collection('clients').document(clientId).collection('money');
+
+    return ref.snapshots().map((list) =>
+      list.documents.map((doc) => Money.fromFirestore(doc)).toList());
+  }
+  
+  /// Add Money List in Single Client 
+  /// TODO: Add model to complete operation 
+  /// TODO: handle auto id
+  Future<void> addMoney(String clientId,FirebaseUser user) {
+    return _db.collection('user').document(user.uid).collection('clients').document(clientId).collection('money').document().setData({
+      'money'  : "200",
+      'from'   : "today",
+      'expiry' : "tommorow",
+    });
+  }
+  
+  /// Update Money by Id in Client
+  /// TODO: Add model to complete operation 
+  Future<void> updateMoney(String clientId,String moneyId,FirebaseUser user) {
+    return _db.collection('user').document(user.uid).collection('clients').document(clientId).collection('money').document(moneyId).setData({
+      'money'  : "100",
+      'from'   : "today",
+      'expiry' : "2 day letter",
     },merge: true);
   }
 

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -28,19 +29,16 @@ class MyApp extends StatelessWidget {
         title: 'PPSC GYM',
         theme :ThemeData(
           brightness: Brightness.dark,
-          primaryColor: Colors.red,
         ),
         //TODO: Remove Banner 👇
         //debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          body: HeroScreen(),
-        ),
+        home: RootScreen()
       ), 
     );
   }
 }
 
-class HeroScreen extends StatelessWidget {
+class RootScreen extends StatelessWidget {
   
   final auth = FirebaseAuth.instance;
   final db = DatabaseService();
@@ -52,33 +50,80 @@ class HeroScreen extends StatelessWidget {
     
     bool loggedIn = user != null;
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[ 
-        //IF User Logged In
-        if (loggedIn)...[
-          RaisedButton(
-            child: Text('AddData'),
-            onPressed: () => db.createClient('test1',user),
-          ),
-          RaisedButton(
-            child: Text('UpdateData'),
-            onPressed: () => db.updateClient('test1',user),
-          ),
-          RaisedButton(
-            child: Text('SignOut'),
-            onPressed: () => authSercice.signOut(),
-          )
-        ],
-
-        //IF User Not Logged In
-        if (!loggedIn)...[
-          RaisedButton(
+    if(loggedIn){
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Home'),
+          actions: <Widget>[
+             FlatButton(
+                child:  Text('Logout',
+                    style:  TextStyle(fontSize: 17.0, color: Colors.white)),
+                onPressed: ()=>{authSercice.signOut()}
+             )
+          ],
+        ),
+        body: Container(
+          child: StreamProvider<List<Client>>.value( // All children will have access to Client data
+                stream: db.streamClient(user),
+                child: ClientList()
+              ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.lightGreen,
+          foregroundColor: Colors.white,
+          child: Icon(Icons.add),
+          tooltip: 'Add Client',
+          onPressed: ()=>db.createClient(user)
+          ,
+        ),
+      );
+    }
+    if(!loggedIn){
+      return Scaffold(
+        body: Center(
+          child: RaisedButton(
             child: Text('SignIn With Google'),
             onPressed: () => authSercice.googleSignIn(),
-          )
-        ]
-      ],
-    );
+          ),
+        )
+      );
+    }
+    
+    // RaisedButton(
+    //   child: Text('AddData'),
+    //   onPressed: () => db.createClient(user),
+    // ),
+    // // RaisedButton(
+    // //   child: Text('UpdateData'),
+    // //   onPressed: () => db.updateClient(user),
   }
 }
+
+class ClientList extends StatelessWidget {
+  
+  
+  @override
+  Widget build(BuildContext context) {
+
+    var user = Provider.of<FirebaseUser>(context);
+    var client = Provider.of<List<Client>>(context);
+    
+    return (client==null)?
+    Center(child: CircularProgressIndicator())
+    :ListView.builder(
+        shrinkWrap: true,
+        itemCount: client.length,
+        itemBuilder: (contex,int index) {
+          String _id=client[index].id;
+          String _firstname=client[index].firstname;
+
+          return Card(
+            color: Colors.orange,
+            child: ListTile(
+              title: Text(_firstname),
+            ),
+          );
+        }
+      );
+    }
+  }

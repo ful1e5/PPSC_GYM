@@ -27,11 +27,10 @@ class DatabaseService{
 
   /// Write data by Id 
   /// TODO: Add model to complete operation
-  /// TODO: Handle auto Id
   Future<void> createClient(FirebaseUser user) {
     return _db.collection('user').document(user.uid).collection('clients').document().setData({
-      'firstname': "kaiz",
-      'lastname' : "khatri",
+      'firstname': "kasdfz",
+      'lastname' : "kaaftri",
       'adhar'    : "123456789321",
       'session'  : "morining",
       'joindate' : "Today",
@@ -52,6 +51,14 @@ class DatabaseService{
     },merge: true);
   }
 
+  /// Delete CLient by Id
+  Future<void> deleteClient(String clientId,FirebaseUser user) {
+    return _db.collection('user').document(user.uid).collection('clients').document(clientId).delete().catchError((error){
+      return error;
+    });
+  }
+
+
   /// DB Operation For Money
   /// Query a subcollection to get list of Money
   Stream<List<Money>> streamMoney(String clientId,FirebaseUser user){
@@ -63,10 +70,10 @@ class DatabaseService{
   
   /// Add Money List in Single Client 
   /// TODO: Add model to complete operation 
-  /// TODO: handle auto id
   Future<void> addMoney(String clientId,FirebaseUser user) {
+    addPaymentStatus(clientId, user, "Added");
     return _db.collection('user').document(user.uid).collection('clients').document(clientId).collection('money').document().setData({
-      'money'  : "200",
+      'money'  : 200,
       'from'   : "today",
       'expiry' : "tommorow",
     });
@@ -75,11 +82,40 @@ class DatabaseService{
   /// Update Money by Id in Client
   /// TODO: Add model to complete operation 
   Future<void> updateMoney(String clientId,String moneyId,FirebaseUser user) {
+    addPaymentStatus(clientId, user, "Updated");
     return _db.collection('user').document(user.uid).collection('clients').document(clientId).collection('money').document(moneyId).setData({
-      'money'  : "100",
+      'money'  : 20,
       'from'   : "today",
       'expiry' : "2 day letter",
     },merge: true);
   }
 
+  /// Delete Money by Id in Client
+  /// TODO: Add model to complete operation 
+  Future<void> deleteMoney(String clientId,String moneyId,FirebaseUser user) {
+    addPaymentStatus(clientId, user, "Deleted");
+    return _db.collection('user').document(user.uid).collection('clients').document(clientId).collection('money').document(moneyId).delete().catchError((error){
+      return error;
+    });
+  }
+
+  //For Updating Status
+  Future<void> addPaymentStatus(String clientId,FirebaseUser user,String operation) {
+    return _db.collection('user').document(user.uid).collection('clients').document(clientId).setData({
+      'last_payment'  : DateTime.now().toString(),
+      'operation' : operation
+    },merge: true);
+  }
+
+  Stream<PaymentStatus> streamPaymentStatus(String clientId,FirebaseUser user) {
+    return _db
+        .collection('user')
+        .document(user.uid)
+        .collection('clients')
+        .document(clientId)
+        .snapshots()
+        .map((snap) => PaymentStatus.fromMap(snap.data));
+  }
+
+   
 }

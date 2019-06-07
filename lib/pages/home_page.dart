@@ -13,14 +13,11 @@ import 'package:ppscgym/db.dart';
 //lists
 import 'package:ppscgym/lists/client.dart';
 
-class HomePage extends StatefulWidget {
+//pages
+import 'package:ppscgym/pages/form.dart';
 
-  HomePage({Key key}) : super(key: key);
 
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class HomePage extends StatelessWidget {
 
   final db = DatabaseService();
 
@@ -49,12 +46,15 @@ class _HomePageState extends State<HomePage> {
 
         //FAB For Add Client 
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.lightGreen,
-          foregroundColor: Colors.white,
           child: Icon(Icons.add),
           tooltip: 'Add Client',
-          onPressed: ()=>db.createClient(user)
-          ,
+          onPressed: (){
+            db.createClient(user);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => FormPage()),
+            );
+          }
         ),
       );
   }

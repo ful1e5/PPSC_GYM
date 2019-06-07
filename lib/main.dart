@@ -24,18 +24,18 @@ class MyApp extends StatelessWidget {
         StreamProvider<FirebaseUser>.value(
           stream: FirebaseAuth.instance.onAuthStateChanged
         ),
-
-        //StreamProvider<Client>.value(stream: firestoreStream),
+        
       ],
       
       child: MaterialApp(
         title: 'PPSC GYM',
         theme :ThemeData(
-          brightness: Brightness.dark,
+          //brightness: Brightness.dark,
         ),
         //TODO: Remove Banner 👇
         //debugShowCheckedModeBanner: false,
-        home: RootScreen()
+        home:RootScreen(),
+        
       ), 
     );
   }
@@ -49,7 +49,6 @@ class RootScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     
     var user = Provider.of<FirebaseUser>(context);
-    
     bool loggedIn = user != null;
 
     //User Is Logged In

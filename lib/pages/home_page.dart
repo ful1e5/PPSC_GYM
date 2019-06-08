@@ -49,7 +49,6 @@ class HomePage extends StatelessWidget {
           child: Icon(Icons.add),
           tooltip: 'Add Client',
           onPressed: (){
-            db.createClient(user);
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => FormPage()),

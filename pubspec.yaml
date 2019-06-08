@@ -40,6 +40,9 @@ dependencies:
   #RxDart
   rxdart: ^0.22.0
 
+  #date picker
+  datetime_picker_formfield: ^0.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

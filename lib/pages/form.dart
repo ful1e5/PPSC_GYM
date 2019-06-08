@@ -1,38 +1,25 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ppscgym/bloc/bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:ppscgym/bloc/inputFormator.dart';
-import 'package:ppscgym/bloc/provider.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 class FormPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Provider(
-      child: Form()
-    );
-  }
-}
-
-class Form extends StatelessWidget {
-  const Form({Key key}) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
   
-
-    final bloc = Provider.of(context);
     return Scaffold(
         body: Container(
           margin: EdgeInsets.all(20.0),
           child: Column(
             children: <Widget>[
-              adharField(bloc),
-              firstNameField(bloc),
-              lasrNameField(bloc),
-              mobileField(bloc),
-              session(bloc),
-              //joint date
+              adharField(),
+              firstNameField(),
+              lasrNameField(),
+              mobileField(),
+              session(),
+              joinDateField(),
               Container(
                 margin: EdgeInsets.only(top: 25.0),
               ),
@@ -40,153 +27,112 @@ class Form extends StatelessWidget {
             ],
           ),
         ),
-      floatingActionButton: FloatingActionButton(
-            child: StreamBuilder(
-              stream: bloc.submitValid,
-              builder: (context, snapshot) {
-                return IconButton(
-                  icon: Icon(Icons.add),
-                  color: Colors.blue,
-                  onPressed: snapshot.hasData ? bloc.submit : null,
-                );
-              },
-            ),
-            onPressed: (){},
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: (){},
+        )
+    );
+  }
+
+  Widget adharField() {
+    return TextField(
+      keyboardType: TextInputType.number,
+      inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly,
+
+        WhiteSpaceOn(4),  
+        //Added 2 whitesSpaces + 12(Adhar) =14
+        LengthLimitingTextInputFormatter(14),
+      ],
+      decoration: InputDecoration(
+        hintText: 'XXXX XXXX XXXX',
+        labelText: 'Adhar Number',
       ),
     );
   }
 
-  Widget adharField(Bloc bloc) {
-    return StreamBuilder(
-      stream: bloc.adhar,
-      builder: (context, snapshot) {
-        return TextField(
-          onChanged: bloc.changeAdhar,
-          keyboardType: TextInputType.number,
-          inputFormatters: <TextInputFormatter>[
-            WhitelistingTextInputFormatter.digitsOnly,
-
-            WhiteSpaceOn(4),  
-            //Added 2 whitesSpaces + 12(Adhar) =14
-            LengthLimitingTextInputFormatter(14),
-          ],
-          decoration: InputDecoration(
-            hintText: 'XXXX XXXX XXXX',
-            labelText: 'Adhar Number',
-            errorText: snapshot.error,
-          ),
-        );
-      },
-    );
-  }
-
-  Widget firstNameField(Bloc bloc) {
-    return StreamBuilder(
-      stream: bloc.fname,
-      builder: (context, snapshot) {
-        return TextField(
-          onChanged: bloc.changeFirstName,
-          keyboardType: TextInputType.text,
-          inputFormatters: [
-            WhitelistingTextInputFormatter(RegExp("[a-zA-Z]")),
-          ],
-          maxLength: 10,
-          decoration: InputDecoration(
-            hintText: 'John',
-            labelText: 'First Name',
-            errorText: snapshot.error,
-          ),
-        );
-      },
+  Widget firstNameField() {
+   
+    return TextField(
+      keyboardType: TextInputType.text,
+      inputFormatters: [
+        WhitelistingTextInputFormatter(RegExp("[a-zA-Z]")),
+      ],
+      maxLength: 10,
+      decoration: InputDecoration(
+        hintText: 'John',
+        labelText: 'First Name',
+      ),
     );
   }
   
-  Widget lasrNameField(Bloc bloc) {
-    return StreamBuilder(
-      stream: bloc.lname,
-      builder: (context, snapshot) {
-        return TextField(
-          onChanged: bloc.changeLastName,
-          keyboardType: TextInputType.text,
-          inputFormatters: [
-            WhitelistingTextInputFormatter(RegExp("[a-zA-Z]")),
-          ],
-          maxLength: 10,
-          decoration: InputDecoration(
-            hintText: 'Wrick',
-            labelText: 'Last Name',
-            errorText: snapshot.error,
-          ),
-        );
-      },
+  Widget lasrNameField() {
+    return TextField(
+      keyboardType: TextInputType.text,
+      inputFormatters: [
+        WhitelistingTextInputFormatter(RegExp("[a-zA-Z]")),
+      ],
+      maxLength: 10,
+      decoration: InputDecoration(
+        hintText: 'Wrick',
+        labelText: 'Last Name',
+      ),
     );
   }
 
-  Widget mobileField(Bloc bloc) {
-    return StreamBuilder(
-      stream: bloc.mob,
-      builder: (context, snapshot) {
-        return TextField(
-          onChanged: bloc.changeMobile,
-          keyboardType: TextInputType.number,
-          inputFormatters: <TextInputFormatter>[
-            WhitelistingTextInputFormatter.digitsOnly,
+  Widget mobileField() {
+    return TextField(
+      keyboardType: TextInputType.number,
+      inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly,
 
-            WhiteSpaceOn(5),  
-            //Added 1 whitesSpaces + 10(number) =11
-            LengthLimitingTextInputFormatter(11),
-          ],
-          decoration: InputDecoration(
-            hintText: 'XXXXX XXXXX',
-            labelText: 'Contact Number',
-            errorText: snapshot.error,
-          ),
-        );
-      },
+        WhiteSpaceOn(5),  
+        //Added 1 whitesSpaces + 10(number) =11
+        LengthLimitingTextInputFormatter(11),
+      ],
+      decoration: InputDecoration(
+        hintText: 'XXXXX XXXXX',
+        labelText: 'Contact Number',
+      ),
     );
   }
 
-  Widget session(Bloc bloc){
-    return StreamBuilder(
-      stream: bloc.session,
-      builder: (context,snapshot){
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Radio(
-              value: "Morning",
-              groupValue: snapshot.data,
-              onChanged: (e)=>bloc.setValue(e),
-            ),
-            Text(
-              'Morning',
-              style: TextStyle(fontSize: 16.0),
-            ),
-            Radio(
-              value: "Evening",
-              groupValue: snapshot.data,
-              onChanged: (e)=>bloc.setValue(e),
-            ),
-            Text(
-              'Evening',
-              style: new TextStyle(
-                fontSize: 16.0,
-              ),
-            )
-          ],
-        );
-      }
+  Widget session(){
+    String session;
+    return Center(
+      child: DropdownButton<String>(
+        hint: (session==null)?Text("Select Session") : Text("$session") ,
+        iconSize: 20,
+        value: session,
+        onChanged: (String newValue) {
+            session = newValue;
+        },
+        items: <String>['Morning', 'Evening']
+          .map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          })
+          .toList(),
+      )
     );
   }
 
-  Widget dateField(Bloc bloc) {
+  Widget joinDateField() {
   
-    return StreamBuilder(
-      stream: bloc.mob,
-      builder: (context, snapshot) {
-        return   Container();
-      }
-    );
+    return DateTimePickerFormField(
+      inputType: InputType.date,
+      format: DateFormat("dd/MM/yyyy"),
+      initialDate: DateTime.now(),
+      editable: false,
+      decoration: InputDecoration(
+          labelText: 'Join Date',
+          hasFloatingPlaceholder: true
+      ),
+    ); 
   }
+  
+  
   
 }

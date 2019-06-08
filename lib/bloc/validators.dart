@@ -52,12 +52,12 @@ class Validators {
     } 
   });
   
-  final validSession=
-    StreamTransformer<String, String>.fromHandlers(handleData: (session, sink) {
-    if (session!=null) {
-      sink.add(session);
+  final validJoinDate=
+    StreamTransformer<DateTime, String>.fromHandlers(handleData: (joinDate, sink) {
+    if (joinDate.toString()!=null) {
+      sink.add(joinDate.toString());
     }
-    sink.addError("Select Valid Session");
+    sink.addError("Select Valid joinDate");
     });
   
 }

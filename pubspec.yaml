@@ -43,6 +43,9 @@ dependencies:
   #date picker
   datetime_picker_formfield: ^0.2.0
 
+  #for Date Formating
+  intl: ^0.15.8
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

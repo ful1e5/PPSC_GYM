@@ -5,15 +5,15 @@ import 'package:intl/intl.dart';
 import 'package:ppscgym/db.dart';
 import 'package:ppscgym/formator/inputFormator.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:ppscgym/model.dart';
 import 'package:provider/provider.dart';
 
 class FormPage extends StatelessWidget {
 
   static GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  String sessionValue;
-  static Client data;
+  
+  String sessionValue,adhar,firstname,lastname,mobile;
+  DateTime joindate;
+  
   @override
   Widget build(BuildContext context) {
     final db =DatabaseService();
@@ -42,7 +42,7 @@ class FormPage extends StatelessWidget {
                           onPressed: () {
                             if (_formKey.currentState.validate()) {
                               _formKey.currentState.save();
-                              db.createClient(user,data);
+                              db.createClient(user,adhar,firstname,lastname,sessionValue,mobile,joindate);
                             }
                           },
                           tooltip: 'Submit',
@@ -69,7 +69,7 @@ class FormPage extends StatelessWidget {
             return 'Enter Valid Adhar Number';
         }
       },
-      onSaved: (val)=>data.adhar=val,
+      onSaved: (val)=>adhar=val,
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly,
@@ -95,7 +95,7 @@ class FormPage extends StatelessWidget {
         }
         return null;
       },
-      onSaved: (val)=>data.firstname=val,
+      onSaved: (val)=>firstname=val,
       keyboardType: TextInputType.text,
       inputFormatters: [
         WhitelistingTextInputFormatter(RegExp("[a-zA-Z]")),
@@ -116,7 +116,7 @@ class FormPage extends StatelessWidget {
         }
         return null;
       },
-      onSaved: (val)=>data.lastname=val,
+      onSaved: (val)=>lastname=val,
       keyboardType: TextInputType.text,
       inputFormatters: [
         WhitelistingTextInputFormatter(RegExp("[a-zA-Z]")),
@@ -141,7 +141,7 @@ class FormPage extends StatelessWidget {
             return 'Enter Valid Contact Number';
         }
       },
-      onSaved: (val)=>data.mobile=val,
+      onSaved: (val)=>mobile=val,
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly,
@@ -214,7 +214,7 @@ class FormPage extends StatelessWidget {
         }
         return null;
       },
-      onSaved: (val)=>data.joindate=val,
+      onSaved: (val)=>joindate=val,
       inputType: InputType.date,
       format: DateFormat("dd/MM/yyyy"),
       editable: false,

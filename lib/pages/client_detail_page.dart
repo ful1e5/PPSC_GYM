@@ -34,7 +34,7 @@ class ClientDetail extends StatelessWidget {
     String clientName =data.firstname.toUpperCase()+'  '+data.lastname.toUpperCase();
     String adhar = data.adhar;
     String mobile =data.mobile;
-    String joinDate =data.joindate;
+    String joinDate =data.joindate.substring(0,10);
     String sessoin = data.session;
     
     return Hero(
@@ -192,7 +192,7 @@ class Payment extends StatelessWidget {
     : 
     Column(
       children: <Widget>[
-        buildListTile("Last Transaction", payment.lastPayment, Icons.loop),
+        buildListTile("Last Transaction", payment.lastPayment.substring(0,19), Icons.loop),
         buildListTile("Operation", payment.operation,Icons.category),
       ],
     );

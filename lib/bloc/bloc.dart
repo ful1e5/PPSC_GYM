@@ -12,8 +12,7 @@ import 'package:ppscgym/db.dart';
 //NOTE: Or you can write "class Bloc extends Validators" since we don't really need to extend Bloc from a base class
 class Bloc extends Object with Validators {
 
-  FirebaseUser user;
-  DatabaseService db;
+  
 
   final _adharController = BehaviorSubject<String>();
   final _firstNameController = BehaviorSubject<String>();
@@ -21,6 +20,10 @@ class Bloc extends Object with Validators {
   final _mobileController = BehaviorSubject<String>();
   final _sessionController = BehaviorSubject<String>();
   final _joinDateController = BehaviorSubject<DateTime>();
+  
+  final FirebaseUser user;
+  DatabaseService db;
+  Bloc(this.user);
 
   // Add data to streamdate with bloc flutter
   Stream<String> get adhar => _adharController.stream.transform(validateAdhar);

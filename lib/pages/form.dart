@@ -4,13 +4,14 @@ import 'package:intl/intl.dart';
 import 'package:ppscgym/bloc/bloc.dart';
 import 'package:ppscgym/bloc/inputFormator.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:provider/provider.dart';
 
 class FormPage extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
   
-    Bloc bloc;
+    final bloc = Provider.of(context);
     return Scaffold(
         body: Container(
           margin: EdgeInsets.all(20.0),
@@ -25,14 +26,19 @@ class FormPage extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(top: 25.0),
               ),
-              
+              StreamBuilder(
+                stream: bloc.submitValid,
+                builder: (context, snapshot) {
+                  return RaisedButton(
+                    child: Text('Login'),
+                    color: Colors.blue,
+                    onPressed: snapshot.hasData ? bloc.submit : null,
+                  );
+                },
+              )
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: (){},
-        )
     );
   }
 

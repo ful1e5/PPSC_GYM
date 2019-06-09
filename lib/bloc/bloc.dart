@@ -1,18 +1,13 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
-
 import 'validators.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:ppscgym/db.dart';
 
 //* Using a shortcut getter method on the class to create simpler and friendlier API for the class to provide access of a particular function on StreamController
 //* Mixin can only be used on a class that extends from a base class, therefore, we are adding Bloc class that extends from the Object class
 //NOTE: Or you can write "class Bloc extends Validators" since we don't really need to extend Bloc from a base class
 class Bloc extends Object with Validators {
-
-  
 
   final _adharController = BehaviorSubject<String>();
   final _firstNameController = BehaviorSubject<String>();
@@ -21,9 +16,6 @@ class Bloc extends Object with Validators {
   final _sessionController = BehaviorSubject<String>();
   final _joinDateController = BehaviorSubject<DateTime>();
   
-  final FirebaseUser user;
-  DatabaseService db;
-  Bloc(this.user);
 
   // Add data to streamdate with bloc flutter
   Stream<String> get adhar => _adharController.stream.transform(validateAdhar);

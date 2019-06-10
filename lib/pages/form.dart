@@ -12,11 +12,10 @@ class FormPage extends StatelessWidget {
 
   static GlobalKey<FormState> _adharFormKey = GlobalKey<FormState>();
   static GlobalKey<FormState> _infoFormKey = GlobalKey<FormState>();
-  static GlobalKey<FormState> _extraInfoFormKey = GlobalKey<FormState>();
 
-  static int index=0;
+
   PageController pageController = PageController(
-    initialPage: index,
+    initialPage: 0,
     keepPage: true,
   );
 
@@ -48,10 +47,7 @@ class FormPage extends StatelessWidget {
             child:buildForm(<Widget>[adharField()],_adharFormKey)
           ),
           Container(
-            child:buildForm(<Widget>[firstNameField(),Divider(height: 35,),lastNameField()],_infoFormKey)
-          ),
-          Container(
-            child:buildForm(<Widget>[mobileField(),Divider(height: 40,),session(),Divider(height: 20,),joinDateField()],_extraInfoFormKey)
+            child:buildForm(<Widget>[firstNameField(),Divider(height: 35,),lastNameField(),Divider(height: 35,),mobileField(),Divider(height: 40,),session(),Divider(height: 20,),joinDateField(),Divider(height: 100,color: Colors.transparent,)],_infoFormKey)
           ),
         ],
       ),
@@ -66,10 +62,7 @@ class FormPage extends StatelessWidget {
             pageController.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.easeInCirc);
             if(_infoFormKey.currentState.validate()){
             _infoFormKey.currentState.save();
-            pageController.animateToPage(2, duration: Duration(milliseconds: 500), curve: Curves.ease);
-            }else if(_extraInfoFormKey.currentState.validate()){
-              _extraInfoFormKey.currentState.save();
-              db.createClient(user,adhar,firstname,lastname,sessionValue,mobile,joindate);
+            db.createClient(user,adhar,firstname,lastname,sessionValue,mobile,joindate);
             }
           }
         },

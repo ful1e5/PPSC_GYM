@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 class FormPage extends StatelessWidget {
 
   static GlobalKey<FormState> _adharFormKey = GlobalKey<FormState>();
-  static GlobalKey<FormState> _infoFormKey = GlobalKey<FormState>();
 
 
   PageController pageController = PageController(
@@ -39,34 +38,38 @@ class FormPage extends StatelessWidget {
             child: Center(child: Text('ADD CLIENT ',style: TextStyle(fontSize: 50,color: Colors.white),))),
         ),
       ),
-      body: PageView(
-        //physics: NeverScrollableScrollPhysics(),
-        controller: pageController,
-        children: <Widget>[
-          Container(
-            child:buildForm(<Widget>[adharField()],_adharFormKey)
-          ),
-          Container(
-            child:buildForm(<Widget>[firstNameField(),Divider(height: 35,),lastNameField(),Divider(height: 35,),mobileField(),Divider(height: 40,),session(),Divider(height: 20,),joinDateField(),Divider(height: 100,color: Colors.transparent,)],_infoFormKey)
-          ),
+      body: buildForm(<Widget>[
+          adharField(),
+          Divider(height: 40,),
+          firstNameField(),
+          Divider(height: 40,),
+          lastNameField(),
+          Divider(height: 40,),
+          mobileField(),
+          Divider(height: 70,),
+          session(),
+          Divider(height: 40,),
+          joinDateField(),
+          Divider(height: 100,color: Colors.transparent,)
         ],
-      ),
+        _adharFormKey
+        ),
+          
+      
+    
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.navigate_next
-        ),
+        child: Icon(Icons.save),
         onPressed: (){
           if (_adharFormKey.currentState.validate()) {
             _adharFormKey.currentState.save();
-            pageController.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.easeInCirc);
-            if(_infoFormKey.currentState.validate()){
-            _infoFormKey.currentState.save();
             db.createClient(user,adhar,firstname,lastname,sessionValue,mobile,joindate);
-            }
-          }
+            Navigator.pop(context);
+            Scaffold.of(context).showSnackBar(SnackBar(content: Text('Entry Added'),));
+          } 
         },
-      ),
+      )
+    
     );
   }
 

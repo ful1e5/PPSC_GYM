@@ -16,7 +16,7 @@ class Client{
     Map data =doc.data;
 
     return Client(
-      id: doc.documentID,
+      id:doc.documentID,
       firstname: data['firstname'] ?? '',
       lastname: data['lastname'] ?? '',
       adhar: data['adhar'] ?? '',

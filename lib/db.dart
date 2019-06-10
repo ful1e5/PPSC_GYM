@@ -28,7 +28,7 @@ class DatabaseService{
   /// Write data by Id 
   /// TODO: Add model to complete operation
   Future<void> createClient(FirebaseUser user,String adhar,String fname,String lname,String session,String mob,DateTime joindate) {
-    return _db.collection('user').document(user.uid).collection('clients').document().setData({
+    return _db.collection('user').document(user.uid).collection('clients').document(adhar).setData({
       'firstname': fname,
       'lastname' : lname,
       'adhar'    : adhar,

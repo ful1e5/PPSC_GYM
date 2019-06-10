@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:ppscgym/db.dart';
 import 'package:ppscgym/formator/inputFormator.dart';
@@ -9,8 +10,16 @@ import 'package:provider/provider.dart';
 
 class FormPage extends StatelessWidget {
 
-  static GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  
+  static GlobalKey<FormState> _adharFormKey = GlobalKey<FormState>();
+  static GlobalKey<FormState> _infoFormKey = GlobalKey<FormState>();
+  static GlobalKey<FormState> _extraInfoFormKey = GlobalKey<FormState>();
+
+  static int index=0;
+  PageController pageController = PageController(
+    initialPage: index,
+    keepPage: true,
+  );
+
   String sessionValue,adhar,firstname,lastname,mobile;
   DateTime joindate;
   
@@ -19,41 +28,67 @@ class FormPage extends StatelessWidget {
     final db =DatabaseService();
     var user = Provider.of<FirebaseUser>(context);
 
+    //TODO: update logic
+
     return Scaffold(
-        body: Container(
-          margin: EdgeInsets.all(20.0),
-          child: SingleChildScrollView(
-            child: Builder(
-              builder: (context)=> Form(
-                  key: _formKey,
-                  child: Column(
-                    children: <Widget>[
-                      adharField(),
-                      firstNameField(),
-                      lastNameField(),
-                      mobileField(),
-                      session(),
-                      joinDateField(),
-                      Container(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-                        child: IconButton(
-                          icon: Icon(Icons.add),
-                          iconSize: 46,              
-                          onPressed: () {
-                            if (_formKey.currentState.validate()) {
-                              _formKey.currentState.save();
-                              db.createClient(user,adhar,firstname,lastname,sessionValue,mobile,joindate);
-                            }
-                          },
-                          tooltip: 'Submit',
-                        ),
-                      )
-                    ],
-                  ),
-                )
-            ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(160.0),
+        child: AppBar(
+          elevation: 0,
+          flexibleSpace: Padding(
+            padding: EdgeInsets.only(top: 30),
+            child: Center(child: Text('ADD CLIENT ',style: TextStyle(fontSize: 50,color: Colors.white),))),
+        ),
+      ),
+      body: PageView(
+        //physics: NeverScrollableScrollPhysics(),
+        controller: pageController,
+        children: <Widget>[
+          Container(
+            child:buildForm(<Widget>[adharField()],_adharFormKey)
+          ),
+          Container(
+            child:buildForm(<Widget>[firstNameField(),Divider(height: 35,),lastNameField()],_infoFormKey)
+          ),
+          Container(
+            child:buildForm(<Widget>[mobileField(),Divider(height: 40,),session(),Divider(height: 20,),joinDateField()],_extraInfoFormKey)
+          ),
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.navigate_next
+        ),
+        onPressed: (){
+          if (_adharFormKey.currentState.validate()) {
+            _adharFormKey.currentState.save();
+            pageController.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.easeInCirc);
+            if(_infoFormKey.currentState.validate()){
+            _infoFormKey.currentState.save();
+            pageController.animateToPage(2, duration: Duration(milliseconds: 500), curve: Curves.ease);
+            }else if(_extraInfoFormKey.currentState.validate()){
+              _extraInfoFormKey.currentState.save();
+              db.createClient(user,adhar,firstname,lastname,sessionValue,mobile,joindate);
+            }
+          }
+        },
+      ),
+    );
+  }
+
+  Form buildForm(List<Widget> _list,GlobalKey<FormState> _formKey) {
+    return Form(
+      key: _formKey,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(25, 50, 25, 25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: _list
           ),
         ),
+      ),
     );
   }
 

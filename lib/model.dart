@@ -29,7 +29,7 @@ class Client{
 
 class Money{
   final String id;
-  final int money;
+  final String money;
   final String from;
   final String expiry;
 
@@ -40,24 +40,23 @@ class Money{
 
     return Money(
       id: doc.documentID,
-      money: data['money'] ?? 0,
+      money: data['money'] ?? '',
       from: data['from'] ?? '...',
       expiry: data['expiry'] ?? '...'
     );
   }
 }
 
-class PaymentStatus {
+class Status {
 
   final String lastPayment;
   final String operation;
-  final int totalPayment;
 
-  PaymentStatus({ this.lastPayment, this.operation, this.totalPayment});
+  Status({ this.lastPayment, this.operation});
 
-  factory PaymentStatus.fromMap(Map data) {
-    data = data ?? { };
-    return PaymentStatus(
+  factory Status.fromMap(Map data) {
+    data = data ?? null;
+    return Status(
       lastPayment: data['last_payment'] ?? '...',
       operation: data['operation'] ?? '...',
     );

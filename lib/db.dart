@@ -25,8 +25,7 @@ class DatabaseService{
       list.documents.map((doc) => Client.fromFirestore(doc)).toList());
   }
 
-  /// Write data by Id 
-  /// TODO: Add model to complete operation
+  /// Write data 
   Future<void> createClient(FirebaseUser user,String adhar,String fname,String lname,String session,String mob,DateTime joindate) {
     return _db.collection('user').document(user.uid).collection('clients').document(adhar).setData({
       'firstname': fname,
@@ -38,16 +37,15 @@ class DatabaseService{
     });
   }
 
-  /// Update data by Id  
-  /// TODO: Add model to complete operation
-  Future<void> updateClient(String clientId,FirebaseUser user) {
-    return _db.collection('user').document(user.uid).collection('clients').document(clientId).setData({
-      'firstname': "kai",
-      'lastname' : "katri",
-      'adhar'    : "12356789321",
-      'session'  : "mining",
-      'joindate' : "Today",
-      'mobile'   : "23829323"
+  /// Update data 
+  Future<void> updateClient(FirebaseUser user,String adhar,String fname,String lname,String session,String mob,DateTime joindate) {
+    return _db.collection('user').document(user.uid).collection('clients').document(adhar).setData({
+      'firstname': fname,
+      'lastname' : lname,
+      'adhar'    : adhar,
+      'session'  : session,
+      'joindate' : joindate.toString(),
+      'mobile'   : mob
     },merge: true);
   }
 
@@ -69,52 +67,49 @@ class DatabaseService{
   }
   
   /// Add Money List in Single Client 
-  /// TODO: Add model to complete operation 
-  Future<void> addMoney(String clientId,FirebaseUser user) {
-    addPaymentStatus(clientId, user, "Added");
+  Future<void> addMoney(String clientId,FirebaseUser user,String money,DateTime fromDate,DateTime expireDate) {
+    addStatus(clientId, user, "Added Payment Entry");
     return _db.collection('user').document(user.uid).collection('clients').document(clientId).collection('money').document().setData({
-      'money'  : 200,
-      'from'   : "today",
-      'expiry' : "tommorow",
+      'money'  : money,
+      'from'   : fromDate.toString(),
+      'expiry' : expireDate.toString(),
     });
   }
   
   /// Update Money by Id in Client
-  /// TODO: Add model to complete operation 
-  Future<void> updateMoney(String clientId,String moneyId,FirebaseUser user) {
-    addPaymentStatus(clientId, user, "Updated");
-    return _db.collection('user').document(user.uid).collection('clients').document(clientId).collection('money').document(moneyId).setData({
-      'money'  : 20,
-      'from'   : "today",
-      'expiry' : "2 day letter",
+  Future<void> updateMoney(String clientId,FirebaseUser user,String money,DateTime fromDate,DateTime expireDate,String id) {
+    addStatus(clientId, user, "Updated Payment Entry");
+    return _db.collection('user').document(user.uid).collection('clients').document(clientId).collection('money').document(id).setData({
+      'money'  : money,
+      'from'   : fromDate.toString(),
+      'expiry' : expireDate.toString(),
     },merge: true);
   }
 
   /// Delete Money by Id in Client
-  /// TODO: Add model to complete operation 
   Future<void> deleteMoney(String clientId,String moneyId,FirebaseUser user) {
-    addPaymentStatus(clientId, user, "Deleted");
+    addStatus(clientId, user, "Deleted Payment Entry");
     return _db.collection('user').document(user.uid).collection('clients').document(clientId).collection('money').document(moneyId).delete().catchError((error){
       return error;
     });
   }
 
   //For Updating Status
-  Future<void> addPaymentStatus(String clientId,FirebaseUser user,String operation) {
+  Future<void> addStatus(String clientId,FirebaseUser user,String operation) {
     return _db.collection('user').document(user.uid).collection('clients').document(clientId).setData({
       'last_payment'  : DateTime.now().toString(),
       'operation' : operation
     },merge: true);
   }
 
-  Stream<PaymentStatus> streamPaymentStatus(String clientId,FirebaseUser user) {
+  Stream<Status> streamStatus(String clientId,FirebaseUser user) {
     return _db
         .collection('user')
         .document(user.uid)
         .collection('clients')
         .document(clientId)
         .snapshots()
-        .map((snap) => PaymentStatus.fromMap(snap.data));
+        .map((snap) => Status.fromMap(snap.data));
   }
 
    

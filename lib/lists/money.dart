@@ -1,6 +1,7 @@
 //flutter
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ppscgym/pages/moneyForm.dart';
 
 //depedencies
 import 'package:provider/provider.dart';
@@ -37,7 +38,7 @@ class MoneyList extends StatelessWidget {
           itemCount: money.length,
           itemBuilder: (contex,int index) {
             String _id=money[index].id;
-            int _money=money[index].money;
+            String _money=money[index].money;
 
             return Card(
               color: Colors.blue,
@@ -60,8 +61,11 @@ class MoneyList extends StatelessWidget {
                     db.deleteMoney(clientId, _id, user);
                     Scaffold.of(context).showSnackBar(SnackBar(content: Text("Money Entry Deleted")));
                   } else if(direction == DismissDirection.startToEnd){
-                    //TODO:Edit
-                    Scaffold.of(context).showSnackBar(SnackBar(content: Text("Money Entry Edited")));
+                  
+                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context)=>MoneyFormPage(clientId: clientId,data: money[index])));
+                    
                   }
                 },
                 child: 

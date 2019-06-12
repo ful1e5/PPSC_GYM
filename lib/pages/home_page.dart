@@ -1,6 +1,7 @@
 //flutter
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ppscgym/pages/clientForm.dart';
 
 //depedencies
 import 'package:provider/provider.dart';
@@ -13,8 +14,8 @@ import 'package:ppscgym/db.dart';
 //lists
 import 'package:ppscgym/lists/client.dart';
 
-//pages
-import 'package:ppscgym/pages/form.dart';
+//form pages
+import 'package:ppscgym/pages/client_detail_page.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -51,7 +52,7 @@ class HomePage extends StatelessWidget {
           onPressed: (){
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => FormPage()),
+              MaterialPageRoute(builder: (context) => ClientFormPage()),
             );
           }
         ),

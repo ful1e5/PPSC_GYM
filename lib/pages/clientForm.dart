@@ -6,17 +6,17 @@ import 'package:intl/intl.dart';
 import 'package:ppscgym/db.dart';
 import 'package:ppscgym/formator/inputFormator.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:ppscgym/model.dart';
 import 'package:provider/provider.dart';
+import 'package:ppscgym/pages/moneyForm.dart';
 
-class FormPage extends StatelessWidget {
+class ClientFormPage extends StatelessWidget {
 
-  static GlobalKey<FormState> _adharFormKey = GlobalKey<FormState>();
+  static GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 
-  PageController pageController = PageController(
-    initialPage: 0,
-    keepPage: true,
-  );
+  Client data;
+  ClientFormPage({Key key, this.data}) : super(key: key);
 
   String sessionValue,adhar,firstname,lastname,mobile;
   DateTime joindate;
@@ -26,7 +26,14 @@ class FormPage extends StatelessWidget {
     final db =DatabaseService();
     var user = Provider.of<FirebaseUser>(context);
 
-    //TODO: update logic
+    if(data!=null){
+      adhar=data.adhar;
+      firstname=data.firstname;
+      lastname=data.lastname;
+      mobile=data.mobile;
+      sessionValue=data.session;
+      joindate=DateTime.parse(data.joindate);
+    }
 
     return Scaffold(
       appBar: PreferredSize(
@@ -52,20 +59,36 @@ class FormPage extends StatelessWidget {
           joinDateField(),
           Divider(height: 100,color: Colors.transparent,)
         ],
-        _adharFormKey
+        _formKey
         ),
           
       
     
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: 
+      (data==null)?
+      FloatingActionButton(
         child: Icon(Icons.save),
         onPressed: (){
-          if (_adharFormKey.currentState.validate()) {
-            _adharFormKey.currentState.save();
+          if (_formKey.currentState.validate()) {
+            _formKey.currentState.save();
             db.createClient(user,adhar,firstname,lastname,sessionValue,mobile,joindate);
             Navigator.pop(context);
-            Scaffold.of(context).showSnackBar(SnackBar(content: Text('Entry Added'),));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MoneyFormPage(clientId: adhar)),
+            );
+          } 
+        },
+      )
+      //FOr updating
+      :FloatingActionButton(
+        child: Icon(Icons.update),
+        onPressed: (){
+          if (_formKey.currentState.validate()) {
+            _formKey.currentState.save();
+            db.updateClient(user,adhar,firstname,lastname,sessionValue,mobile,joindate);
+            Navigator.pop(context);
           } 
         },
       )
@@ -100,6 +123,7 @@ class FormPage extends StatelessWidget {
             return 'Enter Valid Adhar Number';
         }
       },
+      initialValue: (adhar==null)?'':'$adhar',
       onSaved: (val)=>adhar=val,
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
@@ -126,6 +150,7 @@ class FormPage extends StatelessWidget {
         }
         return null;
       },
+      initialValue: (firstname==null)?'':'$firstname',
       onSaved: (val)=>firstname=val,
       keyboardType: TextInputType.text,
       inputFormatters: [
@@ -147,6 +172,7 @@ class FormPage extends StatelessWidget {
         }
         return null;
       },
+      initialValue: (lastname==null)?'':'$lastname',
       onSaved: (val)=>lastname=val,
       keyboardType: TextInputType.text,
       inputFormatters: [
@@ -172,6 +198,7 @@ class FormPage extends StatelessWidget {
             return 'Enter Valid Contact Number';
         }
       },
+      initialValue: (mobile==null)?'':'$mobile',
       onSaved: (val)=>mobile=val,
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
@@ -205,7 +232,7 @@ class FormPage extends StatelessWidget {
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
-                  hint: Text("Select Session"),
+                  hint: (sessionValue==null)?Text("Select Session"):Text("$sessionValue"),
                   value:sessionValue,
                   onChanged: (String newValue) {
                     state.didChange(newValue);
@@ -245,6 +272,7 @@ class FormPage extends StatelessWidget {
         }
         return null;
       },
+      initialValue: (joindate==null)?DateTime.now():joindate,
       onSaved: (val)=>joindate=val,
       inputType: InputType.date,
       format: DateFormat("dd/MM/yyyy"),

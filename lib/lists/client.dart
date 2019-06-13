@@ -15,54 +15,85 @@ class ClientList extends StatelessWidget {
 
     var client = Provider.of<List<Client>>(context);
     
-    return (client==null)?
-    //Data is not Available👇
-    Center(child: CircularProgressIndicator())
-    //Data Available 👇
-    :(client.length>0)?
-      
-      //List Available 👇
-      ListView.builder(
-          shrinkWrap: true,
-          itemCount: client.length,
-          itemBuilder: (contex,int index) {
-            String _id=client[index].id;
-            
-            String _firstname=client[index].firstname;
-            String _lastname=client[index].lastname;
-            String name = _firstname.toUpperCase()+' '+_lastname.toUpperCase();
+    return 
+      (client==null)?
+      //Data is not Available👇
+      Center(child: CircularProgressIndicator())
+      //Data Available 👇
+      :(client.length>0)?
+        
+        //List Available 👇
+        Container(
 
-            return Card(
-              color: Colors.blue,
-              child: FlatButton(
-                onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ClientDetail(client[index])),
-                  );
-                },
-                child: ListTile(
-                    title:Text('$name',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        height: 1.4,
+          child:ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: client.length,
+              itemBuilder: (contex,int index) {
+                String _id=client[index].id;
+                
+                String _firstname=client[index].firstname;
+                String _lastname=client[index].lastname;
+                String name = _firstname.toUpperCase()+' '+_lastname.toUpperCase();
+
+                bool normal;
+                if(client[index].expiry==''){
+                  //Logic
+                  normal=true;
+                }else{
+                  normal=false;
+                }
+                return Card(
+                  elevation: 8.0,
+                  margin: EdgeInsets.symmetric(horizontal: 10.0,vertical: 6.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color:(normal)?
+                        Color.fromRGBO(64, 75, 96, .9)
+                        :Colors.redAccent,
+                      ),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                      leading: Container(
+                        padding: EdgeInsets.only(right: 12.0),
+                        decoration: BoxDecoration(border: Border(right: BorderSide(width: 1.0, color: Colors.white24))),
+                        child: Icon(Icons.perm_identity, color: Colors.white),
+                      ),
+                      title:Text("$name",
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Row(
+                        children: <Widget>[
+                          Icon(Icons.linear_scale, color: Colors.yellowAccent),
+                          Text("$_id", style: TextStyle(color: Colors.white))
+                        ],
+                      ),
+                      trailing:InkWell(
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ClientDetail(client[index])),
+                          );
+                        },
+                        child: Icon(
+                          Icons.keyboard_arrow_right, 
+                          color: Colors.white, 
+                          size: 30.0,
                         ),
+                      )
                     ),
-                    subtitle: Text(_id,),
                   ),
-                ),
-            );
-          }
+                );
+              }
+          )
         )
         //List Not Available 👇
         :Center(
-         child:Column(
-           mainAxisAlignment: MainAxisAlignment.center,
+          child:Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Icon(Icons.mood_bad,size: 140,color: Colors.black26,),
-              Text("Data Not Found",style: TextStyle(color: Colors.black26,fontSize: 20),)
+              Icon(Icons.sentiment_dissatisfied,size: 140,color: Colors.white24,),
+              Text("Data Not Found",style: TextStyle(color: Colors.white24,fontSize: 20),)
             ],
           )
         );

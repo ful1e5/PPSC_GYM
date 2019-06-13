@@ -43,7 +43,16 @@ class ClientFormPage extends StatelessWidget {
           elevation: 0,
           flexibleSpace: Padding(
             padding: EdgeInsets.only(top: 30),
-            child: Center(child: Text('ADD CLIENT ',style: TextStyle(fontSize: 50,color: Colors.white),))),
+            child: Center(child: Text(
+              (data==null)?
+              'NEW'
+              :'UPDATE INFO',
+              style: TextStyle(
+                fontSize: 50,
+                color: Colors.white),
+                )
+            )
+          ),
         ),
       ),
       body: buildForm(<Widget>[
@@ -71,6 +80,8 @@ class ClientFormPage extends StatelessWidget {
       floatingActionButton: 
       (data==null)?
       FloatingActionButton(
+        backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+        foregroundColor: Colors.white,
         child: Icon(Icons.save),
         onPressed: (){
           if (_formKey.currentState.validate()) {
@@ -86,6 +97,8 @@ class ClientFormPage extends StatelessWidget {
       )
       //FOr updating
       :FloatingActionButton(
+        backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+        foregroundColor: Colors.white,
         child: Icon(Icons.update),
         onPressed: (){
           if (_formKey.currentState.validate()) {
@@ -137,6 +150,7 @@ class ClientFormPage extends StatelessWidget {
         LengthLimitingTextInputFormatter(14),
       ],
       decoration: InputDecoration(
+        border: OutlineInputBorder(),
         hintText: 'XXXX XXXX XXXX',
         labelText: 'Adhar Number ',
       ),
@@ -161,6 +175,7 @@ class ClientFormPage extends StatelessWidget {
       ],
       maxLength: 10,
       decoration: InputDecoration(
+        border: OutlineInputBorder(),
         hintText: 'John',
         labelText: 'First Name',
       ),
@@ -183,6 +198,7 @@ class ClientFormPage extends StatelessWidget {
       ],
       maxLength: 10,
       decoration: InputDecoration(
+        border: OutlineInputBorder(),
         hintText: 'Wrick',
         labelText: 'Last Name',
       ),
@@ -205,8 +221,9 @@ class ClientFormPage extends StatelessWidget {
       format: DateFormat("dd/MM/yyyy"),
       editable: false,
       decoration: InputDecoration(
-          labelText: 'Date Of Birth',
-          hasFloatingPlaceholder: true
+        border: OutlineInputBorder(),
+        labelText: 'Date Of Birth',
+        hasFloatingPlaceholder: true
       ),
     ); 
   }
@@ -234,6 +251,7 @@ class ClientFormPage extends StatelessWidget {
         LengthLimitingTextInputFormatter(11),
       ],
       decoration: InputDecoration(
+        border: OutlineInputBorder(),
         hintText: 'XXXXX XXXXX',
         labelText: 'Contact Number',
       ),
@@ -253,11 +271,12 @@ class ClientFormPage extends StatelessWidget {
           children: <Widget>[
             InputDecorator(
               decoration: const InputDecoration(
-                contentPadding: EdgeInsets.all(0.0),
+                border: OutlineInputBorder(),
+                contentPadding: EdgeInsets.all(8),
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
-                  hint: (sessionValue==null)?Text("Select Session"):Text("$sessionValue"),
+                  hint: (sessionValue==null)?Text(" Select Session"):Text("$sessionValue"),
                   value:sessionValue,
                   onChanged: (String newValue) {
                     state.didChange(newValue);
@@ -303,8 +322,9 @@ class ClientFormPage extends StatelessWidget {
       format: DateFormat("dd/MM/yyyy"),
       editable: false,
       decoration: InputDecoration(
-          labelText: 'Join Date',
-          hasFloatingPlaceholder: true
+        border: OutlineInputBorder(),
+        labelText: 'Join Date',
+        hasFloatingPlaceholder: true
       ),
     ); 
   }

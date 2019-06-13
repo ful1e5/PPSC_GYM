@@ -1,7 +1,7 @@
 //flutter
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ppscgym/pages/clientForm.dart';
+
 
 //depedencies
 import 'package:provider/provider.dart';
@@ -14,8 +14,8 @@ import 'package:ppscgym/db.dart';
 //lists
 import 'package:ppscgym/lists/client.dart';
 
-//form pages
-import 'package:ppscgym/pages/client_detail_page.dart';
+//Form Pages
+import 'package:ppscgym/pages/clientForm.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -26,12 +26,14 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var user = Provider.of<FirebaseUser>(context);
     return Scaffold(
+        backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
         appBar: AppBar(
+          elevation: 0.1,
+          backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
           title: Text('Home'),
           actions: <Widget>[
-             FlatButton(
-                child:  Text('Logout',
-                    style:  TextStyle(fontSize: 17.0, color: Colors.white)),
+             IconButton(
+                icon: Icon(Icons.exit_to_app),
                 onPressed: ()=>{authSercice.signOut()}
              )
           ],

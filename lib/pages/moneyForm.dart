@@ -41,11 +41,19 @@ class MoneyFormPage extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(160.0),
         child: AppBar(
-          backgroundColor: Colors.greenAccent,
+          backgroundColor: Colors.black,
           elevation: 0,
           flexibleSpace: Padding(
             padding: EdgeInsets.only(top: 30),
-            child: Center(child: Text('ADD PAYMENT ',style: TextStyle(fontSize: 50,color: Colors.white),))),
+            child: Center(child: Text(
+              (data==null)?
+              'NEW PAYMENT '
+              :'EDIT PAYMENT',
+              style: TextStyle(
+                fontSize: 50,
+                color: Colors.white),)
+              )
+            ),
         ),
       ),
       body: buildForm(<Widget>[
@@ -66,6 +74,8 @@ class MoneyFormPage extends StatelessWidget {
       (data==null)?
       //Add new  Money Entry
        FloatingActionButton(
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
         child: Icon(Icons.add_circle),
         onPressed: (){
           if (_formKey.currentState.validate()) {
@@ -78,6 +88,8 @@ class MoneyFormPage extends StatelessWidget {
       //For Update entry
       :
       FloatingActionButton(
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
         child: Icon(Icons.add_circle_outline),
         onPressed: (){
           if (_formKey.currentState.validate()) {
@@ -123,6 +135,7 @@ class MoneyFormPage extends StatelessWidget {
       ],
       maxLength: 4,
       decoration: InputDecoration(
+        border: OutlineInputBorder(),
         hintText: 'XXXX',
         labelText: 'Money ',
       ),
@@ -145,8 +158,9 @@ class MoneyFormPage extends StatelessWidget {
       format: DateFormat("dd/MM/yyyy"),
       editable: false,
       decoration: InputDecoration(
-          labelText: 'From Date',
-          hasFloatingPlaceholder: true
+        border: OutlineInputBorder(),
+        labelText: 'From Date',
+        hasFloatingPlaceholder: true
       ),
     ); 
   }
@@ -166,8 +180,9 @@ class MoneyFormPage extends StatelessWidget {
       format: DateFormat("dd/MM/yyyy"),
       editable: false,
       decoration: InputDecoration(
-          labelText: 'Expire Date',
-          hasFloatingPlaceholder: true
+        border: OutlineInputBorder(),
+        labelText: 'Expire Date',
+        hasFloatingPlaceholder: true
       ),
     ); 
   }

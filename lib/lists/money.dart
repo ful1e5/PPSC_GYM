@@ -63,9 +63,11 @@ class MoneyList extends StatelessWidget {
               db.addExpiry(clientId, user, temp);
             }
             return Card(
+              elevation: 8.0,
+              margin: EdgeInsets.symmetric(horizontal: 10.0,vertical: 6.0),
               //Expire Date in Red Color esle in blue
               color:(normal)?
-               Colors.blue
+               Color.fromRGBO(52, 152, 219,0.9)
                :Colors.redAccent,
               child: Dismissible(
                 key: Key(_id),
@@ -141,8 +143,8 @@ class MoneyList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Icon(Icons.mood_bad,size: 140,color: Colors.black26,),
-            Text("Payments not Found",style: TextStyle(color: Colors.black26,fontSize: 20),)
+            Icon(Icons.sentiment_dissatisfied,size: 140,color: Colors.white24,),
+            Text("Payments not Found",style: TextStyle(color: Colors.white24,fontSize: 20),)
           ],
         );
       }

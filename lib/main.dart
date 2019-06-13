@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'PPSC GYM',
         theme :ThemeData(
-          //brightness: Brightness.dark,
+          primaryColor: Color.fromRGBO(58, 66, 86, 1.0),
         ),
         //TODO: Remove Banner 👇
         //debugShowCheckedModeBanner: false,

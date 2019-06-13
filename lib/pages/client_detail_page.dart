@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 //firebase auth
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:ppscgym/pages/moneyForm.dart';
 
 //provider
@@ -37,14 +39,15 @@ class ClientDetail extends StatelessWidget {
     String clientId=data.id;
     String clientName =data.firstname.toUpperCase()+'  '+data.lastname.toUpperCase();
     String adhar = data.adhar;
-    String dob =data.dob.substring(0,10);
+    DateTime dob =DateTime.parse(data.dob);
     String mobile =data.mobile;
-    String joinDate =data.joindate.substring(0,10);
+    DateTime joinDate =DateTime.parse(data.joindate);
     String sessoin = data.session;
     
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
         body: Container(
           child: NestedScrollView(
             headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -95,8 +98,8 @@ class ClientDetail extends StatelessWidget {
                       children: <Widget>[
                       
                           buildListTile("Adhar ID",adhar,Icons.assignment_ind),
-                          buildListTile("Date Of Birth",dob,Icons.date_range),
-                          buildListTile("Join Date", joinDate, Icons.transit_enterexit),
+                          buildListTile("Date Of Birth",DateFormat("dd/MM/yyyy").format(dob).toString(),Icons.date_range),
+                          buildListTile("Join Date", DateFormat("dd/MM/yyyy").format(joinDate).toString(), Icons.transit_enterexit),
                           buildListTile("Session", sessoin, Icons.av_timer),
                           buildListTile("Contact", mobile,Icons.phone_android),
                           
@@ -141,7 +144,6 @@ class ClientDetail extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.black,
           tooltip: 'Add Money',
           child: Icon(
             Icons.receipt
@@ -159,10 +161,16 @@ class ClientDetail extends StatelessWidget {
 
     Card buildListTile(String heading,String value,IconData icon) {
       return Card(
-        child: ListTile(
-          leading: Icon(icon,size: 34,),
-          title: Text('$heading',style: TextStyle(fontWeight: FontWeight.w500),),
-          subtitle: Text('$value'),
+        elevation: 8.0,
+        margin: EdgeInsets.symmetric(horizontal: 10.0,vertical: 6.0),
+        child: Container(
+          decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+          child: ListTile(
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            leading: Icon(icon,size: 34,color: Colors.white,),
+            title: Text('$heading',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.white),),
+            subtitle: Text('$value',style: TextStyle(color: Colors.white70),),
+          ),
         ),
       );
   }
@@ -173,10 +181,15 @@ class Payment extends StatelessWidget {
 
   Card buildListTile(String heading,String value,IconData icon) {
       return Card(
-        child: ListTile(
-          leading: Icon(icon,size: 34,),
-          title: Text('$heading',style: TextStyle(fontWeight: FontWeight.w500),),
-          subtitle: Text('$value'),
+        elevation: 8.0,
+        margin: EdgeInsets.symmetric(horizontal: 10.0,vertical: 6.0),
+        child: Container(
+          decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+          child: ListTile(
+            leading: Icon(icon,size: 34,color: Colors.white,),
+            title: Text('$heading',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.white),),
+            subtitle: Text('$value',style: TextStyle(color: Colors.white70),),
+          ),
         ),
       );
   }
@@ -192,7 +205,7 @@ class Payment extends StatelessWidget {
       Column(
         children: <Widget>[
           Divider(height: 50,),
-          Text('No Payments',style: TextStyle(color: Colors.black26),)
+          Text('No Payments',style: TextStyle(color: Colors.white70),)
         ],
       )
       
@@ -203,7 +216,7 @@ class Payment extends StatelessWidget {
       children: <Widget>[
         Divider(height: 50,),
         Card(
-          color: Colors.blue,
+          color: Color.fromRGBO(58, 66, 86, 1.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(25),

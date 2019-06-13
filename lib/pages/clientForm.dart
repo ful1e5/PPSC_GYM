@@ -200,7 +200,7 @@ class ClientFormPage extends StatelessWidget {
         return null;
       },
       initialValue: (dob==null)?DateTime(1999):dob,
-      onSaved: (val)=>joindate=val,
+      onSaved: (val)=>dob=val,
       inputType: InputType.date,
       format: DateFormat("dd/MM/yyyy"),
       editable: false,

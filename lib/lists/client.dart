@@ -43,13 +43,14 @@ class ClientList extends StatelessWidget {
                 },
                 child: ListTile(
                     title:Text('$name',
+                      textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
-                        height: 1.4
+                        height: 1.4,
                         ),
                     ),
-                    subtitle: Text(_id),
+                    subtitle: Text(_id,),
                   ),
                 ),
             );

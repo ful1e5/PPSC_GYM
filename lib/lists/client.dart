@@ -27,24 +27,31 @@ class ClientList extends StatelessWidget {
           itemCount: client.length,
           itemBuilder: (contex,int index) {
             String _id=client[index].id;
+            
             String _firstname=client[index].firstname;
-            return Hero(
-              tag: _id,
-              child: Card(
-                color: Colors.orange,
-                child: FlatButton(
-                  onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ClientDetail(client[index])),
-                    );
-                  },
-                  child: ListTile(
-                      title:Text(_firstname),
-                      subtitle: Text(_id),
+            String _lastname=client[index].lastname;
+            String name = _firstname.toUpperCase()+' '+_lastname.toUpperCase();
+
+            return Card(
+              color: Colors.blue,
+              child: FlatButton(
+                onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ClientDetail(client[index])),
+                  );
+                },
+                child: ListTile(
+                    title:Text('$name',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        height: 1.4
+                        ),
                     ),
+                    subtitle: Text(_id),
                   ),
-              ),
+                ),
             );
           }
         )

@@ -26,31 +26,35 @@ class DatabaseService{
   }
 
   /// Write data 
-  Future<void> createClient(FirebaseUser user,String adhar,String fname,String lname,String session,String mob,DateTime joindate) {
+  Future<void> createClient(FirebaseUser user,String adhar,String fname,String lname,String session,String mob,DateTime joindate,DateTime dob) {
+    addStatus(adhar, user, "Initiate");
     return _db.collection('user').document(user.uid).collection('clients').document(adhar).setData({
       'firstname': fname,
       'lastname' : lname,
       'adhar'    : adhar,
       'session'  : session,
       'joindate' : joindate.toString(),
-      'mobile'   : mob
+      'mobile'   : mob,
+      'dob'      : dob.toString()
     });
   }
 
   /// Update data 
-  Future<void> updateClient(FirebaseUser user,String adhar,String fname,String lname,String session,String mob,DateTime joindate) {
+  Future<void> updateClient(FirebaseUser user,String adhar,String fname,String lname,String session,String mob,DateTime joindate,DateTime dob) {
     return _db.collection('user').document(user.uid).collection('clients').document(adhar).setData({
       'firstname': fname,
       'lastname' : lname,
       'adhar'    : adhar,
       'session'  : session,
       'joindate' : joindate.toString(),
-      'mobile'   : mob
+      'mobile'   : mob,
+      'dob'      : dob.toString()
     },merge: true);
   }
 
   /// Delete CLient by Id
   Future<void> deleteClient(String clientId,FirebaseUser user) {
+    
     return _db.collection('user').document(user.uid).collection('clients').document(clientId).delete().catchError((error){
       return error;
     });
@@ -68,7 +72,7 @@ class DatabaseService{
   
   /// Add Money List in Single Client 
   Future<void> addMoney(String clientId,FirebaseUser user,String money,DateTime fromDate,DateTime expireDate) {
-    addStatus(clientId, user, "Added Payment Entry");
+    addStatus(clientId, user, "Payment Entry Added");
     return _db.collection('user').document(user.uid).collection('clients').document(clientId).collection('money').document().setData({
       'money'  : money,
       'from'   : fromDate.toString(),
@@ -78,7 +82,7 @@ class DatabaseService{
   
   /// Update Money by Id in Client
   Future<void> updateMoney(String clientId,FirebaseUser user,String money,DateTime fromDate,DateTime expireDate,String id) {
-    addStatus(clientId, user, "Updated Payment Entry");
+    addStatus(clientId, user, "Payment Entry Updated");
     return _db.collection('user').document(user.uid).collection('clients').document(clientId).collection('money').document(id).setData({
       'money'  : money,
       'from'   : fromDate.toString(),
@@ -88,7 +92,7 @@ class DatabaseService{
 
   /// Delete Money by Id in Client
   Future<void> deleteMoney(String clientId,String moneyId,FirebaseUser user) {
-    addStatus(clientId, user, "Deleted Payment Entry");
+    addStatus(clientId, user, "Payment Entry Deleted");
     return _db.collection('user').document(user.uid).collection('clients').document(clientId).collection('money').document(moneyId).delete().catchError((error){
       return error;
     });
@@ -99,6 +103,18 @@ class DatabaseService{
     return _db.collection('user').document(user.uid).collection('clients').document(clientId).setData({
       'last_payment'  : DateTime.now().toString(),
       'operation' : operation
+    },merge: true);
+  }
+  
+  Future<void> addExpiry(String clientId,FirebaseUser user,DateTime expiry) {
+    return _db.collection('user').document(user.uid).collection('clients').document(clientId).setData({
+      'expiry'  : expiry.toString()
+    },merge: true);
+  }
+
+  Future<void> addTotal(String clientId,FirebaseUser user,String total) {
+    return _db.collection('user').document(user.uid).collection('clients').document(clientId).setData({
+      'total'  : total
     },merge: true);
   }
 

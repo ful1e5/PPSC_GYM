@@ -9,8 +9,11 @@ class Client{
   final String session;
   final String joindate;
   final String mobile;
+  final String expiry;
+  final String dob;
+  final String totalPayment;
 
-  Client({this.id, this.firstname, this.lastname, this.adhar, this.session,this.joindate,this.mobile});
+  Client({this.id, this.firstname, this.lastname, this.adhar, this.session,this.joindate,this.mobile,this.expiry,this.dob,this.totalPayment});
 
   factory Client.fromFirestore(DocumentSnapshot doc){
     Map data =doc.data;
@@ -22,7 +25,10 @@ class Client{
       adhar: data['adhar'] ?? '',
       session: data['session'] ?? '',
       joindate: data['joindate'] ?? '',
-      mobile: data['mobile'] ?? ''
+      mobile: data['mobile'] ?? '',
+      expiry: data['expiry'] ?? '',
+      dob:data['dob']??'',
+      totalPayment:data['total']??''
     );
   }
 }
@@ -51,14 +57,18 @@ class Status {
 
   final String lastPayment;
   final String operation;
+  final String expiry;
+  final String total;
 
-  Status({ this.lastPayment, this.operation});
+  Status({ this.lastPayment, this.operation,this.expiry,this.total});
 
   factory Status.fromMap(Map data) {
     data = data ?? null;
     return Status(
       lastPayment: data['last_payment'] ?? '...',
       operation: data['operation'] ?? '...',
+      expiry: data['expiry'] ?? '',
+      total: data['total'] ?? '0'
     );
   }
 

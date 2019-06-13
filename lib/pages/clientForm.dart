@@ -19,7 +19,7 @@ class ClientFormPage extends StatelessWidget {
   ClientFormPage({Key key, this.data}) : super(key: key);
 
   String sessionValue,adhar,firstname,lastname,mobile;
-  DateTime joindate;
+  DateTime joindate,dob;
   
   @override
   Widget build(BuildContext context) {
@@ -33,6 +33,7 @@ class ClientFormPage extends StatelessWidget {
       mobile=data.mobile;
       sessionValue=data.session;
       joindate=DateTime.parse(data.joindate);
+      dob=DateTime.parse(data.dob);
     }
 
     return Scaffold(
@@ -53,6 +54,8 @@ class ClientFormPage extends StatelessWidget {
           lastNameField(),
           Divider(height: 40,),
           mobileField(),
+          Divider(height: 40,),
+          dateOfBirthField(),
           Divider(height: 70,),
           session(),
           Divider(height: 40,),
@@ -72,7 +75,7 @@ class ClientFormPage extends StatelessWidget {
         onPressed: (){
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();
-            db.createClient(user,adhar,firstname,lastname,sessionValue,mobile,joindate);
+            db.createClient(user,adhar,firstname,lastname,sessionValue,mobile,joindate,dob);
             Navigator.pop(context);
             Navigator.push(
               context,
@@ -87,7 +90,7 @@ class ClientFormPage extends StatelessWidget {
         onPressed: (){
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();
-            db.updateClient(user,adhar,firstname,lastname,sessionValue,mobile,joindate);
+            db.updateClient(user,adhar,firstname,lastname,sessionValue,mobile,joindate,dob);
             Navigator.pop(context);
           } 
         },
@@ -184,6 +187,28 @@ class ClientFormPage extends StatelessWidget {
         labelText: 'Last Name',
       ),
     );
+  }
+
+  Widget dateOfBirthField() {
+  
+    return DateTimePickerFormField(
+      initialDate: DateTime.now(),
+      validator: (value) {
+        if (value==null) {
+          return 'Please enter Date Of Birth';
+        }
+        return null;
+      },
+      initialValue: (dob==null)?DateTime(1999):dob,
+      onSaved: (val)=>joindate=val,
+      inputType: InputType.date,
+      format: DateFormat("dd/MM/yyyy"),
+      editable: false,
+      decoration: InputDecoration(
+          labelText: 'Date Of Birth',
+          hasFloatingPlaceholder: true
+      ),
+    ); 
   }
 
   Widget mobileField() {

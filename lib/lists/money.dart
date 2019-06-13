@@ -1,5 +1,6 @@
 //flutter
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ppscgym/pages/moneyForm.dart';
 
@@ -39,9 +40,33 @@ class MoneyList extends StatelessWidget {
           itemBuilder: (contex,int index) {
             String _id=money[index].id;
             String _money=money[index].money;
+            String _from=money[index].from.substring(0,10);
+            String _expire=money[index].expiry.substring(0,10);
 
+            DateTime check_expiry=DateTime.parse(money[index].expiry);
+            DateTime current_date=DateTime.now();
+
+            //For Total
+            int m=int.parse(_money);
+            int total=0;
+            total=total+m;
+            db.addTotal(clientId, user, total.toString());
+            //For Latest Expiry
+
+            bool normal=check_expiry.isAfter(current_date);
+
+            if(!normal){
+              DateTime temp=check_expiry;
+              if(check_expiry.isAfter(temp)){
+                temp=check_expiry;
+              }
+              db.addExpiry(clientId, user, temp);
+            }
             return Card(
-              color: Colors.blue,
+              //Expire Date in Red Color esle in blue
+              color:(normal)?
+               Colors.blue
+               :Colors.redAccent,
               child: Dismissible(
                 key: Key(_id),
                 background: Container(
@@ -70,8 +95,22 @@ class MoneyList extends StatelessWidget {
                 },
                 child: 
                 ListTile(
-                    title:Text('$_money'),
-                    subtitle: Text(_id),
+                    title:Text('$_money',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 90
+                      ),
+                    ),
+                    subtitle: Text('From:$_from Expire:$_expire',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      height: 1,
+                      wordSpacing: 12,
+                      letterSpacing: 1,
+                    ),
+                    ),
+                    isThreeLine: true,
                 ),
               ),
               

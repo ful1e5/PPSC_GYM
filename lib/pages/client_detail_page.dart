@@ -37,6 +37,7 @@ class ClientDetail extends StatelessWidget {
     String clientId=data.id;
     String clientName =data.firstname.toUpperCase()+'  '+data.lastname.toUpperCase();
     String adhar = data.adhar;
+    String dob =data.dob;
     String mobile =data.mobile;
     String joinDate =data.joindate.substring(0,10);
     String sessoin = data.session;
@@ -94,13 +95,13 @@ class ClientDetail extends StatelessWidget {
                       children: <Widget>[
                       
                           buildListTile("Adhar ID",adhar,Icons.assignment_ind),
+                          buildListTile("Date Of Birth",dob,Icons.date_range),
                           buildListTile("Join Date", joinDate, Icons.transit_enterexit),
                           buildListTile("Session", sessoin, Icons.av_timer),
                           buildListTile("Contact", mobile,Icons.phone_android),
                           
-                          //TODO:last payment
                       
-                          StreamProvider<Status>.value(  // All children will have access to SuperHero data
+                          StreamProvider<Status>.value(  // All children will have access to Payment Status data
                             stream: db.streamStatus(clientId,user),
                             child: Payment(),
                           ),
@@ -117,8 +118,10 @@ class ClientDetail extends StatelessWidget {
                                     icon: Icon(Icons.delete,color: Colors.white),
                                     iconSize: 30,
                                     onPressed: (){
-                                      db.deleteClient(clientId, user);
                                       Navigator.pop(context);
+                                      Future.delayed(const Duration(milliseconds: 100), () {
+                                        db.deleteClient(clientId, user);  
+                                      });
                                     },
                                   )
                                 )
@@ -183,9 +186,17 @@ class Payment extends StatelessWidget {
     
     var payment = Provider.of<Status>(context); 
 
-    return (payment==null)?
+    //Check wih default data in Model
+    return (payment.lastPayment=='...')?
     //Data is not Available👇
-      Divider(height: 50,)
+      Column(
+        children: <Widget>[
+          Divider(height: 50,),
+          Text('No Payments',style: TextStyle(color: Colors.black26),)
+        ],
+      )
+      
+      
     : 
     //Data Available 👇
     Column(
@@ -209,8 +220,9 @@ class Payment extends StatelessWidget {
             )
           )
         ),
-        buildListTile("Last Transaction", payment.lastPayment.substring(0,19), Icons.loop),
-        buildListTile("Operation", payment.operation,Icons.category),
+        buildListTile("Total Payment", payment.total,Icons.payment),
+        buildListTile("Last Operation On", payment.lastPayment.substring(0,19), Icons.access_time),
+        buildListTile("Operation", payment.operation,Icons.call_to_action),
       ],
     );
   }

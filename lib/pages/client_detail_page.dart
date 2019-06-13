@@ -37,7 +37,7 @@ class ClientDetail extends StatelessWidget {
     String clientId=data.id;
     String clientName =data.firstname.toUpperCase()+'  '+data.lastname.toUpperCase();
     String adhar = data.adhar;
-    String dob =data.dob;
+    String dob =data.dob.substring(0,10);
     String mobile =data.mobile;
     String joinDate =data.joindate.substring(0,10);
     String sessoin = data.session;

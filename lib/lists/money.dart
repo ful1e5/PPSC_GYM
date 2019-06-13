@@ -25,7 +25,7 @@ class MoneyList extends StatelessWidget {
     var money = Provider.of<List<Money>>(context);
     var user = Provider.of<FirebaseUser>(context);
 
-
+    db.addTotal(clientId, user, '..');
     return (money==null)?
     //Data is not Available👇
     Center(child: CircularProgressIndicator())
@@ -94,23 +94,40 @@ class MoneyList extends StatelessWidget {
                   }
                 },
                 child: 
-                ListTile(
-                    title:Text('$_money',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 90
+                Column(
+                  children: <Widget>[
+                    ListTile(
+                        leading: Icon(Icons.payment,
+                          color: Colors.white,
+                          size: 50,
+                        ),
+                        title:Text('$_money',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 70
+                          ),
+                        ),
+                    ),
+                    Divider(color: Colors.white,height: 5,),
+                    ListTile(
+                      subtitle: Text('From\t:\t$_from',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          wordSpacing: 12,
+                          letterSpacing: 1
+                        ),
                       ),
-                    ),
-                    subtitle: Text('From:$_from Expire:$_expire',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      height: 1,
-                      wordSpacing: 12,
-                      letterSpacing: 1,
-                    ),
-                    ),
-                    isThreeLine: true,
+                      title: Text('ExpireOn : $_expire',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          wordSpacing: 12,
+                          letterSpacing: 1
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
               

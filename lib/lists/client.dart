@@ -37,11 +37,17 @@ class ClientList extends StatelessWidget {
                 String name = _firstname.toUpperCase()+' '+_lastname.toUpperCase();
 
                 bool normal;
+                DateTime current,expiry;
+                //expiry = DateTime.parse(client[index].expiry);
+                current = DateTime.now();
+
                 if(client[index].expiry==''){
                   //Logic
                   normal=true;
-                }else{
+                }else if(current.isAfter(expiry)==true){
                   normal=false;
+                }else{
+                  normal=true;
                 }
                 return Card(
                   elevation: 8.0,

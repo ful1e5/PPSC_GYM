@@ -41,7 +41,7 @@ class MoneyList extends StatelessWidget {
             String _id=money[index].id;
             String _money=money[index].money;
             String _from=money[index].from.substring(0,10);
-            String _expire=money[index].expiry.substring(0,10);
+            String _expiry=money[index].expiry.substring(0,10);
 
             DateTime check_expiry=DateTime.parse(money[index].expiry);
             DateTime current_date=DateTime.now();
@@ -56,11 +56,15 @@ class MoneyList extends StatelessWidget {
             bool normal=check_expiry.isAfter(current_date);
 
             if(!normal){
-              DateTime temp=check_expiry;
-              if(check_expiry.isAfter(temp)){
-                temp=check_expiry;
+              if(money.length==1){
+                db.addExpiry(clientId, user, check_expiry);
+              }else{
+                DateTime temp=check_expiry;
+                if(check_expiry.isAfter(temp)){
+                  temp=check_expiry;
+                }
+                db.addExpiry(clientId, user, temp);
               }
-              db.addExpiry(clientId, user, temp);
             }
             return Card(
               elevation: 8.0,
@@ -120,7 +124,7 @@ class MoneyList extends StatelessWidget {
                           letterSpacing: 1
                         ),
                       ),
-                      title: Text('ExpireOn : $_expire',
+                      title: Text('ExpireOn : $_expiry',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,

@@ -200,44 +200,53 @@ class Payment extends StatelessWidget {
     
     var payment = Provider.of<Status>(context); 
 
-    //Check wih default data in Model
-    return (payment.lastPayment=='...')?
-    //Data is not Available👇
+    if(payment==null){
+      return Column(
+        children: <Widget>[
+          Divider(height: 10,),
+          Center(child: CircularProgressIndicator()),
+        ],
+      );
+    }else{
+      //Check wih default data in Model
+      return (payment.lastPayment=='...')?
+      //Data is not Available👇
+        Column(
+          children: <Widget>[
+            Divider(height: 50,),
+            Text('No Payments',style: TextStyle(color: Colors.white70),)
+          ],
+        )
+        
+        
+      : 
+      //Data Available 👇
       Column(
         children: <Widget>[
           Divider(height: 50,),
-          Text('No Payments',style: TextStyle(color: Colors.white70),)
-        ],
-      )
-      
-      
-    : 
-    //Data Available 👇
-    Column(
-      children: <Widget>[
-        Divider(height: 50,),
-        Card(
-          color: Colors.blue,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25),
-              topRight: Radius.circular(25),
-              bottomLeft: Radius.circular(5),
-              bottomRight: Radius.circular(5)
+          Card(
+            color: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25),
+                topRight: Radius.circular(25),
+                bottomLeft: Radius.circular(5),
+                bottomRight: Radius.circular(5)
+                )
+            ),
+            child:Padding(
+              padding: EdgeInsets.all(18),
+              child: Text("Payment Info",
+                style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600,color: Colors.white),
+                textAlign: TextAlign.center,
               )
-          ),
-          child:Padding(
-            padding: EdgeInsets.all(18),
-            child: Text("Payment Info",
-              style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600,color: Colors.white),
-              textAlign: TextAlign.center,
             )
-          )
-        ),
-        buildListTile("Total Payment", payment.total,Icons.payment),
-        buildListTile("Last Operation On", payment.lastPayment.substring(0,19), Icons.access_time),
-        buildListTile("Operation", payment.operation,Icons.call_to_action),
-      ],
-    );
+          ),
+          buildListTile("Total Payment", payment.total,Icons.payment),
+          buildListTile("Last Operation On", payment.lastPayment.substring(0,19), Icons.access_time),
+          buildListTile("Operation", payment.operation,Icons.call_to_action),
+        ],
+      );
+    }
   }
 }

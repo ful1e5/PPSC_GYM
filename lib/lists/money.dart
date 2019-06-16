@@ -100,14 +100,14 @@ class MoneyList extends StatelessWidget {
                           fontSize: 70
                           ),
                         ),
-                        trailing: (index==money.length-1)?
+                        trailing: 
                         InkWell(
                           onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>MoneyFormPage(clientId: clientId,data: money[index]))),
                           child: Icon(Icons.edit,
                           size: 25,
                             color: Colors.white,
                           )
-                        ):Container(),
+                        ),
                     ),
                     Divider(color: Colors.white,height: 5,),
                     ListTile(

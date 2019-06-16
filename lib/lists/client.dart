@@ -34,20 +34,28 @@ class ClientList extends StatelessWidget {
                 String _firstname=client[index].firstname;
                 String _lastname=client[index].lastname;
                 String name = _firstname.toUpperCase()+' '+_lastname.toUpperCase();
+                String expiry=client[index].expiry;
 
-                bool normal;
-                DateTime current,expiry;
-                //expiry = DateTime.parse(client[index].expiry);
-                current = DateTime.now();
+                bool normal=true;
 
-                if(client[index].expiry==''){
-                  //Logic
+                if(expiry==''){
                   normal=true;
-                }else if(current.isAfter(expiry)==true){
-                  normal=false;
                 }else{
-                  normal=true;
+                  //For Date genrating
+                  String year=expiry.substring(0,4);
+                  String month=expiry.substring(5,7);
+                  String day=expiry.substring(8,10);
+
+                  DateTime current = DateTime.now();
+                  DateTime checkExpiry=DateTime.utc(int.parse(year),int.parse(month),int.parse(day));
+
+                  if(current.isAfter(checkExpiry)){
+                    normal=false;
+                  }else{
+                    normal=true;
+                  }
                 }
+
                 return Card(
                   elevation: 8.0,
                   margin: EdgeInsets.symmetric(horizontal: 10.0,vertical: 6.0),

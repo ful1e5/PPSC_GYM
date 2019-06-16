@@ -149,10 +149,9 @@ class ClientDetail extends StatelessWidget {
             Icons.receipt
           ),
           onPressed: (){
-          Navigator.push(context, MaterialPageRoute(
-            builder: (context)=>MoneyFormPage(clientId: clientId)
-          ));
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Update Reflect soon")));
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context)=>MoneyFormPage(clientId: clientId)
+              ));
           }
         ),
       ),

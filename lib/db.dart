@@ -106,9 +106,9 @@ class DatabaseService{
     },merge: true);
   }
   
-  Future<void> addExpiry(String clientId,FirebaseUser user,DateTime expiry) {
+  Future<void> addExpiry(String clientId,FirebaseUser user,String expiry) {
     return _db.collection('user').document(user.uid).collection('clients').document(clientId).setData({
-      'expiry'  : expiry.toString()
+      'expiry'  : expiry
     },merge: true);
   }
 

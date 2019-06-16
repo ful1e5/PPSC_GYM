@@ -10,6 +10,7 @@ import 'package:ppscgym/model.dart';
 import 'package:provider/provider.dart';
 import 'package:ppscgym/pages/moneyForm.dart';
 
+
 class ClientFormPage extends StatelessWidget {
 
   static GlobalKey<FormState> _formKey = GlobalKey<FormState>();

@@ -27,6 +27,9 @@ class MoneyList extends StatelessWidget {
     var money = Provider.of<List<Money>>(context);
     var user = Provider.of<FirebaseUser>(context);
 
+    //For Total
+    int total=0;
+
     db.addTotal(clientId, user, '..');
     return (money==null)?
     //Data is not Available👇
@@ -54,7 +57,6 @@ class MoneyList extends StatelessWidget {
 
             //For Total
             int m=int.parse(_money);
-            int total=0;
             total=total+m;
             db.addTotal(clientId, user, total.toString());
             

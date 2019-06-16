@@ -1,6 +1,7 @@
 //flutter
 import 'package:flutter/material.dart';
 import 'package:ppscgym/pages/client_detail_page.dart';
+
 //depedencies
 import 'package:provider/provider.dart';
 

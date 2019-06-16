@@ -1,12 +1,17 @@
-import 'package:firebase_auth/firebase_auth.dart';
+//flutter
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+
+//depedencies
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
-import 'package:ppscgym/db.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:ppscgym/model.dart';
 import 'package:provider/provider.dart';
+
+//service
+import 'package:ppscgym/db.dart';
+import 'package:ppscgym/model.dart';
 
 class MoneyFormPage extends StatelessWidget {
 

@@ -2,8 +2,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-
-
 //depedencies
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';

@@ -66,35 +66,35 @@ class ClientList extends StatelessWidget {
                         Color.fromRGBO(64, 75, 96, .9)
                         :Colors.redAccent,
                       ),
-                    child: ListTile(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                      leading: Container(
-                        padding: EdgeInsets.only(right: 12.0),
-                        decoration: BoxDecoration(border: Border(right: BorderSide(width: 1.0, color: Colors.white24))),
-                        child: Icon(Icons.perm_identity, color: Colors.white),
-                      ),
-                      title:Text("$name",
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Row(
-                        children: <Widget>[
-                          Icon(Icons.linear_scale, color: Colors.yellowAccent),
-                          Text("$_id", style: TextStyle(color: Colors.white))
-                        ],
-                      ),
-                      trailing:InkWell(
-                        onTap: (){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => ClientDetail(client[index])),
-                          );
-                        },
-                        child: Icon(
+                    child: InkWell(
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ClientDetail(client[index])),
+                        );
+                      },
+                      child: ListTile(
+                        contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                        leading: Container(
+                          padding: EdgeInsets.only(right: 12.0),
+                          decoration: BoxDecoration(border: Border(right: BorderSide(width: 1.0, color: Colors.white24))),
+                          child: Icon(Icons.perm_identity, color: Colors.white),
+                        ),
+                        title:Text("$name",
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Row(
+                          children: <Widget>[
+                            Icon(Icons.linear_scale, color: Colors.yellowAccent),
+                            Text("$_id", style: TextStyle(color: Colors.white))
+                          ],
+                        ),
+                        trailing:Icon(
                           Icons.keyboard_arrow_right, 
                           color: Colors.white, 
                           size: 30.0,
-                        ),
-                      )
+                        )
+                      ),
                     ),
                   ),
                 );

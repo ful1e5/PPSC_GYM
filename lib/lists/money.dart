@@ -49,7 +49,7 @@ class MoneyList extends StatelessWidget {
             String _from=DateFormat("dd/MM/yyyy").format(fromDate).toString();
             String _expire=DateFormat("dd/MM/yyyy").format(expireDate).toString();
 
-            DateTime checkExpiry=DateTime.parse(money[index].expiry);
+            DateTime checkExpiry=DateTime.parse(_expiry);
             DateTime currentDate=DateTime.now();
 
             //For Total

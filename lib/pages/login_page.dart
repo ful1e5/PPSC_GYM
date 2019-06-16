@@ -10,10 +10,20 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+        appBar: AppBar(
+          backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+          elevation: 0,
+        ),
         body: Center(
-          child: RaisedButton(
-            child: Text('SignIn With Google'),
-            onPressed: () => authSercice.googleSignIn(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              RaisedButton(
+                child: Text('SignIn With Google'),
+                onPressed: () => authSercice.googleSignIn(),
+              ),
+            ],
           ),
         )
       );

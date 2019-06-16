@@ -1,15 +1,19 @@
 //flutter
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ppscgym/pages/moneyForm.dart';
+
+
 
 //depedencies
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 //service
 import 'package:ppscgym/model.dart';
 import 'package:ppscgym/db.dart';
+
+//pages
+import 'package:ppscgym/pages/moneyForm.dart';
 
 class MoneyList extends StatelessWidget {
 
@@ -40,8 +44,12 @@ class MoneyList extends StatelessWidget {
           itemBuilder: (contex,int index) {
             String _id=money[index].id;
             String _money=money[index].money;
-            String _from=money[index].from.substring(0,10);
+            DateTime fromDate=DateTime.parse(money[index].from.substring(0,10));
+            DateTime expireDate=DateTime.parse(money[index].expiry.substring(0,10));
             String _expiry=money[index].expiry.substring(0,10);
+
+            String _from=DateFormat("dd/MM/yyyy").format(fromDate).toString();
+            String _expire=DateFormat("dd/MM/yyyy").format(expireDate).toString();
 
             DateTime checkExpiry=DateTime.parse(money[index].expiry);
             DateTime currentDate=DateTime.now();
@@ -112,7 +120,7 @@ class MoneyList extends StatelessWidget {
                           letterSpacing: 1
                         ),
                       ),
-                      title: Text('ExpireOn : $_expiry',
+                      title: Text('ExpireOn : $_expire',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,

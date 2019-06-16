@@ -57,7 +57,7 @@ class ClientDetail extends StatelessWidget {
                   pinned: true,
                   actions: <Widget>[
                    IconButton(
-                    icon: Icon(Icons.mode_edit),
+                    icon: Icon(Icons.edit),
                     onPressed: (){
                         Navigator.pop(context);
                         Navigator.push(context, MaterialPageRoute(
@@ -118,6 +118,7 @@ class ClientDetail extends StatelessWidget {
                                 child:Padding(
                                   padding: EdgeInsets.all(6),
                                   child: IconButton(
+                                    tooltip: "Delete Client",
                                     icon: Icon(Icons.delete,color: Colors.white),
                                     iconSize: 30,
                                     onPressed: (){
@@ -128,7 +129,8 @@ class ClientDetail extends StatelessWidget {
                                     },
                                   )
                                 )
-                              )
+                              ),
+                              Divider(height: 20,),
                       ],
                     ),
                   ),
@@ -215,7 +217,7 @@ class Payment extends StatelessWidget {
       children: <Widget>[
         Divider(height: 50,),
         Card(
-          color: Color.fromRGBO(58, 66, 86, 1.0),
+          color: Colors.blue,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(25),

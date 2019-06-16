@@ -44,7 +44,7 @@ class MoneyList extends StatelessWidget {
             String _money=money[index].money;
             DateTime fromDate=DateTime.parse(money[index].from.substring(0,10));
             DateTime expireDate=DateTime.parse(money[index].expiry.substring(0,10));
-            String _expiry=money[index].expiry.substring(0,10);
+            String _expiry=money[index].expiry;
 
             String _from=DateFormat("dd/MM/yyyy").format(fromDate).toString();
             String _expire=DateFormat("dd/MM/yyyy").format(expireDate).toString();
@@ -57,8 +57,8 @@ class MoneyList extends StatelessWidget {
             int total=0;
             total=total+m;
             db.addTotal(clientId, user, total.toString());
+            
             //For Latest Expiry
-
             bool normal=checkExpiry.isAfter(currentDate);
 
             
@@ -73,7 +73,6 @@ class MoneyList extends StatelessWidget {
                :Colors.redAccent,
               child: Dismissible(
                 key: Key(_id),
-                //For Disabling 
                 direction: DismissDirection.endToStart,
                 background: Container(
                   alignment: Alignment.centerRight,
@@ -82,8 +81,10 @@ class MoneyList extends StatelessWidget {
                   child: Icon(Icons.delete_forever, color: Colors.white),
                 ),
                 onDismissed: (direction){
+                  if(direction == DismissDirection.endToStart){
                     db.deleteMoney(clientId, _id, user);
                     Scaffold.of(context).showSnackBar(SnackBar(content: Text("Money Entry Deleted")));
+                  } 
                 },
                 child: 
                 Column(
@@ -130,7 +131,6 @@ class MoneyList extends StatelessWidget {
                   ],
                 ),
               ),
-              
             );
             
           }

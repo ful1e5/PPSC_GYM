@@ -247,7 +247,7 @@ class Payment extends StatelessWidget {
               )
             )
           ),
-          buildListTile("Total Payment", payment.total,FontAwesomeIcons.moneyCheckAlt),
+          buildListTile("Total Payment", payment.total,FontAwesomeIcons.moneyCheck),
           buildListTile("Last Operation On", payment.lastPayment.substring(0,19), FontAwesomeIcons.solidClock),
           buildListTile("Operation", payment.operation,FontAwesomeIcons.cogs),
         ],

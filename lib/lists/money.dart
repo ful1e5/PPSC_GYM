@@ -158,8 +158,8 @@ class MoneyList extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Icon(Icons.sentiment_neutral,size: 34,color: Colors.white24,),
-          Text("No payments",style: TextStyle(color: Colors.white24,fontSize: 14),)
+          Icon(FontAwesomeIcons.flushed,size: 34,color: Colors.white24,),
+          Text("\nNo payments",style: TextStyle(color: Colors.white24,fontSize: 19),)
         ],
       );
   }

@@ -164,7 +164,7 @@ class SearchClient extends SearchDelegate<Client>{
                 subtitle: Row(
                   children: <Widget>[
                     Icon(Icons.linear_scale, color: Colors.yellowAccent),
-                    Text(n.id, style: TextStyle(color: Colors.white))
+                    Text(n.adhar, style: TextStyle(color: Colors.white))
                   ],
                 ),
                 trailing:Icon(

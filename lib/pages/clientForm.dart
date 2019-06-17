@@ -43,7 +43,6 @@ class ClientFormPage extends StatelessWidget {
       firstname=data.firstname;
       lastname=data.lastname;
       mobile=data.mobile;
-      sessionValue=data.session;
       joindate=DateTime.parse(data.joindate);
       dob=DateTime.parse(data.dob);
     }
@@ -111,7 +110,7 @@ class ClientFormPage extends StatelessWidget {
         onPressed: (){
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();
-            db.updateClient(user,data.id,adhar,firstname,lastname,sessionValue,mobile,joindate,dob);
+            db.updateClient(user,adhar,data.id,firstname,lastname,sessionValue,mobile,joindate,dob);
             Navigator.pop(context);
           } 
         },
@@ -274,7 +273,8 @@ class ClientFormPage extends StatelessWidget {
         }
       },
       builder: (FormFieldState<String> state,) {
-        return Column(
+        return (data==null)?
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             InputDecorator(
@@ -284,8 +284,44 @@ class ClientFormPage extends StatelessWidget {
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
-                  hint: (sessionValue==null)?Text(" Select Session"):Text("$sessionValue"),
+                  hint: Text(" Select Session"),
                   value:sessionValue,
+                  onChanged: (String newValue) {
+                    state.didChange(newValue);
+                      sessionValue = newValue;
+                  },
+                  items: <String>[
+                    'Morning',
+                    'Evening',
+                  ].map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ),
+            SizedBox(height: 5.0),
+            Text(
+              state.hasError ? state.errorText : '',
+              style:
+                  TextStyle(color: Colors.redAccent.shade700, fontSize: 12.0),
+            ),
+          ],
+        )
+        :Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            InputDecorator(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding: EdgeInsets.all(8),
+              ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  hint: Text(data.session),
+                  value:data.session,
                   onChanged: (String newValue) {
                     state.didChange(newValue);
                       sessionValue = newValue;

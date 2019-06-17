@@ -38,10 +38,13 @@ class ClientFormPage extends StatelessWidget {
     final db =DatabaseService();
     var user = Provider.of<FirebaseUser>(context);
 
+    
+
     if(data!=null){
       adhar=data.adhar;
       firstname=data.firstname;
       lastname=data.lastname;
+      sessionValue=data.session;
       mobile=data.mobile;
       joindate=DateTime.parse(data.joindate);
       dob=DateTime.parse(data.dob);
@@ -268,8 +271,13 @@ class ClientFormPage extends StatelessWidget {
   Widget session(){
     return FormField<String>(
       validator: (value) {
-        if (value == null) {
-          return "Select your session";
+        if(data==null){
+          if(value==null){
+            return "Select your session";
+          }
+        }else if (value == null) {
+          if(data.session==null)
+            return "Select your session";
         }
       },
       builder: (FormFieldState<String> state,) {
@@ -284,7 +292,7 @@ class ClientFormPage extends StatelessWidget {
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
-                  hint: Text(" Select Session"),
+                  hint: Text("Select Session"),
                   value:sessionValue,
                   onChanged: (String newValue) {
                     state.didChange(newValue);

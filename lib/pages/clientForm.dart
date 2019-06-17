@@ -19,6 +19,9 @@ import 'package:ppscgym/pages/moneyForm.dart';
 //Formator
 import 'package:ppscgym/formator/inputFormator.dart';
 
+//icons
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 class ClientFormPage extends StatelessWidget {
 
   static GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -91,7 +94,7 @@ class ClientFormPage extends StatelessWidget {
       FloatingActionButton(
         backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
         foregroundColor: Colors.white,
-        child: Icon(Icons.save),
+        child: Icon(FontAwesomeIcons.userPlus),
         onPressed: (){
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();
@@ -108,7 +111,7 @@ class ClientFormPage extends StatelessWidget {
       :FloatingActionButton(
         backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
         foregroundColor: Colors.white,
-        child: Icon(Icons.update),
+        child: Icon(FontAwesomeIcons.userEdit),
         onPressed: (){
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:ppscgym/pages/moneyForm.dart';
+
 
 //provider
 import 'package:provider/provider.dart';
@@ -19,6 +19,11 @@ import 'package:ppscgym/lists/money.dart';
 
 //Form
 import 'package:ppscgym/pages/clientForm.dart';
+import 'package:ppscgym/pages/moneyForm.dart';
+
+//icons
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 class ClientDetail extends StatelessWidget {
 
@@ -37,7 +42,7 @@ class ClientDetail extends StatelessWidget {
     var user = Provider.of<FirebaseUser>(context);
     
     String clientId=data.id;
-    String clientName =data.firstname.toUpperCase()+'  '+data.lastname.toUpperCase();
+    String clientName =data.name;
     String adhar = data.adhar;
     DateTime dob =DateTime.parse(data.dob);
     String mobile =data.mobile;
@@ -57,7 +62,7 @@ class ClientDetail extends StatelessWidget {
                   pinned: true,
                   actions: <Widget>[
                    IconButton(
-                    icon: Icon(Icons.edit),
+                    icon: Icon(FontAwesomeIcons.userEdit),
                     onPressed: (){
                         Navigator.pop(context);
                         Navigator.push(context, MaterialPageRoute(
@@ -77,10 +82,10 @@ class ClientDetail extends StatelessWidget {
                   bottom: TabBar(
                     tabs: <Widget>[
                       Tab(
-                        icon: Icon(Icons.info),
+                        icon: Icon(FontAwesomeIcons.infoCircle),
                       ),
                       Tab(
-                        icon: Icon(Icons.receipt),
+                        icon: Icon(FontAwesomeIcons.wallet),
                       ),
                     ],
                   ),
@@ -97,11 +102,11 @@ class ClientDetail extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                       
-                          buildListTile("Adhar ID",adhar,Icons.assignment_ind),
+                          buildListTile("Adhar ID",adhar,FontAwesomeIcons.idCard),
                           buildListTile("Date Of Birth",DateFormat("dd/MM/yyyy").format(dob).toString(),Icons.date_range),
                           buildListTile("Join Date", DateFormat("dd/MM/yyyy").format(joinDate).toString(), Icons.transit_enterexit),
                           buildListTile("Session", sessoin, Icons.av_timer),
-                          buildListTile("Contact", mobile,Icons.phone_android),
+                          buildListTile("Contact", mobile,FontAwesomeIcons.mobile),
                           
                       
                           StreamProvider<Status>.value(  // All children will have access to Payment Status data
@@ -148,7 +153,7 @@ class ClientDetail extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           tooltip: 'Add Money',
           child: Icon(
-            Icons.receipt
+            FontAwesomeIcons.plus
           ),
           onPressed: (){
               Navigator.push(context, MaterialPageRoute(

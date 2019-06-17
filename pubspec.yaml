@@ -46,6 +46,9 @@ dependencies:
   #for Date Formating
   intl: ^0.15.8
 
+  #Font Awesome
+  font_awesome_flutter: ^8.4.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

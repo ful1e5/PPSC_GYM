@@ -13,6 +13,9 @@ import 'package:provider/provider.dart';
 import 'package:ppscgym/db.dart';
 import 'package:ppscgym/model.dart';
 
+//icons
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 class MoneyFormPage extends StatelessWidget {
 
 
@@ -81,7 +84,7 @@ class MoneyFormPage extends StatelessWidget {
        FloatingActionButton(
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
-        child: Icon(Icons.add_circle),
+        child: Icon(FontAwesomeIcons.plus),
         onPressed: (){
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();
@@ -95,7 +98,7 @@ class MoneyFormPage extends StatelessWidget {
       FloatingActionButton(
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
-        child: Icon(Icons.add_circle_outline),
+        child: Icon(FontAwesomeIcons.edit),
         onPressed: (){
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();

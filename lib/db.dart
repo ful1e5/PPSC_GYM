@@ -31,6 +31,7 @@ class DatabaseService{
     return _db.collection('user').document(user.uid).collection('clients').document(adhar).setData({
       'firstname': fname,
       'lastname' : lname,
+      'name'     : fname.toUpperCase()+' '+lname.toUpperCase(),
       'adhar'    : adhar,
       'session'  : session,
       'joindate' : joindate.toString(),
@@ -44,6 +45,7 @@ class DatabaseService{
     return _db.collection('user').document(user.uid).collection('clients').document(adhar).setData({
       'firstname': fname,
       'lastname' : lname,
+      'name'     : fname.toUpperCase()+' '+lname.toUpperCase(),
       'adhar'    : adhar,
       'session'  : session,
       'joindate' : joindate.toString(),

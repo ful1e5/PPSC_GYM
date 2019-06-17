@@ -13,6 +13,9 @@ import 'package:ppscgym/db.dart';
 //pages
 import 'package:ppscgym/pages/moneyForm.dart';
 
+//icons
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 class MoneyList extends StatelessWidget {
 
 
@@ -78,9 +81,9 @@ class MoneyList extends StatelessWidget {
                 direction: DismissDirection.endToStart,
                 background: Container(
                   alignment: Alignment.centerRight,
-                  padding: EdgeInsets.only(right: 20.0),
+                  padding: EdgeInsets.only(right: 40.0),
                   color: Colors.red,
-                  child: Icon(Icons.delete_forever, color: Colors.white),
+                  child: Icon(FontAwesomeIcons.trash, color: Colors.white),
                 ),
                 onDismissed: (direction){
                   if(direction == DismissDirection.endToStart){
@@ -92,20 +95,21 @@ class MoneyList extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     ListTile(
-                        leading: Icon(Icons.payment,
+                        leading: Icon(FontAwesomeIcons.rupeeSign,
                           color: Colors.white,
-                          size: 50,
+                          size: 40,
                         ),
                         title:Text('$_money',
                         style: TextStyle(
                           color: Colors.white,
+                          fontWeight: FontWeight.w300,
                           fontSize: 70
                           ),
                         ),
                         trailing: (index==money.length-1)?
                         InkWell(
                           onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>MoneyFormPage(clientId: clientId,data: money[index]))),
-                          child: Icon(Icons.edit,
+                          child: Icon(FontAwesomeIcons.edit,
                             size: 25,
                             color: Colors.white,
                           )
@@ -122,6 +126,7 @@ class MoneyList extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.white,
                           wordSpacing: 12,
+                          fontWeight: FontWeight.w300,
                           letterSpacing: 1
                         ),
                       ),
@@ -129,6 +134,7 @@ class MoneyList extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
+                          fontWeight: FontWeight.w800,
                           wordSpacing: 12,
                           letterSpacing: 1
                         ),
@@ -152,8 +158,8 @@ class MoneyList extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Icon(Icons.sentiment_dissatisfied,size: 140,color: Colors.white24,),
-          Text("Payments not Found",style: TextStyle(color: Colors.white24,fontSize: 20),)
+          Icon(Icons.sentiment_neutral,size: 34,color: Colors.white24,),
+          Text("No payments",style: TextStyle(color: Colors.white24,fontSize: 14),)
         ],
       );
   }

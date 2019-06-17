@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Client{
 
   final String id ;
+  final String name;
   final String firstname;
   final String lastname;
   final String adhar;
@@ -13,7 +14,7 @@ class Client{
   final String dob;
   final String totalPayment;
 
-  Client({this.id, this.firstname, this.lastname, this.adhar, this.session,this.joindate,this.mobile,this.expiry,this.dob,this.totalPayment});
+  Client({this.id, this.name, this.firstname, this.lastname, this.adhar, this.session,this.joindate,this.mobile,this.expiry,this.dob,this.totalPayment});
 
   factory Client.fromFirestore(DocumentSnapshot doc){
     Map data =doc.data;
@@ -22,6 +23,7 @@ class Client{
       id:doc.documentID,
       firstname: data['firstname'] ?? '',
       lastname: data['lastname'] ?? '',
+      name: data['name']?? '',
       adhar: data['adhar'] ?? '',
       session: data['session'] ?? '',
       joindate: data['joindate'] ?? '',

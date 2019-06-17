@@ -8,6 +8,9 @@ import 'package:provider/provider.dart';
 //service
 import 'package:ppscgym/model.dart';
 
+//Icon
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 class ClientList extends StatelessWidget {
   
   @override
@@ -31,10 +34,7 @@ class ClientList extends StatelessWidget {
               itemCount: client.length,
               itemBuilder: (contex,int index) {
                 String _id=client[index].id;
-                
-                String _firstname=client[index].firstname;
-                String _lastname=client[index].lastname;
-                String name = _firstname.toUpperCase()+' '+_lastname.toUpperCase();
+                String name = client[index].name;
                 String expiry=client[index].expiry;
 
                 bool normal=true;
@@ -78,7 +78,7 @@ class ClientList extends StatelessWidget {
                         leading: Container(
                           padding: EdgeInsets.only(right: 12.0),
                           decoration: BoxDecoration(border: Border(right: BorderSide(width: 1.0, color: Colors.white24))),
-                          child: Icon(Icons.perm_identity, color: Colors.white),
+                          child: Icon(FontAwesomeIcons.userAlt, color: Colors.white),
                         ),
                         title:Text("$name",
                           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -106,8 +106,8 @@ class ClientList extends StatelessWidget {
           child:Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Icon(Icons.sentiment_dissatisfied,size: 140,color: Colors.white24,),
-              Text("Data Not Found",style: TextStyle(color: Colors.white24,fontSize: 20),)
+              Icon(Icons.sentiment_neutral,size: 34,color: Colors.white24,),
+              Text("No clients",style: TextStyle(color: Colors.white24,fontSize: 14),)
             ],
           )
         );

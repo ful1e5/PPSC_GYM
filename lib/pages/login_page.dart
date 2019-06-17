@@ -1,6 +1,9 @@
 //flutter
 import 'package:flutter/material.dart';
 
+//Icon
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 //service
 import 'package:ppscgym/auth.dart';
 
@@ -15,16 +18,36 @@ class LoginPage extends StatelessWidget {
           backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
           elevation: 0,
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              RaisedButton(
-                child: Text('SignIn With Google'),
-                onPressed: () => authSercice.googleSignIn(),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Center(
+              child: Icon(
+                FontAwesomeIcons.dumbbell,
+                size: 100,
+                color: Colors.white,
               ),
-            ],
-          ),
+            ),
+            Divider(height: 300,color: Colors.transparent,),
+            Card(
+              elevation: 8.0,
+              margin:EdgeInsets.symmetric(horizontal: 56.0),
+              child: Row(
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(FontAwesomeIcons.google),
+                    onPressed: () => authSercice.googleSignIn(),
+                  ),
+                  Text("CONNECT WITH GOOGLE",
+                  style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700),
+                  textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            )
+          
+          ],
         )
       );
   }

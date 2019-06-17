@@ -30,20 +30,24 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             Divider(height: 300,color: Colors.transparent,),
-            Card(
-              elevation: 8.0,
-              margin:EdgeInsets.symmetric(horizontal: 56.0),
-              child: Row(
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(FontAwesomeIcons.google),
-                    onPressed: () => authSercice.googleSignIn(),
+            InkWell(
+              onTap: () => authSercice.googleSignIn(),
+              child: Card(
+                elevation: 8.0,
+                margin:EdgeInsets.symmetric(horizontal: 56.0),
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  child: Row(
+                    children: <Widget>[
+                      Icon(FontAwesomeIcons.google),
+                      Spacer(),
+                      Text("CONNECT WITH GOOGLE",
+                      style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700),
+                      textAlign: TextAlign.center,
+                      )
+                    ],
                   ),
-                  Text("CONNECT WITH GOOGLE",
-                  style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700),
-                  textAlign: TextAlign.center,
-                  )
-                ],
+                ),
               ),
             )
           

@@ -33,7 +33,7 @@ class ClientList extends StatelessWidget {
               shrinkWrap: true,
               itemCount: client.length,
               itemBuilder: (contex,int index) {
-                String _id=client[index].id;
+                String _id=client[index].adhar;
                 String name = client[index].name;
                 String expiry=client[index].expiry;
 

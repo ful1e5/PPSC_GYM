@@ -27,8 +27,7 @@ class DatabaseService{
 
   /// Write data 
   Future<void> createClient(FirebaseUser user,String adhar,String fname,String lname,String session,String mob,DateTime joindate,DateTime dob) {
-    addStatus(adhar, user, "Initiate");
-    return _db.collection('user').document(user.uid).collection('clients').document(adhar).setData({
+    return _db.collection('user').document(user.uid).collection('clients').document().setData({
       'firstname': fname,
       'lastname' : lname,
       'name'     : fname.toUpperCase()+' '+lname.toUpperCase(),
@@ -41,8 +40,8 @@ class DatabaseService{
   }
 
   /// Update data 
-  Future<void> updateClient(FirebaseUser user,String adhar,String fname,String lname,String session,String mob,DateTime joindate,DateTime dob) {
-    return _db.collection('user').document(user.uid).collection('clients').document(adhar).setData({
+  Future<void> updateClient(FirebaseUser user,String adhar,String id,String fname,String lname,String session,String mob,DateTime joindate,DateTime dob) {
+    return _db.collection('user').document(user.uid).collection('clients').document(id).setData({
       'firstname': fname,
       'lastname' : lname,
       'name'     : fname.toUpperCase()+' '+lname.toUpperCase(),

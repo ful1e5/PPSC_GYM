@@ -100,10 +100,6 @@ class ClientFormPage extends StatelessWidget {
             _formKey.currentState.save();
             db.createClient(user,adhar,firstname,lastname,sessionValue,mobile,joindate,dob);
             Navigator.pop(context);
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MoneyFormPage(clientId: adhar)),
-            );
           } 
         },
       )
@@ -115,7 +111,7 @@ class ClientFormPage extends StatelessWidget {
         onPressed: (){
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();
-            db.updateClient(user,adhar,firstname,lastname,sessionValue,mobile,joindate,dob);
+            db.updateClient(user,data.id,adhar,firstname,lastname,sessionValue,mobile,joindate,dob);
             Navigator.pop(context);
           } 
         },

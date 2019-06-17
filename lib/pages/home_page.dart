@@ -163,8 +163,10 @@ class SearchClient extends SearchDelegate<Client>{
                 ),
                 subtitle: Row(
                   children: <Widget>[
-                    Icon(Icons.linear_scale, color: Colors.yellowAccent),
-                    Text(n.adhar, style: TextStyle(color: Colors.white))
+                    (n.session=='Morning')?
+                      Icon(FontAwesomeIcons.sun, color: Colors.yellowAccent,size: 21,)
+                      :Icon(FontAwesomeIcons.moon,color: Colors.white,size: 21),
+                      Text('   '+n.session, style: TextStyle(color: Colors.white,fontSize: 16))
                   ],
                 ),
                 trailing:Icon(

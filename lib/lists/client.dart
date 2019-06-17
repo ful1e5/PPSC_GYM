@@ -33,7 +33,7 @@ class ClientList extends StatelessWidget {
               shrinkWrap: true,
               itemCount: client.length,
               itemBuilder: (contex,int index) {
-                String _id=client[index].adhar;
+                String _session=client[index].session;
                 String name = client[index].name;
                 String expiry=client[index].expiry;
 
@@ -84,9 +84,12 @@ class ClientList extends StatelessWidget {
                           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                         subtitle: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Icon(Icons.linear_scale, color: Colors.yellowAccent),
-                            Text("$_id", style: TextStyle(color: Colors.white))
+                            (_session=='Morning')?
+                            Icon(FontAwesomeIcons.sun, color: Colors.yellowAccent,size: 21,)
+                            :Icon(FontAwesomeIcons.moon,color: Colors.white,size: 21),
+                            Text("   $_session", style: TextStyle(color: Colors.white,fontSize: 16))
                           ],
                         ),
                         trailing:Icon(

@@ -103,9 +103,9 @@ class ClientDetail extends StatelessWidget {
                       children: <Widget>[
                       
                           buildListTile("Adhar ID",adhar,FontAwesomeIcons.idCard),
-                          buildListTile("Date Of Birth",DateFormat("dd/MM/yyyy").format(dob).toString(),Icons.date_range),
-                          buildListTile("Join Date", DateFormat("dd/MM/yyyy").format(joinDate).toString(), Icons.transit_enterexit),
-                          buildListTile("Session", sessoin, Icons.av_timer),
+                          buildListTile("Date Of Birth",DateFormat("dd/MM/yyyy").format(dob).toString(),FontAwesomeIcons.birthdayCake),
+                          buildListTile("Join Date", DateFormat("dd/MM/yyyy").format(joinDate).toString(), FontAwesomeIcons.userCheck),
+                          buildListTile("Session", sessoin, FontAwesomeIcons.userClock),
                           buildListTile("Contact", mobile,FontAwesomeIcons.mobile),
                           
                       
@@ -247,9 +247,9 @@ class Payment extends StatelessWidget {
               )
             )
           ),
-          buildListTile("Total Payment", payment.total,Icons.payment),
-          buildListTile("Last Operation On", payment.lastPayment.substring(0,19), Icons.access_time),
-          buildListTile("Operation", payment.operation,Icons.call_to_action),
+          buildListTile("Total Payment", payment.total,FontAwesomeIcons.moneyCheckAlt),
+          buildListTile("Last Operation On", payment.lastPayment.substring(0,19), FontAwesomeIcons.solidClock),
+          buildListTile("Operation", payment.operation,FontAwesomeIcons.cogs),
         ],
       );
     }

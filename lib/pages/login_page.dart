@@ -30,11 +30,11 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             Divider(height: 300,color: Colors.transparent,),
-            InkWell(
-              onTap: () => authSercice.googleSignIn(),
-              child: Card(
-                elevation: 8.0,
-                margin:EdgeInsets.symmetric(horizontal: 56.0),
+            Card(
+              elevation: 8.0,
+              margin:EdgeInsets.symmetric(horizontal: 56.0),
+              child: InkWell(
+                onTap: () => authSercice.googleSignIn(),
                 child: Container(
                   padding: EdgeInsets.all(20),
                   child: Row(

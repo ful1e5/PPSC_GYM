@@ -120,11 +120,12 @@ class ClientDetail extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(35)
                                 ),
+                                margin: EdgeInsets.symmetric(horizontal: 60),
                                 child:Padding(
                                   padding: EdgeInsets.all(6),
                                   child: IconButton(
                                     tooltip: "Delete Client",
-                                    icon: Icon(Icons.delete,color: Colors.white),
+                                    icon: Icon(FontAwesomeIcons.userMinus,color: Colors.white),
                                     iconSize: 30,
                                     onPressed: (){
                                       Navigator.pop(context);

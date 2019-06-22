@@ -109,7 +109,7 @@ class ClientList extends StatelessWidget {
           child:Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Icon(FontAwesomeIcons.flushed,size: 34,color: Colors.white24,),
+              Icon(FontAwesomeIcons.solidMehBlank,size: 34,color: Colors.white24,),
               Text("\nNo clients",style: TextStyle(color: Colors.white24,fontSize: 19),)
             ],
           )

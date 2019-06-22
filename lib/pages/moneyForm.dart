@@ -55,7 +55,7 @@ class MoneyFormPage extends StatelessWidget {
             padding: EdgeInsets.only(top: 30),
             child: Center(child: Text(
               (data==null)?
-              'NEW PAYMENT '
+              'ADD PAYMENT '
               :'EDIT PAYMENT',
               style: TextStyle(
                 fontSize: 50,
@@ -143,9 +143,10 @@ class MoneyFormPage extends StatelessWidget {
       ],
       maxLength: 4,
       decoration: InputDecoration(
+        prefixIcon: Icon(FontAwesomeIcons.rupeeSign,color: Color.fromRGBO(58, 66, 86, 1.0)),
         border: OutlineInputBorder(),
         hintText: 'XXXX',
-        labelText: 'Money ',
+        labelText: 'Rupee ',
       ),
 
     );
@@ -166,6 +167,7 @@ class MoneyFormPage extends StatelessWidget {
       format: DateFormat("dd/MM/yyyy"),
       editable: false,
       decoration: InputDecoration(
+        prefixIcon: Icon(FontAwesomeIcons.calendarDay,color: Colors.blue),
         border: OutlineInputBorder(),
         labelText: 'From Date',
         hasFloatingPlaceholder: true
@@ -188,6 +190,7 @@ class MoneyFormPage extends StatelessWidget {
       format: DateFormat("dd/MM/yyyy"),
       editable: false,
       decoration: InputDecoration(
+        prefixIcon: Icon(FontAwesomeIcons.solidCalendarTimes,color: Colors.redAccent),
         border: OutlineInputBorder(),
         labelText: 'Expire Date',
         hasFloatingPlaceholder: true

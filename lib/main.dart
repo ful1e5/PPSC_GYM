@@ -60,13 +60,5 @@ class RootScreen extends StatelessWidget {
       //Loging Page 
       return LoginPage();
     }
-    
-    // RaisedButton(
-    //   child: Text('AddData'),
-    //   onPressed: () => db.createClient(user),
-    // ),
-    // // RaisedButton(
-    // //   child: Text('UpdateData'),
-    // //   onPressed: () => db.updateClient(user),
   }
 }

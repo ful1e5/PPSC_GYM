@@ -13,9 +13,6 @@ import 'package:provider/provider.dart';
 import 'package:ppscgym/db.dart';
 import 'package:ppscgym/model.dart';
 
-//pages
-import 'package:ppscgym/pages/moneyForm.dart';
-
 //Formator
 import 'package:ppscgym/formator/inputFormator.dart';
 
@@ -51,25 +48,24 @@ class ClientFormPage extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(160.0),
-        child: AppBar(
-          elevation: 0,
-          flexibleSpace: Padding(
-            padding: EdgeInsets.only(top: 30),
-            child: Center(child: Text(
-              (data==null)?
-              'NEW'
-              :'UPDATE INFO',
-              style: TextStyle(
-                fontSize: 50,
-                color: Colors.white),
-                )
+      body:NestedScrollView(
+        headerSliverBuilder: (BuildContext context,bool innerBoxIsScrolled){
+          return <Widget>[
+            SliverAppBar(
+              expandedHeight: 120,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                centerTitle: true,
+                title: Text((data==null)?'ADD INFO':'EDIT INFO',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25.0,
+                  )),
+              ),
             )
-          ),
-        ),
-      ),
-      body: buildForm(<Widget>[
+          ];
+        },
+        body:  buildForm(<Widget>[
           adharField(),
           Divider(height: 40,),
           firstNameField(),
@@ -87,8 +83,7 @@ class ClientFormPage extends StatelessWidget {
         ],
         _formKey
         ),
-          
-      
+      ),
     
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: 
@@ -160,6 +155,7 @@ class ClientFormPage extends StatelessWidget {
         LengthLimitingTextInputFormatter(14),
       ],
       decoration: InputDecoration(
+        prefixIcon: Icon(FontAwesomeIcons.idCard,color: Color.fromRGBO(58, 66, 86, 1.0)),
         border: OutlineInputBorder(),
         hintText: 'XXXX XXXX XXXX',
         labelText: 'Adhar Number ',
@@ -185,6 +181,7 @@ class ClientFormPage extends StatelessWidget {
       ],
       maxLength: 10,
       decoration: InputDecoration(
+        prefixIcon: Icon(FontAwesomeIcons.userAlt,color: Color.fromRGBO(58, 66, 86, 1.0)),
         border: OutlineInputBorder(),
         hintText: 'John',
         labelText: 'First Name',
@@ -208,6 +205,7 @@ class ClientFormPage extends StatelessWidget {
       ],
       maxLength: 10,
       decoration: InputDecoration(
+        prefixIcon: Icon(FontAwesomeIcons.users,color: Color.fromRGBO(58, 66, 86, 1.0)),
         border: OutlineInputBorder(),
         hintText: 'Wrick',
         labelText: 'Last Name',
@@ -231,6 +229,7 @@ class ClientFormPage extends StatelessWidget {
       format: DateFormat("dd/MM/yyyy"),
       editable: false,
       decoration: InputDecoration(
+        prefixIcon: Icon(FontAwesomeIcons.birthdayCake,color: Color.fromRGBO(58, 66, 86, 1.0)),
         border: OutlineInputBorder(),
         labelText: 'Date Of Birth',
         hasFloatingPlaceholder: true
@@ -261,6 +260,7 @@ class ClientFormPage extends StatelessWidget {
         LengthLimitingTextInputFormatter(11),
       ],
       decoration: InputDecoration(
+        prefixIcon: Icon(FontAwesomeIcons.mobile,color: Color.fromRGBO(58, 66, 86, 1.0)),
         border: OutlineInputBorder(),
         hintText: 'XXXXX XXXXX',
         labelText: 'Contact Number',
@@ -287,6 +287,7 @@ class ClientFormPage extends StatelessWidget {
           children: <Widget>[
             InputDecorator(
               decoration: const InputDecoration(
+                prefixIcon: Icon(FontAwesomeIcons.userClock,color: Color.fromRGBO(58, 66, 86, 1.0)),
                 border: OutlineInputBorder(),
                 contentPadding: EdgeInsets.all(8),
               ),
@@ -374,6 +375,7 @@ class ClientFormPage extends StatelessWidget {
       format: DateFormat("dd/MM/yyyy"),
       editable: false,
       decoration: InputDecoration(
+        prefixIcon: Icon(FontAwesomeIcons.userCheck,color: Color.fromRGBO(58, 66, 86, 1.0)),
         border: OutlineInputBorder(),
         labelText: 'Join Date',
         hasFloatingPlaceholder: true

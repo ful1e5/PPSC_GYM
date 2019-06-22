@@ -114,7 +114,7 @@ class MoneyList extends StatelessWidget {
                             color: Colors.white,
                           )
                         ):Icon(
-                          Icons.edit_attributes,
+                          FontAwesomeIcons.getPocket,
                           size: 25,
                           color: Colors.white,
                           ),
@@ -158,7 +158,7 @@ class MoneyList extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Icon(FontAwesomeIcons.flushed,size: 34,color: Colors.white24,),
+          Icon(FontAwesomeIcons.solidMehBlank,size: 34,color: Colors.white24,),
           Text("\nNo payments",style: TextStyle(color: Colors.white24,fontSize: 19),)
         ],
       );

@@ -324,6 +324,7 @@ class ClientFormPage extends StatelessWidget {
           children: <Widget>[
             InputDecorator(
               decoration: const InputDecoration(
+                prefixIcon: Icon(FontAwesomeIcons.userClock,color: Color.fromRGBO(58, 66, 86, 1.0)),
                 border: OutlineInputBorder(),
                 contentPadding: EdgeInsets.all(8),
               ),

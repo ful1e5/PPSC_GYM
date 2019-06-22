@@ -13,44 +13,53 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
-        appBar: AppBar(
-          backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
-          elevation: 0,
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        backgroundColor: Colors.black,
+        body: Stack(
           children: <Widget>[
-            Center(
-              child: Icon(
-                FontAwesomeIcons.dumbbell,
-                size: 100,
-                color: Colors.white,
-              ),
-            ),
-            Divider(height: 300,color: Colors.transparent,),
-            Card(
-              elevation: 8.0,
-              margin:EdgeInsets.symmetric(horizontal: 56.0),
-              child: InkWell(
-                onTap: () => authSercice.googleSignIn(),
-                child: Container(
-                  padding: EdgeInsets.all(20),
-                  child: Row(
-                    children: <Widget>[
-                      Icon(FontAwesomeIcons.google),
-                      Spacer(),
-                      Text("CONNECT WITH GOOGLE",
-                      style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700),
-                      textAlign: TextAlign.center,
-                      )
-                    ],
-                  ),
+            Positioned(
+              top: 0,
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: FadeInImage.assetNetwork(
+                  placeholder: 'assets/images/background.jpeg',
+                  image: 'https://source.unsplash.com/sHfo3WOgGTU',
+                  fit: BoxFit.cover,
                 ),
-              ),
-            )
-          
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Divider(height: 50,color: Colors.transparent,),
+                Center(
+                  child: Image.asset(
+                  'assets/icon/login_icon.png'
+                  )
+                ),
+                Divider(height: 150,color: Colors.transparent,),
+                Card(
+                  elevation: 8.0,
+                  margin:EdgeInsets.symmetric(horizontal: 56.0),
+                  child: InkWell(
+                    onTap: () => authSercice.googleSignIn(),
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(FontAwesomeIcons.google),
+                          Spacer(),
+                          Text("CONNECT WITH GOOGLE",
+                          style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700),
+                          textAlign: TextAlign.center,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              
+              ],
+            ),
           ],
         )
       );

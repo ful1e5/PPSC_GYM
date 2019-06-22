@@ -32,8 +32,6 @@ class MyApp extends StatelessWidget {
         theme :ThemeData(
           primaryColor: Color.fromRGBO(58, 66, 86, 1.0),
         ),
-        //TODO: Remove Banner 👇
-        //debugShowCheckedModeBanner: false,
         home:RootScreen(),
         
       ), 

@@ -15,47 +15,18 @@
       },
       "oauth_client": [
         {
+          "client_id": "492889401918-thnegaj60avi1drb11eeinq4p0jko4ms.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kaiz.ppscgym",
+            "certificate_hash": "26fb5b16cf8161a35eac4e69fd5560296bb07102"
+          }
+        },
+        {
           "client_id": "492889401918-aq2ef6vprr1i5jnf414kalnf6kobj1m3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.kaiz.ppscgym",
-            "certificate_hash": "709c6585ea048d6c8b9627ba69306f5afdbffd83"
-          }
-        },
-        {
-          "client_id": "492889401918-ogeoet9c9ooqe09fj7rmrmg9ce3ud986.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCYYSEJ9carkJ2VjBJSv3tJeaZrBYzucBU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "492889401918-cracrhgdppjuqqbvm6r83s4qd2739l7t.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:492889401918:android:6e346ccdc4702026",
-        "android_client_info": {
-          "package_name": "com.kaiz.ppscgym.debug"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "492889401918-d6hdlltd52qs5pbl4uvh3m12to17tr0j.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.kaiz.ppscgym.debug",
             "certificate_hash": "709c6585ea048d6c8b9627ba69306f5afdbffd83"
           }
         },

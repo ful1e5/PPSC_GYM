@@ -55,7 +55,7 @@ class DatabaseService{
 
   /// Delete CLient by Id
   Future<void> deleteClient(String clientId,FirebaseUser user) {
-    
+    deleteAllMoney(clientId, user);
     return _db.collection('user').document(user.uid).collection('clients').document(clientId).delete().catchError((error){
       return error;
     });
@@ -98,6 +98,18 @@ class DatabaseService{
       return error;
     });
   }
+  /// Delete All Money in Client
+  Future<void> deleteAllMoney(String clientId,FirebaseUser user) {
+    addStatus(clientId, user, "Payment Entry Deleted");
+    return _db.collection('user').document(user.uid).collection('clients').document(clientId).collection('money').getDocuments().then((snapshot) {
+      for (DocumentSnapshot ds in snapshot.documents){
+        ds.reference.delete();
+        }
+      }).catchError((error){
+      return error;
+    });
+  }
+
 
   //For Updating Status
   Future<void> addStatus(String clientId,FirebaseUser user,String operation) {

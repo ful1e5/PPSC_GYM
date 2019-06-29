@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "492889401918-thnegaj60avi1drb11eeinq4p0jko4ms.apps.googleusercontent.com",
+          "client_id": "492889401918-8q1fvpf6iqopqhomtgkr4jjtf6kqbg7h.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.kaiz.ppscgym",
-            "certificate_hash": "26fb5b16cf8161a35eac4e69fd5560296bb07102"
+            "certificate_hash": "62b987df8ad137ed4366eb03ad02595eed6440d0"
           }
         },
         {

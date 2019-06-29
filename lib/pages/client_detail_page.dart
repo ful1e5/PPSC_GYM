@@ -129,7 +129,7 @@ class ClientDetail extends StatelessWidget {
                                     iconSize: 30,
                                     onPressed: (){
                                       Navigator.pop(context);
-                                      Future.delayed(const Duration(milliseconds: 100), () {
+                                      Future.delayed(const Duration(milliseconds: 500), () {
                                         db.deleteClient(clientId, user);  
                                       });
                                     },

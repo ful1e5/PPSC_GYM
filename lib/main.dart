@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:ppscgym/pages/adduser.dart';
+import 'package:ppscgym/pages/addclient.dart';
 
 void main() {
   runApp(MyApp());

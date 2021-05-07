@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ppscgym/widgets/textformfield.dart';
+import 'package:flutter/services.dart';
+
+import 'package:ppscgym/widgets.dart';
+import 'package:ppscgym/utils/validators.dart';
+import 'package:ppscgym/utils/date.dart';
 
 class AddUserPage extends StatefulWidget {
   AddUserPage({Key? key}) : super(key: key);
@@ -51,31 +55,44 @@ class _AddUserPageState extends State<AddUserPage> {
                 padding: EdgeInsets.all(25.0),
                 child: Column(
                   children: <Widget>[
+                    //
+                    // Client ID
+                    //
+
                     TextFormFieldWidget(
                       labelText: "Adhar ID",
+                      formatters: [
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                      ],
                       maxLength: 12,
                       keyboardType: TextInputType.number,
                       validator: (value) {
-                        if (value == null ||
-                            value.isEmpty ||
-                            value.length != 12) {
-                          return 'Invalid ID';
-                        }
-                        return null;
+                        return validateID(value);
                       },
                     ),
                     SizedBox(height: 20),
+
+                    //
+                    // Client Name
+                    //
+
                     TextFormFieldWidget(
                       labelText: "Name",
+                      formatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'^[a-zA-Z\s]*$'))
+                      ],
                       keyboardType: TextInputType.text,
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'This field is required!';
-                        }
-                        return null;
+                        return checkNotEmpty(value: value);
                       },
                     ),
                     SizedBox(height: 20),
+
+                    //
+                    // Date Of Birth
+                    //
+
                     TextFormFieldWidget(
                         controller: _dobCtrl,
                         labelText: "Date Of Birth",
@@ -83,26 +100,17 @@ class _AddUserPageState extends State<AddUserPage> {
                         onTap: () async {
                           // Below line stops keyboard from appearing
                           FocusScope.of(context).requestFocus(new FocusNode());
-
-                          final DateTime? date = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1975),
-                              lastDate: DateTime(2024));
-
+                          DateTime? date = await pickDate(context);
                           if (date != null)
                             setState(
                               () {
-                                _dobCtrl.text =
-                                    "${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year.toString()}";
+                                _dobCtrl.text = formateDate(date);
                               },
                             );
                         },
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'This field is required!';
-                          }
-                          return null;
+                          return checkNotEmpty(
+                              value: value, errorMessage: 'Pick a valid DOB');
                         })
                   ],
                 ))));

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:ppscgym/pages/adduser.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -12,27 +14,49 @@ class MyApp extends StatelessWidget {
         title: 'PPSC GYM',
         theme: ThemeData(primaryColor: Colors.amber),
         darkTheme: ThemeData.dark(),
-        home: MyHomePage(),
+        home: HomePage(),
         debugShowCheckedModeBanner: false);
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text("Home"),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        title: const Text('Home'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.more_vert),
+            tooltip: 'Menu',
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('This is a snackbar')));
+            },
+          ),
+        ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Hello World',
-            ),
-          ],
-        ),
+      body: Container(
+          color: Colors.black, child: Center(child: const Text("Hello"))),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddUserPage()),
+          );
+        },
+        child: const Icon(Icons.add_rounded),
+        backgroundColor: Colors.green,
       ),
     );
   }

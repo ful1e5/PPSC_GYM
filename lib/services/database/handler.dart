@@ -18,7 +18,7 @@ class DatabaseHandler {
   }
 
   // Init User
-  Future<String?> insertClients(List<Cleint> clients) async {
+  Future<String?> insertClients(List<Client> clients) async {
     final Database db = await initializeDB();
     for (var client in clients) {
       try {
@@ -52,9 +52,9 @@ class DatabaseHandler {
   }
 
   // Retrieve clients
-  Future<List<Cleint>> retrieveClients() async {
+  Future<List<Client>> retrieveClients() async {
     final Database db = await initializeDB();
     final List<Map<String, Object?>> queryResult = await db.query('clients');
-    return queryResult.map((e) => Cleint.fromMap(e)).toList();
+    return queryResult.map((e) => Client.fromMap(e)).toList();
   }
 }

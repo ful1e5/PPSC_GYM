@@ -1,11 +1,11 @@
-class Cleint {
+class Client {
   final int id;
   final String name;
   final String dob;
   final String session;
   final int mobile;
 
-  Cleint({
+  Client({
     required this.id,
     required this.name,
     required this.dob,
@@ -13,7 +13,7 @@ class Cleint {
     required this.mobile,
   });
 
-  Cleint.fromMap(Map<String, dynamic> res)
+  Client.fromMap(Map<String, dynamic> res)
       : id = res["id"],
         name = res["name"],
         dob = res["dob"],

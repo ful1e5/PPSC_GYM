@@ -8,7 +8,9 @@ class TextFormFieldWidget extends StatelessWidget {
   final int? maxLength;
   final TextEditingController? controller;
   final String? initialValue;
+  final bool enableInteractiveSelection;
   final FormFieldValidator<String>? validator;
+  final FormFieldSetter<String>? onSaved;
   final GestureTapCallback? onTap;
 
   const TextFormFieldWidget(
@@ -19,7 +21,9 @@ class TextFormFieldWidget extends StatelessWidget {
       @required this.labelText,
       this.controller,
       this.initialValue,
+      this.enableInteractiveSelection = true,
       this.validator,
+      this.onSaved,
       this.onTap})
       : super(key: key);
 
@@ -31,6 +35,7 @@ class TextFormFieldWidget extends StatelessWidget {
         maxLength: maxLength,
         controller: controller,
         initialValue: initialValue,
+        enableInteractiveSelection: enableInteractiveSelection,
         decoration: InputDecoration(
           labelText: labelText,
           enabledBorder: OutlineInputBorder(
@@ -52,6 +57,7 @@ class TextFormFieldWidget extends StatelessWidget {
         ),
         // The validator receives the text that the user has entered.
         validator: validator,
+        onSaved: onSaved,
         onTap: onTap));
   }
 }

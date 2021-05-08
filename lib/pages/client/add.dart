@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:ppscgym/widgets.dart';
-import 'package:ppscgym/utils.dart';
-
 import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
+import 'package:ppscgym/widgets.dart';
+import 'package:ppscgym/utils.dart';
 
 class AddUserPage extends StatefulWidget {
   AddUserPage({Key? key}) : super(key: key);
@@ -32,7 +31,7 @@ class _AddUserPageState extends State<AddUserPage> {
     super.dispose();
   }
 
-  Future<String?> insertClient(Cleint client) async {
+  Future<String?> insertClient(Client client) async {
     final DatabaseHandler handler = DatabaseHandler();
     return await handler.insertClients([client]);
   }
@@ -58,7 +57,7 @@ class _AddUserPageState extends State<AddUserPage> {
                       duration: Duration(milliseconds: 5),
                       content: Text('Processing Data')));
 
-                  final client = Cleint(
+                  final client = Client(
                     id: int.parse(_idCtrl.text),
                     name: _nameCtrl.text,
                     session: getSession(workoutSessionOptions),
@@ -73,7 +72,7 @@ class _AddUserPageState extends State<AddUserPage> {
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         backgroundColor: Colors.green,
-                        content: Text("Entry added for $num")));
+                        content: Text("Entry created")));
                     Navigator.pop(context);
                   }
                 }

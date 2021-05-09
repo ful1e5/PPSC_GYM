@@ -192,6 +192,7 @@ class _HomePageState extends State<HomePage> {
           onPressed: () {
             for (MapEntry e in selectedFlag.entries) {
               if (e.value) {
+                //TODO: Confirm box
                 handler.deleteClient(e.key);
               }
             }

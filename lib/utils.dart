@@ -45,5 +45,8 @@ String getSession(List<bool> sessionList) {
 }
 
 String capitalizeFirstofEach(String name) {
-  return name.split(" ").map((str) => toBeginningOfSentenceCase(str)).join(" ");
+  return name
+      .split(" ")
+      .map((str) => toBeginningOfSentenceCase(str.toLowerCase()))
+      .join(" "); //fIrst NAMe  => First Name
 }

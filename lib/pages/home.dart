@@ -120,16 +120,17 @@ class _HomePageState extends State<HomePage> {
       return ListView.builder(
         itemCount: snapshot.data?.length,
         itemBuilder: (BuildContext context, int index) {
-          selectedFlag[index] = selectedFlag[index] ?? false;
-          bool isSelected = selectedFlag[index] ?? false;
+          int id = snapshot.data![index].id;
+          selectedFlag[id] = selectedFlag[id] ?? false;
+          bool isSelected = selectedFlag[id] ?? false;
 
           return Card(
             color: Colors.transparent,
             margin: EdgeInsets.all(9),
             semanticContainer: true,
             child: ListTile(
-              onLongPress: () => onLongPress(isSelected, index),
-              onTap: () => onTap(isSelected, index),
+              onLongPress: () => onLongPress(isSelected, id),
+              onTap: () => onTap(isSelected, id),
               leading: _buildSelectIcon(isSelected),
               title: Text(snapshot.data![index].name,
                   style:
@@ -141,9 +142,9 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void onLongPress(bool isSelected, int index) {
+  void onLongPress(bool isSelected, int id) {
     setState(() {
-      selectedFlag[index] = !isSelected;
+      selectedFlag[id] = !isSelected;
       // If there will be any true in the selectionFlag then
       // selection Mode will be true
       isSelectionMode = selectedFlag.containsValue(true);
@@ -166,10 +167,10 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void onTap(bool isSelected, int index) {
+  void onTap(bool isSelected, int id) {
     if (isSelectionMode) {
       setState(() {
-        selectedFlag[index] = !isSelected;
+        selectedFlag[id] = !isSelected;
         isSelectionMode = selectedFlag.containsValue(true);
       });
     } else {
@@ -186,7 +187,15 @@ class _HomePageState extends State<HomePage> {
         IconButton(
           tooltip: "Delete",
           onPressed: () {
-            print("deleting");
+            for (MapEntry e in selectedFlag.entries) {
+              if (e.value) {
+                handler.deleteClient(e.key);
+              }
+            }
+            setState(() {
+              _refreshData(0);
+              _resetSelection();
+            });
           },
           icon: Icon(Icons.delete),
         ),

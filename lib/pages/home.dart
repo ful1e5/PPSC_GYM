@@ -1,14 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:ppscgym/pages/client/add.dart';
 
+import 'package:ppscgym/styles.dart';
+import 'package:ppscgym/pages/client/add.dart';
 import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
-
-// Styling
-final TextStyle textStyle = TextStyle(
-    fontSize: 16.0, color: Colors.white12, fontWeight: FontWeight.bold);
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -17,8 +13,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> {
   late DatabaseHandler handler;
   late Future<List<Client>> _future;
 
@@ -72,7 +67,7 @@ class _HomePageState extends State<HomePage>
                   return _buildLoader();
                 }
                 if (snapshot.hasError) {
-                  return Center(child: Text("Error !", style: textStyle));
+                  return Center(child: Text("Error !", style: slightBoldText));
                 }
                 if (snapshot.hasData) {
                   return _buildListView(snapshot);
@@ -103,7 +98,7 @@ class _HomePageState extends State<HomePage>
   }
 
   Widget _buildNoData() {
-    return Center(child: Text("No Records Found", style: textStyle));
+    return Center(child: Text("No Records Found", style: slightBoldText));
   }
 
   Widget _buildListView(AsyncSnapshot<List<Client>> snapshot) {
@@ -113,23 +108,23 @@ class _HomePageState extends State<HomePage>
       return ListView.builder(
         itemCount: snapshot.data?.length,
         itemBuilder: (BuildContext context, int index) {
-          return _buildItem(snapshot, index);
+          return _buildItem(snapshot.data![index].name);
         },
       );
     }
   }
 
-  Widget _buildItem(AsyncSnapshot<List<Client>> snapshot, int index) {
+  Widget _buildItem(String title) {
     return Card(
       color: Colors.transparent,
-      margin: EdgeInsets.all(10),
+      margin: EdgeInsets.all(9),
       semanticContainer: true,
       child: ListTile(
         leading: CircleAvatar(
-            radius: 25,
+            radius: 22.0,
             backgroundColor: Colors.white24,
-            child: const Icon(Icons.info, size: 35, color: Colors.white54)),
-        title: Text(snapshot.data![index].name,
+            child: const Icon(Icons.person, size: 25, color: Colors.white54)),
+        title: Text(title,
             style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
       ),
     );

@@ -73,7 +73,7 @@ class _AddUserPageState extends State<AddUserPage> {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         backgroundColor: Colors.green,
                         content: Text("Entry created")));
-                    Navigator.pop(context);
+                    Navigator.pop(context, "added");
                   }
                 }
               },

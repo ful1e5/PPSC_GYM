@@ -59,7 +59,7 @@ class _AddUserPageState extends State<AddUserPage> {
 
                   final client = Client(
                     id: int.parse(_idCtrl.text),
-                    name: _nameCtrl.text,
+                    name: capitalizeFirstofEach(_nameCtrl.text),
                     session: getSession(workoutSessionOptions),
                     dob: _dobCtrl.text,
                     mobile: int.parse(_mobileCtrl.text),

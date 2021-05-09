@@ -43,3 +43,7 @@ String getSession(List<bool> sessionList) {
     return "Evening";
   }
 }
+
+String capitalizeFirstofEach(String name) {
+  return name.split(" ").map((str) => toBeginningOfSentenceCase(str)).join(" ");
+}

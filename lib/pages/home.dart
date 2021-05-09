@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:ppscgym/styles.dart';
 import 'package:ppscgym/pages/client/add.dart';
@@ -121,6 +122,8 @@ class _HomePageState extends State<HomePage> {
         itemCount: snapshot.data?.length,
         itemBuilder: (BuildContext context, int index) {
           int id = snapshot.data![index].id;
+          String name = snapshot.data![index].name;
+
           selectedFlag[id] = selectedFlag[id] ?? false;
           bool isSelected = selectedFlag[id] ?? false;
 
@@ -131,8 +134,8 @@ class _HomePageState extends State<HomePage> {
             child: ListTile(
               onLongPress: () => onLongPress(isSelected, id),
               onTap: () => onTap(isSelected, id),
-              leading: _buildSelectIcon(isSelected),
-              title: Text(snapshot.data![index].name,
+              leading: _buildLeadingIcon(isSelected),
+              title: Text(name,
                   style:
                       TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
             ),
@@ -151,7 +154,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Widget _buildSelectIcon(bool isSelected) {
+  Widget _buildLeadingIcon(bool isSelected) {
     if (isSelectionMode) {
       return CircleAvatar(
           radius: 22.0,
@@ -174,7 +177,7 @@ class _HomePageState extends State<HomePage> {
         isSelectionMode = selectedFlag.containsValue(true);
       });
     } else {
-      // Open Detail Page
+      //TODO: Open Detail Page
     }
   }
 

@@ -71,10 +71,13 @@ class TextFormFieldWidget extends StatelessWidget {
 class ConfirmDialog extends StatefulWidget {
   final Widget info;
   final String confirmText;
+  final VoidCallback onConfirm;
+
   const ConfirmDialog({
     Key? key,
     required this.info,
     required this.confirmText,
+    required this.onConfirm,
   }) : super(key: key);
 
   @override
@@ -82,7 +85,13 @@ class ConfirmDialog extends StatefulWidget {
 }
 
 class _ConfirmDialogState extends State<ConfirmDialog> {
-  late bool iscConfirm = false;
+  late bool iscConfirm;
+
+  @override
+  void initState() {
+    super.initState();
+    iscConfirm = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,8 +101,8 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
             Radius.circular(20.0),
           ),
           side: BorderSide(
-            width: 2.5,
-            color: Colors.white54,
+            width: 1.3,
+            color: Colors.white70,
           ),
         ),
         backgroundColor: Colors.black,
@@ -120,16 +129,33 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
                                     iscConfirm = true;
                                   });
                                 } else {
-                                  iscConfirm = false;
+                                  setState(() {
+                                    iscConfirm = false;
+                                  });
                                 }
                               }))),
                   SizedBox(height: 20),
                   Expanded(
                       child: Align(
-                    alignment: Alignment.centerRight,
-                    child: ElevatedButton(
-                        child: Text(widget.confirmText), onPressed: () {}),
-                  )),
+                          alignment: Alignment.centerRight,
+                          child: OutlinedButton(
+                            onPressed: iscConfirm ? widget.onConfirm : null,
+                            style: ButtonStyle(
+                              backgroundColor: iscConfirm
+                                  ? MaterialStateProperty.all<Color>(Colors.red)
+                                  : null,
+                              foregroundColor: iscConfirm
+                                  ? MaterialStateProperty.all<Color>(
+                                      Colors.white)
+                                  : MaterialStateProperty.all<Color>(
+                                      Colors.white24),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(30.0))),
+                            ),
+                            child: Text(widget.confirmText),
+                          ))),
                 ],
               ),
             )));

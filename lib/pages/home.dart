@@ -192,10 +192,11 @@ class _HomePageState extends State<HomePage> {
           tooltip: "Delete",
           onPressed: () {
             selectedFlag.removeWhere((id, value) => value == false);
-
+            BuildContext dialogContext;
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
+                  dialogContext = context;
                   return ConfirmDialog(
                       confirmText: "delete",
                       info: RichText(text: TextSpan(text: "Test")),
@@ -203,14 +204,16 @@ class _HomePageState extends State<HomePage> {
                         for (MapEntry e in selectedFlag.entries) {
                           if (e.value) {
                             handler.deleteClient(e.key);
-                            setState(() {
-                              _refreshData(0);
-                              _resetSelection();
-                            });
                           }
                         }
+                        setState(() {
+                          _refreshData(0);
+                          _resetSelection();
+                        });
+                        Navigator.pop(dialogContext);
                       });
                 });
+            return;
           },
           icon: Icon(Icons.delete),
         ),

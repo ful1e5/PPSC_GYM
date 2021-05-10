@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import 'package:ppscgym/styles.dart';
+import 'package:ppscgym/widgets.dart';
 import 'package:ppscgym/pages/client/add.dart';
+
 import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
 
@@ -50,7 +51,7 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: Colors.black,
             centerTitle: true,
             title: const Text('Home'),
-            actions: _buildActions(),
+            actions: _buildActions(context),
           ),
           body: RefreshIndicator(
               backgroundColor: Colors.white,
@@ -181,7 +182,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  List<Widget> _buildActions() {
+  List<Widget> _buildActions(BuildContext context) {
     // The button will be visible when the selectionMode is enabled.
     if (isSelectionMode) {
       bool isFalseAvailable = selectedFlag
@@ -190,12 +191,20 @@ class _HomePageState extends State<HomePage> {
         IconButton(
           tooltip: "Delete",
           onPressed: () {
-            for (MapEntry e in selectedFlag.entries) {
-              if (e.value) {
-                //TODO: Confirm box
-                handler.deleteClient(e.key);
-              }
-            }
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return ConfirmDialog(
+                    confirmText: "delete",
+                    info: RichText(text: TextSpan(text: "Test")),
+                  );
+                });
+            // for (MapEntry e in selectedFlag.entries) {
+            //   if (e.value) {
+            //     //TODO: Confirm box
+            //     handler.deleteClient(e.key);
+            //   }
+            // }
             setState(() {
               _refreshData(0);
               _resetSelection();

@@ -198,8 +198,41 @@ class _HomePageState extends State<HomePage> {
                 builder: (BuildContext context) {
                   dialogContext = context;
                   return ConfirmDialog(
-                      confirmText: "delete",
-                      info: RichText(text: TextSpan(text: "Test")),
+                      confirmText: "Delete",
+                      info: RichText(
+                          text: TextSpan(
+                        text: "${selectedFlag.length} ",
+                        style: TextStyle(
+                            fontSize: 17.0, fontWeight: FontWeight.bold),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: (selectedFlag.length == 1)
+                                ? 'entry is '
+                                : 'entries are ',
+                            style: TextStyle(
+                                fontSize: 16.0,
+                                color: Colors.white70,
+                                fontWeight: FontWeight.normal),
+                          ),
+                          TextSpan(
+                            text: 'selected. Type ',
+                            style: TextStyle(
+                                fontSize: 16.0,
+                                color: Colors.white70,
+                                fontWeight: FontWeight.normal),
+                          ),
+                          TextSpan(
+                            text: 'confirm ',
+                          ),
+                          TextSpan(
+                            text: 'to proceed.',
+                            style: TextStyle(
+                                fontSize: 16.0,
+                                color: Colors.white70,
+                                fontWeight: FontWeight.normal),
+                          ),
+                        ],
+                      )),
                       onConfirm: () {
                         for (MapEntry e in selectedFlag.entries) {
                           if (e.value) {

@@ -43,6 +43,7 @@ class TextFormFieldWidget extends StatelessWidget {
         decoration: InputDecoration(
           labelText: labelText,
           hintText: hintText,
+          contentPadding: EdgeInsets.all(10.0),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(12.0)),
             borderSide: BorderSide(color: Colors.white24, width: 1),
@@ -117,6 +118,7 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
                     child: Align(
                         alignment: Alignment.centerLeft, child: widget.info),
                   ),
+                  SizedBox(height: 20),
                   Expanded(
                       child: Align(
                           alignment: Alignment.centerLeft,

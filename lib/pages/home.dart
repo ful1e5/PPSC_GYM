@@ -191,24 +191,26 @@ class _HomePageState extends State<HomePage> {
         IconButton(
           tooltip: "Delete",
           onPressed: () {
+            selectedFlag.removeWhere((id, value) => value == false);
+
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return ConfirmDialog(
-                    confirmText: "delete",
-                    info: RichText(text: TextSpan(text: "Test")),
-                  );
+                      confirmText: "delete",
+                      info: RichText(text: TextSpan(text: "Test")),
+                      onConfirm: () {
+                        for (MapEntry e in selectedFlag.entries) {
+                          if (e.value) {
+                            handler.deleteClient(e.key);
+                            setState(() {
+                              _refreshData(0);
+                              _resetSelection();
+                            });
+                          }
+                        }
+                      });
                 });
-            // for (MapEntry e in selectedFlag.entries) {
-            //   if (e.value) {
-            //     //TODO: Confirm box
-            //     handler.deleteClient(e.key);
-            //   }
-            // }
-            setState(() {
-              _refreshData(0);
-              _resetSelection();
-            });
           },
           icon: Icon(Icons.delete),
         ),

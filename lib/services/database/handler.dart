@@ -10,7 +10,7 @@ class DatabaseHandler {
       join(path, 'ppscgym.db'),
       onCreate: (database, version) async {
         await database.execute(
-          "CREATE TABLE clients(id INTEGER PRIMARY KEY, name TEXT NOT NULL,dob TEXT NOT NULL, session TEXT NOT NULL, mobile INTEGER UNIQUE NOT NULL)",
+          "CREATE TABLE clients(id INTEGER PRIMARY KEY, name TEXT NOT NULL,gender TEXT NOT NULL,dob TEXT NOT NULL, session TEXT NOT NULL, mobile INTEGER UNIQUE NOT NULL)",
         );
       },
       version: 1,

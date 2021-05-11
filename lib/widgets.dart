@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:ppscgym/styles.dart';
+
 class TextFormFieldWidget extends StatelessWidget {
   final List<TextInputFormatter>? formatters;
   final TextInputType? keyboardType;
@@ -67,6 +69,14 @@ class TextFormFieldWidget extends StatelessWidget {
         onTap: onTap,
         onChanged: onChanged));
   }
+}
+
+Widget loaderWidget() {
+  return Center(child: CircularProgressIndicator(color: Colors.white));
+}
+
+Widget centerMessageWidget(String message) {
+  return Center(child: Text(message, style: slightBoldText));
 }
 
 class ConfirmDialog extends StatefulWidget {

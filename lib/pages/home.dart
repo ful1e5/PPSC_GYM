@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-import 'package:ppscgym/styles.dart';
 import 'package:ppscgym/widgets.dart';
+
 import 'package:ppscgym/pages/client/add.dart';
+import 'package:ppscgym/pages/client/info.dart';
 
 import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
@@ -21,6 +22,8 @@ class _HomePageState extends State<HomePage> {
 
   late Map<int, bool> selectedFlag;
   late bool isSelectionMode;
+
+  final String nonFoundMessage = "No Records Found";
 
   @override
   void initState() {
@@ -51,7 +54,7 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: Colors.black,
             centerTitle: true,
             title: const Text('Home'),
-            actions: _buildActions(context),
+            actions: _buildActions(),
           ),
           body: RefreshIndicator(
               backgroundColor: Colors.white,
@@ -67,22 +70,21 @@ class _HomePageState extends State<HomePage> {
                   builder: (BuildContext context,
                       AsyncSnapshot<List<Client>> snapshot) {
                     if (snapshot.connectionState != ConnectionState.done) {
-                      return _buildLoader();
+                      return loaderWidget();
                     }
                     if (snapshot.hasError) {
-                      return Center(
-                          child: Text("Error !", style: slightBoldText));
+                      return centerMessageWidget("Error !");
                     }
                     if (snapshot.hasData) {
                       return _buildListView(snapshot);
                     }
-                    return _buildNoData();
+                    return centerMessageWidget(nonFoundMessage);
                   })),
           floatingActionButton: FloatingActionButton(
             onPressed: () async {
               final String? newClient = await Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AddUserPage()),
+                MaterialPageRoute(builder: (context) => AddClientPage()),
               );
 
               if (newClient == "added") {
@@ -107,30 +109,23 @@ class _HomePageState extends State<HomePage> {
         });
   }
 
-  Widget _buildLoader() {
-    return Center(child: CircularProgressIndicator(color: Colors.white));
-  }
-
-  Widget _buildNoData() {
-    return Center(child: Text("No Records Found", style: slightBoldText));
-  }
-
   Widget _buildListView(AsyncSnapshot<List<Client>> snapshot) {
     if (snapshot.data?.length == 0) {
-      return _buildNoData();
+      return centerMessageWidget(nonFoundMessage);
     } else {
       return ListView.builder(
         itemCount: snapshot.data?.length,
         itemBuilder: (BuildContext context, int index) {
           int id = snapshot.data![index].id;
           String name = snapshot.data![index].name;
+          String session = snapshot.data![index].session;
 
           selectedFlag[id] = selectedFlag[id] ?? false;
           bool isSelected = selectedFlag[id] ?? false;
 
           return Card(
             color: Colors.transparent,
-            margin: EdgeInsets.all(9),
+            margin: EdgeInsets.all(5),
             semanticContainer: true,
             child: ListTile(
               onLongPress: () => onLongPress(isSelected, id),
@@ -139,6 +134,7 @@ class _HomePageState extends State<HomePage> {
               title: Text(name,
                   style:
                       TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+              subtitle: Text(session, style: TextStyle(fontSize: 10.0)),
             ),
           );
         },
@@ -158,14 +154,14 @@ class _HomePageState extends State<HomePage> {
   Widget _buildLeadingIcon(bool isSelected) {
     if (isSelectionMode) {
       return CircleAvatar(
-          radius: 22.0,
+          radius: 30.0,
           backgroundColor: isSelected ? Colors.white : Colors.white24,
           child: isSelected
               ? const Icon(Icons.check, size: 25, color: Colors.black)
               : null);
     } else {
       return CircleAvatar(
-          radius: 22.0,
+          radius: 30.0,
           backgroundColor: Colors.white24,
           child: const Icon(Icons.person, size: 25, color: Colors.white54));
     }
@@ -178,11 +174,14 @@ class _HomePageState extends State<HomePage> {
         isSelectionMode = selectedFlag.containsValue(true);
       });
     } else {
-      //TODO: Open Detail Page
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ClientInfoPage(clientId: id)),
+      );
     }
   }
 
-  List<Widget> _buildActions(BuildContext context) {
+  List<Widget> _buildActions() {
     // The button will be visible when the selectionMode is enabled.
     if (isSelectionMode) {
       bool isFalseAvailable = selectedFlag

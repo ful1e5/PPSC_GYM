@@ -132,6 +132,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () => onTap(isSelected, id),
               leading: _buildLeadingIcon(isSelected),
               title: Text(name,
+                  overflow: TextOverflow.ellipsis,
                   style:
                       TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
               subtitle: Text(session, style: TextStyle(fontSize: 10.0)),

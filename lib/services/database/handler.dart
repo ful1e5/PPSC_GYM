@@ -57,4 +57,13 @@ class DatabaseHandler {
     final List<Map<String, Object?>> queryResult = await db.query('clients');
     return queryResult.map((e) => Client.fromMap(e)).toList();
   }
+
+  // Retrieve client
+
+  Future<Client> retrieveClient(int id) async {
+    final Database db = await initializeDB();
+    final List<Map<String, Object?>> result =
+        await db.query('clients', where: "id = ?", whereArgs: [id]);
+    return Client.fromMap(result[0]);
+  }
 }

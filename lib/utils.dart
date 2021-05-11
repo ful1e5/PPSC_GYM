@@ -36,11 +36,19 @@ bool is12YearOld(String birthDateString) {
   return adultDate.isBefore(today);
 }
 
-String getSession(List<bool> sessionList) {
+String getSessionString(List<bool> sessionList) {
   if (sessionList[0] == true) {
     return "Morning";
   } else {
     return "Evening";
+  }
+}
+
+String getGenderString(List<bool> genderList) {
+  if (genderList[0] == true) {
+    return "Male";
+  } else {
+    return "Female";
   }
 }
 

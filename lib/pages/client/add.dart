@@ -6,14 +6,14 @@ import 'package:ppscgym/services/database/models.dart';
 import 'package:ppscgym/widgets.dart';
 import 'package:ppscgym/utils.dart';
 
-class AddUserPage extends StatefulWidget {
-  AddUserPage({Key? key}) : super(key: key);
+class AddClientPage extends StatefulWidget {
+  AddClientPage({Key? key}) : super(key: key);
 
   @override
-  _AddUserPageState createState() => _AddUserPageState();
+  _AddClientPageState createState() => _AddClientPageState();
 }
 
-class _AddUserPageState extends State<AddUserPage> {
+class _AddClientPageState extends State<AddClientPage> {
   final _formKey = GlobalKey<FormState>();
 
   final List<bool> workoutSessionOptions = [true, false];

@@ -61,7 +61,7 @@ class _AddClientPageState extends State<AddClientPage> {
 
                   final client = Client(
                     id: int.parse(_idCtrl.text),
-                    name: capitalizeFirstofEach(_nameCtrl.text),
+                    name: formatName(_nameCtrl.text),
                     gender: getGenderString(genderOptions),
                     dob: _dobCtrl.text,
                     mobile: int.parse(_mobileCtrl.text),
@@ -108,6 +108,7 @@ class _AddClientPageState extends State<AddClientPage> {
                       isSelected: genderOptions,
                     ),
                     SizedBox(height: 40),
+
                     //
                     // Client Workout Session (default: Morning)
                     //
@@ -237,9 +238,9 @@ class _AddClientPageState extends State<AddClientPage> {
   void updateOptions(int index, List<bool> options) {
     for (int buttonIndex = 0; buttonIndex < options.length; buttonIndex++) {
       if (buttonIndex == index) {
-        workoutSessionOptions[buttonIndex] = true;
+        options[buttonIndex] = true;
       } else {
-        workoutSessionOptions[buttonIndex] = false;
+        options[buttonIndex] = false;
       }
     }
   }

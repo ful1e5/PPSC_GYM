@@ -52,9 +52,12 @@ String getGenderString(List<bool> genderList) {
   }
 }
 
-String capitalizeFirstofEach(String name) {
-  return name
+// " fIrst  nAMe   " => "First Name"
+String formatName(String name) {
+  final String formateName = name.replaceAll(RegExp('\\s+'), " ");
+  return formateName
       .split(" ")
       .map((str) => toBeginningOfSentenceCase(str.toLowerCase()))
-      .join(" "); //fIrst NAMe  => First Name
+      .join(" ")
+      .trim();
 }

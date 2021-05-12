@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.black,
               onRefresh: () async {
                 setState(() {
-                  _refreshData(2);
+                  _refreshData(1);
                 });
                 return;
               },
@@ -90,6 +90,7 @@ class _HomePageState extends State<HomePage> {
               if (newClient == "added") {
                 setState(() {
                   _refreshData(0);
+                  _resetSelection();
                 });
               }
             },
@@ -119,6 +120,7 @@ class _HomePageState extends State<HomePage> {
           int id = snapshot.data![index].id;
           String name = snapshot.data![index].name;
           String session = snapshot.data![index].session;
+          String gender = snapshot.data![index].gender;
 
           selectedFlag[id] = selectedFlag[id] ?? false;
           bool isSelected = selectedFlag[id] ?? false;
@@ -130,7 +132,7 @@ class _HomePageState extends State<HomePage> {
             child: ListTile(
               onLongPress: () => onLongPress(isSelected, id),
               onTap: () => onTap(isSelected, id),
-              leading: _buildLeadingIcon(isSelected),
+              leading: _buildLeadingIcon(isSelected, gender),
               title: Text(name,
                   overflow: TextOverflow.ellipsis,
                   style:
@@ -152,7 +154,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Widget _buildLeadingIcon(bool isSelected) {
+  Widget _buildLeadingIcon(bool isSelected, String gender) {
     if (isSelectionMode) {
       return CircleAvatar(
           radius: 30.0,
@@ -164,7 +166,7 @@ class _HomePageState extends State<HomePage> {
       return CircleAvatar(
           radius: 30.0,
           backgroundColor: Colors.white24,
-          child: const Icon(Icons.person, size: 25, color: Colors.white54));
+          child: getGenderIcon(gender));
     }
   }
 

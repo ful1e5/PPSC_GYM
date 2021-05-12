@@ -58,7 +58,6 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                           SizedBox(height: 8.0),
                           Text(
                             snapshot.data!.name,
-                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 fontSize: 34.0, fontWeight: FontWeight.bold),
                           ),
@@ -66,11 +65,11 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                           RichText(
                             text: TextSpan(children: [
                               WidgetSpan(
-                                child: Icon(Icons.assignment_ind,
+                                child: Icon(Icons.tag,
                                     size: 16.0, color: Colors.white70),
                               ),
                               TextSpan(
-                                text: " $clientId",
+                                text: clientId,
                                 style: TextStyle(
                                     color: Colors.white70,
                                     fontSize: 15.0,

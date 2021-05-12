@@ -71,6 +71,14 @@ class TextFormFieldWidget extends StatelessWidget {
   }
 }
 
+Widget getGenderIcon(String gender) {
+  if (gender == "Male") {
+    return Icon(Icons.male, size: 25, color: Colors.white54);
+  } else {
+    return Icon(Icons.female, size: 25, color: Colors.white54);
+  }
+}
+
 Widget loaderWidget() {
   return Center(child: CircularProgressIndicator(color: Colors.white));
 }

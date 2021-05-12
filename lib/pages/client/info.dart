@@ -34,43 +34,49 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        actions: [
-          IconButton(
-            tooltip: "Edit",
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AddClientPage()),
-              );
-            },
-            icon: Icon(Icons.edit),
-          )
-        ],
-      ),
-      body: FutureBuilder(
-          future: _future,
-          builder: (BuildContext context, AsyncSnapshot<Client> snapshot) {
-            if (snapshot.connectionState != ConnectionState.done) {
-              return loaderWidget();
-            }
-            if (snapshot.hasError) {
-              return centerMessageWidget("Error !");
-            }
-            if (snapshot.hasData) {
-              return SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Column(children: [
-                  clientInfo(snapshot),
-                ]),
-              );
-            }
-            return centerMessageWidget("Client Data Found");
-          }),
-    );
+    return FutureBuilder(
+        future: _future,
+        builder: (BuildContext context, AsyncSnapshot<Client> snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return loaderWidget();
+          }
+          if (snapshot.hasError) {
+            return centerMessageWidget("Error !");
+          }
+          if (snapshot.hasData) {
+            return Scaffold(
+                backgroundColor: Colors.black,
+                appBar: AppBar(
+                  backgroundColor: Colors.black,
+                  actions: [
+                    IconButton(
+                      tooltip: "Edit",
+                      onPressed: () async {
+                        final result = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    AddClientPage(data: snapshot.data)));
+
+                        if (result == 'added') {
+                          setState(() {
+                            _refreshData(0);
+                          });
+                        }
+                      },
+                      icon: Icon(Icons.edit),
+                    )
+                  ],
+                ),
+                body: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Column(children: [
+                    clientInfo(snapshot),
+                  ]),
+                ));
+          }
+          return centerMessageWidget("Client Data Found");
+        });
   }
 
   Widget clientInfo(AsyncSnapshot<Client> snapshot) {

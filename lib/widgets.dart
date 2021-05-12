@@ -46,10 +46,15 @@ class TextFormFieldWidget extends StatelessWidget {
         initialValue: initialValue,
         enableInteractiveSelection: enableInteractiveSelection,
         decoration: InputDecoration(
+          prefixIcon: enabled == null ? null : Icon(Icons.lock),
           labelText: labelText,
           hintText: hintText,
           contentPadding: EdgeInsets.all(10.0),
           enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12.0)),
+            borderSide: BorderSide(color: Colors.white24, width: 1),
+          ),
+          disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(12.0)),
             borderSide: BorderSide(color: Colors.white24, width: 1),
           ),

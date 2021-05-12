@@ -8,7 +8,8 @@ import 'package:ppscgym/widgets.dart';
 import 'package:ppscgym/utils.dart';
 
 class AddClientPage extends StatefulWidget {
-  AddClientPage({Key? key}) : super(key: key);
+  final Client? data;
+  AddClientPage({Key? key, this.data}) : super(key: key);
 
   @override
   _AddClientPageState createState() => _AddClientPageState();
@@ -17,12 +18,31 @@ class AddClientPage extends StatefulWidget {
 class _AddClientPageState extends State<AddClientPage> {
   final _formKey = GlobalKey<FormState>();
 
-  final List<bool> workoutSessionOptions = [true, false];
-  final List<bool> genderOptions = [true, false];
+  late List<bool> workoutSessionOptions = [true, false];
+  late List<bool> genderOptions = [true, false];
   final _idCtrl = TextEditingController();
   final _nameCtrl = TextEditingController();
   final _dobCtrl = TextEditingController();
   final _mobileCtrl = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.data != null) {
+      _idCtrl.text = widget.data!.id.toString();
+      _nameCtrl.text = widget.data!.name;
+      _dobCtrl.text = widget.data!.dob;
+      _mobileCtrl.text = widget.data!.mobile.toString();
+
+      workoutSessionOptions =
+          (widget.data!.session == "Morning") ? [true, false] : [false, true];
+      genderOptions =
+          (widget.data!.gender == "Male") ? [true, false] : [false, true];
+    } else {
+      workoutSessionOptions = [true, false];
+      genderOptions = [true, false];
+    }
+  }
 
   @override
   void dispose() {
@@ -45,7 +65,9 @@ class _AddClientPageState extends State<AddClientPage> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.transparent,
-        title: const Text('Add Client'),
+        title: (widget.data != null)
+            ? const Text("Edit Client")
+            : const Text('Add Client'),
         actions: <Widget>[saveButton()],
       ),
       body: SingleChildScrollView(
@@ -99,6 +121,7 @@ class _AddClientPageState extends State<AddClientPage> {
                   //
 
                   TextFormFieldWidget(
+                      enabled: (widget.data != null) ? false : true,
                       labelText: "Adhar ID",
                       controller: _idCtrl,
                       formatters: [
@@ -227,13 +250,19 @@ class _AddClientPageState extends State<AddClientPage> {
             session: getSessionString(workoutSessionOptions),
           );
 
+          //TODO:Update method implement
           final error = await insertClient(client);
           if (error != null) {
             ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(backgroundColor: Colors.red, content: Text(error)));
           } else {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                backgroundColor: Colors.green, content: Text("Entry Created")));
+            (widget.data != null)
+                ? ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    backgroundColor: Colors.green,
+                    content: Text("Entry Created")))
+                : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    backgroundColor: Colors.green,
+                    content: Text("Entry Updated")));
             Navigator.pop(context, "added");
           }
         }

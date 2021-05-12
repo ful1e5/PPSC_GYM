@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:ppscgym/styles.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
+  final bool? enabled;
   final List<TextInputFormatter>? formatters;
   final TextInputType? keyboardType;
   final String? labelText;
@@ -19,6 +20,7 @@ class TextFormFieldWidget extends StatelessWidget {
 
   const TextFormFieldWidget(
       {Key? key,
+      this.enabled,
       this.formatters,
       @required this.keyboardType,
       this.maxLength,
@@ -36,6 +38,7 @@ class TextFormFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return (TextFormField(
+        enabled: enabled,
         inputFormatters: formatters,
         keyboardType: keyboardType,
         maxLength: maxLength,

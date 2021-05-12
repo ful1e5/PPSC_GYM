@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppscgym/pages/client/add.dart';
 
 import 'package:ppscgym/widgets.dart';
 
@@ -35,7 +36,21 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(backgroundColor: Colors.black),
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        actions: [
+          IconButton(
+            tooltip: "Edit",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddClientPage()),
+              );
+            },
+            icon: Icon(Icons.edit),
+          )
+        ],
+      ),
       body: FutureBuilder(
           future: _future,
           builder: (BuildContext context, AsyncSnapshot<Client> snapshot) {

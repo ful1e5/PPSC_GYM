@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:ppscgym/pages/settings.dart';
 
 import 'package:ppscgym/widgets.dart';
 
@@ -264,11 +265,13 @@ class _HomePageState extends State<HomePage> {
     } else {
       return [
         IconButton(
-          icon: const Icon(Icons.more_vert),
-          tooltip: 'Menu',
+          icon: const Icon(Icons.settings),
+          tooltip: 'Settings',
           onPressed: () {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(const SnackBar(content: Text('Menu')));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SettingsPage()),
+            );
           },
         )
       ];

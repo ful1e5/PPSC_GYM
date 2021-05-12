@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SettingsPage extends StatefulWidget {
-  SettingsPage({Key? key}) : super(key: key);
+class PlansPage extends StatefulWidget {
+  PlansPage({Key? key}) : super(key: key);
 
   @override
-  _SettingsPageState createState() => _SettingsPageState();
+  _PlansPageState createState() => _PlansPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _PlansPageState extends State<PlansPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +15,7 @@ class _SettingsPageState extends State<SettingsPage> {
         appBar: AppBar(
           backgroundColor: Colors.black,
           centerTitle: true,
-          title: const Text('Home'),
+          title: const Text('Customize Plans'),
         ),
         body: Container());
   }

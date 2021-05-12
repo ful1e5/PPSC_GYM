@@ -10,7 +10,11 @@ class DatabaseHandler {
       join(path, 'ppscgym.db'),
       onCreate: (database, version) async {
         await database.execute(
-          "CREATE TABLE clients(id INTEGER PRIMARY KEY, name TEXT NOT NULL,gender TEXT NOT NULL,dob TEXT NOT NULL, session TEXT NOT NULL, mobile INTEGER UNIQUE NOT NULL)",
+          "CREATE TABLE clients(id INTEGER PRIMARY KEY, name TEXT NOT NULL, gender TEXT NOT NULL, dob TEXT NOT NULL, session TEXT NOT NULL, mobile INTEGER UNIQUE NOT NULL)",
+        );
+
+        await database.execute(
+          "CREATE TABLE plans(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, peroid TEXT NOT NULL UNIQUE)",
         );
       },
       version: 1,

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:ppscgym/pages/settings.dart';
+import 'package:ppscgym/pages/plans.dart';
 
 import 'package:ppscgym/widgets.dart';
 
@@ -265,12 +265,12 @@ class _HomePageState extends State<HomePage> {
     } else {
       return [
         IconButton(
-          icon: const Icon(Icons.settings),
-          tooltip: 'Settings',
+          icon: const Icon(Icons.build_rounded),
+          tooltip: 'Customize',
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SettingsPage()),
+              MaterialPageRoute(builder: (context) => PlansPage()),
             );
           },
         )

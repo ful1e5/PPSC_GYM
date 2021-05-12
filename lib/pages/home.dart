@@ -166,7 +166,8 @@ class _HomePageState extends State<HomePage> {
       return CircleAvatar(
           radius: 30.0,
           backgroundColor: Colors.white24,
-          child: getGenderIcon(gender));
+          child:
+              Icon(getGenderIconData(gender), size: 25, color: Colors.white54));
     }
   }
 

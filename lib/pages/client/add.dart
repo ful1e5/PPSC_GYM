@@ -56,7 +56,7 @@ class _AddClientPageState extends State<AddClientPage> {
 
   Future<String?> insertClient(Client client) async {
     final DatabaseHandler handler = DatabaseHandler();
-    return await handler.insertClients([client]);
+    return await handler.insertClient(client);
   }
 
   Future<String?> updateClient(Client client) async {
@@ -262,16 +262,18 @@ class _AddClientPageState extends State<AddClientPage> {
           } else {
             error = await insertClient(client);
           }
+          print(error);
 
           if (error != null) {
             ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(backgroundColor: Colors.red, content: Text(error)));
           } else {
-            if (!mapEquals(widget.data!.toMap(), client.toMap())) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  backgroundColor: Colors.amber,
-                  content: Text("Entry Updated")));
-            } else if (widget.data == null) {
+            if ((widget.data != null)) {
+              if (!mapEquals(widget.data!.toMap(), client.toMap()))
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    backgroundColor: Colors.amber,
+                    content: Text("Entry Updated")));
+            } else {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.green,
                   content: Text("Entry Created")));

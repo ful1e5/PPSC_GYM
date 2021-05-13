@@ -15,7 +15,7 @@ class DatabaseHandler {
         );
 
         await database.execute(
-          "CREATE TABLE plans(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, peroid TEXT NOT NULL UNIQUE)",
+          "CREATE TABLE plans(id INTEGER PRIMARY KEY AUTOINCREMENT, months TEXT NOT NULL UNIQUE)",
         );
       },
       version: 1,

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:ppscgym/pages/plans.dart';
+import 'package:ppscgym/pages/plans/plans.dart';
 
 import 'package:ppscgym/widgets.dart';
 

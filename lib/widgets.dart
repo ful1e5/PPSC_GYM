@@ -45,8 +45,12 @@ class TextFormFieldWidget extends StatelessWidget {
         controller: controller,
         initialValue: initialValue,
         enableInteractiveSelection: enableInteractiveSelection,
+        style: TextStyle(
+          color: (enabled != null && enabled == false) ? Colors.white24 : null,
+        ),
         decoration: InputDecoration(
-          prefixIcon: enabled == null ? null : Icon(Icons.lock),
+          prefixIcon:
+              (enabled != null && enabled == false) ? Icon(Icons.lock) : null,
           labelText: labelText,
           hintText: hintText,
           contentPadding: EdgeInsets.all(10.0),

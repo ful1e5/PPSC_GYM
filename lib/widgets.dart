@@ -5,6 +5,7 @@ import 'package:ppscgym/styles.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
   final bool? enabled;
+  final bool? autoFocus;
   final List<TextInputFormatter>? formatters;
   final TextInputType? keyboardType;
   final String? labelText;
@@ -21,6 +22,7 @@ class TextFormFieldWidget extends StatelessWidget {
   const TextFormFieldWidget(
       {Key? key,
       this.enabled,
+      this.autoFocus = false,
       this.formatters,
       @required this.keyboardType,
       this.maxLength,
@@ -39,6 +41,7 @@ class TextFormFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return (TextFormField(
         enabled: enabled,
+        autofocus: autoFocus!,
         inputFormatters: formatters,
         keyboardType: keyboardType,
         maxLength: maxLength,

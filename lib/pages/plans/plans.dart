@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ppscgym/services/database/handler.dart';
+import 'package:ppscgym/services/database/models.dart';
 import 'package:ppscgym/widgets.dart';
 import 'package:flutter/services.dart';
 
@@ -10,6 +12,21 @@ class PlansPage extends StatefulWidget {
 }
 
 class _PlansPageState extends State<PlansPage> {
+  final _formKey = GlobalKey<FormState>();
+
+  final _monthCtrl = TextEditingController();
+
+  @override
+  void dispose() {
+    _monthCtrl.dispose();
+    super.dispose();
+  }
+
+  Future<String?> insertPlan(Plan plan) async {
+    final DatabaseHandler handler = DatabaseHandler();
+    return await handler.insertPlan(plan);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,18 +61,19 @@ class _PlansPageState extends State<PlansPage> {
           shape: MaterialStateProperty.all(RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0))),
         ),
-        child: Text(" Add Plan",
+        child: Text("Add Plan",
             style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)),
       ),
     );
   }
 
   addPlanDialog() {
-    // BuildContext dialogContext;
+    BuildContext dialogContext;
     return showDialog(
       context: context,
       builder: (BuildContext context) {
-        // dialogContext = context;
+        _monthCtrl.text = "";
+        dialogContext = context;
 
         return Dialog(
           shape: RoundedRectangleBorder(
@@ -74,6 +92,7 @@ class _PlansPageState extends State<PlansPage> {
             child: Padding(
               padding: EdgeInsets.all(20),
               child: Form(
+                key: _formKey,
                 child: Column(
                   children: [
                     SizedBox(height: 20),
@@ -81,13 +100,23 @@ class _PlansPageState extends State<PlansPage> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: TextFormFieldWidget(
-                          labelText: "Months",
-                          formatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
-                          ],
-                          maxLength: 2,
-                          keyboardType: TextInputType.number,
-                        ),
+                            labelText: "Months",
+                            controller: _monthCtrl,
+                            autoFocus: true,
+                            formatters: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'[0-9]'))
+                            ],
+                            maxLength: 2,
+                            keyboardType: TextInputType.number,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "This field required";
+                              } else if (int.parse(value) > 12) {
+                                return "Maximum limit is 12 months";
+                              }
+                              return null;
+                            }),
                       ),
                     ),
                     SizedBox(height: 10),
@@ -95,7 +124,28 @@ class _PlansPageState extends State<PlansPage> {
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: OutlinedButton(
-                          onPressed: null,
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              Plan plan =
+                                  Plan(months: int.parse(_monthCtrl.text));
+
+                              final String? error = await insertPlan(plan);
+
+                              print(error);
+                              if (error != null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        backgroundColor: Colors.red,
+                                        content: Text(error)));
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        backgroundColor: Colors.green,
+                                        content: Text("Plan Created")));
+                                Navigator.pop(dialogContext);
+                              }
+                            }
+                          },
                           style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all<Color>(Colors.blue),
@@ -105,7 +155,7 @@ class _PlansPageState extends State<PlansPage> {
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30.0))),
                           ),
-                          child: Text("add"),
+                          child: Text("Add"),
                         ),
                       ),
                     ),

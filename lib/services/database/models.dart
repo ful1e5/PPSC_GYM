@@ -37,21 +37,18 @@ class Client {
 
 class Plan {
   final int? id;
-  final String name;
-  final int peroid;
+  final int months;
 
-  Plan({this.id, required this.name, required this.peroid});
+  Plan({this.id, required this.months});
 
   Plan.fromMap(Map<String, dynamic> res)
       : id = res["id"],
-        name = res["name"],
-        peroid = res["peroid"];
+        months = res["months"];
 
   Map<String, Object?> toMap() {
     return {
       'id': id,
-      'name': name,
-      'peroid': peroid,
+      'months': months,
     };
   }
 }

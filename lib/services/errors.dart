@@ -13,3 +13,15 @@ String handleClientErrors(String error, Client client) {
     return "Unhandled Error Occurred";
   }
 }
+
+String handlePlanErrors(String error, int month) {
+  if (error.contains('UNIQUE constraint failed:')) {
+    if (error.contains("plans.months")) {
+      return "Error: $month months plan already existed";
+    } else {
+      return "Error: Unhanlded Unique Constraint";
+    }
+  } else {
+    return "Unhandled Error Occurred";
+  }
+}

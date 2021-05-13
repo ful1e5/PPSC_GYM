@@ -15,23 +15,24 @@ class DatabaseHandler {
         );
 
         await database.execute(
-          "CREATE TABLE plans(id INTEGER PRIMARY KEY AUTOINCREMENT, months TEXT NOT NULL UNIQUE)",
+          "CREATE TABLE plans(id INTEGER PRIMARY KEY AUTOINCREMENT, months INTEGER UNIQUE NOT NULL)",
         );
       },
       version: 1,
     );
   }
 
-  // Init User
-  Future<String?> insertClients(List<Client> clients) async {
+  //
+  // Client
+  //
+
+  Future<String?> insertClient(Client client) async {
     final Database db = await initializeDB();
-    for (var client in clients) {
-      try {
-        await db.insert('clients', client.toMap());
-        return null;
-      } catch (e) {
-        handleClientErrors(e.toString(), client);
-      }
+    try {
+      await db.insert('clients', client.toMap());
+      return null;
+    } catch (e) {
+      return handleClientErrors(e.toString(), client);
     }
   }
 
@@ -46,11 +47,10 @@ class DatabaseHandler {
       );
       return null;
     } catch (e) {
-      handleClientErrors(e.toString(), client);
+      return handleClientErrors(e.toString(), client);
     }
   }
 
-  // Delete User
   Future<void> deleteClient(int id) async {
     final db = await initializeDB();
     await db.delete(
@@ -60,19 +60,30 @@ class DatabaseHandler {
     );
   }
 
-  // Retrieve clients
   Future<List<Client>> retrieveClients() async {
     final Database db = await initializeDB();
     final List<Map<String, Object?>> queryResult = await db.query('clients');
     return queryResult.map((e) => Client.fromMap(e)).toList();
   }
 
-  // Retrieve client
-
   Future<Client> retrieveClient(int id) async {
     final Database db = await initializeDB();
     final List<Map<String, Object?>> result =
         await db.query('clients', where: "id = ?", whereArgs: [id]);
     return Client.fromMap(result[0]);
+  }
+
+  //
+  // Plans
+  //
+
+  Future<String?> insertPlan(Plan plan) async {
+    final Database db = await initializeDB();
+    try {
+      await db.insert('plans', plan.toMap());
+      return null;
+    } catch (e) {
+      return handlePlanErrors(e.toString(), plan.months);
+    }
   }
 }

@@ -1,6 +1,7 @@
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
+import 'package:ppscgym/services/errors.dart';
 import 'package:ppscgym/services/database/models.dart';
 
 class DatabaseHandler {
@@ -29,19 +30,23 @@ class DatabaseHandler {
         await db.insert('clients', client.toMap());
         return null;
       } catch (e) {
-        final eStr = e.toString();
-        if (eStr.contains('UNIQUE constraint failed:')) {
-          if (eStr.contains("clients.id")) {
-            return "Error: Dublicate identication found for ${client.id}";
-          } else if (eStr.contains("clients.mobile")) {
-            return "Error: Dublicate mobile number ${client.mobile}";
-          } else {
-            return "Error: Unhanlded Unique Constraint";
-          }
-        } else {
-          return "Unhandled Error Occurred";
-        }
+        handleClientErrors(e.toString(), client);
       }
+    }
+  }
+
+  Future<String?> updateClient(Client client) async {
+    final Database db = await initializeDB();
+    try {
+      await db.update(
+        'clients',
+        client.toMap(),
+        where: "id = ?",
+        whereArgs: [client.id],
+      );
+      return null;
+    } catch (e) {
+      handleClientErrors(e.toString(), client);
     }
   }
 

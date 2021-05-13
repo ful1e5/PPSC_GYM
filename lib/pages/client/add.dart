@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
@@ -56,6 +57,11 @@ class _AddClientPageState extends State<AddClientPage> {
   Future<String?> insertClient(Client client) async {
     final DatabaseHandler handler = DatabaseHandler();
     return await handler.insertClients([client]);
+  }
+
+  Future<String?> updateClient(Client client) async {
+    final DatabaseHandler handler = DatabaseHandler();
+    return await handler.updateClient(client);
   }
 
   @override
@@ -250,19 +256,26 @@ class _AddClientPageState extends State<AddClientPage> {
             session: getSessionString(workoutSessionOptions),
           );
 
-          //TODO:Update method implement
-          final error = await insertClient(client);
+          late String? error;
+          if (widget.data != null) {
+            error = await updateClient(client);
+          } else {
+            error = await insertClient(client);
+          }
+
           if (error != null) {
             ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(backgroundColor: Colors.red, content: Text(error)));
           } else {
-            (widget.data != null)
-                ? ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    backgroundColor: Colors.green,
-                    content: Text("Entry Created")))
-                : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    backgroundColor: Colors.green,
-                    content: Text("Entry Updated")));
+            if (!mapEquals(widget.data!.toMap(), client.toMap())) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  backgroundColor: Colors.amber,
+                  content: Text("Entry Updated")));
+            } else if (widget.data == null) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  backgroundColor: Colors.green,
+                  content: Text("Entry Created")));
+            }
             Navigator.pop(context, "added");
           }
         }

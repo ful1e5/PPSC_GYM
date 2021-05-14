@@ -133,7 +133,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                 ], 15.6),
                 Divider(height: 10.0, color: Colors.transparent),
                 cardGroup([
-                  infoCard(Icon(Icons.contact_phone, size: 25.0), mobile),
+                  infoCard(Icon(Icons.phone, size: 25.0), mobile),
                   infoCard(Icon(Icons.timelapse, size: 25.0), session),
                   infoCard(Icon(Icons.cake, size: 25.0), dob),
                 ], 15.6)

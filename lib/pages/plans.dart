@@ -130,11 +130,11 @@ class _PlansPageState extends State<PlansPage> {
                 Radius.circular(25.0),
               ),
               side: BorderSide(
-                width: 3.0,
-                color: Colors.white70,
+                width: 1.5,
+                color: Colors.white10,
               ),
             ),
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.black87,
             child: Container(
               height: 200,
               color: Colors.transparent,
@@ -198,9 +198,9 @@ class _PlansPageState extends State<PlansPage> {
                   },
                   style: ButtonStyle(
                     backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.blue),
-                    foregroundColor:
                         MaterialStateProperty.all<Color>(Colors.white),
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.black),
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0))),
                   ),

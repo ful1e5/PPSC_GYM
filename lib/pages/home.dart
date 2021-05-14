@@ -95,8 +95,9 @@ class _HomePageState extends State<HomePage> {
                 });
               }
             },
-            child: const Icon(Icons.add_rounded),
+            child: const Icon(Icons.add_rounded, size: 32.0),
             backgroundColor: Colors.green,
+            foregroundColor: Colors.white,
           ),
         ),
         onWillPop: () async {

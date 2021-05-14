@@ -135,11 +135,11 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
             Radius.circular(20.0),
           ),
           side: BorderSide(
-            width: 1.3,
-            color: Colors.white70,
+            width: 1.5,
+            color: Colors.white10,
           ),
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.black87,
         child: Container(
             height: 200,
             color: Colors.transparent,

@@ -86,4 +86,10 @@ class DatabaseHandler {
       return handlePlanErrors(e.toString(), plan.months);
     }
   }
+
+  Future<List<Plan>> retrievePlans() async {
+    final Database db = await initializeDB();
+    final List<Map<String, Object?>> queryResult = await db.query('plans');
+    return queryResult.map((e) => Plan.fromMap(e)).toList();
+  }
 }

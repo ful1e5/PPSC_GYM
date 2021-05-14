@@ -26,7 +26,7 @@ class _PlansPageState extends State<PlansPage> {
     super.initState();
 
     handler = DatabaseHandler();
-    _refreshData(2);
+    _refreshData(0);
   }
 
   @override
@@ -84,32 +84,33 @@ class _PlansPageState extends State<PlansPage> {
       return centerMessageWidget(nonFoundMessage);
     } else {
       return ListView.builder(
+        physics: BouncingScrollPhysics(),
         itemCount: snapshot.data?.length,
         itemBuilder: (BuildContext context, int index) {
           String months = snapshot.data![index].months.toString();
           return Container(
-            height: 500.0,
-            child: Card(
-              color: Colors.blue,
-              semanticContainer: true,
-              margin: EdgeInsets.all(20.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Column(
-                children: [
-                  RichText(
-                      text:
-                          TextSpan(style: TextStyle(fontSize: 28.0), children: [
-                    TextSpan(
-                        text: months,
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    TextSpan(text: " Months")
-                  ]))
-                ],
-              ),
-            ),
-          );
+              height: 140.0,
+              child: Card(
+                color: Colors.indigo,
+                semanticContainer: true,
+                margin: EdgeInsets.only(
+                    top: 10.0, bottom: 10.0, left: 32.0, right: 32.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                ),
+                child: Container(
+                    padding: EdgeInsets.all(20.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("$months Month Plan",
+                            style: TextStyle(
+                                fontSize: 24.0, fontWeight: FontWeight.bold)),
+                        Text("0 Members", style: TextStyle(fontSize: 13.0)),
+                      ],
+                    )),
+              ));
         },
       );
     }

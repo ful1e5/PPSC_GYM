@@ -59,7 +59,7 @@ class _PlansPageState extends State<PlansPage> {
                 onPressed: () {
                   addPlanDialog();
                 },
-                icon: Icon(Icons.add_chart))
+                icon: Icon(Icons.add_rounded))
           ],
         ),
         body: FutureBuilder(
@@ -98,20 +98,29 @@ class _PlansPageState extends State<PlansPage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25.0),
                 ),
-                child: Container(
-                    padding: EdgeInsets.all(20.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("$months Month Plan",
-                            style: TextStyle(
-                                fontSize: 24.0, fontWeight: FontWeight.bold)),
-                        Text("0 Members",
-                            style: TextStyle(
-                                fontSize: 13.0)), // TODO: Dynamic member count
-                      ],
-                    )),
+                child: Row(
+                  children: [
+                    Container(
+                        padding: EdgeInsets.all(20.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("$months Month Plan",
+                                style: TextStyle(
+                                    fontSize: 24.0,
+                                    fontWeight: FontWeight.bold)),
+                            Text("0 Members",
+                                style: TextStyle(
+                                    fontSize:
+                                        13.0)), // TODO: Dynamic member count
+                          ],
+                        )),
+                    Expanded(
+                        child: Icon(Icons.check_circle,
+                            color: Colors.white, size: 30.0))
+                  ],
+                ),
               ));
         },
       );

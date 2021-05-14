@@ -266,8 +266,8 @@ class _HomePageState extends State<HomePage> {
     } else {
       return [
         IconButton(
-          icon: const Icon(Icons.build_rounded),
-          tooltip: 'Customize',
+          icon: const Icon(Icons.insert_chart_rounded),
+          tooltip: 'Plans',
           onPressed: () {
             Navigator.push(
               context,

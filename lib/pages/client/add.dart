@@ -262,7 +262,6 @@ class _AddClientPageState extends State<AddClientPage> {
           } else {
             error = await insertClient(client);
           }
-          print(error);
 
           if (error != null) {
             ScaffoldMessenger.of(context).showSnackBar(

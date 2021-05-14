@@ -131,7 +131,6 @@ class _PlansPageState extends State<PlansPage> {
 
                               final String? error = await insertPlan(plan);
 
-                              print(error);
                               if (error != null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(

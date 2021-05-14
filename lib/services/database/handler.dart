@@ -89,7 +89,8 @@ class DatabaseHandler {
 
   Future<List<Plan>> retrievePlans() async {
     final Database db = await initializeDB();
-    final List<Map<String, Object?>> queryResult = await db.query('plans');
+    final List<Map<String, Object?>> queryResult =
+        await db.query('plans', orderBy: "months ASC");
     return queryResult.map((e) => Plan.fromMap(e)).toList();
   }
 }

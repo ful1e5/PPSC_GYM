@@ -107,7 +107,9 @@ class _PlansPageState extends State<PlansPage> {
                         Text("$months Month Plan",
                             style: TextStyle(
                                 fontSize: 24.0, fontWeight: FontWeight.bold)),
-                        Text("0 Members", style: TextStyle(fontSize: 13.0)),
+                        Text("0 Members",
+                            style: TextStyle(
+                                fontSize: 13.0)), // TODO: Dynamic member count
                       ],
                     )),
               ));

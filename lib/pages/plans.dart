@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
 
 import 'package:ppscgym/widgets.dart';
-import 'package:flutter/services.dart';
 
 class PlansPage extends StatefulWidget {
   PlansPage({Key? key}) : super(key: key);
@@ -121,8 +122,12 @@ class _PlansPageState extends State<PlansPage> {
                           ],
                         )),
                     Expanded(
-                        child: Icon(Icons.check_circle,
-                            color: Colors.white, size: 30.0))
+                        child: IconButton(
+                            onPressed: () {
+                              addPlanDialog(oldData: snapshot.data![index]);
+                            },
+                            icon: Icon(Icons.edit,
+                                color: Colors.white, size: 30.0)))
                   ],
                 ),
               ));
@@ -131,13 +136,10 @@ class _PlansPageState extends State<PlansPage> {
     }
   }
 
-  addPlanDialog() {
+  addPlanDialog({Plan? oldData}) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
-          _monthCtrl.text = "";
-          _priceCtrl.text = "";
-
           return Dialog(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
@@ -152,13 +154,23 @@ class _PlansPageState extends State<PlansPage> {
             child: Container(
               height: 300,
               color: Colors.transparent,
-              child: Padding(padding: EdgeInsets.all(20), child: buildForm()),
+              child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: buildForm(oldData: oldData)),
             ),
           );
         });
   }
 
-  Widget buildForm() {
+  Widget buildForm({Plan? oldData}) {
+    if (oldData != null) {
+      _monthCtrl.text = oldData.months.toString();
+      _priceCtrl.text = oldData.price.toString();
+    } else {
+      _monthCtrl.text = "";
+      _priceCtrl.text = "";
+    }
+
     return Form(
       key: _formKey,
       child: Column(children: [
@@ -216,15 +228,27 @@ class _PlansPageState extends State<PlansPage> {
                           months: int.parse(_monthCtrl.text),
                           price: int.parse(_priceCtrl.text));
 
-                      final String? error = await insertPlan(plan);
+                      late String? error;
+                      if (oldData != null) {
+                        error = await insertPlan(plan);
+                      } else {
+                        print("editing");
+                      }
 
                       if (error != null) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             backgroundColor: Colors.red, content: Text(error)));
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            backgroundColor: Colors.green,
-                            content: Text("Plan Created")));
+                        if (oldData != null) {
+                          if (!mapEquals(oldData.toMap(), plan.toMap()))
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                backgroundColor: Colors.orange,
+                                content: Text("Plan Edited")));
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              backgroundColor: Colors.green,
+                              content: Text("Plan Created")));
+                        }
                         setState(() {
                           _refreshData(0);
                         });
@@ -233,14 +257,17 @@ class _PlansPageState extends State<PlansPage> {
                     }
                   },
                   style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
+                    backgroundColor: (oldData != null)
+                        ? MaterialStateProperty.all<Color>(Colors.amberAccent)
+                        : MaterialStateProperty.all<Color>(Colors.white),
                     foregroundColor:
                         MaterialStateProperty.all<Color>(Colors.black),
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0))),
                   ),
-                  child: Text("Add"),
+                  child: (oldData != null)
+                      ? const Text("Update")
+                      : const Text("Add"),
                 )))
       ]),
     );

@@ -14,10 +14,10 @@ String handleClientErrors(String error, Client client) {
   }
 }
 
-String handlePlanErrors(String error, int month) {
+String handlePlanErrors(String error, Plan plan) {
   if (error.contains('UNIQUE constraint failed:')) {
     if (error.contains("plans.months")) {
-      return "Error: $month Months plan already existed";
+      return "Error: ${plan.months} Months plan already existed";
     } else {
       return "Error: Unhanlded Unique Constraint";
     }

@@ -83,7 +83,22 @@ class DatabaseHandler {
       await db.insert('plans', plan.toMap());
       return null;
     } catch (e) {
-      return handlePlanErrors(e.toString(), plan.months);
+      return handlePlanErrors(e.toString(), plan);
+    }
+  }
+
+  Future<String?> updatePlan(Plan plan) async {
+    final Database db = await initializeDB();
+    try {
+      await db.update(
+        'plans',
+        plan.toMap(),
+        where: "id = ?",
+        whereArgs: [plan.id],
+      );
+      return null;
+    } catch (e) {
+      return handlePlanErrors(e.toString(), plan);
     }
   }
 

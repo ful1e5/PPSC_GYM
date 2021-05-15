@@ -49,6 +49,11 @@ class _PlansPageState extends State<PlansPage> {
     return await handler.insertPlan(plan);
   }
 
+  Future<String?> updatePlan(Plan plan) async {
+    final DatabaseHandler handler = DatabaseHandler();
+    return await handler.updatePlan(plan);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -224,15 +229,20 @@ class _PlansPageState extends State<PlansPage> {
                 child: OutlinedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      Plan plan = Plan(
-                          months: int.parse(_monthCtrl.text),
-                          price: int.parse(_priceCtrl.text));
-
+                      late Plan plan;
                       late String? error;
+
                       if (oldData != null) {
-                        error = await insertPlan(plan);
+                        plan = Plan(
+                            id: oldData.id,
+                            months: int.parse(_monthCtrl.text),
+                            price: int.parse(_priceCtrl.text));
+                        error = await updatePlan(plan);
                       } else {
-                        print("editing");
+                        plan = Plan(
+                            months: int.parse(_monthCtrl.text),
+                            price: int.parse(_priceCtrl.text));
+                        error = await insertPlan(plan);
                       }
 
                       if (error != null) {
@@ -257,9 +267,8 @@ class _PlansPageState extends State<PlansPage> {
                     }
                   },
                   style: ButtonStyle(
-                    backgroundColor: (oldData != null)
-                        ? MaterialStateProperty.all<Color>(Colors.amberAccent)
-                        : MaterialStateProperty.all<Color>(Colors.white),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
                     foregroundColor:
                         MaterialStateProperty.all<Color>(Colors.black),
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(

@@ -102,6 +102,15 @@ class DatabaseHandler {
     }
   }
 
+  Future<void> deletePlan(int id) async {
+    final db = await initializeDB();
+    await db.delete(
+      'plans',
+      where: "id = ?",
+      whereArgs: [id],
+    );
+  }
+
   Future<List<Plan>> retrievePlans() async {
     final Database db = await initializeDB();
     final List<Map<String, Object?>> queryResult =

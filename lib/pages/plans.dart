@@ -54,6 +54,11 @@ class _PlansPageState extends State<PlansPage> {
     return await handler.updatePlan(plan);
   }
 
+  Future<void> deletePlan(int id) async {
+    final DatabaseHandler handler = DatabaseHandler();
+    await handler.deletePlan(id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,12 +132,13 @@ class _PlansPageState extends State<PlansPage> {
                           ],
                         )),
                     Expanded(
-                        child: IconButton(
-                            onPressed: () {
-                              addPlanDialog(oldData: snapshot.data![index]);
-                            },
-                            icon: Icon(Icons.edit,
-                                color: Colors.white, size: 30.0)))
+                      child: IconButton(
+                        onPressed: () {
+                          addPlanDialog(oldData: snapshot.data![index]);
+                        },
+                        icon: Icon(Icons.edit, color: Colors.white, size: 25.0),
+                      ),
+                    )
                   ],
                 ),
               ));
@@ -212,11 +218,13 @@ class _PlansPageState extends State<PlansPage> {
                 formatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
                 ],
-                maxLength: 3,
+                maxLength: 5,
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "This field required";
+                  } else if (int.parse(value) > 50000) {
+                    return "Max Price set to 50,000\u20B9";
                   }
                   return null;
                 }),
@@ -224,61 +232,84 @@ class _PlansPageState extends State<PlansPage> {
         ),
         SizedBox(height: 10),
         Expanded(
-            child: Align(
-                alignment: Alignment.centerRight,
-                child: OutlinedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      late Plan plan;
-                      late String? error;
+            child: Row(
+          children: [
+            oldData != null ? deleteButton(oldData) : Container(),
+            Spacer(),
+            OutlinedButton(
+              onPressed: () async {
+                if (_formKey.currentState!.validate()) {
+                  late Plan plan;
+                  late String? error;
 
-                      if (oldData != null) {
-                        plan = Plan(
-                            id: oldData.id,
-                            months: int.parse(_monthCtrl.text),
-                            price: int.parse(_priceCtrl.text));
-                        error = await updatePlan(plan);
-                      } else {
-                        plan = Plan(
-                            months: int.parse(_monthCtrl.text),
-                            price: int.parse(_priceCtrl.text));
-                        error = await insertPlan(plan);
-                      }
+                  if (oldData != null) {
+                    plan = Plan(
+                        id: oldData.id,
+                        months: int.parse(_monthCtrl.text),
+                        price: int.parse(_priceCtrl.text));
+                    error = await updatePlan(plan);
+                  } else {
+                    plan = Plan(
+                        months: int.parse(_monthCtrl.text),
+                        price: int.parse(_priceCtrl.text));
+                    error = await insertPlan(plan);
+                  }
 
-                      if (error != null) {
+                  if (error != null) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        backgroundColor: Colors.red, content: Text(error)));
+                  } else {
+                    if (oldData != null) {
+                      if (!mapEquals(oldData.toMap(), plan.toMap()))
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            backgroundColor: Colors.red, content: Text(error)));
-                      } else {
-                        if (oldData != null) {
-                          if (!mapEquals(oldData.toMap(), plan.toMap()))
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                backgroundColor: Colors.orange,
-                                content: Text("Plan Edited")));
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              backgroundColor: Colors.green,
-                              content: Text("Plan Created")));
-                        }
-                        setState(() {
-                          _refreshData(0);
-                        });
-                        Navigator.pop(context);
-                      }
+                            backgroundColor: Colors.orange,
+                            content: Text("Plan Edited")));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Colors.green,
+                          content: Text("Plan Created")));
                     }
-                  },
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.black),
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0))),
-                  ),
-                  child: (oldData != null)
-                      ? const Text("Update")
-                      : const Text("Add"),
-                )))
+                    setState(() {
+                      _refreshData(0);
+                    });
+                    Navigator.pop(context);
+                  }
+                }
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0))),
+              ),
+              child:
+                  (oldData != null) ? const Text("Update") : const Text("Add"),
+            ),
+          ],
+        ))
       ]),
     );
+  }
+
+  Widget deleteButton(Plan plan) {
+    return OutlinedButton(
+        onPressed: () async {
+          await deletePlan(plan.id ?? 0);
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.green,
+              content: Text("${plan.months} Plan Deleted")));
+
+          setState(() {
+            _refreshData(0);
+          });
+          Navigator.pop(context);
+        },
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0))),
+        ),
+        child: const Text("Delete"));
   }
 }

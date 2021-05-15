@@ -62,34 +62,36 @@ class _PlansPageState extends State<PlansPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
         backgroundColor: Colors.black,
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          centerTitle: true,
-          title: const Text('Customize Plans'),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  addPlanDialog();
-                },
-                icon: Icon(Icons.add_rounded))
-          ],
-        ),
-        body: FutureBuilder(
-            future: _future,
-            builder:
-                (BuildContext context, AsyncSnapshot<List<Plan>> snapshot) {
-              if (snapshot.connectionState != ConnectionState.done) {
-                return loaderWidget();
-              }
-              if (snapshot.hasError) {
-                return centerMessageWidget("Error !");
-              }
-              if (snapshot.hasData) {
-                return _buildListView(snapshot);
-              }
-              return centerMessageWidget(nonFoundMessage);
-            }));
+        centerTitle: true,
+        title: const Text('Customize Plans'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              addPlanDialog();
+            },
+            icon: Icon(Icons.add_rounded),
+          )
+        ],
+      ),
+      body: FutureBuilder(
+        future: _future,
+        builder: (BuildContext context, AsyncSnapshot<List<Plan>> snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return loaderWidget();
+          }
+          if (snapshot.hasError) {
+            return centerMessageWidget("Error !");
+          }
+          if (snapshot.hasData) {
+            return _buildListView(snapshot);
+          }
+          return centerMessageWidget(nonFoundMessage);
+        },
+      ),
+    );
   }
 
   Widget _buildListView(AsyncSnapshot<List<Plan>> snapshot) {
@@ -104,44 +106,44 @@ class _PlansPageState extends State<PlansPage> {
           String price = snapshot.data![index].price.toString();
 
           return Container(
-              height: 140.0,
-              child: Card(
-                color: Colors.indigo,
-                semanticContainer: true,
-                margin: EdgeInsets.only(
-                    top: 10.0, bottom: 10.0, left: 32.0, right: 32.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                        padding: EdgeInsets.all(20.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("$months Month Plan",
-                                style: TextStyle(
-                                    fontSize: 27.0,
-                                    fontWeight: FontWeight.w300)),
-                            Text("$price \u20B9",
-                                style: TextStyle(
-                                    fontSize: 14.5,
-                                    fontWeight: FontWeight.w800)),
-                          ],
-                        )),
-                    Expanded(
-                      child: IconButton(
-                        onPressed: () {
-                          addPlanDialog(oldData: snapshot.data![index]);
-                        },
-                        icon: Icon(Icons.edit, color: Colors.white, size: 25.0),
-                      ),
-                    )
-                  ],
-                ),
-              ));
+            height: 140.0,
+            child: Card(
+              color: Colors.indigo,
+              semanticContainer: true,
+              margin: EdgeInsets.only(
+                  top: 10.0, bottom: 10.0, left: 32.0, right: 32.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(20.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("$months Month Plan",
+                            style: TextStyle(
+                                fontSize: 27.0, fontWeight: FontWeight.w300)),
+                        Text("$price \u20B9",
+                            style: TextStyle(
+                                fontSize: 14.5, fontWeight: FontWeight.w800)),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: IconButton(
+                      onPressed: () {
+                        addPlanDialog(oldData: snapshot.data![index]);
+                      },
+                      icon: Icon(Icons.edit, color: Colors.white, size: 25.0),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
         },
       );
     }
@@ -184,12 +186,13 @@ class _PlansPageState extends State<PlansPage> {
 
     return Form(
       key: _formKey,
-      child: Column(children: [
-        SizedBox(height: 20),
-        Expanded(
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: TextFormFieldWidget(
+      child: Column(
+        children: [
+          SizedBox(height: 20),
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: TextFormFieldWidget(
                 labelText: "Months",
                 controller: _monthCtrl,
                 autoFocus: true,
@@ -205,13 +208,14 @@ class _PlansPageState extends State<PlansPage> {
                     return "Maximum limit is 12 months";
                   }
                   return null;
-                }),
+                },
+              ),
+            ),
           ),
-        ),
-        Expanded(
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: TextFormFieldWidget(
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: TextFormFieldWidget(
                 labelText: "Price",
                 controller: _priceCtrl,
                 autoFocus: true,
@@ -227,67 +231,73 @@ class _PlansPageState extends State<PlansPage> {
                     return "Max Price set to 50,000\u20B9";
                   }
                   return null;
-                }),
-          ),
-        ),
-        SizedBox(height: 10),
-        Expanded(
-            child: Row(
-          children: [
-            oldData != null ? deleteButton(oldData) : Container(),
-            Spacer(),
-            OutlinedButton(
-              onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  late Plan plan;
-                  late String? error;
-
-                  if (oldData != null) {
-                    plan = Plan(
-                        id: oldData.id,
-                        months: int.parse(_monthCtrl.text),
-                        price: int.parse(_priceCtrl.text));
-                    error = await updatePlan(plan);
-                  } else {
-                    plan = Plan(
-                        months: int.parse(_monthCtrl.text),
-                        price: int.parse(_priceCtrl.text));
-                    error = await insertPlan(plan);
-                  }
-
-                  if (error != null) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        backgroundColor: Colors.red, content: Text(error)));
-                  } else {
-                    if (oldData != null) {
-                      if (!mapEquals(oldData.toMap(), plan.toMap()))
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            backgroundColor: Colors.orange,
-                            content: Text("Plan Edited")));
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          backgroundColor: Colors.green,
-                          content: Text("Plan Created")));
-                    }
-                    setState(() {
-                      _refreshData(0);
-                    });
-                    Navigator.pop(context);
-                  }
-                }
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0))),
+                },
               ),
-              child:
-                  (oldData != null) ? const Text("Update") : const Text("Add"),
             ),
-          ],
-        ))
-      ]),
+          ),
+          SizedBox(height: 10),
+          Expanded(
+            child: Row(
+              children: [
+                oldData != null ? deleteButton(oldData) : Container(),
+                Spacer(),
+                OutlinedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      late Plan plan;
+                      late String? error;
+
+                      if (oldData != null) {
+                        plan = Plan(
+                            id: oldData.id,
+                            months: int.parse(_monthCtrl.text),
+                            price: int.parse(_priceCtrl.text));
+                        error = await updatePlan(plan);
+                      } else {
+                        plan = Plan(
+                            months: int.parse(_monthCtrl.text),
+                            price: int.parse(_priceCtrl.text));
+                        error = await insertPlan(plan);
+                      }
+
+                      if (error != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: Colors.red, content: Text(error)));
+                      } else {
+                        if (oldData != null) {
+                          if (!mapEquals(oldData.toMap(), plan.toMap()))
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                backgroundColor: Colors.orange,
+                                content: Text("Plan Edited")));
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              backgroundColor: Colors.green,
+                              content: Text("Plan Created")));
+                        }
+                        setState(() {
+                          _refreshData(0);
+                        });
+                        Navigator.pop(context);
+                      }
+                    }
+                  },
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.black),
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0))),
+                  ),
+                  child: (oldData != null)
+                      ? const Text("Update")
+                      : const Text("Add"),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -295,6 +305,7 @@ class _PlansPageState extends State<PlansPage> {
     return OutlinedButton(
         onPressed: () async {
           await deletePlan(plan.id ?? 0);
+
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: Colors.green,
               content: Text("${plan.months} Plan Deleted")));

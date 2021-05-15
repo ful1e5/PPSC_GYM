@@ -49,67 +49,70 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        child: Scaffold(
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(
           backgroundColor: Colors.black,
-          appBar: AppBar(
-            backgroundColor: Colors.black,
-            centerTitle: true,
-            title: const Text('Home'),
-            actions: _buildActions(),
-          ),
-          body: RefreshIndicator(
-              backgroundColor: Colors.white,
-              color: Colors.black,
-              onRefresh: () async {
-                setState(() {
-                  _refreshData(1);
-                });
-                return;
-              },
-              child: FutureBuilder(
-                  future: _future,
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<Client>> snapshot) {
-                    if (snapshot.connectionState != ConnectionState.done) {
-                      return loaderWidget();
-                    }
-                    if (snapshot.hasError) {
-                      return centerMessageWidget("Error !");
-                    }
-                    if (snapshot.hasData) {
-                      return _buildListView(snapshot);
-                    }
-                    return centerMessageWidget(nonFoundMessage);
-                  })),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () async {
-              final String? newClient = await Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AddClientPage()),
-              );
-
-              if (newClient == "added") {
-                setState(() {
-                  _refreshData(0);
-                  _resetSelection();
-                });
+          centerTitle: true,
+          title: const Text('Home'),
+          actions: _buildActions(),
+        ),
+        body: RefreshIndicator(
+          backgroundColor: Colors.white,
+          color: Colors.black,
+          onRefresh: () async {
+            setState(() {
+              _refreshData(1);
+            });
+            return;
+          },
+          child: FutureBuilder(
+            future: _future,
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Client>> snapshot) {
+              if (snapshot.connectionState != ConnectionState.done) {
+                return loaderWidget();
               }
+              if (snapshot.hasError) {
+                return centerMessageWidget("Error !");
+              }
+              if (snapshot.hasData) {
+                return _buildListView(snapshot);
+              }
+              return centerMessageWidget(nonFoundMessage);
             },
-            child: const Icon(Icons.add_rounded, size: 32.0),
-            backgroundColor: Colors.green,
-            foregroundColor: Colors.white,
           ),
         ),
-        onWillPop: () async {
-          if (isSelectionMode) {
-            setState(() {
-              _resetSelection();
-            });
-            return false;
-          } else {
-            return true;
-          }
-        });
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            final String? newClient = await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddClientPage()),
+            );
+
+            if (newClient == "added") {
+              setState(() {
+                _refreshData(0);
+                _resetSelection();
+              });
+            }
+          },
+          child: const Icon(Icons.add_rounded, size: 32.0),
+          backgroundColor: Colors.green,
+          foregroundColor: Colors.white,
+        ),
+      ),
+      onWillPop: () async {
+        if (isSelectionMode) {
+          setState(() {
+            _resetSelection();
+          });
+          return false;
+        } else {
+          return true;
+        }
+      },
+    );
   }
 
   Widget _buildListView(AsyncSnapshot<List<Client>> snapshot) {
@@ -132,14 +135,18 @@ class _HomePageState extends State<HomePage> {
             margin: EdgeInsets.all(5),
             semanticContainer: true,
             child: ListTile(
+              onTap: () => _onTap(isSelected, id),
               onLongPress: () => onLongPress(isSelected, id),
-              onTap: () => onTap(isSelected, id),
               leading: _buildLeadingIcon(isSelected, gender),
-              title: Text(name,
-                  overflow: TextOverflow.ellipsis,
-                  style:
-                      TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
-              subtitle: Text(session, style: TextStyle(fontSize: 10.0)),
+              title: Text(
+                name,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text(
+                session,
+                style: TextStyle(fontSize: 10.0),
+              ),
             ),
           );
         },
@@ -147,33 +154,25 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void onLongPress(bool isSelected, int id) {
-    setState(() {
-      selectedFlag[id] = !isSelected;
-      // If there will be any true in the selectionFlag then
-      // selection Mode will be true
-      isSelectionMode = selectedFlag.containsValue(true);
-    });
-  }
-
   Widget _buildLeadingIcon(bool isSelected, String gender) {
     if (isSelectionMode) {
       return CircleAvatar(
-          radius: 30.0,
-          backgroundColor: isSelected ? Colors.white : Colors.white24,
-          child: isSelected
-              ? const Icon(Icons.check, size: 25, color: Colors.black)
-              : null);
+        radius: 30.0,
+        backgroundColor: isSelected ? Colors.white : Colors.white24,
+        child: isSelected
+            ? const Icon(Icons.check, size: 25, color: Colors.black)
+            : null,
+      );
     } else {
       return CircleAvatar(
-          radius: 30.0,
-          backgroundColor: Colors.white24,
-          child:
-              Icon(getGenderIconData(gender), size: 25, color: Colors.white54));
+        radius: 30.0,
+        backgroundColor: Colors.white24,
+        child: Icon(getGenderIconData(gender), size: 25, color: Colors.white54),
+      );
     }
   }
 
-  void onTap(bool isSelected, int id) {
+  void _onTap(bool isSelected, int id) {
     if (isSelectionMode) {
       setState(() {
         selectedFlag[id] = !isSelected;
@@ -187,6 +186,15 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void onLongPress(bool isSelected, int id) {
+    setState(() {
+      selectedFlag[id] = !isSelected;
+      // If there will be any true in the selectionFlag then
+      // selection Mode will be true
+      isSelectionMode = selectedFlag.containsValue(true);
+    });
+  }
+
   List<Widget> _buildActions() {
     // The button will be visible when the selectionMode is enabled.
     if (isSelectionMode) {
@@ -195,79 +203,82 @@ class _HomePageState extends State<HomePage> {
       return [
         IconButton(
           tooltip: "Delete",
+          icon: Icon(Icons.delete),
           onPressed: () {
             selectedFlag.removeWhere((id, value) => value == false);
             BuildContext dialogContext;
+
             showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  dialogContext = context;
-                  return ConfirmDialog(
-                      confirmText: "Delete",
-                      info: RichText(
-                          text: TextSpan(
-                        text: "${selectedFlag.length} ",
-                        style: TextStyle(
-                            fontSize: 17.0, fontWeight: FontWeight.bold),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: (selectedFlag.length == 1)
-                                ? 'entry is '
-                                : 'entries are ',
-                            style: TextStyle(
-                                fontSize: 16.0,
-                                color: Colors.white70,
-                                fontWeight: FontWeight.normal),
-                          ),
-                          TextSpan(
-                            text: 'selected. Type ',
-                            style: TextStyle(
-                                fontSize: 16.0,
-                                color: Colors.white70,
-                                fontWeight: FontWeight.normal),
-                          ),
-                          TextSpan(
-                            text: 'confirm ',
-                          ),
-                          TextSpan(
-                            text: 'to proceed.',
-                            style: TextStyle(
-                                fontSize: 16.0,
-                                color: Colors.white70,
-                                fontWeight: FontWeight.normal),
-                          ),
-                        ],
-                      )),
-                      onConfirm: () {
-                        for (MapEntry e in selectedFlag.entries) {
-                          if (e.value) {
-                            handler.deleteClient(e.key);
-                          }
-                        }
-                        setState(() {
-                          _refreshData(0);
-                          _resetSelection();
-                        });
-                        Navigator.pop(dialogContext);
-                      });
-                });
-            return;
+              context: context,
+              builder: (BuildContext context) {
+                dialogContext = context;
+                return ConfirmDialog(
+                  confirmText: "Delete",
+                  info: RichText(
+                    text: TextSpan(
+                      text: "${selectedFlag.length} ",
+                      style: TextStyle(
+                          fontSize: 17.0, fontWeight: FontWeight.bold),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: (selectedFlag.length == 1)
+                              ? 'entry is '
+                              : 'entries are ',
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.white70,
+                              fontWeight: FontWeight.normal),
+                        ),
+                        TextSpan(
+                          text: 'selected. Type ',
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.white70,
+                              fontWeight: FontWeight.normal),
+                        ),
+                        TextSpan(
+                          text: 'confirm ',
+                        ),
+                        TextSpan(
+                          text: 'to proceed.',
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.white70,
+                              fontWeight: FontWeight.normal),
+                        ),
+                      ],
+                    ),
+                  ),
+                  onConfirm: () {
+                    for (MapEntry e in selectedFlag.entries) {
+                      if (e.value) {
+                        handler.deleteClient(e.key);
+                      }
+                    }
+                    setState(() {
+                      _refreshData(0);
+                      _resetSelection();
+                    });
+                    Navigator.pop(dialogContext);
+                  },
+                );
+              },
+            );
           },
-          icon: Icon(Icons.delete),
         ),
         IconButton(
           tooltip: isFalseAvailable ? "SelectAll" : "Clear",
-          onPressed: _selectAll,
           icon: Icon(
             isFalseAvailable ? Icons.done_all : Icons.remove_done,
           ),
+          onPressed: _selectAll,
         )
       ];
     } else {
       return [
         IconButton(
-          icon: const Icon(Icons.insert_chart_rounded),
           tooltip: 'Plans',
+          icon: const Icon(Icons.insert_chart_rounded),
           onPressed: () {
             Navigator.push(
               context,

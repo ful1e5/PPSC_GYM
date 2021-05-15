@@ -35,48 +35,54 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _future,
-        builder: (BuildContext context, AsyncSnapshot<Client> snapshot) {
-          if (snapshot.connectionState != ConnectionState.done) {
-            return loaderWidget();
-          }
-          if (snapshot.hasError) {
-            return centerMessageWidget("Error !");
-          }
-          if (snapshot.hasData) {
-            return Scaffold(
-                backgroundColor: Colors.black,
-                appBar: AppBar(
-                  backgroundColor: Colors.black,
-                  actions: [
-                    IconButton(
-                      tooltip: "Edit",
-                      onPressed: () async {
-                        final result = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    AddClientPage(data: snapshot.data)));
+      future: _future,
+      builder: (BuildContext context, AsyncSnapshot<Client> snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return loaderWidget();
+        }
+        if (snapshot.hasError) {
+          return centerMessageWidget("Error !");
+        }
+        if (snapshot.hasData) {
+          return Scaffold(
+            backgroundColor: Colors.black,
+            appBar: AppBar(
+              backgroundColor: Colors.black,
+              actions: [
+                IconButton(
+                  tooltip: "Edit",
+                  onPressed: () async {
+                    final result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            AddClientPage(data: snapshot.data),
+                      ),
+                    );
 
-                        if (result == 'added') {
-                          setState(() {
-                            _refreshData(0);
-                          });
-                        }
-                      },
-                      icon: Icon(Icons.edit),
-                    )
-                  ],
-                ),
-                body: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Column(children: [
-                    clientInfo(snapshot),
-                  ]),
-                ));
-          }
-          return centerMessageWidget("Client Data Found");
-        });
+                    if (result == 'added') {
+                      setState(() {
+                        _refreshData(0);
+                      });
+                    }
+                  },
+                  icon: Icon(Icons.edit),
+                )
+              ],
+            ),
+            body: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  clientInfo(snapshot),
+                ],
+              ),
+            ),
+          );
+        }
+        return centerMessageWidget("Client Data Found");
+      },
+    );
   }
 
   Widget clientInfo(AsyncSnapshot<Client> snapshot) {
@@ -97,32 +103,46 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
               children: <Widget>[
                 SizedBox(height: 8.0),
                 RichText(
-                  text: TextSpan(children: [
-                    TextSpan(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
                         text: name,
                         style: TextStyle(
-                            fontSize: 34.0, fontWeight: FontWeight.bold)),
-                    WidgetSpan(
-                        child: Icon(getGenderIconData(gender),
-                            size: 34.0,
-                            color:
-                                gender == "Male" ? Colors.blue : Colors.pink)),
-                  ]),
+                          fontSize: 34.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      WidgetSpan(
+                        child: Icon(
+                          getGenderIconData(gender),
+                          size: 34.0,
+                          color: gender == "Male" ? Colors.blue : Colors.pink,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Divider(height: 10.0, color: Colors.transparent),
                 RichText(
-                  text: TextSpan(children: [
-                    WidgetSpan(
-                        child:
-                            Icon(Icons.tag, size: 16.0, color: Colors.white70)),
-                    TextSpan(
-                      text: id,
-                      style: TextStyle(
+                  text: TextSpan(
+                    children: [
+                      WidgetSpan(
+                        child: Icon(
+                          Icons.tag,
+                          size: 16.0,
+                          color: Colors.white70,
+                        ),
+                      ),
+                      TextSpan(
+                        text: id,
+                        style: TextStyle(
                           color: Colors.white70,
                           fontSize: 15.0,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ]),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Divider(height: 20.0, color: Colors.transparent),
                 cardGroup([
@@ -145,11 +165,14 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
     return Column(children: [
       symbol,
       Divider(color: Colors.transparent, height: 5.0),
-      Text(info,
-          style: TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.w400,
-              color: Colors.white70)),
+      Text(
+        info,
+        style: TextStyle(
+          fontSize: 12.0,
+          fontWeight: FontWeight.w400,
+          color: Colors.white70,
+        ),
+      ),
     ]);
   }
 
@@ -158,10 +181,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: children
-          .map((c) => Container(
-                padding: EdgeInsets.all(spacing),
-                child: c,
-              ))
+          .map((c) => Container(padding: EdgeInsets.all(spacing), child: c))
           .toList(),
     );
   }

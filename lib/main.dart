@@ -10,10 +10,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'PPSC GYM',
-        theme: ThemeData(primaryColor: Colors.amber),
-        darkTheme: ThemeData.dark(),
-        home: HomePage(),
-        debugShowCheckedModeBanner: false);
+      title: 'PPSC GYM',
+      darkTheme: ThemeData.dark(),
+      home: HomePage(),
+      debugShowCheckedModeBanner: false,
+    );
   }
 }

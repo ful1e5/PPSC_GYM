@@ -130,69 +130,75 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(20.0),
-          ),
-          side: BorderSide(
-            width: 1.5,
-            color: Colors.white10,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+        side: BorderSide(
+          width: 1.5,
+          color: Colors.white10,
+        ),
+      ),
+      backgroundColor: Colors.black87,
+      child: Container(
+        height: 200,
+        color: Colors.transparent,
+        child: Padding(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Expanded(
+                child:
+                    Align(alignment: Alignment.centerLeft, child: widget.info),
+              ),
+              SizedBox(height: 20),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextFormFieldWidget(
+                    hintText: "confirm",
+                    keyboardType: TextInputType.text,
+                    onChanged: (text) {
+                      if (text == "confirm") {
+                        setState(() {
+                          iscConfirm = true;
+                        });
+                      } else {
+                        setState(() {
+                          iscConfirm = false;
+                        });
+                      }
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: OutlinedButton(
+                    onPressed: iscConfirm ? widget.onConfirm : null,
+                    style: ButtonStyle(
+                      backgroundColor: iscConfirm
+                          ? MaterialStateProperty.all<Color>(Colors.red)
+                          : null,
+                      foregroundColor: iscConfirm
+                          ? MaterialStateProperty.all<Color>(Colors.white)
+                          : MaterialStateProperty.all<Color>(Colors.white24),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ),
+                    child: Text(widget.confirmText),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-        backgroundColor: Colors.black87,
-        child: Container(
-            height: 200,
-            color: Colors.transparent,
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Align(
-                        alignment: Alignment.centerLeft, child: widget.info),
-                  ),
-                  SizedBox(height: 20),
-                  Expanded(
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: TextFormFieldWidget(
-                              hintText: "confirm",
-                              keyboardType: TextInputType.text,
-                              onChanged: (text) {
-                                if (text == "confirm") {
-                                  setState(() {
-                                    iscConfirm = true;
-                                  });
-                                } else {
-                                  setState(() {
-                                    iscConfirm = false;
-                                  });
-                                }
-                              }))),
-                  SizedBox(height: 20),
-                  Expanded(
-                      child: Align(
-                          alignment: Alignment.centerRight,
-                          child: OutlinedButton(
-                            onPressed: iscConfirm ? widget.onConfirm : null,
-                            style: ButtonStyle(
-                              backgroundColor: iscConfirm
-                                  ? MaterialStateProperty.all<Color>(Colors.red)
-                                  : null,
-                              foregroundColor: iscConfirm
-                                  ? MaterialStateProperty.all<Color>(
-                                      Colors.white)
-                                  : MaterialStateProperty.all<Color>(
-                                      Colors.white24),
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(30.0))),
-                            ),
-                            child: Text(widget.confirmText),
-                          ))),
-                ],
-              ),
-            )));
+      ),
+    );
   }
 }

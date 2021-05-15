@@ -165,4 +165,6 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
           .toList(),
     );
   }
+
+  // TODO: add payments list
 }

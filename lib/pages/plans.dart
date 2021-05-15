@@ -19,6 +19,7 @@ class _PlansPageState extends State<PlansPage> {
 
   final _formKey = GlobalKey<FormState>();
   final _monthCtrl = TextEditingController();
+  final _priceCtrl = TextEditingController();
 
   final String nonFoundMessage = "0 Plan Found";
   @override
@@ -32,6 +33,7 @@ class _PlansPageState extends State<PlansPage> {
   @override
   void dispose() {
     _monthCtrl.dispose();
+    _priceCtrl.dispose();
     super.dispose();
   }
 
@@ -88,6 +90,8 @@ class _PlansPageState extends State<PlansPage> {
         itemCount: snapshot.data?.length,
         itemBuilder: (BuildContext context, int index) {
           String months = snapshot.data![index].months.toString();
+          String price = snapshot.data![index].price.toString();
+
           return Container(
               height: 140.0,
               child: Card(
@@ -108,12 +112,12 @@ class _PlansPageState extends State<PlansPage> {
                           children: [
                             Text("$months Month Plan",
                                 style: TextStyle(
-                                    fontSize: 24.0,
-                                    fontWeight: FontWeight.bold)),
-                            Text("0 Members",
+                                    fontSize: 27.0,
+                                    fontWeight: FontWeight.w300)),
+                            Text("$price \u20B9",
                                 style: TextStyle(
-                                    fontSize:
-                                        13.0)), // TODO: Dynamic member count
+                                    fontSize: 14.5,
+                                    fontWeight: FontWeight.w800)),
                           ],
                         )),
                     Expanded(
@@ -132,6 +136,7 @@ class _PlansPageState extends State<PlansPage> {
         context: context,
         builder: (BuildContext context) {
           _monthCtrl.text = "";
+          _priceCtrl.text = "";
 
           return Dialog(
             shape: RoundedRectangleBorder(
@@ -145,7 +150,7 @@ class _PlansPageState extends State<PlansPage> {
             ),
             backgroundColor: Colors.black87,
             child: Container(
-              height: 200,
+              height: 300,
               color: Colors.transparent,
               child: Padding(padding: EdgeInsets.all(20), child: buildForm()),
             ),
@@ -180,6 +185,26 @@ class _PlansPageState extends State<PlansPage> {
                 }),
           ),
         ),
+        Expanded(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: TextFormFieldWidget(
+                labelText: "Price",
+                controller: _priceCtrl,
+                autoFocus: true,
+                formatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                ],
+                maxLength: 3,
+                keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "This field required";
+                  }
+                  return null;
+                }),
+          ),
+        ),
         SizedBox(height: 10),
         Expanded(
             child: Align(
@@ -187,7 +212,9 @@ class _PlansPageState extends State<PlansPage> {
                 child: OutlinedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      Plan plan = Plan(months: int.parse(_monthCtrl.text));
+                      Plan plan = Plan(
+                          months: int.parse(_monthCtrl.text),
+                          price: int.parse(_priceCtrl.text));
 
                       final String? error = await insertPlan(plan);
 

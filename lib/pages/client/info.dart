@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:ppscgym/pages/client/add.dart';
-import 'package:ppscgym/pages/client/payment.dart';
+import 'package:ppscgym/pages/payment/payments.dart';
+import 'package:ppscgym/pages/payment/add.dart';
 import 'package:ppscgym/pages/plans.dart';
 
 import 'package:ppscgym/widgets.dart';
@@ -93,7 +94,13 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                   MaterialPageRoute(
                       builder: (context) => PlansPage(select: true)),
                 );
-                print(plan.months);
+
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AddPaymentPage(plan: plan)),
+                );
+                print(result);
               },
             ),
           );

@@ -49,7 +49,7 @@ class TextFormFieldWidget extends StatelessWidget {
         initialValue: initialValue,
         enableInteractiveSelection: enableInteractiveSelection,
         style: TextStyle(
-          color: (enabled != null && enabled == false) ? Colors.white24 : null,
+          color: (enabled != null && enabled == false) ? Colors.white54 : null,
         ),
         decoration: InputDecoration(
           prefixIcon:

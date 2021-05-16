@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 
 String datePattern = "dd/MM/yyyy";
 
-Future<DateTime?> pickDate(BuildContext context) async {
+Future<DateTime?> pickDate(BuildContext context,
+    {DateTime? initialDate}) async {
   final DateTime? date = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: initialDate ?? DateTime.now(),
       firstDate: DateTime(1975),
       lastDate: DateTime(2024));
 

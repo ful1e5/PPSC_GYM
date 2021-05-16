@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:ppscgym/pages/client/add.dart';
 import 'package:ppscgym/pages/payment/payments.dart';
-import 'package:ppscgym/pages/payment/add.dart';
 import 'package:ppscgym/pages/plans.dart';
 
 import 'package:ppscgym/widgets.dart';
@@ -89,17 +88,13 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
               backgroundColor: Colors.green,
               foregroundColor: Colors.white,
               onPressed: () async {
-                final Plan plan = await Navigator.push(
+                final result = await Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => PlansPage(select: true)),
                 );
 
-                final result = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => AddPaymentPage(plan: plan)),
-                );
+                //TODO: Update cache
                 print(result);
               },
             ),

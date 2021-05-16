@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 
 import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
+import 'package:ppscgym/pages/payment/add.dart';
 
 import 'package:ppscgym/widgets.dart';
 
@@ -115,8 +116,14 @@ class _PlansPageState extends State<PlansPage> {
             height: 140.0,
             child: InkWell(
               onTap: (widget.select != null && widget.select != false)
-                  ? () {
-                      Navigator.pop(context, snapshot.data![index]);
+                  ? () async {
+                      final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                AddPaymentPage(plan: snapshot.data![index])),
+                      );
+                      Navigator.pop(context, result);
                     }
                   : null,
               child: Card(

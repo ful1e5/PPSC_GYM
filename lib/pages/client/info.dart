@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:ppscgym/pages/client/add.dart';
+import 'package:ppscgym/pages/client/payment.dart';
+import 'package:ppscgym/pages/plans.dart';
 
 import 'package:ppscgym/widgets.dart';
 
@@ -75,8 +78,22 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
               child: Column(
                 children: [
                   clientInfo(snapshot),
+                  ClientPaymentHistory(),
                 ],
               ),
+            ),
+            floatingActionButton: FloatingActionButton(
+              tooltip: "Add Payment",
+              child: const Icon(Icons.post_add_rounded, size: 32.0),
+              backgroundColor: Colors.indigo,
+              foregroundColor: Colors.white,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PlansPage(select: true)),
+                );
+              },
             ),
           );
         }
@@ -94,86 +111,90 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
     final String mobile = snapshot.data!.mobile.toString();
 
     return Container(
-        color: Colors.transparent,
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                SizedBox(height: 8.0),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: name,
-                        style: TextStyle(
-                          fontSize: 34.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      WidgetSpan(
-                        child: Icon(
-                          getGenderIconData(gender),
-                          size: 34.0,
-                          color: gender == "Male" ? Colors.blue : Colors.pink,
-                        ),
-                      ),
-                    ],
+      color: Colors.transparent,
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            SizedBox(height: 8.0),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: name,
+                    style: TextStyle(
+                      fontSize: 34.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                Divider(height: 10.0, color: Colors.transparent),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      WidgetSpan(
-                        child: Icon(
-                          Icons.tag,
-                          size: 16.0,
-                          color: Colors.white70,
-                        ),
-                      ),
-                      TextSpan(
-                        text: id,
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                  WidgetSpan(
+                    child: Icon(
+                      getGenderIconData(gender),
+                      size: 34.0,
+                      color: gender == "Male" ? Colors.blue : Colors.pink,
+                    ),
                   ),
-                ),
-                Divider(height: 20.0, color: Colors.transparent),
-                cardGroup([
-                  infoCard(Text("6 Months", style: TextStyle(fontSize: 20.0)),
-                      "Plan"), //TODO: dynamic
-                  infoCard(Text("3", style: TextStyle(fontSize: 20.0)),
-                      "Plans Expired"), //TODO: dynamic
-                ], 15.6),
-                Divider(height: 10.0, color: Colors.transparent),
-                cardGroup([
-                  infoCard(Icon(Icons.phone, size: 25.0), mobile),
-                  infoCard(Icon(Icons.timelapse, size: 25.0), session),
-                  infoCard(Icon(Icons.cake, size: 25.0), dob),
-                ], 15.6)
-              ]),
-        ));
+                ],
+              ),
+            ),
+            Divider(height: 10.0, color: Colors.transparent),
+            RichText(
+              text: TextSpan(
+                children: [
+                  WidgetSpan(
+                    child: Icon(
+                      Icons.tag,
+                      size: 16.0,
+                      color: Colors.white70,
+                    ),
+                  ),
+                  TextSpan(
+                    text: id,
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Divider(height: 20.0, color: Colors.transparent),
+            cardGroup([
+              infoCard(Text("6 Months", style: TextStyle(fontSize: 20.0)),
+                  "Plan"), //TODO: dynamic
+              infoCard(Text("3", style: TextStyle(fontSize: 20.0)),
+                  "Plans Expired"), //TODO: dynamic
+            ], 15.6),
+            Divider(height: 10.0, color: Colors.transparent),
+            cardGroup([
+              infoCard(Icon(Icons.phone, size: 25.0), mobile),
+              infoCard(Icon(Icons.timelapse, size: 25.0), session),
+              infoCard(Icon(Icons.cake, size: 25.0), dob),
+            ], 15.6)
+          ],
+        ),
+      ),
+    );
   }
 
   Widget infoCard(Widget symbol, String info) {
-    return Column(children: [
-      symbol,
-      Divider(color: Colors.transparent, height: 5.0),
-      Text(
-        info,
-        style: TextStyle(
-          fontSize: 12.0,
-          fontWeight: FontWeight.w400,
-          color: Colors.white70,
+    return Column(
+      children: [
+        symbol,
+        Divider(color: Colors.transparent, height: 5.0),
+        Text(
+          info,
+          style: TextStyle(
+            fontSize: 12.0,
+            fontWeight: FontWeight.w400,
+            color: Colors.white70,
+          ),
         ),
-      ),
-    ]);
+      ],
+    );
   }
 
   Widget cardGroup(List<Widget> children, double spacing) {
@@ -185,6 +206,4 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
           .toList(),
     );
   }
-
-  // TODO: add payments list
 }

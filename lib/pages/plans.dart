@@ -8,7 +8,8 @@ import 'package:ppscgym/services/database/models.dart';
 import 'package:ppscgym/widgets.dart';
 
 class PlansPage extends StatefulWidget {
-  PlansPage({Key? key}) : super(key: key);
+  final bool? select;
+  PlansPage({Key? key, this.select}) : super(key: key);
 
   @override
   _PlansPageState createState() => _PlansPageState();
@@ -23,6 +24,7 @@ class _PlansPageState extends State<PlansPage> {
   final _priceCtrl = TextEditingController();
 
   final String nonFoundMessage = "0 Plan Found";
+
   @override
   void initState() {
     super.initState();
@@ -66,15 +68,19 @@ class _PlansPageState extends State<PlansPage> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         centerTitle: true,
-        title: const Text('Customize Plans'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              addPlanDialog();
-            },
-            icon: Icon(Icons.add_rounded),
-          )
-        ],
+        title: widget.select == false
+            ? const Text('Customize Plans')
+            : const Text('Select Plan'),
+        actions: widget.select == false
+            ? [
+                IconButton(
+                  onPressed: () {
+                    addPlanDialog();
+                  },
+                  icon: Icon(Icons.add_rounded),
+                )
+              ]
+            : null,
       ),
       body: FutureBuilder(
         future: _future,
@@ -132,14 +138,17 @@ class _PlansPageState extends State<PlansPage> {
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: IconButton(
-                      onPressed: () {
-                        addPlanDialog(oldData: snapshot.data![index]);
-                      },
-                      icon: Icon(Icons.edit, color: Colors.white, size: 25.0),
-                    ),
-                  )
+                  widget.select == false
+                      ? Expanded(
+                          child: IconButton(
+                            onPressed: () {
+                              addPlanDialog(oldData: snapshot.data![index]);
+                            },
+                            icon: Icon(Icons.edit,
+                                color: Colors.white, size: 25.0),
+                          ),
+                        )
+                      : Container()
                 ],
               ),
             ),

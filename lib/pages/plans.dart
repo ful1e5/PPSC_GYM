@@ -265,27 +265,33 @@ class _PlansPageState extends State<PlansPage> {
                             backgroundColor: Colors.red, content: Text(error)));
                       } else {
                         if (oldData != null) {
-                          if (!mapEquals(oldData.toMap(), plan.toMap()))
+                          if (!mapEquals(oldData.toMap(), plan.toMap())) {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 backgroundColor: Colors.orange,
                                 content: Text("Plan Edited")));
+
+                            setState(() {
+                              _refreshData(0);
+                            });
+                          }
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               backgroundColor: Colors.green,
                               content: Text("Plan Created")));
+
+                          setState(() {
+                            _refreshData(0);
+                          });
                         }
-                        setState(() {
-                          _refreshData(0);
-                        });
                         Navigator.pop(context);
                       }
                     }
                   },
                   style: ButtonStyle(
                     backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
+                        MaterialStateProperty.all<Color>(Colors.blue),
                     foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.black),
+                        MaterialStateProperty.all<Color>(Colors.white),
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0))),
                   ),

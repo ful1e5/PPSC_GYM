@@ -52,7 +52,17 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
         centerTitle: true,
         backgroundColor: Colors.transparent,
         title: const Text('Review Payment'),
-        actions: <Widget>[],
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              // Validate returns true if the form is valid, or false otherwise.
+              if (_formKey.currentState!.validate()) {
+                addWarningDialog();
+              }
+            },
+            icon: Icon(Icons.check),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -172,6 +182,82 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
           ),
         ),
       ),
+    );
+  }
+
+  addWarningDialog() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(25.0),
+            ),
+            side: BorderSide(
+              width: 1.5,
+              color: Colors.white10,
+            ),
+          ),
+          backgroundColor: Colors.black87,
+          child: Container(
+            height: 290,
+            color: Colors.transparent,
+            child: Padding(padding: EdgeInsets.all(15), child: buildWarning()),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget buildWarning() {
+    return Column(
+      children: [
+        Center(
+            child:
+                Icon(Icons.warning, size: 100.0, color: Colors.yellowAccent)),
+        SizedBox(height: 10),
+        Center(
+            child: Text(
+          "You Cann't able to edit payment information after your transaction, Tap 'I Agree' to procced.",
+          overflow: TextOverflow.visible,
+          style: TextStyle(fontSize: 10.0),
+        )),
+        SizedBox(height: 50),
+        Expanded(
+          child: Row(
+            children: [
+              OutlinedButton(
+                child: const Text("Close"),
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.black),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0))),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              Spacer(),
+              OutlinedButton(
+                child: const Text("I Agree"),
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blue),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0))),
+                ),
+                onPressed: null,
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 }

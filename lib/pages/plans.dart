@@ -174,28 +174,29 @@ class _PlansPageState extends State<PlansPage> {
 
   addPlanDialog({Plan? oldData}) {
     return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(25.0),
-              ),
-              side: BorderSide(
-                width: 1.5,
-                color: Colors.white10,
-              ),
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(25.0),
             ),
-            backgroundColor: Colors.black87,
-            child: Container(
-              height: 300,
-              color: Colors.transparent,
-              child: Padding(
-                  padding: EdgeInsets.all(20),
-                  child: buildForm(oldData: oldData)),
+            side: BorderSide(
+              width: 1.5,
+              color: Colors.white10,
             ),
-          );
-        });
+          ),
+          backgroundColor: Colors.black87,
+          child: Container(
+            height: 300,
+            color: Colors.transparent,
+            child: Padding(
+                padding: EdgeInsets.all(20),
+                child: buildForm(oldData: oldData)),
+          ),
+        );
+      },
+    );
   }
 
   Widget buildForm({Plan? oldData}) {
@@ -227,6 +228,8 @@ class _PlansPageState extends State<PlansPage> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "This field required";
+                  } else if (int.parse(value) == 0) {
+                    return "Not A Valid  Count";
                   } else if (int.parse(value) > 12) {
                     return "Maximum limit is 12 months";
                   }
@@ -250,6 +253,8 @@ class _PlansPageState extends State<PlansPage> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "This field required";
+                  } else if (int.parse(value) == 0) {
+                    return "Not A Valid Count";
                   } else if (int.parse(value) > 50000) {
                     return "Max Price set to 50,000\u20B9";
                   }

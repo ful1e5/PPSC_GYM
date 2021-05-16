@@ -68,9 +68,9 @@ class _PlansPageState extends State<PlansPage> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         centerTitle: true,
-        title: widget.select == false
-            ? const Text('Customize Plans')
-            : const Text('Select Plan'),
+        title: (widget.select != null && widget.select != false)
+            ? const Text('Select Plan')
+            : const Text('Customize Plans'),
         actions: widget.select == false
             ? [
                 IconButton(
@@ -138,8 +138,9 @@ class _PlansPageState extends State<PlansPage> {
                       ],
                     ),
                   ),
-                  widget.select == false
-                      ? Expanded(
+                  (widget.select != null && widget.select != false)
+                      ? Container()
+                      : Expanded(
                           child: IconButton(
                             onPressed: () {
                               addPlanDialog(oldData: snapshot.data![index]);
@@ -148,7 +149,6 @@ class _PlansPageState extends State<PlansPage> {
                                 color: Colors.white, size: 25.0),
                           ),
                         )
-                      : Container()
                 ],
               ),
             ),

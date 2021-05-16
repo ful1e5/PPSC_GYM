@@ -84,7 +84,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
             ),
             floatingActionButton: FloatingActionButton(
               tooltip: "Add Payment",
-              child: const Icon(Icons.post_add_rounded, size: 32.0),
+              child: const Icon(Icons.payment_rounded, size: 32.0),
               backgroundColor: Colors.indigo,
               foregroundColor: Colors.white,
               onPressed: () {

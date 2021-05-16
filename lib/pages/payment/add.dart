@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:ppscgym/services/database/models.dart';
 import 'package:ppscgym/utils.dart';
@@ -17,18 +18,23 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
 
   final DateTime todayDate = DateTime.now();
   late DateTime firstDayOfMonthDate;
-  late bool _fromToday = true;
+
+  late bool _fromToday = false;
+  late bool _moneyFromPlan = true;
 
   late DateTime fromDate = todayDate;
   final _fromCtrl = TextEditingController();
   final _toCtrl = TextEditingController();
+  final _priceCtrl = TextEditingController();
 
   @override
   void initState() {
     super.initState();
 
     firstDayOfMonthDate = DateTime(todayDate.year, todayDate.month, 1);
-    setDateCtrls(todayDate);
+    setDateCtrls(firstDayOfMonthDate);
+
+    _priceCtrl.text = widget.plan.price.toString();
   }
 
   void setDateCtrls(DateTime date) {
@@ -65,6 +71,10 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                         TextStyle(fontSize: 37.0, fontWeight: FontWeight.bold)),
                 SizedBox(height: 30),
 
+                //
+                // Switches
+                //
+
                 SwitchListTile(
                   title: const Text('From Today'),
                   value: _fromToday,
@@ -80,6 +90,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                   },
                 ),
                 SizedBox(height: 20),
+
                 //
                 // From date
                 //
@@ -120,7 +131,42 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                   enableInteractiveSelection: false,
                   keyboardType: TextInputType.text,
                 ),
+
                 SizedBox(height: 20),
+
+                SwitchListTile(
+                  title: const Text('Money From Plan'),
+                  value: _moneyFromPlan,
+                  onChanged: (bool value) {
+                    setState(() {
+                      _moneyFromPlan = value;
+                      if (_moneyFromPlan == true) {
+                        _priceCtrl.text = widget.plan.price.toString();
+                      }
+                    });
+                  },
+                ),
+                SizedBox(height: 20),
+
+                TextFormFieldWidget(
+                  enabled: !_moneyFromPlan,
+                  labelText: "Price",
+                  controller: _priceCtrl,
+                  autoFocus: true,
+                  formatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                  ],
+                  maxLength: 5,
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "This field required";
+                    } else if (int.parse(value) > 50000) {
+                      return "Max Price set to 50,000\u20B9";
+                    }
+                    return null;
+                  },
+                )
               ],
             ),
           ),

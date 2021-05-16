@@ -71,16 +71,16 @@ class _PlansPageState extends State<PlansPage> {
         title: (widget.select != null && widget.select != false)
             ? const Text('Select Plan')
             : const Text('Customize Plans'),
-        actions: widget.select == false
-            ? [
+        actions: (widget.select != null && widget.select != false)
+            ? null
+            : [
                 IconButton(
                   onPressed: () {
                     addPlanDialog();
                   },
                   icon: Icon(Icons.add_rounded),
                 )
-              ]
-            : null,
+              ],
       ),
       body: FutureBuilder(
         future: _future,
@@ -113,43 +113,50 @@ class _PlansPageState extends State<PlansPage> {
 
           return Container(
             height: 140.0,
-            child: Card(
-              color: Colors.indigo,
-              semanticContainer: true,
-              margin: EdgeInsets.only(
-                  top: 10.0, bottom: 10.0, left: 32.0, right: 32.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25.0),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(20.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("$months Month Plan",
-                            style: TextStyle(
-                                fontSize: 27.0, fontWeight: FontWeight.w300)),
-                        Text("$price \u20B9",
-                            style: TextStyle(
-                                fontSize: 14.5, fontWeight: FontWeight.w800)),
-                      ],
+            child: InkWell(
+              onTap: (widget.select != null && widget.select != false)
+                  ? () {
+                      Navigator.pop(context, snapshot.data![index]);
+                    }
+                  : null,
+              child: Card(
+                color: Colors.indigo,
+                semanticContainer: true,
+                margin: EdgeInsets.only(
+                    top: 10.0, bottom: 10.0, left: 32.0, right: 32.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("$months Month Plan",
+                              style: TextStyle(
+                                  fontSize: 27.0, fontWeight: FontWeight.w300)),
+                          Text("$price \u20B9",
+                              style: TextStyle(
+                                  fontSize: 14.5, fontWeight: FontWeight.w800)),
+                        ],
+                      ),
                     ),
-                  ),
-                  (widget.select != null && widget.select != false)
-                      ? Container()
-                      : Expanded(
-                          child: IconButton(
-                            onPressed: () {
-                              addPlanDialog(oldData: snapshot.data![index]);
-                            },
-                            icon: Icon(Icons.edit,
-                                color: Colors.white, size: 25.0),
-                          ),
-                        )
-                ],
+                    (widget.select != null && widget.select != false)
+                        ? Container()
+                        : Expanded(
+                            child: IconButton(
+                              onPressed: () {
+                                addPlanDialog(oldData: snapshot.data![index]);
+                              },
+                              icon: Icon(Icons.edit,
+                                  color: Colors.white, size: 25.0),
+                            ),
+                          )
+                  ],
+                ),
               ),
             ),
           );

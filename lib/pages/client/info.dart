@@ -84,15 +84,16 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
             ),
             floatingActionButton: FloatingActionButton(
               tooltip: "Add Payment",
-              child: const Icon(Icons.payment_rounded, size: 32.0),
-              backgroundColor: Colors.indigo,
+              child: const Icon(Icons.event_note, size: 32.0),
+              backgroundColor: Colors.green,
               foregroundColor: Colors.white,
-              onPressed: () {
-                Navigator.push(
+              onPressed: () async {
+                final Plan plan = await Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => PlansPage(select: true)),
                 );
+                print(plan.months);
               },
             ),
           );

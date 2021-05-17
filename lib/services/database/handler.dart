@@ -14,6 +14,7 @@ class DatabaseHandler {
     return openDatabase(
       join(path, 'ppscgym.db'),
       onCreate: (database, version) async {
+        await database.execute('PRAGMA foreign_keys = ON;');
         await database.execute("CREATE TABLE $clientTable("
             "id INTEGER PRIMARY KEY,"
             "name TEXT NOT NULL,"
@@ -36,7 +37,8 @@ class DatabaseHandler {
             "startDate TEXT NOT NULL,"
             "endDate TEXT NOT NULL,"
             "money INTEGER NOT NULL,"
-            "FOREIGN KEY(clientId) REFERENCES $clientTable(id) ON DELETE CASCADE"
+            "clientId INTEGER NOT NULL,"
+            "FOREIGN KEY (clientId) REFERENCES $clientTable (id) ON DELETE CASCADE"
             ")");
       },
       version: 1,
@@ -100,12 +102,15 @@ class DatabaseHandler {
 
   Future<String?> insertPayment(Payment payment) async {
     final Database db = await initializeDB();
-    try {
-      await db.insert(paymentTable, payment.toMap());
-      return null;
-    } catch (e) {
-      //TODO: handle errors
-    }
+    await db.insert(paymentTable, payment.toMap());
+    return null;
+  }
+
+  Future<List<Payment>> retriveClientPayments(int clientId) async {
+    final Database db = await initializeDB();
+    final List<Map<String, Object?>> queryResult = await db.query(paymentTable,
+        where: "clientId = ?", whereArgs: [clientId], orderBy: "id DESC");
+    return queryResult.map((e) => Payment.fromMap(e)).toList();
   }
 
   //

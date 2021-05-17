@@ -20,25 +20,33 @@ class ClientInfoPage extends StatefulWidget {
 
 class _ClientInfoPageState extends State<ClientInfoPage> {
   late DatabaseHandler handler;
-  late Future<Client> _future;
+  late Future<Client> _infoFuture;
+  late Future<List<Payment>> _paymentsFuture;
 
   @override
   void initState() {
     super.initState();
     handler = DatabaseHandler();
-    _refreshData(0);
+    _refreshInfoData(0);
+    _refreshPaymentData(2);
   }
 
-  void _refreshData(int seconds) {
-    _future = Future<Client>.delayed(
+  void _refreshInfoData(int seconds) {
+    _infoFuture = Future<Client>.delayed(
         Duration(seconds: seconds, microseconds: 10),
         () => handler.retrieveClient(widget.clientId));
+  }
+
+  void _refreshPaymentData(int seconds) {
+    _paymentsFuture = Future<List<Payment>>.delayed(
+        Duration(seconds: seconds, microseconds: 10),
+        () => handler.retriveClientPayments(widget.clientId));
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _future,
+      future: _infoFuture,
       builder: (BuildContext context, AsyncSnapshot<Client> snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return loaderWidget();
@@ -65,7 +73,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
 
                     if (result == 'added') {
                       setState(() {
-                        _refreshData(0);
+                        _refreshInfoData(0);
                       });
                     }
                   },
@@ -78,7 +86,8 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
               child: Column(
                 children: [
                   clientInfo(snapshot),
-                  ClientPaymentHistory(),
+                  Divider(color: Colors.transparent, height: 40),
+                  ClientPaymentHistory(future: _paymentsFuture),
                 ],
               ),
             ),
@@ -95,8 +104,11 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                           PlansPage(select: true, clientId: widget.clientId)),
                 );
 
-                //TODO: Update cache
-                print(result);
+                if (result == "added") {
+                  setState(() {
+                    _refreshPaymentData(1);
+                  });
+                }
               },
             ),
           );

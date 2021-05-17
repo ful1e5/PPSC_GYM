@@ -22,10 +22,10 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
   late bool _fromToday = false;
   late bool _moneyFromPlan = true;
 
-  late DateTime fromDate = todayDate;
-  final _fromCtrl = TextEditingController();
-  final _toCtrl = TextEditingController();
-  final _priceCtrl = TextEditingController();
+  late DateTime selectionDefaultDate = todayDate;
+  final _startDateCtrl = TextEditingController();
+  final _endDateCtrl = TextEditingController();
+  final _moneyCtrl = TextEditingController();
 
   @override
   void initState() {
@@ -34,14 +34,14 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
     firstDayOfMonthDate = DateTime(todayDate.year, todayDate.month, 1);
     setDateCtrls(firstDayOfMonthDate);
 
-    _priceCtrl.text = widget.plan.price.toString();
+    _moneyCtrl.text = widget.plan.price.toString();
   }
 
   void setDateCtrls(DateTime date) {
-    _fromCtrl.text = toDDMMYYYY(date);
-    _toCtrl.text = toDDMMYYYY(
+    _startDateCtrl.text = toDDMMYYYY(date);
+    _endDateCtrl.text = toDDMMYYYY(
         DateTime(date.year, date.month + widget.plan.months, date.day));
-    fromDate = date;
+    selectionDefaultDate = date;
   }
 
   @override
@@ -106,16 +106,16 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                 //
 
                 TextFormFieldWidget(
-                  labelText: 'From',
+                  labelText: 'Starting Date',
                   enabled: !_fromToday,
-                  controller: _fromCtrl,
+                  controller: _startDateCtrl,
                   enableInteractiveSelection: false,
                   keyboardType: TextInputType.text,
                   onTap: () async {
                     // Below line stops keyboard from appearing
                     FocusScope.of(context).requestFocus(new FocusNode());
-                    DateTime? date =
-                        await pickDate(context, initialDate: fromDate);
+                    DateTime? date = await pickDate(context,
+                        initialDate: selectionDefaultDate);
                     if (date != null)
                       setState(() {
                         setDateCtrls(date);
@@ -136,8 +136,8 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
 
                 TextFormFieldWidget(
                   enabled: false,
-                  labelText: 'To',
-                  controller: _toCtrl,
+                  labelText: 'Ending Date',
+                  controller: _endDateCtrl,
                   enableInteractiveSelection: false,
                   keyboardType: TextInputType.text,
                 ),
@@ -151,7 +151,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                     setState(() {
                       _moneyFromPlan = value;
                       if (_moneyFromPlan == true) {
-                        _priceCtrl.text = widget.plan.price.toString();
+                        _moneyCtrl.text = widget.plan.price.toString();
                       }
                     });
                   },
@@ -160,8 +160,8 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
 
                 TextFormFieldWidget(
                   enabled: !_moneyFromPlan,
-                  labelText: "Price",
-                  controller: _priceCtrl,
+                  labelText: "Money",
+                  controller: _moneyCtrl,
                   autoFocus: true,
                   formatters: [
                     FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))

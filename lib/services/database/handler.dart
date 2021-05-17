@@ -10,13 +10,31 @@ class DatabaseHandler {
     return openDatabase(
       join(path, 'ppscgym.db'),
       onCreate: (database, version) async {
-        await database.execute(
-          "CREATE TABLE clients(id INTEGER PRIMARY KEY, name TEXT NOT NULL, gender TEXT NOT NULL, dob TEXT NOT NULL, session TEXT NOT NULL, mobile INTEGER UNIQUE NOT NULL)",
-        );
+        await database.execute("CREATE TABLE clients("
+            "id INTEGER PRIMARY KEY,"
+            "name TEXT NOT NULL,"
+            " gender TEXT NOT NULL,"
+            "dob TEXT NOT NULL,"
+            "session TEXT NOT NULL,"
+            "mobile INTEGER UNIQUE NOT NULL"
+            ")");
 
-        await database.execute(
-          "CREATE TABLE plans(id INTEGER PRIMARY KEY AUTOINCREMENT, months INTEGER UNIQUE NOT NULL, price INTEGER NOT NULL)",
-        );
+        await database.execute("CREATE TABLE plans("
+            "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+            "months INTEGER UNIQUE NOT NULL,"
+            "price INTEGER NOT NULL"
+            ")");
+
+        // Client -> Payments (one to many relation)
+
+        await database.execute("CREATE TABLE payments("
+            "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+            "startDate TEXT NOT NULL,"
+            "endDate TEXT NOT NULL,"
+            "money INTEGER NOT NULL,"
+//            "FOREIGN KEY(clientId) REFERENCES clients(id) ON DELETE CASCADE"
+//TODO: add relation
+            ")");
       },
       version: 1,
     );

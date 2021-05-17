@@ -10,30 +10,29 @@ class DatabaseHandler {
     return openDatabase(
       join(path, 'ppscgym.db'),
       onCreate: (database, version) async {
-        await database.execute("CREATE TABLE clients("
+        await database.execute("CREATE TABLE client("
             "id INTEGER PRIMARY KEY,"
             "name TEXT NOT NULL,"
-            " gender TEXT NOT NULL,"
+            "gender TEXT NOT NULL,"
             "dob TEXT NOT NULL,"
             "session TEXT NOT NULL,"
             "mobile INTEGER UNIQUE NOT NULL"
             ")");
 
-        await database.execute("CREATE TABLE plans("
+        await database.execute("CREATE TABLE plan("
             "id INTEGER PRIMARY KEY AUTOINCREMENT,"
             "months INTEGER UNIQUE NOT NULL,"
             "price INTEGER NOT NULL"
             ")");
 
         // Client -> Payments (one to many relation)
+        // TODO: add relation
 
-        await database.execute("CREATE TABLE payments("
+        await database.execute("CREATE TABLE payment("
             "id INTEGER PRIMARY KEY AUTOINCREMENT,"
             "startDate TEXT NOT NULL,"
             "endDate TEXT NOT NULL,"
-            "money INTEGER NOT NULL,"
-//            "FOREIGN KEY(clientId) REFERENCES clients(id) ON DELETE CASCADE"
-//TODO: add relation
+            "money INTEGER NOT NULL"
             ")");
       },
       version: 1,
@@ -47,7 +46,7 @@ class DatabaseHandler {
   Future<String?> insertClient(Client client) async {
     final Database db = await initializeDB();
     try {
-      await db.insert('clients', client.toMap());
+      await db.insert('client', client.toMap());
       return null;
     } catch (e) {
       return handleClientErrors(e.toString(), client);
@@ -58,7 +57,7 @@ class DatabaseHandler {
     final Database db = await initializeDB();
     try {
       await db.update(
-        'clients',
+        'client',
         client.toMap(),
         where: "id = ?",
         whereArgs: [client.id],
@@ -72,7 +71,7 @@ class DatabaseHandler {
   Future<void> deleteClient(int id) async {
     final db = await initializeDB();
     await db.delete(
-      'clients',
+      'client',
       where: "id = ?",
       whereArgs: [id],
     );
@@ -80,25 +79,25 @@ class DatabaseHandler {
 
   Future<List<Client>> retrieveClients() async {
     final Database db = await initializeDB();
-    final List<Map<String, Object?>> queryResult = await db.query('clients');
+    final List<Map<String, Object?>> queryResult = await db.query('client');
     return queryResult.map((e) => Client.fromMap(e)).toList();
   }
 
   Future<Client> retrieveClient(int id) async {
     final Database db = await initializeDB();
     final List<Map<String, Object?>> result =
-        await db.query('clients', where: "id = ?", whereArgs: [id]);
+        await db.query('client', where: "id = ?", whereArgs: [id]);
     return Client.fromMap(result[0]);
   }
 
   //
-  // Plans
+  // Plan
   //
 
   Future<String?> insertPlan(Plan plan) async {
     final Database db = await initializeDB();
     try {
-      await db.insert('plans', plan.toMap());
+      await db.insert('plan', plan.toMap());
       return null;
     } catch (e) {
       return handlePlanErrors(e.toString(), plan);
@@ -109,7 +108,7 @@ class DatabaseHandler {
     final Database db = await initializeDB();
     try {
       await db.update(
-        'plans',
+        'plan',
         plan.toMap(),
         where: "id = ?",
         whereArgs: [plan.id],
@@ -123,7 +122,7 @@ class DatabaseHandler {
   Future<void> deletePlan(int id) async {
     final db = await initializeDB();
     await db.delete(
-      'plans',
+      'plan',
       where: "id = ?",
       whereArgs: [id],
     );
@@ -132,7 +131,7 @@ class DatabaseHandler {
   Future<List<Plan>> retrievePlans() async {
     final Database db = await initializeDB();
     final List<Map<String, Object?>> queryResult =
-        await db.query('plans', orderBy: "months ASC");
+        await db.query('plan', orderBy: "months ASC");
     return queryResult.map((e) => Plan.fromMap(e)).toList();
   }
 }

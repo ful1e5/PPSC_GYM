@@ -10,7 +10,8 @@ import 'package:ppscgym/widgets.dart';
 
 class PlansPage extends StatefulWidget {
   final bool? select;
-  PlansPage({Key? key, this.select}) : super(key: key);
+  final int? clientId;
+  PlansPage({Key? key, this.select, this.clientId}) : super(key: key);
 
   @override
   _PlansPageState createState() => _PlansPageState();
@@ -120,8 +121,9 @@ class _PlansPageState extends State<PlansPage> {
                       final result = await Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                AddPaymentPage(plan: snapshot.data![index])),
+                            builder: (context) => AddPaymentPage(
+                                plan: snapshot.data![index],
+                                clientId: widget.clientId!)),
                       );
                       Navigator.pop(context, result);
                     }

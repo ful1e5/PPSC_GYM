@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:ppscgym/services/database/models.dart';
-import 'package:ppscgym/utils.dart';
 import 'package:ppscgym/widgets.dart';
+import 'package:ppscgym/utils.dart';
+
+import 'package:ppscgym/services/database/handler.dart';
+import 'package:ppscgym/services/database/models.dart';
 
 class AddPaymentPage extends StatefulWidget {
+  final int clientId;
   final Plan plan;
-  AddPaymentPage({Key? key, required this.plan}) : super(key: key);
+  AddPaymentPage({Key? key, required this.clientId, required this.plan})
+      : super(key: key);
 
   @override
   _AddPaymentPageState createState() => _AddPaymentPageState();
@@ -42,6 +46,11 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
     _endDateCtrl.text = toDDMMYYYY(
         DateTime(date.year, date.month + widget.plan.months, date.day));
     selectionDefaultDate = date;
+  }
+
+  Future<String?> insertPayment(Payment payment) async {
+    final DatabaseHandler handler = DatabaseHandler();
+    return await handler.insertPayment(payment);
   }
 
   @override
@@ -243,17 +252,36 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
               ),
               Spacer(),
               OutlinedButton(
-                child: const Text("I Agree"),
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.blue),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0))),
-                ),
-                onPressed: null,
-              ),
+                  child: const Text("I Agree"),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0))),
+                  ),
+                  onPressed: () async {
+                    Payment payment = Payment(
+                        clientId: widget.clientId,
+                        startDate: _startDateCtrl.text,
+                        endDate: _endDateCtrl.text,
+                        money: int.parse(_moneyCtrl.text));
+
+                    final String? error = await insertPayment(payment);
+
+                    if (error != null) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Colors.red, content: Text(error)));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Colors.green,
+                          content: Text(
+                              "${widget.plan.months} Months Plan Active")));
+                      Navigator.pop(context); // Popup Dialog
+                      Navigator.pop(context, 'added'); // Popup Widget
+                    }
+                  }),
             ],
           ),
         )

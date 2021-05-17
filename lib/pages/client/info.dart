@@ -91,7 +91,8 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                 final result = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => PlansPage(select: true)),
+                      builder: (context) =>
+                          PlansPage(select: true, clientId: widget.clientId)),
                 );
 
                 //TODO: Update cache

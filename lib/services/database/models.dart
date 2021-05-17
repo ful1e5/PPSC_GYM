@@ -57,32 +57,32 @@ class Plan {
 }
 
 class Payment {
-  final int id;
+  final int? id;
   final int clientId;
-  final String from;
-  final String to;
+  final String startDate;
+  final String endDate;
   final int money;
 
   Payment(
-      {required this.id,
+      {this.id,
       required this.clientId,
-      required this.from,
-      required this.to,
+      required this.startDate,
+      required this.endDate,
       required this.money});
 
   Payment.fromMap(Map<String, dynamic> res)
       : id = res["id"],
         clientId = res["clientId"],
-        from = res["from"],
-        to = res["to"],
+        startDate = res["startDate"],
+        endDate = res["endDate"],
         money = res["money"];
 
   Map<String, Object?> toMap() {
     return {
       'id': id,
       'clientId': clientId,
-      'from': from,
-      'to': to,
+      'startDate': startDate,
+      'endDate': endDate,
       'money': money,
     };
   }

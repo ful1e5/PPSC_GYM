@@ -55,3 +55,35 @@ class Plan {
     };
   }
 }
+
+class Payment {
+  final int id;
+  final int clientId;
+  final String from;
+  final String to;
+  final int money;
+
+  Payment(
+      {required this.id,
+      required this.clientId,
+      required this.from,
+      required this.to,
+      required this.money});
+
+  Payment.fromMap(Map<String, dynamic> res)
+      : id = res["id"],
+        clientId = res["clientId"],
+        from = res["from"],
+        to = res["to"],
+        money = res["money"];
+
+  Map<String, Object?> toMap() {
+    return {
+      'id': id,
+      'clientId': clientId,
+      'from': from,
+      'to': to,
+      'money': money,
+    };
+  }
+}

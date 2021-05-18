@@ -20,12 +20,18 @@ String toDDMMYYYY(DateTime date) {
   return "${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year.toString()}";
 }
 
-bool is12YearOld(String birthDateString) {
-  // Current time - at this moment
-  DateTime today = DateTime.now();
+DateTime stringToDateTime(String date) {
+  return DateFormat(datePattern).parse(date);
+}
 
-  // Parsed date to check
-  DateTime birthDate = DateFormat(datePattern).parse(birthDateString);
+bool isDatePassed(String date) {
+  DateTime expireDate = stringToDateTime(date);
+  return DateTime.now().isAfter(expireDate);
+}
+
+bool is12YearOld(String birthDateString) {
+  DateTime today = DateTime.now();
+  DateTime birthDate = stringToDateTime(birthDateString);
 
   // Date to check but moved 12 years ahead
   DateTime adultDate = DateTime(

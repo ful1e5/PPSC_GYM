@@ -63,14 +63,17 @@ class Payment {
   final String startDate;
   final String endDate;
   final int money;
+  final String? note;
 
-  Payment(
-      {this.id,
-      required this.clientId,
-      required this.months,
-      required this.startDate,
-      required this.endDate,
-      required this.money});
+  Payment({
+    this.id,
+    required this.clientId,
+    required this.months,
+    required this.startDate,
+    required this.endDate,
+    required this.money,
+    this.note,
+  });
 
   Payment.fromMap(Map<String, dynamic> res)
       : id = res["id"],
@@ -78,7 +81,8 @@ class Payment {
         months = res["months"],
         startDate = res["startDate"],
         endDate = res["endDate"],
-        money = res["money"];
+        money = res["money"],
+        note = res["note"];
 
   Map<String, Object?> toMap() {
     return {
@@ -88,6 +92,7 @@ class Payment {
       'startDate': startDate,
       'endDate': endDate,
       'money': money,
+      'note': note,
     };
   }
 }

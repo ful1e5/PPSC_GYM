@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:ppscgym/services/database/models.dart';
+import 'package:ppscgym/utils.dart';
 import 'package:ppscgym/widgets.dart';
 
 class ClientPaymentHistory extends StatefulWidget {
@@ -47,41 +48,64 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
               int money = snapshot.data![index].money;
               String startDate = snapshot.data![index].startDate;
               String endDate = snapshot.data![index].endDate;
+              String? note = snapshot.data![index].note;
+
+              bool isExpired = isDatePassed(endDate);
 
               return Card(
-                color: Colors.grey, //TODO: dynamic colors of payment card
+                color: isExpired ? Colors.red : Colors.green,
                 margin: EdgeInsets.fromLTRB(35.0, 15.0, 35.0, 15.0),
                 semanticContainer: true,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25.0),
                 ),
-                child: Row(
+                child: Column(
                   children: [
-                    Container(
-                      padding: EdgeInsets.all(20.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('$months Months Plan',
-                              style: TextStyle(
-                                  fontSize: 22.0, fontWeight: FontWeight.w300)),
-                          Text('$money \u20B9',
-                              style: TextStyle(
-                                  fontSize: 10.0, fontWeight: FontWeight.w600)),
-                          Divider(color: Colors.transparent, height: 10.0),
-                          Text('$startDate to $endDate',
-                              style: TextStyle(
-                                  fontSize: 11.0, fontWeight: FontWeight.w900)),
-                        ],
-                      ),
+                    Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(20.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('$months Months Plan',
+                                  style: TextStyle(
+                                      fontSize: 22.0,
+                                      fontWeight: FontWeight.w300)),
+                              Text('$money\u20B9',
+                                  style: TextStyle(
+                                      fontSize: 13.0,
+                                      fontWeight: FontWeight.w600)),
+                              Divider(color: Colors.transparent, height: 10.0),
+                              Text('$startDate to $endDate',
+                                  style: TextStyle(
+                                      fontSize: 11.0,
+                                      fontWeight: FontWeight.w900)),
+                            ],
+                          ),
+                        ),
+                        isExpired
+                            ? Container()
+                            : Expanded(
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.edit,
+                                      color: Colors.white, size: 25.0),
+                                ),
+                              ),
+                      ],
                     ),
-                    Expanded(
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.edit, color: Colors.white, size: 25.0),
-                      ),
-                    )
+                    (note != null)
+                        ? Text(
+                            "Note: $note",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black45,
+                            ),
+                          )
+                        : Container(),
+                    Divider(color: Colors.transparent, height: 10.0),
                   ],
                 ),
               );

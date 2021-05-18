@@ -25,11 +25,13 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
 
   late bool _fromToday = false;
   late bool _moneyFromPlan = true;
+  late bool _addNote = false;
 
   late DateTime selectionDefaultDate = todayDate;
   final _startDateCtrl = TextEditingController();
   final _endDateCtrl = TextEditingController();
   final _moneyCtrl = TextEditingController();
+  final _noteCtrl = TextEditingController();
 
   @override
   void initState() {
@@ -91,7 +93,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                 SizedBox(height: 30),
 
                 //
-                // Switches
+                // Starting date
                 //
 
                 SwitchListTile(
@@ -109,10 +111,6 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                   },
                 ),
                 SizedBox(height: 20),
-
-                //
-                // From date
-                //
 
                 TextFormFieldWidget(
                   labelText: 'Starting Date',
@@ -133,6 +131,9 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "This Field is required";
+                    } else if (stringToDateTime(value)
+                        .isBefore(firstDayOfMonthDate)) {
+                      return "Date from previous months is not allowed";
                     }
                     return null;
                   },
@@ -140,7 +141,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                 SizedBox(height: 20),
 
                 //
-                // To date
+                // Ending date
                 //
 
                 TextFormFieldWidget(
@@ -167,6 +168,10 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                 ),
                 SizedBox(height: 20),
 
+                //
+                // Money
+                //
+
                 TextFormFieldWidget(
                   enabled: !_moneyFromPlan,
                   labelText: "Money",
@@ -185,7 +190,40 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                     }
                     return null;
                   },
-                )
+                ),
+                SizedBox(height: 20),
+
+                //
+                // Note
+                //
+
+                SwitchListTile(
+                  title: const Text('Add Note'),
+                  value: _addNote,
+                  onChanged: (bool value) {
+                    setState(() {
+                      _addNote = value;
+                    });
+                  },
+                ),
+                SizedBox(height: 20),
+
+                TextFormFieldWidget(
+                    labelText: 'Note',
+                    enabled: _addNote,
+                    controller: _noteCtrl,
+                    formatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'^[a-zA-Z0-9\s-]*$'))
+                    ],
+                    keyboardType: TextInputType.text,
+                    validator: (value) {
+                      if (_addNote == true &&
+                          (value == null || value.isEmpty)) {
+                        return "Empty note not allowed.";
+                      }
+                      return null;
+                    }),
               ],
             ),
           ),
@@ -267,7 +305,8 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                         months: widget.plan.months,
                         startDate: _startDateCtrl.text,
                         endDate: _endDateCtrl.text,
-                        money: int.parse(_moneyCtrl.text));
+                        money: int.parse(_moneyCtrl.text),
+                        note: (_addNote == true) ? _noteCtrl.text : null);
 
                     final String? error = await insertPayment(payment);
 

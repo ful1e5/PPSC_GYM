@@ -38,6 +38,7 @@ class DatabaseHandler {
             "startDate TEXT NOT NULL,"
             "endDate TEXT NOT NULL,"
             "money INTEGER NOT NULL,"
+            "note TEXT,"
             "clientId INTEGER NOT NULL,"
             "FOREIGN KEY (clientId) REFERENCES $clientTable (id) ON DELETE CASCADE"
             ")");
@@ -82,6 +83,7 @@ class DatabaseHandler {
       where: "id = ?",
       whereArgs: [id],
     );
+    //TODO: Delete payments
   }
 
   Future<List<Client>> retrieveClients() async {

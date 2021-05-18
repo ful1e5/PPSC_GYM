@@ -1,4 +1,5 @@
 import 'package:path/path.dart';
+import 'package:ppscgym/utils.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'package:ppscgym/services/errors.dart';
@@ -96,7 +97,31 @@ class DatabaseHandler {
     final Database db = await initializeDB();
     final List<Map<String, Object?>> result =
         await db.query(clientTable, where: "id = ?", whereArgs: [id]);
-    return Client.fromMap(result.first);
+
+    final Client client = Client.fromMap(result.first);
+    final expiryDate = await clientPaymentInfo(id);
+    print(expiryDate);
+
+    //TODO add expiredate on client table
+    //TODO add total money on client table
+    return client;
+  }
+
+  Future<List> clientPaymentInfo(int clientId) async {
+    final Database db = await initializeDB();
+    final List<Map<String, Object?>> queryResult = await db.query(paymentTable,
+        where: "clientId = ?", whereArgs: [clientId], orderBy: "endDate DESC");
+
+    final dates = queryResult
+        .map((e) => stringToDateTime(Payment.fromMap(e).endDate))
+        .toList();
+
+    dates.sort((a, b) => a.compareTo(b));
+
+    late int totalMoney = 0;
+    queryResult.map((e) => totalMoney += Payment.fromMap(e).money);
+
+    return [toDDMMYYYY(dates.last), totalMoney];
   }
 
   //
@@ -107,9 +132,6 @@ class DatabaseHandler {
     final Database db = await initializeDB();
     await db.insert(paymentTable, payment.toMap());
     return null;
-
-    //TODO add expiredate on client table
-    //TODO add total money on client table
   }
 
   Future<List<Payment>> retriveClientPayments(int clientId) async {

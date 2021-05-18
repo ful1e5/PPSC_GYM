@@ -13,29 +13,33 @@ class ClientPaymentHistory extends StatefulWidget {
 }
 
 class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
-  final String nonFoundMessage = "Empty Payment History";
+  final String nonFoundMessage = "0 Payments";
+  final String errorMessage = "Error Occured";
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: widget.future,
-      builder: (BuildContext context, AsyncSnapshot<List<Payment>> snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
-          return loaderWidget();
-        }
-        if (snapshot.hasError) {
-          return centerMessageWidget("Error !");
-        }
-        if (snapshot.hasData) {
-          return _buildListView(snapshot);
-        }
-        return centerMessageWidget(nonFoundMessage);
-      },
-    );
+        future: widget.future,
+        builder: (BuildContext context, AsyncSnapshot<List<Payment>> snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return Container(height: 250.0, child: loaderWidget());
+          }
+          if (snapshot.hasError) {
+            return Container(
+                height: 250.0, child: centerMessageWidget(errorMessage));
+          }
+          if (snapshot.hasData) {
+            return _buildListView(snapshot);
+          }
+          return Container(
+              height: 250.0, child: centerMessageWidget(nonFoundMessage));
+        });
   }
 
   Widget _buildListView(AsyncSnapshot<List<Payment>> snapshot) {
     if (snapshot.data?.length == 0) {
-      return centerMessageWidget(nonFoundMessage);
+      return Container(
+          height: 250.0, child: centerMessageWidget(nonFoundMessage));
     } else {
       return Column(
         children: [

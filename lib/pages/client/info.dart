@@ -86,30 +86,12 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
               child: Column(
                 children: [
                   clientInfo(snapshot),
-                  Divider(color: Colors.transparent, height: 10),
+                  Divider(color: Colors.transparent, height: 7.0),
+                  addPaymentButton(), //TODO: remove on plan active
+                  Divider(color: Colors.transparent, height: 10.0),
                   ClientPaymentHistory(future: _paymentsFuture),
                 ],
               ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              tooltip: "Add Payment",
-              child: const Icon(Icons.event_note, size: 32.0),
-              backgroundColor: Colors.green,
-              foregroundColor: Colors.white,
-              onPressed: () async {
-                final result = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          PlansPage(select: true, clientId: widget.clientId)),
-                );
-
-                if (result == "added") {
-                  setState(() {
-                    _refreshPaymentData(0);
-                  });
-                }
-              },
             ),
           );
         }
@@ -220,6 +202,47 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
       children: children
           .map((c) => Container(padding: EdgeInsets.all(spacing), child: c))
           .toList(),
+    );
+  }
+
+  Widget addPaymentButton() {
+    return OutlinedButton(
+      child: RichText(
+        text: TextSpan(
+          style: TextStyle(fontSize: 19.0),
+          children: [
+            WidgetSpan(
+              child: const Icon(Icons.flash_on_rounded),
+            ),
+            TextSpan(text: " Recharge Plan"),
+          ],
+        ),
+      ),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
+        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+            EdgeInsets.only(top: 12.0, bottom: 12.0, right: 22.0, left: 22.0)),
+        shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0))),
+      ),
+      onPressed: () async {
+        final result = await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PlansPage(
+              select: true,
+              clientId: widget.clientId,
+            ),
+          ),
+        );
+
+        if (result == "added") {
+          setState(() {
+            _refreshPaymentData(0);
+          });
+        }
+      },
     );
   }
 }

@@ -107,6 +107,9 @@ class DatabaseHandler {
     final Database db = await initializeDB();
     await db.insert(paymentTable, payment.toMap());
     return null;
+
+    //TODO add expiredate on client table
+    //TODO add total money on client table
   }
 
   Future<List<Payment>> retriveClientPayments(int clientId) async {

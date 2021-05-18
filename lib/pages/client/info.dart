@@ -149,7 +149,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                     child: Icon(
                       getGenderIconData(gender),
                       size: 34.0,
-                      color: gender == "Male" ? Colors.blue : Colors.pink,
+                      color: gender == "Male" ? Colors.blue : Colors.pinkAccent,
                     ),
                   ),
                 ],

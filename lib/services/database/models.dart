@@ -59,6 +59,7 @@ class Plan {
 class Payment {
   final int? id;
   final int clientId;
+  final int months;
   final String startDate;
   final String endDate;
   final int money;
@@ -66,6 +67,7 @@ class Payment {
   Payment(
       {this.id,
       required this.clientId,
+      required this.months,
       required this.startDate,
       required this.endDate,
       required this.money});
@@ -73,6 +75,7 @@ class Payment {
   Payment.fromMap(Map<String, dynamic> res)
       : id = res["id"],
         clientId = res["clientId"],
+        months = res["months"],
         startDate = res["startDate"],
         endDate = res["endDate"],
         money = res["money"];
@@ -81,6 +84,7 @@ class Payment {
     return {
       'id': id,
       'clientId': clientId,
+      'months': months,
       'startDate': startDate,
       'endDate': endDate,
       'money': money,

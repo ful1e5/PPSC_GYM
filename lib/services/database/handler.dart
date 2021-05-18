@@ -34,6 +34,7 @@ class DatabaseHandler {
 
         await database.execute("CREATE TABLE $paymentTable("
             "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+            "months INTEGER NOT NULL,"
             "startDate TEXT NOT NULL,"
             "endDate TEXT NOT NULL,"
             "money INTEGER NOT NULL,"

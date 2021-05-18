@@ -264,6 +264,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                   onPressed: () async {
                     Payment payment = Payment(
                         clientId: widget.clientId,
+                        months: widget.plan.months,
                         startDate: _startDateCtrl.text,
                         endDate: _endDateCtrl.text,
                         money: int.parse(_moneyCtrl.text));

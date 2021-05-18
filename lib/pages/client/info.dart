@@ -28,7 +28,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
     super.initState();
     handler = DatabaseHandler();
     _refreshInfoData(0);
-    _refreshPaymentData(2);
+    _refreshPaymentData(1);
   }
 
   void _refreshInfoData(int seconds) {
@@ -39,7 +39,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
 
   void _refreshPaymentData(int seconds) {
     _paymentsFuture = Future<List<Payment>>.delayed(
-        Duration(seconds: seconds, microseconds: 10),
+        Duration(seconds: seconds, microseconds: 50),
         () => handler.retriveClientPayments(widget.clientId));
   }
 
@@ -106,7 +106,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
 
                 if (result == "added") {
                   setState(() {
-                    _refreshPaymentData(1);
+                    _refreshPaymentData(0);
                   });
                 }
               },

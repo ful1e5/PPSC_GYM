@@ -43,12 +43,13 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
             shrinkWrap: true,
             itemCount: snapshot.data?.length,
             itemBuilder: (BuildContext context, int index) {
+              int months = snapshot.data![index].months;
               int money = snapshot.data![index].money;
               String startDate = snapshot.data![index].startDate;
               String endDate = snapshot.data![index].endDate;
 
               return Card(
-                color: Colors.red, //TODO: dynamic colors of payment card
+                color: Colors.grey, //TODO: dynamic colors of payment card
                 margin: EdgeInsets.fromLTRB(35.0, 15.0, 35.0, 15.0),
                 semanticContainer: true,
                 shape: RoundedRectangleBorder(
@@ -62,10 +63,13 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          //TODO: add plan months
+                          Text('$months Months Plan',
+                              style: TextStyle(
+                                  fontSize: 22.0, fontWeight: FontWeight.w300)),
                           Text('$money \u20B9',
                               style: TextStyle(
-                                  fontSize: 32.0, fontWeight: FontWeight.w300)),
+                                  fontSize: 10.0, fontWeight: FontWeight.w600)),
+                          Divider(color: Colors.transparent, height: 10.0),
                           Text('$startDate to $endDate',
                               style: TextStyle(
                                   fontSize: 11.0, fontWeight: FontWeight.w900)),

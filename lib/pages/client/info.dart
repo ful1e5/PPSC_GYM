@@ -86,7 +86,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
               child: Column(
                 children: [
                   clientInfo(snapshot),
-                  Divider(color: Colors.transparent, height: 40),
+                  Divider(color: Colors.transparent, height: 10),
                   ClientPaymentHistory(future: _paymentsFuture),
                 ],
               ),

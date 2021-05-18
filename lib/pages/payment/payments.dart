@@ -97,15 +97,23 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
                       ],
                     ),
                     (note != null)
-                        ? Text(
-                            "Note: $note",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black45,
+                        ? Container(
+                            padding: EdgeInsets.only(
+                              top: 4.0,
+                              bottom: 20.0,
+                              right: 20.0,
+                              left: 20.0,
+                            ),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Note: $note",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87,
+                              ),
                             ),
                           )
                         : Container(),
-                    Divider(color: Colors.transparent, height: 10.0),
                   ],
                 ),
               );

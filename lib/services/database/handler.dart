@@ -115,7 +115,7 @@ class DatabaseHandler {
   Future<void> deletePayment(Payment payment) async {
     final Database db = await initializeDB();
     await db.delete(
-      clientTable,
+      paymentTable,
       where: "id = ?",
       whereArgs: [payment.id],
     );
@@ -147,7 +147,12 @@ class DatabaseHandler {
     final List<Map<String, Object?>> result =
         await db.query(clientTable, where: "id = ?", whereArgs: [clientId]);
     Map<String, Object?> map = Map<String, Object?>.from(result.first);
-    map['planExpiryDate'] = toDDMMYYYY(dates.last);
+
+    if (dates.isNotEmpty) {
+      map['planExpiryDate'] = toDDMMYYYY(dates.last);
+    } else {
+      map['planExpiryDate'] = null;
+    }
     map['totalMoney'] = totalMoney;
 
     final Client client = Client.fromMap(map);

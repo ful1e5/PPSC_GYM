@@ -107,7 +107,7 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
                                   onPressed: () {
                                     handleDelete(data);
                                   },
-                                  icon: Icon(Icons.delete_forever,
+                                  icon: Icon(Icons.delete_rounded,
                                       color: Colors.white, size: 25.0),
                                 ),
                               ),

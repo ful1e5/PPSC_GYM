@@ -230,9 +230,11 @@ class _HomePageState extends State<HomePage> {
                               fontWeight: FontWeight.normal),
                         ),
                         TextSpan(
-                          text: 'selected. Type ',
+                          text:
+                              'selected.All client payment informations are wiped out permanently from memory. Type ',
                           style: TextStyle(
                               fontSize: 16.0,
+                              overflow: TextOverflow.visible,
                               color: Colors.white70,
                               fontWeight: FontWeight.normal),
                         ),

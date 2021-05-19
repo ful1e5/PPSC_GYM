@@ -142,16 +142,13 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
       ),
       backgroundColor: Colors.black87,
       child: Container(
-        height: 200,
+        height: 280,
         color: Colors.transparent,
         child: Padding(
           padding: EdgeInsets.all(20),
           child: Column(
             children: [
-              Expanded(
-                child:
-                    Align(alignment: Alignment.centerLeft, child: widget.info),
-              ),
+              Align(alignment: Alignment.centerLeft, child: widget.info),
               SizedBox(height: 20),
               Expanded(
                 child: Align(

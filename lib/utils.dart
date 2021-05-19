@@ -9,8 +9,8 @@ Future<DateTime?> pickDate(BuildContext context,
   final DateTime? date = await showDatePicker(
       context: context,
       initialDate: initialDate ?? DateTime.now(),
-      firstDate: DateTime(1975),
-      lastDate: DateTime(2024));
+      firstDate: DateTime(1950),
+      lastDate: DateTime(2050));
 
   return date;
 }

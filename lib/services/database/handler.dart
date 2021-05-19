@@ -86,7 +86,11 @@ class DatabaseHandler {
       where: "id = ?",
       whereArgs: [id],
     );
-    //TODO: Delete payments
+    await db.delete(
+      paymentTable,
+      where: "clientId = ?",
+      whereArgs: [id],
+    );
   }
 
   Future<List<Client>> retrieveClients() async {

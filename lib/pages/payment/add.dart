@@ -248,7 +248,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
           ),
           backgroundColor: Colors.black87,
           child: Container(
-            height: 290,
+            height: 300,
             color: Colors.transparent,
             child: Padding(padding: EdgeInsets.all(15), child: buildWarning()),
           ),
@@ -263,14 +263,15 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
         Center(
             child:
                 Icon(Icons.warning, size: 100.0, color: Colors.yellowAccent)),
-        SizedBox(height: 10),
-        Center(
-            child: Text(
-          "You Cann't able to edit payment information after your transaction, Tap 'I Agree' to procced.",
-          overflow: TextOverflow.visible,
-          style: TextStyle(fontSize: 10.0),
-        )),
-        SizedBox(height: 50),
+        Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(14.0),
+          child: Text(
+            "You Cann't able to edit or delete payment information, once it's verfied by algorithm. Tap 'I Agree' to procced.",
+            overflow: TextOverflow.visible,
+            style: TextStyle(fontSize: 12.0, wordSpacing: 2.0),
+          ),
+        ),
         Expanded(
           child: Row(
             children: [

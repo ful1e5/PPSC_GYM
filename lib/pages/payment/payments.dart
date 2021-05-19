@@ -6,7 +6,10 @@ import 'package:ppscgym/widgets.dart';
 
 class ClientPaymentHistory extends StatefulWidget {
   final Future<List<Payment>> future;
-  ClientPaymentHistory({Key? key, required this.future}) : super(key: key);
+  final Function refreshData;
+  ClientPaymentHistory(
+      {Key? key, required this.refreshData, required this.future})
+      : super(key: key);
 
   @override
   _ClientPaymentHistoryState createState() => _ClientPaymentHistoryState();
@@ -93,8 +96,8 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
                             ? Container()
                             : Expanded(
                                 child: IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.edit,
+                                  onPressed: handleDelete,
+                                  icon: Icon(Icons.delete_forever,
                                       color: Colors.white, size: 25.0),
                                 ),
                               ),
@@ -126,5 +129,53 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
         ],
       );
     }
+  }
+
+  void handleDelete() {
+    BuildContext dialogContext;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        dialogContext = context;
+        return ConfirmDialog(
+          confirmText: "Delete",
+          info: RichText(
+            text: TextSpan(
+              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+              children: [
+                TextSpan(
+                  text: 'This payment is delete forever',
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.white70,
+                      fontWeight: FontWeight.normal),
+                ),
+                TextSpan(
+                  text: 'Type ',
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.white70,
+                      fontWeight: FontWeight.normal),
+                ),
+                TextSpan(
+                  text: 'confirm ',
+                ),
+                TextSpan(
+                  text: 'to proceed.',
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.white70,
+                      fontWeight: FontWeight.normal),
+                ),
+              ],
+            ),
+          ),
+          onConfirm: () {
+            widget.refreshData(1);
+            Navigator.pop(dialogContext);
+          },
+        );
+      },
+    );
   }
 }

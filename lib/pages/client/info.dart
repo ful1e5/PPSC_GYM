@@ -90,7 +90,10 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                   Divider(color: Colors.transparent, height: 7.0),
                   rechargeButton(), //TODO: remove on plan active
                   Divider(color: Colors.transparent, height: 10.0),
-                  ClientPaymentHistory(future: _paymentsFuture),
+                  ClientPaymentHistory(
+                    future: _paymentsFuture,
+                    refreshData: _refreshPaymentData,
+                  ),
                 ],
               ),
             ),
@@ -256,6 +259,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
 
         if (result == "added") {
           setState(() {
+            _refreshInfoData(0);
             _refreshPaymentData(0);
           });
         }

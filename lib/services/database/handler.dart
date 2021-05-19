@@ -22,7 +22,9 @@ class DatabaseHandler {
             "gender TEXT NOT NULL,"
             "dob TEXT NOT NULL,"
             "session TEXT NOT NULL,"
-            "mobile INTEGER UNIQUE NOT NULL"
+            "mobile INTEGER UNIQUE NOT NULL,"
+            "planExpiryDate TEXT,"
+            "totalMoney INTEGER"
             ")");
 
         await database.execute("CREATE TABLE $planTable("
@@ -97,17 +99,27 @@ class DatabaseHandler {
     final Database db = await initializeDB();
     final List<Map<String, Object?>> result =
         await db.query(clientTable, where: "id = ?", whereArgs: [id]);
-
-    final Client client = Client.fromMap(result.first);
-    final expiryDate = await clientPaymentInfo(id);
-    print(expiryDate);
-
-    //TODO add expiredate on client table
-    //TODO add total money on client table
-    return client;
+    return Client.fromMap(result.first);
   }
 
-  Future<List> clientPaymentInfo(int clientId) async {
+  //
+  // Payment
+  //
+
+  Future<String?> insertPayment(Payment payment) async {
+    final Database db = await initializeDB();
+    await db.insert(paymentTable, payment.toMap());
+    return await updateClientInfo(payment.clientId);
+  }
+
+  Future<List<Payment>> retriveClientPayments(int clientId) async {
+    final Database db = await initializeDB();
+    final List<Map<String, Object?>> queryResult = await db.query(paymentTable,
+        where: "clientId = ?", whereArgs: [clientId], orderBy: "id DESC");
+    return queryResult.map((e) => Payment.fromMap(e)).toList();
+  }
+
+  Future<String?> updateClientInfo(int clientId) async {
     final Database db = await initializeDB();
     final List<Map<String, Object?>> queryResult = await db.query(paymentTable,
         where: "clientId = ?", whereArgs: [clientId], orderBy: "endDate DESC");
@@ -121,26 +133,27 @@ class DatabaseHandler {
     late int totalMoney = 0;
     queryResult.map((e) => totalMoney += Payment.fromMap(e).money);
 
-    return [toDDMMYYYY(dates.last), totalMoney];
+    // Updating client info
+    final List<Map<String, Object?>> result =
+        await db.query(clientTable, where: "id = ?", whereArgs: [clientId]);
+    Map<String, Object?> map = Map<String, Object?>.from(result.first);
+    map['planExpiryDate'] = toDDMMYYYY(dates.last);
+    map['totalMoney'] = totalMoney;
+
+    final Client client = Client.fromMap(map);
+
+    try {
+      await db.update(
+        clientTable,
+        client.toMap(),
+        where: "id = ?",
+        whereArgs: [client.id],
+      );
+      return null;
+    } catch (e) {
+      return handleClientErrors(e.toString(), client);
+    }
   }
-
-  //
-  // Payment
-  //
-
-  Future<String?> insertPayment(Payment payment) async {
-    final Database db = await initializeDB();
-    await db.insert(paymentTable, payment.toMap());
-    return null;
-  }
-
-  Future<List<Payment>> retriveClientPayments(int clientId) async {
-    final Database db = await initializeDB();
-    final List<Map<String, Object?>> queryResult = await db.query(paymentTable,
-        where: "clientId = ?", whereArgs: [clientId], orderBy: "id DESC");
-    return queryResult.map((e) => Payment.fromMap(e)).toList();
-  }
-
   //
   // Plan
   //

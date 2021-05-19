@@ -5,8 +5,8 @@ class Client {
   final String dob;
   final String session;
   final int mobile;
+  final int totalMoney;
   final String? planExpiryDate;
-  final int? totalMoney;
 
   Client({
     required this.id,
@@ -15,8 +15,8 @@ class Client {
     required this.dob,
     required this.session,
     required this.mobile,
+    this.totalMoney = 0,
     this.planExpiryDate,
-    this.totalMoney,
   });
 
   Client.fromMap(Map<String, dynamic> res)

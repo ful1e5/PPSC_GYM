@@ -107,6 +107,8 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
     final String session = snapshot.data!.session;
     final String dob = snapshot.data!.dob.toString();
     final String mobile = snapshot.data!.mobile.toString();
+    final String? planExpiryDate = snapshot.data!.planExpiryDate;
+    final String totalMoney = snapshot.data!.totalMoney.toString();
 
     return Container(
       color: Colors.transparent,
@@ -161,10 +163,22 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
             ),
             Divider(height: 20.0, color: Colors.transparent),
             cardGroup([
-              infoCard(Text("6 Months", style: TextStyle(fontSize: 20.0)),
-                  "Plan"), //TODO: dynamic
-              infoCard(Text("3", style: TextStyle(fontSize: 20.0)),
-                  "Plans Expired"), //TODO: dynamic
+              infoCard(
+                  Text(
+                    "Plan Expire On",
+                    style: TextStyle(
+                      fontSize: 17.0,
+                    ),
+                  ),
+                  planExpiryDate ?? "-"),
+              infoCard(
+                  Text(
+                    "Total",
+                    style: TextStyle(
+                      fontSize: 17.0,
+                    ),
+                  ),
+                  "$totalMoney \u20B9"),
             ], 15.6),
             Divider(height: 10.0, color: Colors.transparent),
             cardGroup([

@@ -40,8 +40,15 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
 
   void _refreshPaymentData(int seconds) {
     _paymentsFuture = Future<List<Payment>>.delayed(
-        Duration(seconds: seconds, microseconds: 50),
+        Duration(seconds: seconds, microseconds: 20),
         () => handler.retriveClientPayments(widget.clientId));
+  }
+
+  void onPaymentDelete() {
+    setState(() {
+      _refreshInfoData(0);
+      _refreshPaymentData(0);
+    });
   }
 
   @override
@@ -91,9 +98,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                   rechargeButton(), //TODO: remove on plan active
                   Divider(color: Colors.transparent, height: 10.0),
                   ClientPaymentHistory(
-                    future: _paymentsFuture,
-                    refreshData: _refreshPaymentData,
-                  ),
+                      future: _paymentsFuture, onDelete: onPaymentDelete),
                 ],
               ),
             ),
@@ -172,11 +177,9 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                     (planExpiryDate == null || isDatePassed(planExpiryDate))
                         ? "Plan Expired"
                         : "Plan Expire On",
-                    style: TextStyle(
-                      fontSize: 17.0,
-                    ),
+                    style: TextStyle(fontSize: 17.0),
                   ),
-                  planExpiryDate ?? ""),
+                  planExpiryDate ?? "-"),
               infoCard(
                   Text(
                     "Total",
@@ -186,12 +189,12 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                   ),
                   "$totalMoney \u20B9"),
             ], 15.6),
-            Divider(height: 10.0, color: Colors.transparent),
             cardGroup([
               infoCard(Icon(Icons.phone, size: 25.0), mobile),
               infoCard(Icon(Icons.timelapse, size: 25.0), session),
               infoCard(Icon(Icons.cake, size: 25.0), dob),
-            ], 15.6)
+            ], 15.6),
+            Divider(height: 10.0, color: Colors.transparent),
           ],
         ),
       ),
@@ -210,7 +213,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
             fontWeight: FontWeight.w400,
             color: Colors.white70,
           ),
-        ),
+        )
       ],
     );
   }

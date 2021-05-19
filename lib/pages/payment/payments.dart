@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
+import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
+
 import 'package:ppscgym/utils.dart';
 import 'package:ppscgym/widgets.dart';
 
 class ClientPaymentHistory extends StatefulWidget {
   final Future<List<Payment>> future;
-  final Function refreshData;
-  ClientPaymentHistory(
-      {Key? key, required this.refreshData, required this.future})
+  final Function onDelete;
+
+  ClientPaymentHistory({Key? key, required this.onDelete, required this.future})
       : super(key: key);
 
   @override
@@ -18,6 +20,11 @@ class ClientPaymentHistory extends StatefulWidget {
 class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
   final String nonFoundMessage = "0 Payments";
   final String errorMessage = "Error Occured";
+
+  Future<void> deletePamyment(Payment payment) async {
+    final DatabaseHandler handler = DatabaseHandler();
+    await handler.deletePayment(payment);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +58,12 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
             shrinkWrap: true,
             itemCount: snapshot.data?.length,
             itemBuilder: (BuildContext context, int index) {
-              int months = snapshot.data![index].months;
-              int money = snapshot.data![index].money;
-              String startDate = snapshot.data![index].startDate;
-              String endDate = snapshot.data![index].endDate;
-              String? note = snapshot.data![index].note;
+              Payment data = snapshot.data![index];
+              int months = data.months;
+              int money = data.money;
+              String startDate = data.startDate;
+              String endDate = data.endDate;
+              String? note = data.note;
 
               bool isExpired = isDatePassed(endDate);
 
@@ -96,7 +104,9 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
                             ? Container()
                             : Expanded(
                                 child: IconButton(
-                                  onPressed: handleDelete,
+                                  onPressed: () {
+                                    handleDelete(data);
+                                  },
                                   icon: Icon(Icons.delete_forever,
                                       color: Colors.white, size: 25.0),
                                 ),
@@ -131,7 +141,7 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
     }
   }
 
-  void handleDelete() {
+  void handleDelete(Payment payment) {
     BuildContext dialogContext;
     showDialog(
       context: context,
@@ -144,7 +154,7 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
               style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
               children: [
                 TextSpan(
-                  text: 'This payment is delete forever',
+                  text: 'This payment data is deleted forever, ',
                   style: TextStyle(
                       fontSize: 16.0,
                       color: Colors.white70,
@@ -170,8 +180,9 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
               ],
             ),
           ),
-          onConfirm: () {
-            widget.refreshData(1);
+          onConfirm: () async {
+            await deletePamyment(payment);
+            await widget.onDelete();
             Navigator.pop(dialogContext);
           },
         );

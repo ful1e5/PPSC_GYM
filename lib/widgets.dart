@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'dart:async';
 
+import 'package:flutter/services.dart';
 import 'package:ppscgym/styles.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
@@ -197,6 +198,81 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class CountDown extends StatefulWidget {
+  final DateTime time;
+  final Function onTimeout;
+  CountDown({Key? key, required this.time, required this.onTimeout})
+      : super(key: key);
+
+  @override
+  _CountDownState createState() => _CountDownState();
+}
+
+class _CountDownState extends State<CountDown> {
+  late Timer _timer;
+  late DateTime _currentTime;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentTime = DateTime.now();
+    _timer = Timer.periodic(Duration(seconds: 1), _onTimeChange);
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  void _onTimeChange(Timer timer) {
+    setState(() {
+      if (widget.time.compareTo(DateTime.now()) == 0) {
+        widget.onTimeout();
+      } else {
+        _currentTime = DateTime.now();
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final remaining = widget.time.difference(_currentTime);
+
+    final days = remaining.inDays;
+    final hours = remaining.inHours - remaining.inDays * 24;
+    final minutes = remaining.inMinutes - remaining.inHours * 60;
+    final seconds = remaining.inSeconds - remaining.inMinutes * 60;
+
+    return Card(
+      color: Colors.blue,
+      semanticContainer: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      child: Container(
+        padding: EdgeInsets.all(15.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text("Cooldown",
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700)),
+            Text(
+              "$days Days",
+              style: TextStyle(fontSize: 14.5),
+            ),
+            Text(
+              "$hours:$minutes:$seconds",
+              style: TextStyle(fontSize: 10.5),
+            ),
+          ],
         ),
       ),
     );

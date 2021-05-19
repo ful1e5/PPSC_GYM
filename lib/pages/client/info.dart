@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ppscgym/pages/client/add.dart';
 import 'package:ppscgym/pages/payment/payments.dart';
 import 'package:ppscgym/pages/plans.dart';
+import 'package:ppscgym/utils.dart';
 
 import 'package:ppscgym/widgets.dart';
 
@@ -87,7 +88,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                 children: [
                   clientInfo(snapshot),
                   Divider(color: Colors.transparent, height: 7.0),
-                  addPaymentButton(), //TODO: remove on plan active
+                  rechargeButton(), //TODO: remove on plan active
                   Divider(color: Colors.transparent, height: 10.0),
                   ClientPaymentHistory(future: _paymentsFuture),
                 ],
@@ -165,12 +166,14 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
             cardGroup([
               infoCard(
                   Text(
-                    "Plan Expire On",
+                    (planExpiryDate == null || isDatePassed(planExpiryDate))
+                        ? "Plan Expired"
+                        : "Plan Expire On",
                     style: TextStyle(
                       fontSize: 17.0,
                     ),
                   ),
-                  planExpiryDate ?? "-"),
+                  planExpiryDate ?? ""),
               infoCard(
                   Text(
                     "Total",
@@ -219,11 +222,11 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
     );
   }
 
-  Widget addPaymentButton() {
+  Widget rechargeButton() {
     return OutlinedButton(
       child: RichText(
         text: TextSpan(
-          style: TextStyle(fontSize: 19.0),
+          style: TextStyle(fontSize: 20.0),
           children: [
             WidgetSpan(
               child: const Icon(Icons.flash_on_rounded),

@@ -106,10 +106,20 @@ class DatabaseHandler {
   // Payment
   //
 
-  Future<String?> insertPayment(Payment payment) async {
+  Future<void> insertPayment(Payment payment) async {
     final Database db = await initializeDB();
     await db.insert(paymentTable, payment.toMap());
-    return await updateClientInfo(payment.clientId);
+    await updateClientInfo(payment.clientId);
+  }
+
+  Future<void> deletePayment(Payment payment) async {
+    final Database db = await initializeDB();
+    await db.delete(
+      clientTable,
+      where: "id = ?",
+      whereArgs: [payment.id],
+    );
+    await updateClientInfo(payment.clientId);
   }
 
   Future<List<Payment>> retriveClientPayments(int clientId) async {
@@ -119,7 +129,7 @@ class DatabaseHandler {
     return queryResult.map((e) => Payment.fromMap(e)).toList();
   }
 
-  Future<String?> updateClientInfo(int clientId) async {
+  Future<void> updateClientInfo(int clientId) async {
     final Database db = await initializeDB();
     final List<Map<String, Object?>> queryResult = await db.query(paymentTable,
         where: "clientId = ?", whereArgs: [clientId], orderBy: "endDate DESC");
@@ -130,8 +140,8 @@ class DatabaseHandler {
 
     dates.sort((a, b) => a.compareTo(b));
 
-    late int totalMoney = 0;
-    queryResult.map((e) => totalMoney += Payment.fromMap(e).money);
+    int totalMoney = 0;
+    queryResult.forEach((e) => totalMoney += Payment.fromMap(e).money);
 
     // Updating client info
     final List<Map<String, Object?>> result =
@@ -142,18 +152,14 @@ class DatabaseHandler {
 
     final Client client = Client.fromMap(map);
 
-    try {
-      await db.update(
-        clientTable,
-        client.toMap(),
-        where: "id = ?",
-        whereArgs: [client.id],
-      );
-      return null;
-    } catch (e) {
-      return handleClientErrors(e.toString(), client);
-    }
+    await db.update(
+      clientTable,
+      client.toMap(),
+      where: "id = ?",
+      whereArgs: [client.id],
+    );
   }
+
   //
   // Plan
   //

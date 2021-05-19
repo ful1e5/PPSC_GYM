@@ -50,9 +50,9 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
     selectionDefaultDate = date;
   }
 
-  Future<String?> insertPayment(Payment payment) async {
+  Future<void> insertPayment(Payment payment) async {
     final DatabaseHandler handler = DatabaseHandler();
-    return await handler.insertPayment(payment);
+    await handler.insertPayment(payment);
   }
 
   @override
@@ -308,19 +308,14 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                         money: int.parse(_moneyCtrl.text),
                         note: (_addNote == true) ? _noteCtrl.text : null);
 
-                    final String? error = await insertPayment(payment);
+                    await insertPayment(payment);
 
-                    if (error != null) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          backgroundColor: Colors.red, content: Text(error)));
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          backgroundColor: Colors.green,
-                          content: Text(
-                              "${widget.plan.months} Months Plan Active")));
-                      Navigator.pop(context); // Popup Dialog
-                      Navigator.pop(context, 'added'); // Popup Widget
-                    }
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        backgroundColor: Colors.green,
+                        content:
+                            Text("${widget.plan.months} Months Plan Active")));
+                    Navigator.pop(context); // Popup Dialog
+                    Navigator.pop(context, 'added'); // Popup Widget
                   }),
             ],
           ),

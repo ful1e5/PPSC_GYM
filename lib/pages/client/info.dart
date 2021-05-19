@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
+import 'package:ppscgym/services/database/handler.dart';
+import 'package:ppscgym/services/database/models.dart';
+
 import 'package:ppscgym/pages/client/add.dart';
 import 'package:ppscgym/pages/payment/payments.dart';
 import 'package:ppscgym/pages/plans.dart';
-import 'package:ppscgym/utils.dart';
 
 import 'package:ppscgym/widgets.dart';
-
-import 'package:ppscgym/services/database/handler.dart';
-import 'package:ppscgym/services/database/models.dart';
+import 'package:ppscgym/utils.dart';
 
 class ClientInfoPage extends StatefulWidget {
   final int clientId;
@@ -44,7 +44,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
         () => handler.retriveClientPayments(widget.clientId));
   }
 
-  void onPaymentDelete() {
+  void _refreshAllData() {
     setState(() {
       _refreshInfoData(0);
       _refreshPaymentData(0);
@@ -63,6 +63,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
           return centerMessageWidget("Error !");
         }
         if (snapshot.hasData) {
+          final String? exDate = snapshot.data!.planExpiryDate;
           return Scaffold(
             backgroundColor: Colors.black,
             appBar: AppBar(
@@ -95,10 +96,18 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                 children: [
                   clientInfo(snapshot),
                   Divider(color: Colors.transparent, height: 7.0),
-                  rechargeButton(), //TODO: remove on plan active
+
+                  // CoolDown Widget
+                  (exDate != null && !isDatePassed(exDate))
+                      ? CountDown(
+                          time: stringToDateTime(exDate),
+                          onTimeout: _refreshAllData,
+                        )
+                      : rechargeButton(),
+
                   Divider(color: Colors.transparent, height: 10.0),
                   ClientPaymentHistory(
-                      future: _paymentsFuture, onDelete: onPaymentDelete),
+                      future: _paymentsFuture, onDelete: _refreshAllData),
                 ],
               ),
             ),

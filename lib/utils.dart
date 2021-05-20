@@ -7,10 +7,11 @@ String datePattern = "dd/MM/yyyy";
 Future<DateTime?> pickDate(BuildContext context,
     {DateTime? initialDate}) async {
   final DateTime? date = await showDatePicker(
-      context: context,
-      initialDate: initialDate ?? DateTime.now(),
-      firstDate: DateTime(1950),
-      lastDate: DateTime(2050));
+    context: context,
+    initialDate: initialDate ?? DateTime.now(),
+    firstDate: DateTime(1950),
+    lastDate: DateTime(2050),
+  );
 
   return date;
 }
@@ -29,15 +30,15 @@ bool isDatePassed(String date) {
   return DateTime.now().isAfter(expireDate);
 }
 
-bool is12YearOld(String birthDateString) {
+bool is12YearOld(String dobStr) {
   DateTime today = DateTime.now();
-  DateTime birthDate = stringToDateTime(birthDateString);
+  DateTime dob = stringToDateTime(dobStr);
 
   // Date to check but moved 12 years ahead
   DateTime adultDate = DateTime(
-    birthDate.year + 12,
-    birthDate.month,
-    birthDate.day,
+    dob.year + 12,
+    dob.month,
+    dob.day,
   );
 
   return adultDate.isBefore(today);

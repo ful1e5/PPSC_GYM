@@ -275,3 +275,30 @@ class _CountDownState extends State<CountDown> {
     );
   }
 }
+
+errorPopup(BuildContext context, String msg) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      backgroundColor: Colors.red,
+      content: Text(msg),
+    ),
+  );
+}
+
+infoPopup(BuildContext context, String msg) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      backgroundColor: Colors.amber,
+      content: Text(msg),
+    ),
+  );
+}
+
+successPopup(BuildContext context, String msg) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      backgroundColor: Colors.green,
+      content: Text(msg),
+    ),
+  );
+}

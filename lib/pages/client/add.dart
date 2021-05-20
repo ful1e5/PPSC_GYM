@@ -46,9 +46,9 @@ class _AddClientPageState extends State<AddClientPage> {
       mobileCtrl.text = widget.data!.mobile.toString();
 
       sessionOptions =
-          (widget.data!.session == "Morning") ? [true, false] : [false, true];
+          (widget.data!.session == 'Morning') ? [true, false] : [false, true];
       genderOptions =
-          (widget.data!.gender == "Male") ? [true, false] : [false, true];
+          (widget.data!.gender == 'Male') ? [true, false] : [false, true];
     } else {
       sessionOptions = [true, false];
       genderOptions = [true, false];
@@ -77,7 +77,7 @@ class _AddClientPageState extends State<AddClientPage> {
     return AppBar(
       centerTitle: true,
       backgroundColor: Colors.transparent,
-      title: (update) ? const Text("Edit Client") : const Text('Add Client'),
+      title: (update) ? const Text('Edit Client') : const Text('Add Client'),
       actions: <Widget>[
         saveButton(),
       ],
@@ -111,8 +111,8 @@ class _AddClientPageState extends State<AddClientPage> {
                 borderColor: Colors.white10,
                 borderRadius: BorderRadius.circular(14),
                 children: <Widget>[
-                  option("Male"),
-                  option("Female"),
+                  option('Male'),
+                  option('Female'),
                 ],
                 onPressed: (int index) {
                   setState(() {
@@ -131,8 +131,8 @@ class _AddClientPageState extends State<AddClientPage> {
                 borderColor: Colors.white10,
                 borderRadius: BorderRadius.circular(14),
                 children: <Widget>[
-                  option("Morning"),
-                  option("Evening"),
+                  option('Morning'),
+                  option('Evening'),
                 ],
                 onPressed: (int index) {
                   setState(() {
@@ -149,7 +149,7 @@ class _AddClientPageState extends State<AddClientPage> {
               TextFormFieldWidget(
                 enabled: (update) ? false : true,
                 maxLength: 12,
-                labelText: "Adhar ID",
+                labelText: 'Adhar ID',
                 controller: idCtrl,
                 keyboardType: TextInputType.number,
                 formatters: [
@@ -172,7 +172,7 @@ class _AddClientPageState extends State<AddClientPage> {
               //
 
               TextFormFieldWidget(
-                labelText: "Name",
+                labelText: 'Name',
                 controller: nameCtrl,
                 keyboardType: TextInputType.text,
                 formatters: [
@@ -182,7 +182,7 @@ class _AddClientPageState extends State<AddClientPage> {
                 ],
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return "This field is required";
+                    return 'This field is required';
                   } else {
                     return null;
                   }
@@ -196,7 +196,7 @@ class _AddClientPageState extends State<AddClientPage> {
 
               TextFormFieldWidget(
                 controller: dobCtrl,
-                labelText: "Date Of Birth",
+                labelText: 'Date Of Birth',
                 enableInteractiveSelection: false,
                 keyboardType: TextInputType.text,
                 onTap: () async {
@@ -212,9 +212,9 @@ class _AddClientPageState extends State<AddClientPage> {
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "DOB is required";
+                    return 'DOB is required';
                   } else if (!is12YearOld(value)) {
-                    return "You are not 12 year old";
+                    return 'You are not 12 year old';
                   } else {
                     return null;
                   }
@@ -228,7 +228,7 @@ class _AddClientPageState extends State<AddClientPage> {
 
               TextFormFieldWidget(
                 maxLength: 10,
-                labelText: "Mobile",
+                labelText: 'Mobile',
                 controller: mobileCtrl,
                 keyboardType: TextInputType.number,
                 formatters: [
@@ -306,13 +306,13 @@ class _AddClientPageState extends State<AddClientPage> {
         if (update) {
           // only apear on if values are not same
           if (!mapEquals(widget.data!.toMap(), client.toMap())) {
-            infoPopup(context, "Entry Updated");
+            infoPopup(context, 'Entry Updated');
           }
         } else {
-          successPopup(context, "Entry Created");
+          successPopup(context, 'Entry Created');
         }
 
-        Navigator.pop(context, "added");
+        Navigator.pop(context, 'added');
       }
     }
   }

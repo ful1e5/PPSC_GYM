@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:ppscgym/pages/plans.dart';
-import 'package:ppscgym/utils.dart';
 
+import 'package:ppscgym/utils.dart';
 import 'package:ppscgym/widgets.dart';
 
 import 'package:ppscgym/pages/client/add.dart';
 import 'package:ppscgym/pages/client/info.dart';
+import 'package:ppscgym/pages/plans.dart';
 
-import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
+import 'package:ppscgym/services/database/handler.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -19,32 +19,32 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late DatabaseHandler handler;
   late Future<List<Client>> _future;
 
   late Map<int, bool> selectedFlag;
   late bool isSelectionMode;
 
-  final String nonFoundMessage = "No Records Found";
+  final String nonFoundMessage = 'No Records Found';
 
   @override
   void initState() {
     super.initState();
 
-    handler = DatabaseHandler();
-    _refreshData(3);
-    _resetSelection();
+    refreshClients(2);
+    resetSelection();
   }
 
-  void _resetSelection() {
+  refreshClients(int seconds) {
+    final handler = DatabaseHandler();
+    _future = Future<List<Client>>.delayed(
+      Duration(seconds: seconds, milliseconds: 100),
+      () => handler.retrieveClients(),
+    );
+  }
+
+  resetSelection() {
     isSelectionMode = false;
     selectedFlag = {};
-  }
-
-  void _refreshData(int seconds) {
-    _future = Future<List<Client>>.delayed(
-        Duration(seconds: seconds, milliseconds: 100),
-        () => handler.retrieveClients());
   }
 
   @override
@@ -52,61 +52,28 @@ class _HomePageState extends State<HomePage> {
     return WillPopScope(
       child: Scaffold(
         backgroundColor: Colors.black,
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          centerTitle: true,
-          title: const Text('Home'),
-          actions: _buildActions(),
-        ),
+        appBar: buildAppBar(),
         body: RefreshIndicator(
-          backgroundColor: Colors.white,
           color: Colors.black,
+          backgroundColor: Colors.white,
           onRefresh: () async {
             setState(() {
-              _refreshData(1);
+              refreshClients(1);
             });
-            return;
           },
-          child: FutureBuilder(
-            future: _future,
-            builder:
-                (BuildContext context, AsyncSnapshot<List<Client>> snapshot) {
-              if (snapshot.connectionState != ConnectionState.done) {
-                return loaderWidget();
-              }
-              if (snapshot.hasError) {
-                return centerMessageWidget("Error !");
-              }
-              if (snapshot.hasData) {
-                return _buildListView(snapshot);
-              }
-              return centerMessageWidget(nonFoundMessage);
-            },
-          ),
+          child: clientList(),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            final String? newClient = await Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AddClientPage()),
-            );
-
-            if (newClient == "added") {
-              setState(() {
-                _refreshData(0);
-                _resetSelection();
-              });
-            }
-          },
           child: const Icon(Icons.add_rounded, size: 32.0),
           backgroundColor: Colors.green,
           foregroundColor: Colors.white,
+          onPressed: () async => await addClient(),
         ),
       ),
       onWillPop: () async {
         if (isSelectionMode) {
           setState(() {
-            _resetSelection();
+            resetSelection();
           });
           return false;
         } else {
@@ -116,180 +83,42 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildListView(AsyncSnapshot<List<Client>> snapshot) {
-    if (snapshot.data?.length == 0) {
-      return centerMessageWidget(nonFoundMessage);
-    } else {
-      return ListView.builder(
-        itemCount: snapshot.data?.length,
-        itemBuilder: (BuildContext context, int index) {
-          int id = snapshot.data![index].id;
-          String name = snapshot.data![index].name;
-          String session = snapshot.data![index].session;
-          String gender = snapshot.data![index].gender;
-          String? exDate = snapshot.data![index].planExpiryDate;
-
-          selectedFlag[id] = selectedFlag[id] ?? false;
-          bool isSelected = selectedFlag[id] ?? false;
-
-          return Card(
-            color: Colors.transparent,
-            margin: EdgeInsets.all(5),
-            semanticContainer: true,
-            child: ListTile(
-              onTap: () => _onTap(isSelected, id),
-              onLongPress: () => onLongPress(isSelected, id),
-              leading: _buildLeadingIcon(isSelected, gender, exDate),
-              title: Text(
-                name,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text(
-                session,
-                style: TextStyle(fontSize: 10.0),
-              ),
-            ),
-          );
-        },
-      );
-    }
+  AppBar buildAppBar() {
+    return AppBar(
+      backgroundColor: Colors.black,
+      centerTitle: true,
+      title: const Text('Home'),
+      actions: buildActions(),
+    );
   }
 
-  Widget _buildLeadingIcon(bool isSelected, String gender, String? exDate) {
-    if (isSelectionMode) {
-      return CircleAvatar(
-        radius: 30.0,
-        backgroundColor: isSelected ? Colors.white : Colors.white24,
-        child: isSelected
-            ? const Icon(Icons.check, size: 25, color: Colors.black)
-            : null,
-      );
-    } else {
-      return CircleAvatar(
-        radius: 30.0,
-        backgroundColor: getAvatarColor(exDate),
-        child: Icon(getGenderIconData(gender), size: 25, color: Colors.white54),
-      );
-    }
-  }
-
-  Color getAvatarColor(String? exDate) {
-    if (exDate == null) {
-      return Colors.white24;
-    } else if (isDatePassed(exDate)) {
-      return Colors.red;
-    } else {
-      return Colors.green;
-    }
-  }
-
-  void _onTap(bool isSelected, int id) {
-    if (isSelectionMode) {
-      setState(() {
-        selectedFlag[id] = !isSelected;
-        isSelectionMode = selectedFlag.containsValue(true);
-      });
-    } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ClientInfoPage(clientId: id)),
-      ).then((context) {
-        setState(() {
-          _refreshData(0);
-        });
-      });
-    }
-  }
-
-  void onLongPress(bool isSelected, int id) {
+  void selectAll() {
+    bool isFalseAvailable = selectedFlag.containsValue(false);
+    // If false will be available then it will select all the checkbox
+    // If there will be no false then it will de-select all
+    selectedFlag.updateAll((key, value) => isFalseAvailable);
     setState(() {
-      selectedFlag[id] = !isSelected;
-      // If there will be any true in the selectionFlag then
-      // selection Mode will be true
       isSelectionMode = selectedFlag.containsValue(true);
     });
   }
 
-  List<Widget> _buildActions() {
+  buildActions() {
     // The button will be visible when the selectionMode is enabled.
     if (isSelectionMode) {
       bool isFalseAvailable = selectedFlag
           .containsValue(false); // check if all item is not selected
       return [
         IconButton(
-          tooltip: "Delete",
+          tooltip: 'Delete',
           icon: Icon(Icons.delete),
-          onPressed: () {
-            selectedFlag.removeWhere((id, value) => value == false);
-            BuildContext dialogContext;
-
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                dialogContext = context;
-                return ConfirmDialog(
-                  confirmText: "Delete",
-                  info: RichText(
-                    text: TextSpan(
-                      text: "${selectedFlag.length} ",
-                      style: TextStyle(
-                          fontSize: 17.0, fontWeight: FontWeight.bold),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: (selectedFlag.length == 1)
-                              ? 'entry is '
-                              : 'entries are ',
-                          style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.white70,
-                              fontWeight: FontWeight.normal),
-                        ),
-                        TextSpan(
-                          text:
-                              'selected.All client payment informations are wiped out permanently from memory. Type ',
-                          style: TextStyle(
-                              fontSize: 16.0,
-                              overflow: TextOverflow.visible,
-                              color: Colors.white70,
-                              fontWeight: FontWeight.normal),
-                        ),
-                        TextSpan(
-                          text: 'confirm ',
-                        ),
-                        TextSpan(
-                          text: 'to proceed.',
-                          style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.white70,
-                              fontWeight: FontWeight.normal),
-                        ),
-                      ],
-                    ),
-                  ),
-                  onConfirm: () {
-                    for (MapEntry e in selectedFlag.entries) {
-                      if (e.value) {
-                        handler.deleteClient(e.key);
-                      }
-                    }
-                    setState(() {
-                      _refreshData(0);
-                      _resetSelection();
-                    });
-                    Navigator.pop(dialogContext);
-                  },
-                );
-              },
-            );
-          },
+          onPressed: () async => await handleDelete(),
         ),
         IconButton(
-          tooltip: isFalseAvailable ? "SelectAll" : "Clear",
+          tooltip: isFalseAvailable ? 'SelectAll' : 'Clear',
           icon: Icon(
             isFalseAvailable ? Icons.done_all : Icons.remove_done,
           ),
-          onPressed: _selectAll,
+          onPressed: selectAll,
         )
       ];
     } else {
@@ -308,13 +137,195 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _selectAll() {
-    bool isFalseAvailable = selectedFlag.containsValue(false);
-    // If false will be available then it will select all the checkbox
-    // If there will be no false then it will de-select all
-    selectedFlag.updateAll((key, value) => isFalseAvailable);
+  Widget clientList() {
+    return FutureBuilder(
+      future: _future,
+      builder: (
+        BuildContext context,
+        AsyncSnapshot<List<Client>> snapshot,
+      ) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return loaderWidget();
+        } else if (snapshot.hasError) {
+          return centerMessageWidget('Error !');
+        } else if (snapshot.hasData) {
+          if (snapshot.data?.length == 0) {
+            return centerMessageWidget(nonFoundMessage);
+          } else {
+            return buildListView(snapshot);
+          }
+        } else {
+          return centerMessageWidget(nonFoundMessage);
+        }
+      },
+    );
+  }
+
+  Widget buildListView(AsyncSnapshot<List<Client>> snapshot) {
+    return ListView.builder(
+      itemCount: snapshot.data?.length,
+      itemBuilder: (BuildContext context, int index) {
+        int id = snapshot.data![index].id;
+        String name = snapshot.data![index].name;
+        String session = snapshot.data![index].session;
+        String gender = snapshot.data![index].gender;
+        String? exDate = snapshot.data![index].planExpiryDate;
+
+        selectedFlag[id] = selectedFlag[id] ?? false;
+        bool isSelected = selectedFlag[id] ?? false;
+
+        return Card(
+          color: Colors.transparent,
+          margin: EdgeInsets.all(5),
+          semanticContainer: true,
+          child: ListTile(
+            onTap: () => onTap(isSelected, id),
+            onLongPress: () => onLongPress(isSelected, id),
+            leading: buildLeadingIcon(isSelected, gender, exDate),
+            title: Text(
+              name,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+            ),
+            subtitle: Text(
+              session,
+              style: TextStyle(fontSize: 10.0),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void onTap(bool isSelected, int id) {
+    if (isSelectionMode) {
+      setState(() {
+        selectedFlag[id] = !isSelected;
+        isSelectionMode = selectedFlag.containsValue(true);
+      });
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ClientInfoPage(clientId: id)),
+      ).then((context) {
+        setState(() {
+          refreshClients(0);
+        });
+      });
+    }
+  }
+
+  void onLongPress(bool isSelected, int id) {
     setState(() {
+      selectedFlag[id] = !isSelected;
+      // If there will be any true in the selectionFlag then
+      // selection Mode will be true
       isSelectionMode = selectedFlag.containsValue(true);
     });
+  }
+
+  Color getAvatarColor(String? exDate) {
+    if (exDate == null) {
+      return Colors.white24;
+    } else if (isDatePassed(exDate)) {
+      return Colors.red;
+    } else {
+      return Colors.green;
+    }
+  }
+
+  Widget buildLeadingIcon(bool isSelected, String gender, String? exDate) {
+    if (isSelectionMode) {
+      return CircleAvatar(
+        radius: 30.0,
+        backgroundColor: isSelected ? Colors.white : Colors.white24,
+        child: isSelected
+            ? const Icon(Icons.check, size: 25, color: Colors.black)
+            : null,
+      );
+    } else {
+      return CircleAvatar(
+        radius: 30.0,
+        backgroundColor: getAvatarColor(exDate),
+        child: Icon(getGenderIconData(gender), size: 25, color: Colors.white54),
+      );
+    }
+  }
+
+  deleteClient(int id) async {
+    final handler = DatabaseHandler();
+    await handler.deleteClient(id);
+  }
+
+  Future<void> handleDelete() async {
+    selectedFlag.removeWhere((id, value) => value == false);
+    BuildContext dialogContext;
+
+    final boldTextStyle = TextStyle(
+      fontSize: 17.0,
+      fontWeight: FontWeight.bold,
+    );
+    final normalTextStyle = TextStyle(
+      fontSize: 16.0,
+      overflow: TextOverflow.visible,
+      color: Colors.white70,
+      fontWeight: FontWeight.normal,
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        dialogContext = context;
+        return ConfirmDialog(
+          confirmText: 'Delete',
+          info: RichText(
+            text: TextSpan(
+              style: normalTextStyle,
+              children: <TextSpan>[
+                TextSpan(text: '${selectedFlag.length} ', style: boldTextStyle),
+                TextSpan(
+                  text:
+                      (selectedFlag.length == 1) ? 'entry is ' : 'entries are ',
+                ),
+                TextSpan(
+                  text:
+                      'selected. All client payment informations are wiped out permanently from memory. Type ',
+                ),
+                TextSpan(text: 'confirm ', style: boldTextStyle),
+                TextSpan(text: 'to proceed.'),
+              ],
+            ),
+          ),
+          onConfirm: () async {
+            for (MapEntry e in selectedFlag.entries) {
+              if (e.value) {
+                await deleteClient(e.key);
+              }
+            }
+            setState(() {
+              refreshClients(0);
+              resetSelection();
+            });
+            Navigator.pop(dialogContext);
+          },
+        );
+      },
+    );
+  }
+
+  Future<void> addClient() async {
+    final String? newClient = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddClientPage(),
+      ),
+    );
+
+    if (newClient == 'added') {
+      setState(() {
+        refreshClients(0);
+        resetSelection();
+      });
+    }
   }
 }

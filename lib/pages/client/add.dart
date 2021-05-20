@@ -1,12 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/foundation.dart';
 
 import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
 
-import 'package:ppscgym/widgets.dart';
 import 'package:ppscgym/utils.dart';
+import 'package:ppscgym/widgets.dart';
 
 class AddClientPage extends StatefulWidget {
   final Client? data;
@@ -19,47 +19,52 @@ class AddClientPage extends StatefulWidget {
 class _AddClientPageState extends State<AddClientPage> {
   final _formKey = GlobalKey<FormState>();
 
-  late List<bool> workoutSessionOptions = [true, false];
-  late List<bool> genderOptions = [true, false];
-  final _idCtrl = TextEditingController();
-  final _nameCtrl = TextEditingController();
-  final _dobCtrl = TextEditingController();
-  final _mobileCtrl = TextEditingController();
+  late List<bool> sessionOptions;
+  late List<bool> genderOptions;
+  final idCtrl = TextEditingController();
+  final nameCtrl = TextEditingController();
+  final dobCtrl = TextEditingController();
+  final mobileCtrl = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    if (widget.data != null) {
-      _idCtrl.text = widget.data!.id.toString();
-      _nameCtrl.text = widget.data!.name;
-      _dobCtrl.text = widget.data!.dob;
-      _mobileCtrl.text = widget.data!.mobile.toString();
+    setDefaultInfo();
+  }
 
-      workoutSessionOptions =
+  void setDefaultInfo() {
+    if (widget.data != null) {
+      idCtrl.text = widget.data!.id.toString();
+      nameCtrl.text = widget.data!.name;
+      dobCtrl.text = widget.data!.dob;
+      mobileCtrl.text = widget.data!.mobile.toString();
+
+      sessionOptions =
           (widget.data!.session == "Morning") ? [true, false] : [false, true];
       genderOptions =
           (widget.data!.gender == "Male") ? [true, false] : [false, true];
     } else {
-      workoutSessionOptions = [true, false];
+      sessionOptions = [true, false];
       genderOptions = [true, false];
     }
   }
 
   @override
   void dispose() {
-    _idCtrl.dispose();
-    _nameCtrl.dispose();
-    _dobCtrl.dispose();
-    _mobileCtrl.dispose();
     super.dispose();
+    idCtrl.dispose();
+    nameCtrl.dispose();
+    dobCtrl.dispose();
+    mobileCtrl.dispose();
   }
 
-  Future<String?> insertClient(Client client) async {
+  // Database Methods
+  insertClient(Client client) async {
     final DatabaseHandler handler = DatabaseHandler();
     return await handler.insertClient(client);
   }
 
-  Future<String?> updateClient(Client client) async {
+  updateClient(Client client) async {
     final DatabaseHandler handler = DatabaseHandler();
     return await handler.updateClient(client);
   }
@@ -68,158 +73,174 @@ class _AddClientPageState extends State<AddClientPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        title: (widget.data != null)
-            ? const Text("Edit Client")
-            : const Text('Add Client'),
-        actions: <Widget>[saveButton()],
+      appBar: buildAppBar(),
+      body: buildBody(),
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      centerTitle: true,
+      backgroundColor: Colors.transparent,
+      title: (widget.data != null)
+          ? const Text("Edit Client")
+          : const Text('Add Client'),
+      actions: <Widget>[
+        saveButton(),
+      ],
+    );
+  }
+
+  Widget buildBody() {
+    return SingleChildScrollView(
+      child: Form(
+        key: _formKey,
+        child: Padding(
+          padding: EdgeInsets.all(25.0),
+          child: Column(
+            children: <Widget>[
+              //
+              // Client Gender (default: Male)
+              //
+
+              ToggleButtons(
+                isSelected: genderOptions,
+                borderColor: Colors.white10,
+                borderRadius: BorderRadius.circular(14),
+                children: <Widget>[
+                  optionButton("Male"),
+                  optionButton("Female"),
+                ],
+                onPressed: (int index) {
+                  setState(() {
+                    updateOptions(index, genderOptions);
+                  });
+                },
+              ),
+              SizedBox(height: 40),
+
+              //
+              // Client Workout Session (default: Morning)
+              //
+
+              ToggleButtons(
+                isSelected: sessionOptions,
+                borderColor: Colors.white10,
+                borderRadius: BorderRadius.circular(14),
+                children: <Widget>[
+                  optionButton("Morning"),
+                  optionButton("Evening"),
+                ],
+                onPressed: (int index) {
+                  setState(() {
+                    updateOptions(index, sessionOptions);
+                  });
+                },
+              ),
+              SizedBox(height: 40),
+
+              //
+              // Client ID
+              //
+
+              TextFormFieldWidget(
+                enabled: (widget.data != null) ? false : true,
+                maxLength: 12,
+                labelText: "Adhar ID",
+                controller: idCtrl,
+                keyboardType: TextInputType.number,
+                formatters: [
+                  FilteringTextInputFormatter.allow(
+                    RegExp(r'[0-9]'),
+                  ),
+                ],
+                validator: (value) {
+                  if (value == null || value.isEmpty || value.length != 12) {
+                    return 'Invalid ID';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 20),
+
+              //
+              // Client Name
+              //
+
+              TextFormFieldWidget(
+                labelText: "Name",
+                controller: nameCtrl,
+                keyboardType: TextInputType.text,
+                formatters: [
+                  FilteringTextInputFormatter.allow(
+                    RegExp(r'^[a-zA-Z\s]*$'),
+                  ),
+                ],
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "This field is required";
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+              SizedBox(height: 20),
+
+              //
+              // Date Of Birth
+              //
+
+              TextFormFieldWidget(
+                controller: dobCtrl,
+                labelText: "Date Of Birth",
+                enableInteractiveSelection: false,
+                keyboardType: TextInputType.text,
+                onTap: () async {
+                  DateTime? date = await pickDate(context);
+                  if (date != null) {
+                    setState(() {
+                      dobCtrl.text = toDDMMYYYY(date);
+                    });
+                  }
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "DOB is required";
+                  } else if (!is12YearOld(value)) {
+                    return "You are not 12 year old";
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+              SizedBox(height: 20),
+
+              //
+              // Client Mob.No.
+              //
+
+              TextFormFieldWidget(
+                maxLength: 10,
+                labelText: "Mobile",
+                controller: mobileCtrl,
+                keyboardType: TextInputType.number,
+                formatters: [
+                  FilteringTextInputFormatter.allow(
+                    RegExp(r'[0-9]'),
+                  ),
+                ],
+                validator: (value) {
+                  if (value == null || value.isEmpty || value.length != 10) {
+                    return 'Invalid Mobile Number';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 20),
+            ],
+          ),
+        ),
       ),
-      body: SingleChildScrollView(
-          child: Form(
-              key: _formKey,
-              child: Padding(
-                padding: EdgeInsets.all(25.0),
-                child: Column(children: <Widget>[
-                  //
-                  // Client Gender (default: Male)
-                  //
-
-                  ToggleButtons(
-                    borderColor: Colors.white10,
-                    borderRadius: BorderRadius.circular(14),
-                    children: <Widget>[
-                      optionButton("Male"),
-                      optionButton("Female"),
-                    ],
-                    onPressed: (int index) {
-                      setState(() {
-                        updateOptions(index, genderOptions);
-                      });
-                    },
-                    isSelected: genderOptions,
-                  ),
-                  SizedBox(height: 40),
-
-                  //
-                  // Client Workout Session (default: Morning)
-                  //
-
-                  ToggleButtons(
-                    borderColor: Colors.white10,
-                    borderRadius: BorderRadius.circular(14),
-                    children: <Widget>[
-                      optionButton("Morning"),
-                      optionButton("Evening"),
-                    ],
-                    onPressed: (int index) {
-                      setState(() {
-                        updateOptions(index, workoutSessionOptions);
-                      });
-                    },
-                    isSelected: workoutSessionOptions,
-                  ),
-                  SizedBox(height: 40),
-
-                  //
-                  // Client ID
-                  //
-
-                  TextFormFieldWidget(
-                      enabled: (widget.data != null) ? false : true,
-                      labelText: "Adhar ID",
-                      controller: _idCtrl,
-                      formatters: [
-                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
-                      ],
-                      maxLength: 12,
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value == null ||
-                            value.isEmpty ||
-                            value.length != 12) {
-                          return 'Invalid ID';
-                        }
-                        return null;
-                      }),
-                  SizedBox(height: 20),
-
-                  //
-                  // Client Name
-                  //
-
-                  TextFormFieldWidget(
-                    labelText: "Name",
-                    controller: _nameCtrl,
-                    formatters: [
-                      FilteringTextInputFormatter.allow(
-                          RegExp(r'^[a-zA-Z\s]*$'))
-                    ],
-                    keyboardType: TextInputType.text,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "This field is required";
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: 20),
-
-                  //
-                  // Date Of Birth
-                  //
-
-                  TextFormFieldWidget(
-                      labelText: "Date Of Birth",
-                      controller: _dobCtrl,
-                      enableInteractiveSelection: false,
-                      keyboardType: TextInputType.text,
-                      onTap: () async {
-                        // Below line stops keyboard from appearing
-                        FocusScope.of(context).requestFocus(new FocusNode());
-                        DateTime? date = await pickDate(context);
-                        if (date != null)
-                          setState(
-                            () {
-                              _dobCtrl.text = toDDMMYYYY(date);
-                            },
-                          );
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "DOB is required";
-                        } else if (!is12YearOld(value)) {
-                          return "You are not 12 year old";
-                        }
-                        return null;
-                      }),
-                  SizedBox(height: 20),
-
-                  //
-                  // Client Mob.No.
-                  //
-
-                  TextFormFieldWidget(
-                    labelText: "Mobile",
-                    controller: _mobileCtrl,
-                    formatters: [
-                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
-                    ],
-                    maxLength: 10,
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null ||
-                          value.isEmpty ||
-                          value.length != 10) {
-                        return 'Invalid Mobile Number';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: 20),
-                ]),
-              ))),
     );
   }
 
@@ -248,12 +269,12 @@ class _AddClientPageState extends State<AddClientPage> {
         // Validate returns true if the form is valid, or false otherwise.
         if (_formKey.currentState!.validate()) {
           final client = Client(
-            id: int.parse(_idCtrl.text),
-            name: formatName(_nameCtrl.text),
+            id: int.parse(idCtrl.text),
+            name: formatName(nameCtrl.text),
             gender: getGenderString(genderOptions),
-            dob: _dobCtrl.text,
-            mobile: int.parse(_mobileCtrl.text),
-            session: getSessionString(workoutSessionOptions),
+            dob: dobCtrl.text,
+            mobile: int.parse(mobileCtrl.text),
+            session: getSessionString(sessionOptions),
           );
 
           late String? error;

@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.white,
           onRefresh: () async {
             setState(() {
-              refreshClients(1);
+              refreshClients(0);
             });
           },
           child: clientList(),
@@ -321,7 +321,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
 
-    if (newClient == 'added') {
+    if (newClient == 'client added') {
       setState(() {
         refreshClients(0);
         resetSelection();

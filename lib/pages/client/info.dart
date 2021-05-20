@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
+import 'package:ppscgym/services/database/handler.dart';
 
 import 'package:ppscgym/pages/client/add.dart';
 import 'package:ppscgym/pages/payment/payments.dart';
@@ -20,114 +20,141 @@ class ClientInfoPage extends StatefulWidget {
 }
 
 class _ClientInfoPageState extends State<ClientInfoPage> {
-  late DatabaseHandler handler;
-  late Future<Client> _infoFuture;
-  late Future<List<Payment>> _paymentsFuture;
+  late Future<Client> infoFuture;
+  late Future<List<Payment>> paymentsFuture;
+  late bool isPlanExpired;
 
   @override
   void initState() {
     super.initState();
-    handler = DatabaseHandler();
-    _refreshInfoData(0);
-    _refreshPaymentData(1);
+    refreshClientData(0);
+    refreshPaymentsData(1);
   }
 
-  void _refreshInfoData(int seconds) {
-    _infoFuture = Future<Client>.delayed(
-        Duration(seconds: seconds, microseconds: 10),
-        () => handler.retrieveClient(widget.clientId));
+  refreshClientData(int seconds) {
+    final DatabaseHandler handler = DatabaseHandler();
+
+    infoFuture = Future<Client>.delayed(
+      Duration(seconds: seconds, microseconds: 10),
+      () => handler.retrieveClient(widget.clientId),
+    );
   }
 
-  void _refreshPaymentData(int seconds) {
-    _paymentsFuture = Future<List<Payment>>.delayed(
-        Duration(seconds: seconds, microseconds: 20),
-        () => handler.retriveClientPayments(widget.clientId));
+  refreshPaymentsData(int seconds) {
+    final DatabaseHandler handler = DatabaseHandler();
+    paymentsFuture = Future<List<Payment>>.delayed(
+      Duration(seconds: seconds, microseconds: 20),
+      () => handler.retriveClientPayments(widget.clientId),
+    );
   }
 
-  void _refreshAllData() {
+  void refreshAllData() {
     setState(() {
-      _refreshInfoData(0);
-      _refreshPaymentData(0);
+      refreshClientData(0);
+      refreshPaymentsData(0);
     });
+  }
+
+  setPlanExpiry(String? exDate) {
+    if (exDate == null) {
+      isPlanExpired = true;
+    } else if (isDatePassed(exDate)) {
+      isPlanExpired = true;
+    } else {
+      isPlanExpired = false;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _infoFuture,
+      future: infoFuture,
       builder: (BuildContext context, AsyncSnapshot<Client> snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return loaderWidget();
-        }
-        if (snapshot.hasError) {
-          return centerMessageWidget("Error !");
-        }
-        if (snapshot.hasData) {
-          final String? exDate = snapshot.data!.planExpiryDate;
+        } else if (snapshot.hasError) {
+          return centerMessageWidget('Error !');
+        } else if (snapshot.hasData) {
+          //Initiating plan expiry boolean
+          Client clientData = snapshot.data!;
+          setPlanExpiry(clientData.planExpiryDate);
+
           return Scaffold(
             backgroundColor: Colors.black,
-            appBar: AppBar(
-              backgroundColor: Colors.black,
-              actions: [
-                IconButton(
-                  tooltip: "Edit",
-                  onPressed: () async {
-                    final result = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            AddClientPage(data: snapshot.data),
-                      ),
-                    );
-
-                    if (result == 'added') {
-                      setState(() {
-                        _refreshInfoData(0);
-                      });
-                    }
-                  },
-                  icon: Icon(Icons.edit),
-                )
-              ],
-            ),
-            body: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  clientInfo(snapshot),
-                  Divider(color: Colors.transparent, height: 7.0),
-
-                  // CoolDown Widget
-                  (exDate != null && !isDatePassed(exDate))
-                      ? CountDown(
-                          time: stringToDateTime(exDate),
-                          onTimeout: _refreshAllData,
-                        )
-                      : rechargeButton(),
-
-                  Divider(color: Colors.transparent, height: 10.0),
-                  ClientPaymentHistory(
-                      future: _paymentsFuture, onDelete: _refreshAllData),
-                ],
-              ),
-            ),
+            appBar: buildAppBar(clientData),
+            body: buildBody(clientData),
           );
+        } else {
+          return centerMessageWidget('Client Data Found');
         }
-        return centerMessageWidget("Client Data Found");
       },
     );
   }
 
-  Widget clientInfo(AsyncSnapshot<Client> snapshot) {
-    final String id = snapshot.data!.id.toString();
-    final String name = snapshot.data!.name;
-    final String gender = snapshot.data!.gender;
-    final String session = snapshot.data!.session;
-    final String dob = snapshot.data!.dob.toString();
-    final String mobile = snapshot.data!.mobile.toString();
-    final String? planExpiryDate = snapshot.data!.planExpiryDate;
-    final String totalMoney = snapshot.data!.totalMoney.toString();
+  AppBar buildAppBar(Client client) {
+    return AppBar(
+      backgroundColor: Colors.black,
+      actions: [
+        IconButton(
+          tooltip: 'Edit',
+          icon: Icon(Icons.edit),
+          onPressed: () async {
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddClientPage(data: client),
+              ),
+            );
 
+            if (result == 'client updated') {
+              setState(() {
+                refreshClientData(0);
+              });
+            }
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget buildBody(Client clientData) {
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: Column(
+        children: [
+          clientInfo(clientData),
+          Divider(color: Colors.transparent, height: 7.0),
+
+          // CoolDown Widget
+          (isPlanExpired)
+              ? rechargeButton()
+              : CountDown(
+                  time: stringToDateTime(clientData.planExpiryDate!),
+                  onTimeout: refreshAllData,
+                ),
+          Divider(color: Colors.transparent, height: 10.0),
+
+          ClientPaymentHistory(
+            future: paymentsFuture,
+            onDelete: refreshAllData,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget clientInfo(Client client) {
+    String id = client.id.toString();
+    String name = client.name;
+    String gender = client.gender;
+    String session = client.session;
+    String dob = client.dob.toString();
+    String mobile = client.mobile.toString();
+    String? planExpiryDate = client.planExpiryDate;
+    String totalMoney = client.totalMoney.toString();
+
+    //Styling
+    TextStyle cardTextStyle = TextStyle(fontSize: 17.0);
     return Container(
       color: Colors.transparent,
       child: Padding(
@@ -151,7 +178,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                     child: Icon(
                       getGenderIconData(gender),
                       size: 34.0,
-                      color: gender == "Male" ? Colors.blue : Colors.pinkAccent,
+                      color: gender == 'Male' ? Colors.blue : Colors.pinkAccent,
                     ),
                   ),
                 ],
@@ -180,29 +207,28 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
               ),
             ),
             Divider(height: 20.0, color: Colors.transparent),
-            cardGroup([
-              infoCard(
+            cardGroup(
+              [
+                infoCard(
                   Text(
-                    (planExpiryDate == null || isDatePassed(planExpiryDate))
-                        ? "Plan Expired"
-                        : "Plan Expire On",
-                    style: TextStyle(fontSize: 17.0),
+                    (isPlanExpired) ? 'Plan Expired' : 'Plan Expire On',
+                    style: cardTextStyle,
                   ),
-                  planExpiryDate ?? "-"),
-              infoCard(
-                  Text(
-                    "Total",
-                    style: TextStyle(
-                      fontSize: 17.0,
-                    ),
-                  ),
-                  "$totalMoney \u20B9"),
-            ], 15.6),
-            cardGroup([
-              infoCard(Icon(Icons.phone, size: 25.0), mobile),
-              infoCard(Icon(Icons.timelapse, size: 25.0), session),
-              infoCard(Icon(Icons.cake, size: 25.0), dob),
-            ], 15.6),
+                  planExpiryDate,
+                ),
+                infoCard(
+                  Text('Total', style: cardTextStyle),
+                  '$totalMoney \u20B9',
+                ),
+              ],
+            ),
+            cardGroup(
+              [
+                infoCard(Icon(Icons.phone, size: 25.0), mobile),
+                infoCard(Icon(Icons.timelapse, size: 25.0), session),
+                infoCard(Icon(Icons.cake, size: 25.0), dob),
+              ],
+            ),
             Divider(height: 10.0, color: Colors.transparent),
           ],
         ),
@@ -210,13 +236,13 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
     );
   }
 
-  Widget infoCard(Widget symbol, String info) {
+  Widget infoCard(Widget symbol, String? info) {
     return Column(
       children: [
         symbol,
         Divider(color: Colors.transparent, height: 5.0),
         Text(
-          info,
+          info ?? '-',
           style: TextStyle(
             fontSize: 12.0,
             fontWeight: FontWeight.w400,
@@ -227,12 +253,17 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
     );
   }
 
-  Widget cardGroup(List<Widget> children, double spacing) {
+  Widget cardGroup(List<Widget> children) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: children
-          .map((c) => Container(padding: EdgeInsets.all(spacing), child: c))
+          .map(
+            (c) => Container(
+              padding: EdgeInsets.all(15.6),
+              child: c,
+            ),
+          )
           .toList(),
     );
   }
@@ -246,7 +277,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
             WidgetSpan(
               child: const Icon(Icons.flash_on_rounded),
             ),
-            TextSpan(text: " Recharge Plan"),
+            TextSpan(text: ' Recharge Plan'),
           ],
         ),
       ),
@@ -254,9 +285,13 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
         backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
         foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
         padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-            EdgeInsets.only(top: 12.0, bottom: 12.0, right: 22.0, left: 22.0)),
+          EdgeInsets.only(top: 12.0, bottom: 12.0, right: 22.0, left: 22.0),
+        ),
         shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0))),
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+        ),
       ),
       onPressed: () async {
         final result = await Navigator.push(
@@ -269,10 +304,9 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
           ),
         );
 
-        if (result == "added") {
+        if (result == 'added') {
           setState(() {
-            _refreshInfoData(0);
-            _refreshPaymentData(0);
+            refreshAllData();
           });
         }
       },

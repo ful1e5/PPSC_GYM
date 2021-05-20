@@ -304,15 +304,15 @@ class _AddClientPageState extends State<AddClientPage> {
         errorPopup(context, error);
       } else {
         if (update) {
-          // only apear on if values are not same
+          // only appear on if values are not same
           if (!mapEquals(widget.data!.toMap(), client.toMap())) {
             infoPopup(context, 'Entry Updated');
+            Navigator.pop(context, 'client updated');
           }
         } else {
           successPopup(context, 'Entry Created');
+          Navigator.pop(context, 'client added');
         }
-
-        Navigator.pop(context, 'added');
       }
     }
   }

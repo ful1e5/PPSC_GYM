@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ppscgym/pages/plans.dart';
+import 'package:ppscgym/utils.dart';
 
 import 'package:ppscgym/widgets.dart';
 
@@ -126,6 +127,7 @@ class _HomePageState extends State<HomePage> {
           String name = snapshot.data![index].name;
           String session = snapshot.data![index].session;
           String gender = snapshot.data![index].gender;
+          String? exDate = snapshot.data![index].planExpiryDate;
 
           selectedFlag[id] = selectedFlag[id] ?? false;
           bool isSelected = selectedFlag[id] ?? false;
@@ -137,7 +139,7 @@ class _HomePageState extends State<HomePage> {
             child: ListTile(
               onTap: () => _onTap(isSelected, id),
               onLongPress: () => onLongPress(isSelected, id),
-              leading: _buildLeadingIcon(isSelected, gender),
+              leading: _buildLeadingIcon(isSelected, gender, exDate),
               title: Text(
                 name,
                 overflow: TextOverflow.ellipsis,
@@ -154,7 +156,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Widget _buildLeadingIcon(bool isSelected, String gender) {
+  Widget _buildLeadingIcon(bool isSelected, String gender, String? exDate) {
     if (isSelectionMode) {
       return CircleAvatar(
         radius: 30.0,
@@ -166,9 +168,19 @@ class _HomePageState extends State<HomePage> {
     } else {
       return CircleAvatar(
         radius: 30.0,
-        backgroundColor: Colors.white24,
+        backgroundColor: getAvatarColor(exDate),
         child: Icon(getGenderIconData(gender), size: 25, color: Colors.white54),
       );
+    }
+  }
+
+  Color getAvatarColor(String? exDate) {
+    if (exDate == null) {
+      return Colors.white24;
+    } else if (isDatePassed(exDate)) {
+      return Colors.red;
+    } else {
+      return Colors.green;
     }
   }
 
@@ -182,7 +194,11 @@ class _HomePageState extends State<HomePage> {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => ClientInfoPage(clientId: id)),
-      );
+      ).then((context) {
+        setState(() {
+          _refreshData(0);
+        });
+      });
     }
   }
 

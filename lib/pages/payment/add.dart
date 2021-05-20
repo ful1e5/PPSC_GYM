@@ -87,7 +87,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                 // Status
                 //
 
-                Text("${widget.plan.months} Month Plan",
+                Text('${widget.plan.months} Month Plan',
                     style:
                         TextStyle(fontSize: 37.0, fontWeight: FontWeight.bold)),
                 SizedBox(height: 30),
@@ -130,10 +130,10 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "This Field is required";
+                      return 'This Field is required';
                     } else if (stringToDateTime(value)
                         .isBefore(firstDayOfMonthDate)) {
-                      return "Date from previous months is not allowed";
+                      return 'Date from previous months is not allowed';
                     }
                     return null;
                   },
@@ -174,7 +174,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
 
                 TextFormFieldWidget(
                   enabled: !_moneyFromPlan,
-                  labelText: "Money",
+                  labelText: 'Money',
                   controller: _moneyCtrl,
                   autoFocus: true,
                   formatters: [
@@ -184,9 +184,9 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "This field required";
+                      return 'This field required';
                     } else if (int.parse(value) > 50000) {
-                      return "Max Price set to 50,000\u20B9";
+                      return 'Max Price set to 50,000\u20B9';
                     }
                     return null;
                   },
@@ -214,13 +214,14 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                     controller: _noteCtrl,
                     formatters: [
                       FilteringTextInputFormatter.allow(
-                          RegExp(r'^[a-zA-Z0-9\s-]*$'))
+                        RegExp(r'^[a-zA-Z0-9\s-._]*$'),
+                      ),
                     ],
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (_addNote == true &&
                           (value == null || value.isEmpty)) {
-                        return "Empty note not allowed.";
+                        return 'Empty note not allowed.';
                       }
                       return null;
                     }),
@@ -267,7 +268,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
           alignment: Alignment.center,
           padding: EdgeInsets.all(14.0),
           child: Text(
-            "You Cann't able to edit or delete payment information, once it's verfied by algorithm. Tap 'I Agree' to procced.",
+            "You Can't able to edit or delete payment information, once it's verified by algorithm. Tap 'I Agree' to proceed.",
             overflow: TextOverflow.visible,
             style: TextStyle(fontSize: 12.0, wordSpacing: 2.0),
           ),
@@ -276,7 +277,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
           child: Row(
             children: [
               OutlinedButton(
-                child: const Text("Close"),
+                child: const Text('Close'),
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.white),
@@ -291,7 +292,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
               ),
               Spacer(),
               OutlinedButton(
-                  child: const Text("I Agree"),
+                  child: const Text('I Agree'),
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.blue),
@@ -314,7 +315,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         backgroundColor: Colors.green,
                         content:
-                            Text("${widget.plan.months} Months Plan Active")));
+                            Text('${widget.plan.months} Months Plan Active')));
                     Navigator.pop(context); // Popup Dialog
                     Navigator.pop(context, 'added'); // Popup Widget
                   }),

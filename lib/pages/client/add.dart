@@ -17,10 +17,12 @@ class AddClientPage extends StatefulWidget {
 }
 
 class _AddClientPageState extends State<AddClientPage> {
+  late bool update;
   final _formKey = GlobalKey<FormState>();
 
   late List<bool> sessionOptions;
   late List<bool> genderOptions;
+
   final idCtrl = TextEditingController();
   final nameCtrl = TextEditingController();
   final dobCtrl = TextEditingController();
@@ -33,7 +35,11 @@ class _AddClientPageState extends State<AddClientPage> {
   }
 
   void setDefaultInfo() {
-    if (widget.data != null) {
+    // Form status
+    update = (widget.data != null) ? true : false;
+
+    // Form data
+    if (update) {
       idCtrl.text = widget.data!.id.toString();
       nameCtrl.text = widget.data!.name;
       dobCtrl.text = widget.data!.dob;
@@ -58,17 +64,6 @@ class _AddClientPageState extends State<AddClientPage> {
     mobileCtrl.dispose();
   }
 
-  // Database Methods
-  insertClient(Client client) async {
-    final DatabaseHandler handler = DatabaseHandler();
-    return await handler.insertClient(client);
-  }
-
-  updateClient(Client client) async {
-    final DatabaseHandler handler = DatabaseHandler();
-    return await handler.updateClient(client);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,12 +77,20 @@ class _AddClientPageState extends State<AddClientPage> {
     return AppBar(
       centerTitle: true,
       backgroundColor: Colors.transparent,
-      title: (widget.data != null)
-          ? const Text("Edit Client")
-          : const Text('Add Client'),
+      title: (update) ? const Text("Edit Client") : const Text('Add Client'),
       actions: <Widget>[
         saveButton(),
       ],
+    );
+  }
+
+  Widget saveButton() {
+    return IconButton(
+      icon: const Icon(Icons.check),
+      tooltip: 'Save',
+      onPressed: () async {
+        await handleSave();
+      },
     );
   }
 
@@ -108,8 +111,8 @@ class _AddClientPageState extends State<AddClientPage> {
                 borderColor: Colors.white10,
                 borderRadius: BorderRadius.circular(14),
                 children: <Widget>[
-                  optionButton("Male"),
-                  optionButton("Female"),
+                  option("Male"),
+                  option("Female"),
                 ],
                 onPressed: (int index) {
                   setState(() {
@@ -128,8 +131,8 @@ class _AddClientPageState extends State<AddClientPage> {
                 borderColor: Colors.white10,
                 borderRadius: BorderRadius.circular(14),
                 children: <Widget>[
-                  optionButton("Morning"),
-                  optionButton("Evening"),
+                  option("Morning"),
+                  option("Evening"),
                 ],
                 onPressed: (int index) {
                   setState(() {
@@ -144,7 +147,7 @@ class _AddClientPageState extends State<AddClientPage> {
               //
 
               TextFormFieldWidget(
-                enabled: (widget.data != null) ? false : true,
+                enabled: (update) ? false : true,
                 maxLength: 12,
                 labelText: "Adhar ID",
                 controller: idCtrl,
@@ -154,11 +157,12 @@ class _AddClientPageState extends State<AddClientPage> {
                     RegExp(r'[0-9]'),
                   ),
                 ],
-                validator: (value) {
+                validator: (String? value) {
                   if (value == null || value.isEmpty || value.length != 12) {
                     return 'Invalid ID';
+                  } else {
+                    return null;
                   }
-                  return null;
                 },
               ),
               SizedBox(height: 20),
@@ -176,7 +180,7 @@ class _AddClientPageState extends State<AddClientPage> {
                     RegExp(r'^[a-zA-Z\s]*$'),
                   ),
                 ],
-                validator: (value) {
+                validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return "This field is required";
                   } else {
@@ -196,6 +200,9 @@ class _AddClientPageState extends State<AddClientPage> {
                 enableInteractiveSelection: false,
                 keyboardType: TextInputType.text,
                 onTap: () async {
+                  // Below line stops keyboard from appearing
+                  FocusScope.of(context).requestFocus(new FocusNode());
+
                   DateTime? date = await pickDate(context);
                   if (date != null) {
                     setState(() {
@@ -236,7 +243,6 @@ class _AddClientPageState extends State<AddClientPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
             ],
           ),
         ),
@@ -244,7 +250,7 @@ class _AddClientPageState extends State<AddClientPage> {
     );
   }
 
-  Widget optionButton(String text) {
+  Widget option(String text) {
     return Padding(
       padding: EdgeInsets.only(left: 40.0, right: 40.0),
       child: Text(text),
@@ -261,47 +267,53 @@ class _AddClientPageState extends State<AddClientPage> {
     }
   }
 
-  Widget saveButton() {
-    return IconButton(
-      icon: const Icon(Icons.check),
-      tooltip: 'Save',
-      onPressed: () async {
-        // Validate returns true if the form is valid, or false otherwise.
-        if (_formKey.currentState!.validate()) {
-          final client = Client(
-            id: int.parse(idCtrl.text),
-            name: formatName(nameCtrl.text),
-            gender: getGenderString(genderOptions),
-            dob: dobCtrl.text,
-            mobile: int.parse(mobileCtrl.text),
-            session: getSessionString(sessionOptions),
-          );
+  //
+  // Database Methods
+  //
 
-          late String? error;
-          if (widget.data != null) {
-            error = await updateClient(client);
-          } else {
-            error = await insertClient(client);
-          }
+  insertClient(Client client) async {
+    final DatabaseHandler handler = DatabaseHandler();
+    return await handler.insertClient(client);
+  }
 
-          if (error != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(backgroundColor: Colors.red, content: Text(error)));
-          } else {
-            if ((widget.data != null)) {
-              if (!mapEquals(widget.data!.toMap(), client.toMap()))
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    backgroundColor: Colors.amber,
-                    content: Text("Entry Updated")));
-            } else {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  backgroundColor: Colors.green,
-                  content: Text("Entry Created")));
-            }
-            Navigator.pop(context, "added");
+  updateClient(Client client) async {
+    final DatabaseHandler handler = DatabaseHandler();
+    return await handler.updateClient(client);
+  }
+
+  Future<void> handleSave() async {
+    // Validate returns true if the form is valid, or false otherwise.
+    if (_formKey.currentState!.validate()) {
+      final client = Client(
+        id: int.parse(idCtrl.text),
+        name: formatName(nameCtrl.text),
+        gender: getGenderString(genderOptions),
+        dob: dobCtrl.text,
+        mobile: int.parse(mobileCtrl.text),
+        session: getSessionString(sessionOptions),
+      );
+
+      late String? error;
+      if (update) {
+        error = await updateClient(client);
+      } else {
+        error = await insertClient(client);
+      }
+
+      if (error != null) {
+        errorPopup(context, error);
+      } else {
+        if (update) {
+          // only apear on if values are not same
+          if (!mapEquals(widget.data!.toMap(), client.toMap())) {
+            infoPopup(context, "Entry Updated");
           }
+        } else {
+          successPopup(context, "Entry Created");
         }
-      },
-    );
+
+        Navigator.pop(context, "added");
+      }
+    }
   }
 }

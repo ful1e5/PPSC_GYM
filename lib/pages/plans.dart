@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 
 import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
-import 'package:ppscgym/pages/payment/add.dart';
-import 'package:ppscgym/styles.dart';
 
+import 'package:ppscgym/pages/payment/add.dart';
+
+import 'package:ppscgym/styles.dart';
 import 'package:ppscgym/widgets.dart';
 
 class PlansPage extends StatefulWidget {
@@ -26,7 +27,7 @@ class _PlansPageState extends State<PlansPage> {
   final monthCtrl = TextEditingController();
   final moneyCtrl = TextEditingController();
 
-  final String nonFoundMessage = "0 Plan Found";
+  final String nonFoundMessage = '0 Plan Found';
 
   @override
   void initState() {
@@ -70,7 +71,7 @@ class _PlansPageState extends State<PlansPage> {
           : [
               IconButton(
                 icon: Icon(Icons.add_rounded),
-                tooltip: "New Plan",
+                tooltip: 'New Plan',
                 onPressed: () {
                   planDialog();
                 },
@@ -86,7 +87,7 @@ class _PlansPageState extends State<PlansPage> {
         if (snapshot.connectionState != ConnectionState.done) {
           return loaderWidget();
         } else if (snapshot.hasError) {
-          return centerMessageWidget("Error !");
+          return centerMessageWidget('Error !');
         } else if (snapshot.hasData) {
           if (snapshot.data?.length == 0) {
             return centerMessageWidget(nonFoundMessage);
@@ -135,14 +136,14 @@ class _PlansPageState extends State<PlansPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "$months Month Plan",
+                          '$months Month Plan',
                           style: TextStyle(
                             fontSize: 27.0,
                             fontWeight: FontWeight.w300,
                           ),
                         ),
                         Text(
-                          "$money \u20B9",
+                          '$money \u20B9',
                           style: TextStyle(
                             fontSize: 14.5,
                             fontWeight: FontWeight.w800,
@@ -221,8 +222,8 @@ class _PlansPageState extends State<PlansPage> {
       monthCtrl.text = oldData.months.toString();
       moneyCtrl.text = oldData.money.toString();
     } else {
-      monthCtrl.text = "";
-      moneyCtrl.text = "";
+      monthCtrl.text = '';
+      moneyCtrl.text = '';
     }
 
     return Form(
@@ -237,17 +238,17 @@ class _PlansPageState extends State<PlansPage> {
           TextFormFieldWidget(
             maxLength: 2,
             autoFocus: true,
-            labelText: "Months",
+            labelText: 'Months',
             controller: monthCtrl,
             keyboardType: TextInputType.number,
             formatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))],
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return "This field required";
+                return 'This field required';
               } else if (int.parse(value) == 0) {
-                return "Not A Valid  Count";
+                return 'Not A Valid  Count';
               } else if (int.parse(value) > 12) {
-                return "Maximum limit is 12 months";
+                return 'Maximum limit is 12 months';
               }
               return null;
             },
@@ -261,17 +262,17 @@ class _PlansPageState extends State<PlansPage> {
           TextFormFieldWidget(
             maxLength: 5,
             autoFocus: true,
-            labelText: "Money",
+            labelText: 'Money',
             controller: moneyCtrl,
             keyboardType: TextInputType.number,
             formatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))],
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return "This field required";
+                return 'This field required';
               } else if (int.parse(value) == 0) {
-                return "Not A Valid Count";
+                return 'Not A Valid Count';
               } else if (int.parse(value) > 50000) {
-                return "Max Money is set to 50,000\u20B9";
+                return 'Max Money is set to 50,000\u20B9';
               }
               return null;
             },
@@ -295,7 +296,7 @@ class _PlansPageState extends State<PlansPage> {
       deleteButton = Container();
     } else {
       deleteButton = OutlinedButton(
-        child: const Text("Delete"),
+        child: const Text('Delete'),
         style: materialButtonStyle(
           padding: EdgeInsets.all(10.0),
           foregroundColor: Colors.white,
@@ -310,7 +311,7 @@ class _PlansPageState extends State<PlansPage> {
         deleteButton,
         Spacer(),
         OutlinedButton(
-          child: (oldData != null) ? const Text("Update") : const Text("Add"),
+          child: (oldData != null) ? const Text('Update') : const Text('Add'),
           style: materialButtonStyle(
             padding: EdgeInsets.all(10.0),
             backgroundColor: Colors.blue,
@@ -329,10 +330,7 @@ class _PlansPageState extends State<PlansPage> {
 
   Future<void> handleDelete(Plan plan) async {
     await deletePlan(plan.id ?? 0);
-
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: Colors.green,
-        content: Text("${plan.months} Plan Deleted")));
+    successPopup(context, '${plan.months} Plan Deleted');
 
     setState(() {
       refreshPlanData(0);
@@ -375,13 +373,13 @@ class _PlansPageState extends State<PlansPage> {
       } else {
         if (oldData != null) {
           if (!mapEquals(oldData.toMap(), plan.toMap())) {
-            infoPopup(context, "Plan Edited");
+            infoPopup(context, 'Plan Edited');
             setState(() {
               refreshPlanData(0);
             });
           }
         } else {
-          successPopup(context, "Plan Created");
+          successPopup(context, 'Plan Created');
           setState(() {
             refreshPlanData(0);
           });

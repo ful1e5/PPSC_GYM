@@ -287,7 +287,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
         Text(
           "You Can't able to edit or delete payment information, "
           "once it's verified by algorithm. "
-          "Tap 'I Agree' to proceed.",
+          "Tap 'Agree' to proceed.",
           overflow: TextOverflow.visible,
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -297,7 +297,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
         gapWidget(50.0),
         OutlinedButton(
           child: const Text(
-            'I Agree',
+            'Agree',
             style: TextStyle(
               fontSize: 15.0,
               fontWeight: FontWeight.bold,
@@ -306,24 +306,19 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
           style: materialButtonStyle(),
           onPressed: () async {
             Payment payment = Payment(
-                clientId: widget.clientId,
-                months: widget.plan.months,
-                startDate: startdateCtrl.text,
-                endDate: enddateCtrl.text,
-                money: int.parse(moneyCtrl.text),
-                note: (addNote == true) ? noteCtrl.text : null);
+              clientId: widget.clientId,
+              months: widget.plan.months,
+              startDate: startdateCtrl.text,
+              endDate: enddateCtrl.text,
+              money: int.parse(moneyCtrl.text),
+              note: (addNote == true) ? noteCtrl.text : null,
+            );
 
             await insertPayment(payment);
-
-            //TODO: use widgets popups
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                backgroundColor: Colors.green,
-                content: Text('${widget.plan.months} Months Plan Active')));
+            successPopup(context, '${widget.plan.months} Months Plan Active');
 
             Navigator.pop(context); // Popup Dialog
-
-            // TODO: 'payment added'
-            Navigator.pop(context, 'added'); // Popup Widget
+            Navigator.pop(context, 'payment added'); // Popup Widget
           },
         ),
       ],

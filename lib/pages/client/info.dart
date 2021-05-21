@@ -7,6 +7,7 @@ import 'package:ppscgym/pages/client/add.dart';
 import 'package:ppscgym/pages/payment/payments.dart';
 import 'package:ppscgym/pages/plans.dart';
 
+import 'package:ppscgym/styles.dart';
 import 'package:ppscgym/widgets.dart';
 import 'package:ppscgym/utils.dart';
 
@@ -280,16 +281,14 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
           ],
         ),
       ),
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
-        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-          EdgeInsets.only(top: 12.0, bottom: 12.0, right: 22.0, left: 22.0),
-        ),
-        shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
+      style: materialButtonStyle(
+        backgroundColor: Colors.blueAccent,
+        foregroundColor: Colors.white,
+        padding: EdgeInsets.only(
+          top: 12.0,
+          bottom: 12.0,
+          right: 22.0,
+          left: 22.0,
         ),
       ),
       onPressed: () async {
@@ -303,8 +302,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
           ),
         );
 
-        // TODO: 'payment added'
-        if (result == 'added') {
+        if (result == 'payment added') {
           setState(() {
             refreshAllData();
           });

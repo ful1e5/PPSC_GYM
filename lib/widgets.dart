@@ -88,7 +88,7 @@ class TextFormFieldWidget extends StatelessWidget {
   }
 }
 
-IconData getGenderIconData(String gender) {
+IconData getGenderIcon(String gender) {
   if (gender == 'Male') {
     return Icons.male;
   } else {
@@ -110,14 +110,14 @@ Widget gapWidget(double height) {
 
 class ConfirmDialog extends StatefulWidget {
   final double height;
-  final Widget info;
+  final Widget child;
   final String confirmText;
   final VoidCallback onConfirm;
 
   const ConfirmDialog({
     Key? key,
     required this.height,
-    required this.info,
+    required this.child,
     required this.confirmText,
     required this.onConfirm,
   }) : super(key: key);
@@ -157,7 +157,7 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
               //
               Align(
                 alignment: Alignment.centerLeft,
-                child: widget.info,
+                child: widget.child,
               ),
               gapWidget(30.0),
 

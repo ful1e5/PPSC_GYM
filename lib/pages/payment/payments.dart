@@ -163,7 +163,7 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
         return ConfirmDialog(
           height: 250.0,
           confirmText: "Delete",
-          info: RichText(
+          child: RichText(
             text: TextSpan(
               style: normalStyle,
               children: [

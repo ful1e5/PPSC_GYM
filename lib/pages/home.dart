@@ -71,8 +71,7 @@ class _HomePageState extends State<HomePage> {
         ),
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add_rounded, size: 32.0),
-          backgroundColor: Colors.green,
-          foregroundColor: Colors.white,
+          backgroundColor: Colors.white,
           onPressed: () async => await addClient(),
         ),
       ),
@@ -240,26 +239,34 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Widget avatar({Widget? child, Color? backgroundColor}) {
-    return CircleAvatar(
-      radius: 30.0,
-      backgroundColor: backgroundColor,
-      child: child,
+  Widget avatar({Widget? child, Color? color}) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10.0),
+      child: Container(
+        height: 80.0,
+        width: 57.0,
+        color: color,
+        child: child,
+      ),
     );
   }
 
   Widget buildLeadingIcon(bool isSelected, String gender, String? exDate) {
     if (isSelectionMode) {
       return avatar(
-        backgroundColor: isSelected ? Colors.white : Colors.white24,
+        color: isSelected ? Colors.white : Colors.white24,
         child: isSelected
             ? const Icon(Icons.check, size: 25, color: Colors.black)
             : null,
       );
     } else {
       return avatar(
-        backgroundColor: getAvatarColor(exDate),
-        child: Icon(getGenderIconData(gender), size: 25, color: Colors.white54),
+        color: getAvatarColor(exDate),
+        child: Icon(
+          getGenderIcon(gender),
+          size: 25,
+          color: Colors.white.withOpacity(0.8),
+        ),
       );
     }
   }
@@ -291,7 +298,7 @@ class _HomePageState extends State<HomePage> {
         return ConfirmDialog(
           height: 300,
           confirmText: 'Delete',
-          info: RichText(
+          child: RichText(
             textAlign: TextAlign.left,
             text: TextSpan(
               style: normalTextStyle,
@@ -303,7 +310,7 @@ class _HomePageState extends State<HomePage> {
                       : 'entries are ' 'selected. ',
                 ),
                 TextSpan(
-                  text: 'All client payment informations are wiped '
+                  text: "All client's payment informations are wiped "
                       'out permanently from memory. Type ',
                 ),
                 TextSpan(text: 'confirm ', style: boldTextStyle),

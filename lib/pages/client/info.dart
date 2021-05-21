@@ -176,7 +176,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                   ),
                   WidgetSpan(
                     child: Icon(
-                      getGenderIconData(gender),
+                      getGenderIcon(gender),
                       size: 34.0,
                       color: gender == 'Male' ? Colors.blue : Colors.pinkAccent,
                     ),

@@ -61,7 +61,13 @@ class _HomePageState extends State<HomePage> {
               refreshClients(0);
             });
           },
-          child: clientList(),
+          child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  resetSelection();
+                });
+              },
+              child: clientList()),
         ),
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add_rounded, size: 32.0),
@@ -234,18 +240,24 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Widget avatar({Widget? child, Color? backgroundColor}) {
+    return CircleAvatar(
+      radius: 30.0,
+      backgroundColor: backgroundColor,
+      child: child,
+    );
+  }
+
   Widget buildLeadingIcon(bool isSelected, String gender, String? exDate) {
     if (isSelectionMode) {
-      return CircleAvatar(
-        radius: 30.0,
+      return avatar(
         backgroundColor: isSelected ? Colors.white : Colors.white24,
         child: isSelected
             ? const Icon(Icons.check, size: 25, color: Colors.black)
             : null,
       );
     } else {
-      return CircleAvatar(
-        radius: 30.0,
+      return avatar(
         backgroundColor: getAvatarColor(exDate),
         child: Icon(getGenderIconData(gender), size: 25, color: Colors.white54),
       );
@@ -286,11 +298,12 @@ class _HomePageState extends State<HomePage> {
               children: <TextSpan>[
                 TextSpan(text: '${selectedFlag.length} ', style: boldTextStyle),
                 TextSpan(
-                  text:
-                      (selectedFlag.length == 1) ? 'entry is ' : 'entries are ',
+                  text: (selectedFlag.length == 1)
+                      ? 'entry is '
+                      : 'entries are ' 'selected. ',
                 ),
                 TextSpan(
-                  text: 'selected. All client payment informations are wiped '
+                  text: 'All client payment informations are wiped '
                       'out permanently from memory. Type ',
                 ),
                 TextSpan(text: 'confirm ', style: boldTextStyle),

@@ -113,7 +113,7 @@ class _PlansPageState extends State<PlansPage> {
 
         return Container(
           height: 140.0,
-          child: InkWell(
+          child: GestureDetector(
             onTap: () async => await onPlanTap(plan),
             child: Card(
               color: Colors.blue,

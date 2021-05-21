@@ -298,7 +298,6 @@ class _PlansPageState extends State<PlansPage> {
       deleteButton = OutlinedButton(
         child: const Text('Delete'),
         style: materialButtonStyle(
-          padding: EdgeInsets.all(10.0),
           foregroundColor: Colors.white,
           backgroundColor: Colors.red,
         ),
@@ -313,7 +312,6 @@ class _PlansPageState extends State<PlansPage> {
         OutlinedButton(
           child: (oldData != null) ? const Text('Update') : const Text('Add'),
           style: materialButtonStyle(
-            padding: EdgeInsets.all(10.0),
             backgroundColor: Colors.blue,
             foregroundColor: Colors.white,
           ),

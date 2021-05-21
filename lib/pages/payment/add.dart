@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 
 import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
@@ -303,7 +303,9 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          style: materialButtonStyle(),
+          style: materialButtonStyle(
+            padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 12.0),
+          ),
           onPressed: () async {
             Payment payment = Payment(
               clientId: widget.clientId,

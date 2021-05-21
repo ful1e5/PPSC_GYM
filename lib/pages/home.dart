@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-import 'package:ppscgym/utils.dart';
-import 'package:ppscgym/widgets.dart';
+import 'package:ppscgym/services/database/handler.dart';
+import 'package:ppscgym/services/database/models.dart';
 
 import 'package:ppscgym/pages/client/add.dart';
 import 'package:ppscgym/pages/client/info.dart';
 import 'package:ppscgym/pages/plans.dart';
 
-import 'package:ppscgym/services/database/models.dart';
-import 'package:ppscgym/services/database/handler.dart';
+import 'package:ppscgym/utils.dart';
+import 'package:ppscgym/widgets.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -277,8 +277,10 @@ class _HomePageState extends State<HomePage> {
       builder: (BuildContext context) {
         dialogContext = context;
         return ConfirmDialog(
+          height: 300,
           confirmText: 'Delete',
           info: RichText(
+            textAlign: TextAlign.left,
             text: TextSpan(
               style: normalTextStyle,
               children: <TextSpan>[
@@ -288,8 +290,8 @@ class _HomePageState extends State<HomePage> {
                       (selectedFlag.length == 1) ? 'entry is ' : 'entries are ',
                 ),
                 TextSpan(
-                  text:
-                      'selected. All client payment informations are wiped out permanently from memory. Type ',
+                  text: 'selected. All client payment informations are wiped '
+                      'out permanently from memory. Type ',
                 ),
                 TextSpan(text: 'confirm ', style: boldTextStyle),
                 TextSpan(text: 'to proceed.'),

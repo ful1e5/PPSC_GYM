@@ -12,10 +12,7 @@ ButtonStyle materialButtonStyle(
         MaterialStateProperty.all<Color>(backgroundColor ?? Colors.white),
     foregroundColor:
         MaterialStateProperty.all<Color>(foregroundColor ?? Colors.blue),
-    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-      padding ??
-          EdgeInsets.only(top: 10.0, bottom: 10.0, right: 40.0, left: 40.0),
-    ),
+    padding: MaterialStateProperty.all<EdgeInsetsGeometry?>(padding),
     shape: MaterialStateProperty.all(
       RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),

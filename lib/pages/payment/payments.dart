@@ -107,8 +107,11 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
                                   onPressed: () {
                                     handleDelete(data);
                                   },
-                                  icon: Icon(Icons.delete_rounded,
-                                      color: Colors.white, size: 25.0),
+                                  icon: Icon(
+                                    Icons.delete_rounded,
+                                    color: Colors.white,
+                                    size: 25.0,
+                                  ),
                                 ),
                               ),
                       ],
@@ -142,40 +145,37 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
   }
 
   void handleDelete(Payment payment) {
+    TextStyle normalStyle = TextStyle(
+      fontSize: 16.0,
+      color: Colors.white70,
+    );
+
+    TextStyle boldStyle = TextStyle(
+      fontSize: 16.0,
+      color: Colors.white70,
+      fontWeight: FontWeight.bold,
+    );
     BuildContext dialogContext;
     showDialog(
       context: context,
       builder: (BuildContext context) {
         dialogContext = context;
         return ConfirmDialog(
+          height: 250.0,
           confirmText: "Delete",
           info: RichText(
             text: TextSpan(
-              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+              style: normalStyle,
               children: [
                 TextSpan(
-                  text: 'This payment data is deleted forever, ',
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.white70,
-                      fontWeight: FontWeight.normal),
+                  text: 'This payment data is deleted forever,  Type ',
                 ),
                 TextSpan(
-                  text: 'Type ',
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.white70,
-                      fontWeight: FontWeight.normal),
+                  text: 'confirm',
+                  style: boldStyle,
                 ),
                 TextSpan(
-                  text: 'confirm ',
-                ),
-                TextSpan(
-                  text: 'to proceed.',
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.white70,
-                      fontWeight: FontWeight.normal),
+                  text: ' to proceed.',
                 ),
               ],
             ),

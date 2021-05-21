@@ -40,55 +40,56 @@ class TextFormFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (TextFormField(
-        enabled: enabled,
-        autofocus: autoFocus!,
-        inputFormatters: formatters,
-        keyboardType: keyboardType,
-        maxLength: maxLength,
-        controller: controller,
-        initialValue: initialValue,
-        enableInteractiveSelection: enableInteractiveSelection,
-        style: TextStyle(
-          color: (enabled != null && enabled == false) ? Colors.white54 : null,
+    return TextFormField(
+      enabled: enabled,
+      autofocus: autoFocus!,
+      inputFormatters: formatters,
+      keyboardType: keyboardType,
+      maxLength: maxLength,
+      controller: controller,
+      initialValue: initialValue,
+      enableInteractiveSelection: enableInteractiveSelection,
+      style: TextStyle(
+        color: (enabled != null && enabled == false) ? Colors.white54 : null,
+      ),
+      decoration: InputDecoration(
+        prefixIcon:
+            (enabled != null && enabled == false) ? Icon(Icons.lock) : null,
+        labelText: labelText,
+        hintText: hintText,
+        contentPadding: EdgeInsets.all(10.0),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+          borderSide: BorderSide(color: Colors.white24, width: 1),
         ),
-        decoration: InputDecoration(
-          prefixIcon:
-              (enabled != null && enabled == false) ? Icon(Icons.lock) : null,
-          labelText: labelText,
-          hintText: hintText,
-          contentPadding: EdgeInsets.all(10.0),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12.0)),
-            borderSide: BorderSide(color: Colors.white24, width: 1),
-          ),
-          disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12.0)),
-            borderSide: BorderSide(color: Colors.white24, width: 1),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(14.0)),
-            borderSide: BorderSide(color: Colors.blue, width: 2),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(14.0)),
-            borderSide: BorderSide(color: Colors.red, width: 2),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(14.0)),
-            borderSide: BorderSide(color: Colors.red, width: 2),
-          ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+          borderSide: BorderSide(color: Colors.white24, width: 1),
         ),
-        // The validator receives the text that the user has entered.
-        validator: validator,
-        onSaved: onSaved,
-        onTap: onTap,
-        onChanged: onChanged));
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(14.0)),
+          borderSide: BorderSide(color: Colors.blue, width: 2),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(14.0)),
+          borderSide: BorderSide(color: Colors.red, width: 2),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(14.0)),
+          borderSide: BorderSide(color: Colors.red, width: 2),
+        ),
+      ),
+      // The validator receives the text that the user has entered.
+      validator: validator,
+      onSaved: onSaved,
+      onTap: onTap,
+      onChanged: onChanged,
+    );
   }
 }
 
 IconData getGenderIconData(String gender) {
-  if (gender == "Male") {
+  if (gender == 'Male') {
     return Icons.male;
   } else {
     return Icons.female;
@@ -103,13 +104,19 @@ Widget centerMessageWidget(String message) {
   return Center(child: Text(message, style: slightBoldText));
 }
 
+Widget gapWidget(double height) {
+  return Divider(color: Colors.transparent, height: height);
+}
+
 class ConfirmDialog extends StatefulWidget {
+  final double height;
   final Widget info;
   final String confirmText;
   final VoidCallback onConfirm;
 
   const ConfirmDialog({
     Key? key,
+    required this.height,
     required this.info,
     required this.confirmText,
     required this.onConfirm,
@@ -131,67 +138,65 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(20.0),
-        ),
-        side: BorderSide(
-          width: 1.5,
-          color: Colors.white10,
-        ),
-      ),
       backgroundColor: Colors.black87,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        side: BorderSide(width: 1.5, color: Colors.white10),
+      ),
       child: Container(
-        height: 280,
+        height: widget.height,
         color: Colors.transparent,
         child: Padding(
           padding: EdgeInsets.all(20),
           child: Column(
             children: [
-              Align(alignment: Alignment.centerLeft, child: widget.info),
-              SizedBox(height: 20),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: TextFormFieldWidget(
-                    hintText: "confirm",
-                    keyboardType: TextInputType.text,
-                    onChanged: (text) {
-                      if (text == "confirm") {
-                        setState(() {
-                          iscConfirm = true;
-                        });
-                      } else {
-                        setState(() {
-                          iscConfirm = false;
-                        });
-                      }
-                    },
-                  ),
-                ),
+              gapWidget(10.0),
+
+              //
+              // Info
+              //
+              Align(
+                alignment: Alignment.centerLeft,
+                child: widget.info,
               ),
-              SizedBox(height: 20),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: OutlinedButton(
-                    onPressed: iscConfirm ? widget.onConfirm : null,
-                    style: ButtonStyle(
-                      backgroundColor: iscConfirm
-                          ? MaterialStateProperty.all<Color>(Colors.red)
-                          : null,
-                      foregroundColor: iscConfirm
-                          ? MaterialStateProperty.all<Color>(Colors.white)
-                          : MaterialStateProperty.all<Color>(Colors.white24),
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                      ),
-                    ),
-                    child: Text(widget.confirmText),
-                  ),
+              gapWidget(30.0),
+
+              //
+              // Confirm Textfield
+              //
+
+              TextFormFieldWidget(
+                hintText: 'confirm',
+                keyboardType: TextInputType.text,
+                onChanged: (text) {
+                  if (text == 'confirm') {
+                    setState(() {
+                      iscConfirm = true;
+                    });
+                  } else {
+                    setState(() {
+                      iscConfirm = false;
+                    });
+                  }
+                },
+              ),
+              gapWidget(30.0),
+
+              //
+              // Confirm Button
+              //
+
+              OutlinedButton(
+                child: Text(
+                  widget.confirmText,
                 ),
+                style: materialButtonStyle(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+                  backgroundColor: iscConfirm ? Colors.red : Colors.transparent,
+                  foregroundColor: iscConfirm ? Colors.white : Colors.white24,
+                ),
+                onPressed: iscConfirm ? widget.onConfirm : null,
               ),
             ],
           ),
@@ -248,10 +253,11 @@ class _CountDownState extends State<CountDown> {
     final seconds = remaining.inSeconds - remaining.inMinutes * 60;
 
     return Card(
-      color: Colors.blue,
+      color: Colors.blue.withOpacity(0.35),
+      margin: EdgeInsets.symmetric(horizontal: 70.0),
       semanticContainer: true,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.0),
+        borderRadius: BorderRadius.circular(12.0),
       ),
       child: Container(
         padding: EdgeInsets.all(15.0),
@@ -259,15 +265,14 @@ class _CountDownState extends State<CountDown> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Cooldown",
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700)),
             Text(
-              "$days Days",
-              style: TextStyle(fontSize: 14.5),
+              'Recharge Countdown',
+              style: TextStyle(fontSize: 15.8, fontWeight: FontWeight.w600),
             ),
+            gapWidget(2.0),
             Text(
-              "$hours:$minutes:$seconds",
-              style: TextStyle(fontSize: 10.5),
+              '$days Days ${hours}h :${minutes}m :${seconds}s',
+              style: TextStyle(fontSize: 13.0, color: Colors.white70),
             ),
           ],
         ),
@@ -301,8 +306,4 @@ successPopup(BuildContext context, String msg) {
       content: Text(msg),
     ),
   );
-}
-
-Widget gapWidget(double height) {
-  return Divider(color: Colors.transparent, height: height);
 }

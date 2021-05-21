@@ -42,7 +42,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
     selectionDefaultDate = todayDate;
     setDateCtrls(firstDayOfMonth);
 
-    moneyCtrl.text = widget.plan.price.toString();
+    moneyCtrl.text = widget.plan.money.toString();
   }
 
   void setDateCtrls(DateTime date) {
@@ -180,7 +180,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                   setState(() {
                     moneyFromPlan = value;
                     if (moneyFromPlan == true) {
-                      moneyCtrl.text = widget.plan.price.toString();
+                      moneyCtrl.text = widget.plan.money.toString();
                     }
                   });
                 },
@@ -204,7 +204,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                   if (value == null || value.isEmpty) {
                     return 'This field required';
                   } else if (int.parse(value) > 50000) {
-                    return 'Max Price set to 50,000\u20B9';
+                    return 'Max Money set to 50,000\u20B9';
                   } else {
                     return null;
                   }
@@ -217,8 +217,8 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
               //
 
               SwitchListTile(
-                title: const Text('Add Note'),
                 value: addNote,
+                title: const Text('Add Note'),
                 onChanged: (bool value) {
                   setState(() {
                     addNote = value;
@@ -228,15 +228,15 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
               gapWidget(20.0),
 
               TextFormFieldWidget(
-                labelText: 'Note',
                 enabled: addNote,
+                labelText: 'Note',
                 controller: noteCtrl,
+                keyboardType: TextInputType.text,
                 formatters: [
                   FilteringTextInputFormatter.allow(
                     RegExp(r'^[a-zA-Z0-9\s-._]*$'),
                   ),
                 ],
-                keyboardType: TextInputType.text,
                 validator: (value) {
                   if (addNote == true && (value == null || value.isEmpty)) {
                     return 'Empty note not allowed.';

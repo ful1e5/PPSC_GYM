@@ -30,7 +30,7 @@ class DatabaseHandler {
         await database.execute("CREATE TABLE $planTable("
             "id INTEGER PRIMARY KEY AUTOINCREMENT,"
             "months INTEGER UNIQUE NOT NULL,"
-            "price INTEGER NOT NULL"
+            "money INTEGER NOT NULL"
             ")");
 
         // Client -> Payments (one to many relation)

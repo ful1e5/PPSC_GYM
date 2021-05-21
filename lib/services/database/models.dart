@@ -20,14 +20,14 @@ class Client {
   });
 
   Client.fromMap(Map<String, dynamic> res)
-      : id = res["id"],
-        name = res["name"],
-        gender = res["gender"],
-        dob = res["dob"],
-        session = res["session"],
-        mobile = res["mobile"],
-        planExpiryDate = res["planExpiryDate"],
-        totalMoney = res["totalMoney"];
+      : id = res['id'],
+        name = res['name'],
+        gender = res['gender'],
+        dob = res['dob'],
+        session = res['session'],
+        mobile = res['mobile'],
+        planExpiryDate = res['planExpiryDate'],
+        totalMoney = res['totalMoney'];
 
   Map<String, Object?> toMap() {
     return {
@@ -46,20 +46,20 @@ class Client {
 class Plan {
   final int? id;
   final int months;
-  final int price;
+  final int money;
 
-  Plan({this.id, required this.months, required this.price});
+  Plan({this.id, required this.months, required this.money});
 
   Plan.fromMap(Map<String, dynamic> res)
-      : id = res["id"],
-        months = res["months"],
-        price = res["price"];
+      : id = res['id'],
+        months = res['months'],
+        money = res['money'];
 
   Map<String, Object?> toMap() {
     return {
       'id': id,
       'months': months,
-      'price': price,
+      'money': money,
     };
   }
 }
@@ -84,13 +84,13 @@ class Payment {
   });
 
   Payment.fromMap(Map<String, dynamic> res)
-      : id = res["id"],
-        clientId = res["clientId"],
-        months = res["months"],
-        startDate = res["startDate"],
-        endDate = res["endDate"],
-        money = res["money"],
-        note = res["note"];
+      : id = res['id'],
+        clientId = res['clientId'],
+        months = res['months'],
+        startDate = res['startDate'],
+        endDate = res['endDate'],
+        money = res['money'],
+        note = res['note'];
 
   Map<String, Object?> toMap() {
     return {

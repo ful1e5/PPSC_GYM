@@ -19,7 +19,7 @@ class ClientPaymentHistory extends StatefulWidget {
 
 class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
   final String nonFoundMessage = "0 Payments";
-  final String errorMessage = "Error Occured";
+  final String errorMessage = "Error Occurred";
 
   Future<void> deletePamyment(Payment payment) async {
     final DatabaseHandler handler = DatabaseHandler();
@@ -92,7 +92,7 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
                                   style: TextStyle(
                                       fontSize: 13.0,
                                       fontWeight: FontWeight.w600)),
-                              Divider(color: Colors.transparent, height: 10.0),
+                              gapWidget(10.0),
                               Text('$startDate to $endDate',
                                   style: TextStyle(
                                       fontSize: 11.0,

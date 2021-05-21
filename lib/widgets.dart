@@ -302,3 +302,7 @@ successPopup(BuildContext context, String msg) {
     ),
   );
 }
+
+Widget gapWidget(double height) {
+  return Divider(color: Colors.transparent, height: height);
+}

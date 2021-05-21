@@ -120,7 +120,7 @@ class _AddClientPageState extends State<AddClientPage> {
                   });
                 },
               ),
-              SizedBox(height: 40),
+              gapWidget(40.0),
 
               //
               // Client Workout Session (default: Morning)
@@ -140,7 +140,7 @@ class _AddClientPageState extends State<AddClientPage> {
                   });
                 },
               ),
-              SizedBox(height: 40),
+              gapWidget(40.0),
 
               //
               // Client ID
@@ -165,7 +165,7 @@ class _AddClientPageState extends State<AddClientPage> {
                   }
                 },
               ),
-              SizedBox(height: 20),
+              gapWidget(20.0),
 
               //
               // Client Name
@@ -188,7 +188,7 @@ class _AddClientPageState extends State<AddClientPage> {
                   }
                 },
               ),
-              SizedBox(height: 20),
+              gapWidget(20.0),
 
               //
               // Date Of Birth
@@ -220,7 +220,7 @@ class _AddClientPageState extends State<AddClientPage> {
                   }
                 },
               ),
-              SizedBox(height: 20),
+              gapWidget(20.0),
 
               //
               // Client Mob.No.

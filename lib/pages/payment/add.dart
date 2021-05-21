@@ -90,7 +90,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                 Text('${widget.plan.months} Month Plan',
                     style:
                         TextStyle(fontSize: 37.0, fontWeight: FontWeight.bold)),
-                SizedBox(height: 30),
+                gapWidget(30.0),
 
                 //
                 // Starting date
@@ -110,7 +110,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                     });
                   },
                 ),
-                SizedBox(height: 20),
+                gapWidget(20.0),
 
                 TextFormFieldWidget(
                   labelText: 'Starting Date',
@@ -138,7 +138,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                     return null;
                   },
                 ),
-                SizedBox(height: 20),
+                gapWidget(20.0),
 
                 //
                 // Ending date
@@ -151,8 +151,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                   enableInteractiveSelection: false,
                   keyboardType: TextInputType.text,
                 ),
-
-                SizedBox(height: 20),
+                gapWidget(20.0),
 
                 SwitchListTile(
                   title: const Text('Money From Plan'),
@@ -166,7 +165,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                     });
                   },
                 ),
-                SizedBox(height: 20),
+                gapWidget(20.0),
 
                 //
                 // Money
@@ -191,7 +190,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                     return null;
                   },
                 ),
-                SizedBox(height: 20),
+                gapWidget(20.0),
 
                 //
                 // Note
@@ -206,7 +205,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                     });
                   },
                 ),
-                SizedBox(height: 20),
+                gapWidget(20.0),
 
                 TextFormFieldWidget(
                     labelText: 'Note',
@@ -312,11 +311,15 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
 
                     await insertPayment(payment);
 
+                    //TODO: use widgets popups
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         backgroundColor: Colors.green,
                         content:
                             Text('${widget.plan.months} Months Plan Active')));
+
                     Navigator.pop(context); // Popup Dialog
+
+                    // TODO: 'payment added'
                     Navigator.pop(context, 'added'); // Popup Widget
                   }),
             ],

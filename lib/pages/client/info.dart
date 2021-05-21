@@ -85,7 +85,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
             body: buildBody(clientData),
           );
         } else {
-          return centerMessageWidget('Client Data Found');
+          return centerMessageWidget('Data Not Found.');
         }
       },
     );
@@ -123,7 +123,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
       child: Column(
         children: [
           clientInfo(clientData),
-          Divider(color: Colors.transparent, height: 7.0),
+          gapWidget(7.0),
 
           // CoolDown Widget
           (isPlanExpired)
@@ -132,7 +132,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                   time: stringToDateTime(clientData.planExpiryDate!),
                   onTimeout: refreshAllData,
                 ),
-          Divider(color: Colors.transparent, height: 10.0),
+          gapWidget(10.0),
 
           ClientPaymentHistory(
             future: paymentsFuture,
@@ -163,7 +163,6 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            SizedBox(height: 8.0),
             RichText(
               text: TextSpan(
                 children: [
@@ -184,7 +183,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                 ],
               ),
             ),
-            Divider(height: 10.0, color: Colors.transparent),
+            gapWidget(10.0),
             RichText(
               text: TextSpan(
                 children: [
@@ -206,7 +205,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                 ],
               ),
             ),
-            Divider(height: 20.0, color: Colors.transparent),
+            gapWidget(20.0),
             cardGroup(
               [
                 infoCard(
@@ -229,7 +228,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
                 infoCard(Icon(Icons.cake, size: 25.0), dob),
               ],
             ),
-            Divider(height: 10.0, color: Colors.transparent),
+            gapWidget(10.0),
           ],
         ),
       ),
@@ -240,7 +239,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
     return Column(
       children: [
         symbol,
-        Divider(color: Colors.transparent, height: 5.0),
+        gapWidget(5.0),
         Text(
           info ?? '-',
           style: TextStyle(
@@ -304,6 +303,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
           ),
         );
 
+        // TODO: 'payment added'
         if (result == 'added') {
           setState(() {
             refreshAllData();

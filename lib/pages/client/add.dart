@@ -18,11 +18,11 @@ class AddClientPage extends StatefulWidget {
 
 class _AddClientPageState extends State<AddClientPage> {
   late bool update;
-  final _formKey = GlobalKey<FormState>();
 
   late List<bool> sessionOptions;
   late List<bool> genderOptions;
 
+  final formKey = GlobalKey<FormState>();
   final idCtrl = TextEditingController();
   final nameCtrl = TextEditingController();
   final dobCtrl = TextEditingController();
@@ -97,7 +97,7 @@ class _AddClientPageState extends State<AddClientPage> {
   Widget buildBody() {
     return SingleChildScrollView(
       child: Form(
-        key: _formKey,
+        key: formKey,
         child: Padding(
           padding: EdgeInsets.all(25.0),
           child: Column(
@@ -283,7 +283,7 @@ class _AddClientPageState extends State<AddClientPage> {
 
   Future<void> handleSave() async {
     // Validate returns true if the form is valid, or false otherwise.
-    if (_formKey.currentState!.validate()) {
+    if (formKey.currentState!.validate()) {
       final client = Client(
         id: int.parse(idCtrl.text),
         name: formatName(nameCtrl.text),

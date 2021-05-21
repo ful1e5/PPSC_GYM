@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add_rounded, size: 32.0),
           backgroundColor: Colors.white,
-          onPressed: () async => await addClient(),
+          onPressed: () async => await toAddClientPage(),
         ),
       ),
       onWillPop: () async {
@@ -186,7 +186,7 @@ class _HomePageState extends State<HomePage> {
           child: ListTile(
             onTap: () => onTap(isSelected, id),
             onLongPress: () => onLongPress(isSelected, id),
-            leading: buildLeadingIcon(isSelected, gender, exDate),
+            leading: buildAvatar(isSelected, gender, exDate),
             title: Text(
               name,
               overflow: TextOverflow.ellipsis,
@@ -239,28 +239,20 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Widget avatar({Widget? child, Color? color}) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10.0),
-      child: Container(
-        height: 80.0,
-        width: 57.0,
-        color: color,
-        child: child,
-      ),
-    );
-  }
-
-  Widget buildLeadingIcon(bool isSelected, String gender, String? exDate) {
+  Widget buildAvatar(bool isSelected, String gender, String? exDate) {
     if (isSelectionMode) {
-      return avatar(
+      return AvatarWidget(
         color: isSelected ? Colors.white : Colors.white24,
         child: isSelected
-            ? const Icon(Icons.check, size: 25, color: Colors.black)
+            ? const Icon(
+                Icons.check,
+                size: 25,
+                color: Colors.black,
+              )
             : null,
       );
     } else {
-      return avatar(
+      return AvatarWidget(
         color: getAvatarColor(exDate),
         child: Icon(
           getGenderIcon(gender),
@@ -335,7 +327,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<void> addClient() async {
+  Future<void> toAddClientPage() async {
     final String? newClient = await Navigator.push(
       context,
       MaterialPageRoute(

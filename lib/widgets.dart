@@ -307,3 +307,15 @@ successPopup(BuildContext context, String msg) {
     ),
   );
 }
+
+Widget AvatarWidget({Widget? child, Color? color}) {
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(10.0),
+    child: Container(
+      height: 80.0,
+      width: 57.0,
+      color: color,
+      child: child,
+    ),
+  );
+}

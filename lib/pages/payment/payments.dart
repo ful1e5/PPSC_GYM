@@ -29,21 +29,22 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: widget.future,
-        builder: (BuildContext context, AsyncSnapshot<List<Payment>> snapshot) {
-          if (snapshot.connectionState != ConnectionState.done) {
-            return Container(height: 250.0, child: loaderWidget());
-          }
-          if (snapshot.hasError) {
-            return Container(
-                height: 250.0, child: centerMessageWidget(errorMessage));
-          }
-          if (snapshot.hasData) {
-            return _buildListView(snapshot);
-          }
+      future: widget.future,
+      builder: (BuildContext context, AsyncSnapshot<List<Payment>> snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return Container(height: 250.0, child: loaderWidget());
+        }
+        if (snapshot.hasError) {
           return Container(
-              height: 250.0, child: centerMessageWidget(nonFoundMessage));
-        });
+              height: 250.0, child: centerMessageWidget(errorMessage));
+        }
+        if (snapshot.hasData) {
+          return _buildListView(snapshot);
+        }
+        return Container(
+            height: 250.0, child: centerMessageWidget(nonFoundMessage));
+      },
+    );
   }
 
   Widget _buildListView(AsyncSnapshot<List<Payment>> snapshot) {
@@ -84,19 +85,25 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('$months Months Plan',
-                                  style: TextStyle(
-                                      fontSize: 22.0,
-                                      fontWeight: FontWeight.w300)),
-                              Text('$money\u20B9',
-                                  style: TextStyle(
-                                      fontSize: 13.0,
-                                      fontWeight: FontWeight.w600)),
+                              Text(
+                                '$months Months Plan',
+                                style: TextStyle(
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                              Text(
+                                '$money\u20B9',
+                                style: TextStyle(
+                                    fontSize: 13.0,
+                                    fontWeight: FontWeight.w600),
+                              ),
                               gapWidget(10.0),
-                              Text('$startDate to $endDate',
-                                  style: TextStyle(
-                                      fontSize: 11.0,
-                                      fontWeight: FontWeight.w900)),
+                              Text(
+                                '$startDate to $endDate',
+                                style: TextStyle(
+                                    fontSize: 11.0,
+                                    fontWeight: FontWeight.w900),
+                              ),
                             ],
                           ),
                         ),
@@ -145,6 +152,8 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
   }
 
   void handleDelete(Payment payment) {
+    BuildContext dialogContext;
+
     TextStyle normalStyle = TextStyle(
       fontSize: 16.0,
       color: Colors.white70,
@@ -155,7 +164,7 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
       color: Colors.white70,
       fontWeight: FontWeight.bold,
     );
-    BuildContext dialogContext;
+
     showDialog(
       context: context,
       builder: (BuildContext context) {

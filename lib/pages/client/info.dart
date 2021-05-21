@@ -284,11 +284,9 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
       style: materialButtonStyle(
         backgroundColor: Colors.blueAccent,
         foregroundColor: Colors.white,
-        padding: EdgeInsets.only(
-          top: 12.0,
-          bottom: 12.0,
-          right: 22.0,
-          left: 22.0,
+        padding: EdgeInsets.symmetric(
+          horizontal: 12.0,
+          vertical: 22.0,
         ),
       ),
       onPressed: () async {

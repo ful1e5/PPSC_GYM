@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Future<List<Client>> _future;
+  late Future<List<Client>> future;
 
   late Map<int, bool> selectedFlag;
   late bool isSelectionMode;
@@ -31,13 +31,13 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    refreshClients(2);
+    refreshClients(1);
     resetSelection();
   }
 
   refreshClients(int seconds) {
     final handler = DatabaseHandler();
-    _future = Future<List<Client>>.delayed(
+    future = Future<List<Client>>.delayed(
       Duration(seconds: seconds, milliseconds: 100),
       () => handler.retrieveClients(),
     );
@@ -63,12 +63,13 @@ class _HomePageState extends State<HomePage> {
             });
           },
           child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  resetSelection();
-                });
-              },
-              child: clientList()),
+            onTap: () {
+              setState(() {
+                resetSelection();
+              });
+            },
+            child: clientList(),
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add_rounded, size: 32.0),
@@ -92,8 +93,6 @@ class _HomePageState extends State<HomePage> {
   AppBar buildAppBar() {
     return AppBar(
       backgroundColor: Colors.black,
-      centerTitle: true,
-      title: const Text('Home'),
       actions: buildActions(),
     );
   }
@@ -145,7 +144,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget clientList() {
     return FutureBuilder(
-      future: _future,
+      future: future,
       builder: (
         BuildContext context,
         AsyncSnapshot<List<Client>> snapshot,
@@ -155,10 +154,10 @@ class _HomePageState extends State<HomePage> {
         } else if (snapshot.hasError) {
           return centerMessageWidget('Error !');
         } else if (snapshot.hasData) {
+          final clients = snapshot.data!;
           if (snapshot.data?.length == 0) {
             return centerMessageWidget(nonFoundMessage);
           } else {
-            final clients = snapshot.data!;
             return Column(
               children: [
                 SearchBar(clients: clients),

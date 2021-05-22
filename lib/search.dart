@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:ppscgym/pages/client/info.dart';
 
 import 'package:ppscgym/services/database/models.dart';
-import 'package:ppscgym/utils.dart';
+
 import 'package:ppscgym/widgets.dart';
+import 'package:ppscgym/utils.dart';
 
 class SearchBar extends StatelessWidget {
   final List<Client> clients;
-  const SearchBar({Key? key, required this.clients}) : super(key: key);
+  final Function syncFunction;
+  const SearchBar({Key? key, required this.clients, required this.syncFunction})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        showSearch(context: context, delegate: SearchClient(clients));
+        showSearch(
+            context: context, delegate: SearchClient(clients, syncFunction));
       },
       child: Card(
         color: Colors.white12,
@@ -51,7 +56,9 @@ class SearchBar extends StatelessWidget {
 
 class SearchClient extends SearchDelegate<Client?> {
   final List<Client> clientsData;
-  SearchClient(this.clientsData);
+  final Function syncFunction;
+
+  SearchClient(this.clientsData, this.syncFunction);
 
   @override
   String get searchFieldLabel => '';
@@ -95,7 +102,8 @@ class SearchClient extends SearchDelegate<Client?> {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
+        color: (query.isEmpty) ? Colors.white10 : Colors.white,
+        icon: Icon(Icons.backspace_rounded),
         onPressed: () {
           query = '';
         },
@@ -124,16 +132,26 @@ class SearchClient extends SearchDelegate<Client?> {
     );
   }
 
-  Widget clientCard(Client client) {
+  Widget clientCard(Client client, BuildContext context) {
     int id = client.id;
     String name = client.name;
     String session = client.session;
     String gender = client.gender;
     String? exDate = client.planExpiryDate;
+
     return Card(
       color: Colors.black,
       child: ListTile(
-        onTap: () => {},
+        onTap: () {
+          close(context, null);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ClientInfoPage(clientId: id)),
+          ).then((context) {
+            syncFunction();
+          });
+        },
         leading: buildAvatar(gender, exDate),
         title: Text(
           name,
@@ -148,15 +166,17 @@ class SearchClient extends SearchDelegate<Client?> {
     );
   }
 
+  late Iterable<Client> filteredList;
+
   @override
   Widget buildSuggestions(BuildContext context) {
-    final suggestionList = clientsData
+    filteredList = clientsData
         .where((e) => e.name.toLowerCase().contains(query.toLowerCase()));
 
     return ListView(
-      children: suggestionList
+      children: filteredList
           .map(
-            (client) => clientCard(client),
+            (client) => clientCard(client, context),
           )
           .toList(),
     );
@@ -164,13 +184,10 @@ class SearchClient extends SearchDelegate<Client?> {
 
   @override
   Widget buildResults(BuildContext context) {
-    final resultsList = clientsData
-        .where((e) => e.name.toLowerCase().contains(query.toLowerCase()));
-
     return ListView(
-      children: resultsList
+      children: filteredList
           .map(
-            (client) => clientCard(client),
+            (client) => clientCard(client, context),
           )
           .toList(),
     );

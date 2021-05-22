@@ -160,7 +160,14 @@ class _HomePageState extends State<HomePage> {
           } else {
             return Column(
               children: [
-                SearchBar(clients: clients),
+                SearchBar(
+                  clients: clients,
+                  syncFunction: () {
+                    setState(() {
+                      refreshClients(0);
+                    });
+                  },
+                ),
                 Expanded(child: buildListView(clients)),
               ],
             );

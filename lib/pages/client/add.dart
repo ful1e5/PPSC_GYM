@@ -174,7 +174,7 @@ class _AddClientPageState extends State<AddClientPage> {
               TextFormFieldWidget(
                 labelText: 'Name',
                 controller: nameCtrl,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.name,
                 formatters: [
                   FilteringTextInputFormatter.allow(
                     RegExp(r'^[a-zA-Z\s]*$'),

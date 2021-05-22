@@ -285,8 +285,8 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
         backgroundColor: Colors.blueAccent,
         foregroundColor: Colors.white,
         padding: EdgeInsets.symmetric(
-          horizontal: 12.0,
-          vertical: 22.0,
+          horizontal: 22.0,
+          vertical: 12.0,
         ),
       ),
       onPressed: () async {

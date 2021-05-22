@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:ppscgym/search.dart';
 
 import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
@@ -157,7 +158,13 @@ class _HomePageState extends State<HomePage> {
           if (snapshot.data?.length == 0) {
             return centerMessageWidget(nonFoundMessage);
           } else {
-            return buildListView(snapshot);
+            final clients = snapshot.data!;
+            return Column(
+              children: [
+                SearchBar(clients: clients),
+                Expanded(child: buildListView(clients)),
+              ],
+            );
           }
         } else {
           return centerMessageWidget(nonFoundMessage);
@@ -166,15 +173,16 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget buildListView(AsyncSnapshot<List<Client>> snapshot) {
+  Widget buildListView(List<Client> clients) {
     return ListView.builder(
-      itemCount: snapshot.data?.length,
+      itemCount: clients.length,
       itemBuilder: (BuildContext context, int index) {
-        int id = snapshot.data![index].id;
-        String name = snapshot.data![index].name;
-        String session = snapshot.data![index].session;
-        String gender = snapshot.data![index].gender;
-        String? exDate = snapshot.data![index].planExpiryDate;
+        Client client = clients[index];
+        int id = client.id;
+        String name = client.name;
+        String session = client.session;
+        String gender = client.gender;
+        String? exDate = client.planExpiryDate;
 
         selectedFlag[id] = selectedFlag[id] ?? false;
         bool isSelected = selectedFlag[id] ?? false;
@@ -241,7 +249,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildAvatar(bool isSelected, String gender, String? exDate) {
     if (isSelectionMode) {
-      return AvatarWidget(
+      return avatarWidget(
         color: isSelected ? Colors.white : Colors.white24,
         child: isSelected
             ? const Icon(
@@ -252,7 +260,7 @@ class _HomePageState extends State<HomePage> {
             : null,
       );
     } else {
-      return AvatarWidget(
+      return avatarWidget(
         color: getAvatarColor(exDate),
         child: Icon(
           getGenderIcon(gender),

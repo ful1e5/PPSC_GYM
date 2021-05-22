@@ -114,30 +114,35 @@ class _HomePageState extends State<HomePage> {
           .containsValue(false); // check if all item is not selected
       return [
         IconButton(
-          tooltip: 'Delete',
           icon: Icon(Icons.delete),
-          onPressed: () async => await handleDelete(),
+          tooltip: 'Delete',
+          onPressed: () async => await deleteDialog(),
         ),
         IconButton(
-          tooltip: isFalseAvailable ? 'SelectAll' : 'Clear',
           icon: Icon(
             isFalseAvailable ? Icons.done_all : Icons.remove_done,
           ),
+          tooltip: isFalseAvailable ? 'SelectAll' : 'Clear',
           onPressed: selectAll,
         )
       ];
     } else {
       return [
         IconButton(
-          tooltip: 'Plans',
+          icon: const Icon(Icons.filter_alt),
+          tooltip: 'Filter',
+          onPressed: filterDialog,
+        ),
+        IconButton(
           icon: const Icon(Icons.insert_chart_rounded),
+          tooltip: 'Plans',
           onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => PlansPage()),
             );
           },
-        )
+        ),
       ];
     }
   }
@@ -282,7 +287,7 @@ class _HomePageState extends State<HomePage> {
     await handler.deleteClient(id);
   }
 
-  Future<void> handleDelete() async {
+  Future<void> deleteDialog() async {
     selectedFlag.removeWhere((id, value) => value == false);
     BuildContext dialogContext;
 
@@ -336,6 +341,34 @@ class _HomePageState extends State<HomePage> {
             });
             Navigator.pop(dialogContext);
           },
+        );
+      },
+    );
+  }
+
+  filterDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.green,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          ),
+          child: Container(
+            height: 200.0,
+            color: Colors.transparent,
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  // TODO: filter the clients list
+                  gapWidget(10.0),
+                  Text("Morning"),
+                ],
+              ),
+            ),
+          ),
         );
       },
     );

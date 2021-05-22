@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:ppscgym/pages/client/info.dart';
 
@@ -9,6 +11,7 @@ import 'package:ppscgym/utils.dart';
 class SearchBar extends StatelessWidget {
   final List<Client> clients;
   final Function syncFunction;
+
   const SearchBar({Key? key, required this.clients, required this.syncFunction})
       : super(key: key);
 
@@ -101,13 +104,22 @@ class SearchClient extends SearchDelegate<Client?> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
-      IconButton(
-        color: (query.isEmpty) ? Colors.white10 : Colors.white,
-        icon: Icon(Icons.backspace_rounded),
-        onPressed: () {
-          query = '';
-        },
-      )
+      query.isEmpty
+          ? Container()
+          : GestureDetector(
+              onTap: () => query = '',
+              child: Container(
+                padding: EdgeInsets.only(right: 20.0),
+                alignment: Alignment.center,
+                child: Text(
+                  "clear",
+                  style: TextStyle(
+                    color: Colors.blue,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
+            ),
     ];
   }
 

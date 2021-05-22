@@ -29,7 +29,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
   void initState() {
     super.initState();
     refreshClientData(0);
-    refreshPaymentsData(1);
+    refreshPaymentsData(0);
   }
 
   refreshClientData(int seconds) {

@@ -15,7 +15,7 @@ ButtonStyle materialButtonStyle(
     padding: MaterialStateProperty.all<EdgeInsetsGeometry?>(padding),
     shape: MaterialStateProperty.all(
       RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.0),
+        borderRadius: BorderRadius.circular(12.0),
       ),
     ),
   );

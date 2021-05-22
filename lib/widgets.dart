@@ -308,7 +308,7 @@ successPopup(BuildContext context, String msg) {
   );
 }
 
-Widget AvatarWidget({Widget? child, Color? color}) {
+Widget avatarWidget({Widget? child, Color? color}) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(10.0),
     child: Container(

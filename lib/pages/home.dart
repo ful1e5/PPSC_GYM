@@ -27,22 +27,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late bool isSelectionMode;
 
   final String nonFoundMessage = 'No Records Found';
+  late Set<String> tabs = {'Morning', 'Evening', 'Home'};
 
-  late List<Widget> tabs = [
-    Tab(text: 'Evening'),
-    Tab(text: 'Morning'),
-    Tab(text: 'Home'),
-  ];
-
+  final int homeIndex = 2;
   late TabController tabCtrl;
 
   @override
   void initState() {
     super.initState();
+    tabCtrl = TabController(
+        length: tabs.length, initialIndex: homeIndex, vsync: this);
     refreshPlans();
-    tabCtrl = TabController(length: tabs.length, initialIndex: 2, vsync: this);
 
-    refreshClients(1);
+    refreshClients();
     resetSelection();
   }
 
@@ -54,16 +51,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   refreshPlans() async {
     final handler = DatabaseHandler();
-    final plans = await handler.retrievePlans();
-    plans.forEach((e) {
-      tabs.add(Tab(text: '${e.months} Months'));
+    final p = await handler.retrievePlans();
+    setState(() {
+      p.forEach((e) => tabs.add('${e.months} Months'));
+      tabCtrl = TabController(
+          length: tabs.length, initialIndex: homeIndex, vsync: this);
     });
   }
 
-  refreshClients(int seconds) {
+  refreshClients() {
     final handler = DatabaseHandler();
     clientsFuture = Future<List<Client>>.delayed(
-      Duration(seconds: seconds, milliseconds: 100),
+      Duration.zero,
       () => handler.retrieveClients(),
     );
   }
@@ -81,7 +80,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         appBar: AppBar(
           backgroundColor: Colors.black,
           actions: buildActions(),
-          bottom: tabBarWidget(controller: tabCtrl, tabs: tabs),
+          bottom: tabBarWidget(
+            controller: tabCtrl,
+            tabs: tabs.map((e) => Tab(text: e)).toList(),
+          ),
         ),
         body: buildTabView(),
         floatingActionButton: FloatingActionButton(
@@ -169,7 +171,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               backgroundColor: Colors.white,
               onRefresh: () async {
                 setState(() {
-                  refreshClients(0);
+                  refreshClients();
                 });
               },
               child: GestureDetector(
@@ -181,12 +183,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 child: TabBarView(
                   physics: BouncingScrollPhysics(),
                   controller: tabCtrl,
-                  children: [
-                    //TODO:filter the list
-                    clientList(clients),
-                    clientList(clients),
-                    clientList(clients),
-                  ],
+                  children: tabViewChildren(clients),
                 ),
               ),
             );
@@ -198,6 +195,28 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
+  List<Widget> tabViewChildren(List<Client> clients) {
+    return tabs.map((t) {
+      if (t == 'Morning') {
+        return clientList(
+          clients.where((e) => e.session == 'Morning').toList(),
+        );
+      } else if (t == 'Evening') {
+        return clientList(
+          clients.where((e) => e.session == 'Evening').toList(),
+        );
+      } else if (t == 'Home') {
+        return clientList(clients);
+      } else if (t.contains('Months')) {
+        final int mounth = int.parse(t.split(" ")[0]);
+        final fclients = clients.where((c) => c.planMonth == mounth).toList();
+        return clientList(fclients);
+      } else {
+        return centerMessageWidget("No Data Found");
+      }
+    }).toList();
+  }
+
   Widget clientList(List<Client> clients) {
     return Column(
       children: [
@@ -205,7 +224,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           clients: clients,
           syncFunction: () {
             setState(() {
-              refreshClients(0);
+              refreshClients();
             });
           },
         ),
@@ -216,6 +235,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   Widget buildClientsCard(List<Client> clients) {
     return ListView.builder(
+      physics: BouncingScrollPhysics(),
       itemCount: clients.length,
       itemBuilder: (BuildContext context, int index) {
         Client client = clients[index];
@@ -263,7 +283,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         MaterialPageRoute(builder: (context) => ClientInfoPage(clientId: id)),
       ).then((context) {
         setState(() {
-          refreshClients(0);
+          refreshClients();
         });
       });
     }
@@ -366,7 +386,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               }
             }
             setState(() {
-              refreshClients(0);
+              refreshClients();
               resetSelection();
             });
             Navigator.pop(dialogContext);
@@ -386,7 +406,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     if (newClient == 'client added') {
       setState(() {
-        refreshClients(0);
+        refreshClients();
         resetSelection();
       });
     }

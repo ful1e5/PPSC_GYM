@@ -7,6 +7,7 @@ class Client {
   final int mobile;
   final int totalMoney;
   final String? planExpiryDate;
+  final int? planMonth;
 
   Client({
     required this.id,
@@ -17,6 +18,7 @@ class Client {
     required this.mobile,
     this.totalMoney = 0,
     this.planExpiryDate,
+    this.planMonth,
   });
 
   Client.fromMap(Map<String, dynamic> res)
@@ -27,6 +29,7 @@ class Client {
         session = res['session'],
         mobile = res['mobile'],
         planExpiryDate = res['planExpiryDate'],
+        planMonth = res['planMonth'],
         totalMoney = res['totalMoney'];
 
   Map<String, Object?> toMap() {
@@ -38,6 +41,7 @@ class Client {
       'session': session,
       'mobile': mobile,
       'planExpiryDate': planExpiryDate,
+      'planMonth': planMonth,
       'totalMoney': totalMoney,
     };
   }

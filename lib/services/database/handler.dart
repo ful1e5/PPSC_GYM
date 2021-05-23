@@ -24,6 +24,7 @@ class DatabaseHandler {
             "session TEXT NOT NULL,"
             "mobile INTEGER UNIQUE NOT NULL,"
             "planExpiryDate TEXT,"
+            "planMonth INTEGER,"
             "totalMoney INTEGER"
             ")");
 
@@ -138,11 +139,16 @@ class DatabaseHandler {
     final List<Map<String, Object?>> queryResult = await db.query(paymentTable,
         where: "clientId = ?", whereArgs: [clientId], orderBy: "endDate DESC");
 
-    final dates = queryResult
-        .map((e) => stringToDateTime(Payment.fromMap(e).endDate))
+    final List<List> dates = queryResult
+        .map(
+          (e) => [
+            stringToDateTime(Payment.fromMap(e).endDate),
+            Payment.fromMap(e).months
+          ],
+        )
         .toList();
 
-    dates.sort((a, b) => a.compareTo(b));
+    dates.sort((a, b) => a[0].compareTo(b[0]));
 
     int totalMoney = 0;
     queryResult.forEach((e) => totalMoney += Payment.fromMap(e).money);
@@ -153,9 +159,11 @@ class DatabaseHandler {
     Map<String, Object?> map = Map<String, Object?>.from(result.first);
 
     if (dates.isNotEmpty) {
-      map['planExpiryDate'] = toDDMMYYYY(dates.last);
+      map['planExpiryDate'] = toDDMMYYYY(dates.last[0]);
+      map['planMonth'] = dates.last[1];
     } else {
       map['planExpiryDate'] = null;
+      map['planMonth'] = null;
     }
     map['totalMoney'] = totalMoney;
 

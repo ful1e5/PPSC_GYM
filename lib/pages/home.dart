@@ -19,22 +19,46 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late Future<List<Client>> clientsFuture;
-  late List<Plan> plans;
+  late Future<List<Plan>> plansFuture;
 
   late Map<int, bool> selectedFlag;
   late bool isSelectionMode;
 
   final String nonFoundMessage = 'No Records Found';
 
+  late List<Widget> tabs = [
+    Tab(text: 'Evening'),
+    Tab(text: 'Morning'),
+    Tab(text: 'Home'),
+  ];
+
+  late TabController tabCtrl =
+      TabController(length: tabs.length, initialIndex: 2, vsync: this);
+
   @override
   void initState() {
     super.initState();
+    refreshPlans();
 
     refreshClients(1);
-    refreshPlans();
     resetSelection();
+  }
+
+  @override
+  void dispose() {
+    tabCtrl.dispose();
+    super.dispose();
+  }
+
+  refreshPlans() async {
+    final handler = DatabaseHandler();
+    final plans = await handler.retrievePlans();
+    plans.forEach((e) {
+      tabs.add(Tab(text: '${e.months} Months'));
+    });
+    tabCtrl = TabController(length: tabs.length, initialIndex: 2, vsync: this);
   }
 
   refreshClients(int seconds) {
@@ -45,11 +69,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  refreshPlans() async {
-    final handler = DatabaseHandler();
-    plans = await handler.retrievePlans();
-  }
-
   resetSelection() {
     isSelectionMode = false;
     selectedFlag = {};
@@ -57,79 +76,32 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      initialIndex: 2,
-      child: WillPopScope(
-        child: Scaffold(
+    return WillPopScope(
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(
           backgroundColor: Colors.black,
-          appBar: buildAppBar(),
-          body: RefreshIndicator(
-            color: Colors.black,
-            backgroundColor: Colors.white,
-            onRefresh: () async {
-              setState(() {
-                refreshClients(0);
-              });
-            },
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  resetSelection();
-                });
-              },
-              child: clientList(),
-            ),
-          ),
-          floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.add_rounded, size: 32.0),
-            backgroundColor: Colors.white,
-            onPressed: () async => await toAddClientPage(),
-          ),
+          actions: buildActions(),
+          bottom: tabBarWidget(controller: tabCtrl, tabs: tabs),
         ),
-        onWillPop: () async {
-          if (isSelectionMode) {
-            setState(() {
-              resetSelection();
-            });
-            return false;
-          } else {
-            return true;
-          }
-        },
-      ),
-    );
-  }
-
-  AppBar buildAppBar() {
-    return AppBar(
-      backgroundColor: Colors.black,
-      actions: buildActions(),
-      bottom: TabBar(
-        isScrollable: true,
-        unselectedLabelColor: Colors.redAccent,
-        physics: BouncingScrollPhysics(),
-        overlayColor: MaterialStateProperty.all(Colors.transparent),
-        automaticIndicatorColorAdjustment: true,
-        indicator: BoxDecoration(
-          borderRadius: BorderRadius.circular(100.0),
-          color: Colors.redAccent,
+        body: buildTabView(),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add_rounded, size: 32.0),
+          backgroundColor: Colors.white,
+          onPressed: () async => await toAddClientPage(),
         ),
-        tabs: tabList(),
       ),
+      onWillPop: () async {
+        if (isSelectionMode) {
+          setState(() {
+            resetSelection();
+          });
+          return false;
+        } else {
+          return true;
+        }
+      },
     );
-  }
-
-  List<Widget> defaultTabs() {
-    return [
-      Tab(icon: Icon(Icons.brightness_2_rounded)),
-      Tab(icon: Icon(Icons.brightness_high_rounded)),
-      Tab(icon: Icon(Icons.home)),
-    ];
-  }
-
-  List<Widget> tabList() {
-    return defaultTabs();
   }
 
   void selectAll() {
@@ -171,19 +143,19 @@ class _HomePageState extends State<HomePage> {
               context,
               MaterialPageRoute(builder: (context) => PlansPage()),
             );
+            setState(() {
+              refreshPlans();
+            });
           },
         ),
       ];
     }
   }
 
-  Widget clientList() {
+  Widget buildTabView() {
     return FutureBuilder(
       future: clientsFuture,
-      builder: (
-        BuildContext context,
-        AsyncSnapshot<List<Client>> snapshot,
-      ) {
+      builder: (BuildContext context, AsyncSnapshot<List<Client>> snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return loaderWidget();
         } else if (snapshot.hasError) {
@@ -193,18 +165,30 @@ class _HomePageState extends State<HomePage> {
           if (snapshot.data?.length == 0) {
             return centerMessageWidget(nonFoundMessage);
           } else {
-            return Column(
-              children: [
-                SearchBar(
-                  clients: clients,
-                  syncFunction: () {
-                    setState(() {
-                      refreshClients(0);
-                    });
-                  },
+            return RefreshIndicator(
+              color: Colors.black,
+              backgroundColor: Colors.white,
+              onRefresh: () async {
+                setState(() {
+                  refreshClients(0);
+                });
+              },
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    resetSelection();
+                  });
+                },
+                child: TabBarView(
+                  physics: BouncingScrollPhysics(),
+                  controller: tabCtrl,
+                  children: [
+                    clientList(clients),
+                    clientList(clients),
+                    clientList(clients),
+                  ],
                 ),
-                Expanded(child: buildListView(clients)),
-              ],
+              ),
             );
           }
         } else {
@@ -214,7 +198,23 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget buildListView(List<Client> clients) {
+  Widget clientList(List<Client> clients) {
+    return Column(
+      children: [
+        SearchBar(
+          clients: clients,
+          syncFunction: () {
+            setState(() {
+              refreshClients(0);
+            });
+          },
+        ),
+        Expanded(child: buildClientsCard(clients)),
+      ],
+    );
+  }
+
+  Widget buildClientsCard(List<Client> clients) {
     return ListView.builder(
       itemCount: clients.length,
       itemBuilder: (BuildContext context, int index) {

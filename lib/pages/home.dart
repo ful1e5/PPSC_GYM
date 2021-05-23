@@ -21,22 +21,27 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late Future<List<Client>> clientsFuture;
-  late Future<List<Plan>> plansFuture;
 
   late Map<int, bool> selectedFlag;
   late bool isSelectionMode;
 
   final String nonFoundMessage = 'No Records Found';
-  late Set<String> tabs = {'Morning', 'Evening', 'Home'};
 
-  final int homeIndex = 2;
+  late Set<String> dTabs = {'Morning', 'Evening', 'Home'};
+  late Set<String> tabs = dTabs;
   late TabController tabCtrl;
+  final int homeIndex = 2;
 
   @override
   void initState() {
     super.initState();
+
     tabCtrl = TabController(
-        length: tabs.length, initialIndex: homeIndex, vsync: this);
+      length: tabs.length,
+      initialIndex: homeIndex,
+      vsync: this,
+    );
+
     refreshPlans();
 
     refreshClients();
@@ -52,10 +57,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   refreshPlans() async {
     final handler = DatabaseHandler();
     final p = await handler.retrievePlans();
+    final pTabs = p.map((e) => '${e.months} Month Plan').toList();
     setState(() {
-      p.forEach((e) => tabs.add('${e.months} Months'));
+      tabs = Set.from(dTabs)..addAll(pTabs);
       tabCtrl = TabController(
           length: tabs.length, initialIndex: homeIndex, vsync: this);
+      print(tabs);
     });
   }
 
@@ -139,13 +146,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         IconButton(
           icon: const Icon(Icons.insert_chart_rounded),
           tooltip: 'Plans',
-          onPressed: () {
+          onPressed: () async {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => PlansPage()),
-            );
-            setState(() {
-              refreshPlans();
+            ).then((context) {
+              setState(() {
+                refreshPlans();
+              });
             });
           },
         ),
@@ -166,26 +174,24 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           if (snapshot.data?.length == 0) {
             return centerMessageWidget(nonFoundMessage);
           } else {
-            return RefreshIndicator(
-              color: Colors.black,
-              backgroundColor: Colors.white,
-              onRefresh: () async {
-                setState(() {
-                  refreshClients();
-                });
-              },
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    resetSelection();
-                  });
-                },
-                child: TabBarView(
-                  physics: BouncingScrollPhysics(),
-                  controller: tabCtrl,
-                  children: tabViewChildren(clients),
+            return Column(
+              children: [
+                SearchBar(
+                  clients: clients,
+                  syncFunction: () {
+                    setState(() {
+                      refreshClients();
+                    });
+                  },
                 ),
-              ),
+                Expanded(
+                  child: TabBarView(
+                    physics: BouncingScrollPhysics(),
+                    controller: tabCtrl,
+                    children: tabViewChildren(clients),
+                  ),
+                ),
+              ],
             );
           }
         } else {
@@ -207,7 +213,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         );
       } else if (t == 'Home') {
         return clientList(clients);
-      } else if (t.contains('Months')) {
+      } else if (t.contains('Month Plan')) {
         final int mounth = int.parse(t.split(" ")[0]);
         final fclients = clients.where((c) => c.planMonth == mounth).toList();
         return clientList(fclients);
@@ -218,18 +224,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Widget clientList(List<Client> clients) {
-    return Column(
-      children: [
-        SearchBar(
-          clients: clients,
-          syncFunction: () {
-            setState(() {
-              refreshClients();
-            });
-          },
-        ),
-        Expanded(child: buildClientsCard(clients)),
-      ],
+    return RefreshIndicator(
+      color: Colors.black,
+      backgroundColor: Colors.white,
+      onRefresh: () async {
+        setState(() {
+          refreshClients();
+        });
+      },
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            resetSelection();
+          });
+        },
+        child: buildClientsCard(clients),
+      ),
     );
   }
 
@@ -244,6 +254,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         String session = client.session;
         String gender = client.gender;
         String? exDate = client.planExpiryDate;
+        int? planMonth = client.planMonth;
 
         selectedFlag[id] = selectedFlag[id] ?? false;
         bool isSelected = selectedFlag[id] ?? false;
@@ -262,7 +273,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
             subtitle: Text(
-              session,
+              (planMonth != null)
+                  ? '$session ($planMonth Month Plan)'
+                  : session,
               style: TextStyle(fontSize: 10.0),
             ),
           ),
@@ -281,9 +294,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => ClientInfoPage(clientId: id)),
-      ).then((context) {
+      ).then((context) async {
         setState(() {
           refreshClients();
+          refreshPlans();
         });
       });
     }
@@ -408,6 +422,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       setState(() {
         refreshClients();
         resetSelection();
+        tabCtrl.index = homeIndex;
       });
     }
   }

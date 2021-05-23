@@ -34,13 +34,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     Tab(text: 'Home'),
   ];
 
-  late TabController tabCtrl =
-      TabController(length: tabs.length, initialIndex: 2, vsync: this);
+  late TabController tabCtrl;
 
   @override
   void initState() {
     super.initState();
     refreshPlans();
+    tabCtrl = TabController(length: tabs.length, initialIndex: 2, vsync: this);
 
     refreshClients(1);
     resetSelection();
@@ -58,7 +58,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     plans.forEach((e) {
       tabs.add(Tab(text: '${e.months} Months'));
     });
-    tabCtrl = TabController(length: tabs.length, initialIndex: 2, vsync: this);
   }
 
   refreshClients(int seconds) {
@@ -183,6 +182,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   physics: BouncingScrollPhysics(),
                   controller: tabCtrl,
                   children: [
+                    //TODO:filter the list
                     clientList(clients),
                     clientList(clients),
                     clientList(clients),

@@ -319,3 +319,19 @@ Widget avatarWidget({Widget? child, Color? color}) {
     ),
   );
 }
+
+TabBar tabBarWidget({TabController? controller, List<Widget>? tabs}) {
+  return TabBar(
+    controller: controller,
+    isScrollable: true,
+    unselectedLabelColor: Colors.redAccent,
+    physics: BouncingScrollPhysics(),
+    overlayColor: MaterialStateProperty.all(Colors.transparent),
+    automaticIndicatorColorAdjustment: true,
+    indicator: BoxDecoration(
+      borderRadius: BorderRadius.circular(100.0),
+      color: Colors.redAccent,
+    ),
+    tabs: tabs ?? [Tab(text: 'Home')],
+  );
+}

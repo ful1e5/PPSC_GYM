@@ -20,7 +20,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Future<List<Client>> future;
+  late Future<List<Client>> clientsFuture;
+  late List<Plan> plans;
 
   late Map<int, bool> selectedFlag;
   late bool isSelectionMode;
@@ -32,15 +33,21 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     refreshClients(1);
+    refreshPlans();
     resetSelection();
   }
 
   refreshClients(int seconds) {
     final handler = DatabaseHandler();
-    future = Future<List<Client>>.delayed(
+    clientsFuture = Future<List<Client>>.delayed(
       Duration(seconds: seconds, milliseconds: 100),
       () => handler.retrieveClients(),
     );
+  }
+
+  refreshPlans() async {
+    final handler = DatabaseHandler();
+    plans = await handler.retrievePlans();
   }
 
   resetSelection() {
@@ -50,43 +57,47 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        appBar: buildAppBar(),
-        body: RefreshIndicator(
-          color: Colors.black,
-          backgroundColor: Colors.white,
-          onRefresh: () async {
-            setState(() {
-              refreshClients(0);
-            });
-          },
-          child: GestureDetector(
-            onTap: () {
+    return DefaultTabController(
+      length: 3,
+      initialIndex: 2,
+      child: WillPopScope(
+        child: Scaffold(
+          backgroundColor: Colors.black,
+          appBar: buildAppBar(),
+          body: RefreshIndicator(
+            color: Colors.black,
+            backgroundColor: Colors.white,
+            onRefresh: () async {
               setState(() {
-                resetSelection();
+                refreshClients(0);
               });
             },
-            child: clientList(),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  resetSelection();
+                });
+              },
+              child: clientList(),
+            ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.add_rounded, size: 32.0),
+            backgroundColor: Colors.white,
+            onPressed: () async => await toAddClientPage(),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add_rounded, size: 32.0),
-          backgroundColor: Colors.white,
-          onPressed: () async => await toAddClientPage(),
-        ),
+        onWillPop: () async {
+          if (isSelectionMode) {
+            setState(() {
+              resetSelection();
+            });
+            return false;
+          } else {
+            return true;
+          }
+        },
       ),
-      onWillPop: () async {
-        if (isSelectionMode) {
-          setState(() {
-            resetSelection();
-          });
-          return false;
-        } else {
-          return true;
-        }
-      },
     );
   }
 
@@ -94,7 +105,31 @@ class _HomePageState extends State<HomePage> {
     return AppBar(
       backgroundColor: Colors.black,
       actions: buildActions(),
+      bottom: TabBar(
+        isScrollable: true,
+        unselectedLabelColor: Colors.redAccent,
+        physics: BouncingScrollPhysics(),
+        overlayColor: MaterialStateProperty.all(Colors.transparent),
+        automaticIndicatorColorAdjustment: true,
+        indicator: BoxDecoration(
+          borderRadius: BorderRadius.circular(100.0),
+          color: Colors.redAccent,
+        ),
+        tabs: tabList(),
+      ),
     );
+  }
+
+  List<Widget> defaultTabs() {
+    return [
+      Tab(icon: Icon(Icons.brightness_2_rounded)),
+      Tab(icon: Icon(Icons.brightness_high_rounded)),
+      Tab(icon: Icon(Icons.home)),
+    ];
+  }
+
+  List<Widget> tabList() {
+    return defaultTabs();
   }
 
   void selectAll() {
@@ -129,11 +164,6 @@ class _HomePageState extends State<HomePage> {
     } else {
       return [
         IconButton(
-          icon: const Icon(Icons.filter_alt),
-          tooltip: 'Filter',
-          onPressed: filterDialog,
-        ),
-        IconButton(
           icon: const Icon(Icons.insert_chart_rounded),
           tooltip: 'Plans',
           onPressed: () {
@@ -149,7 +179,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget clientList() {
     return FutureBuilder(
-      future: future,
+      future: clientsFuture,
       builder: (
         BuildContext context,
         AsyncSnapshot<List<Client>> snapshot,
@@ -341,34 +371,6 @@ class _HomePageState extends State<HomePage> {
             });
             Navigator.pop(dialogContext);
           },
-        );
-      },
-    );
-  }
-
-  filterDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          backgroundColor: Colors.green,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-          ),
-          child: Container(
-            height: 200.0,
-            color: Colors.transparent,
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  // TODO: filter the clients list
-                  gapWidget(10.0),
-                  Text("Morning"),
-                ],
-              ),
-            ),
-          ),
         );
       },
     );

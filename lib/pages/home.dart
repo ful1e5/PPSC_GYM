@@ -27,10 +27,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   final String nonFoundMessage = 'No Records Found';
 
-  late Set<String> dTabs = {'Morning', 'Evening', 'Home'};
+  late Set<String> dTabs = {'Morning', 'Evening', 'All'};
   late Set<String> tabs = dTabs;
   late TabController tabCtrl;
-  final int homeIndex = 2;
+  final int defaultTabIndex = 2;
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     tabCtrl = TabController(
       length: tabs.length,
-      initialIndex: homeIndex,
+      initialIndex: defaultTabIndex,
       vsync: this,
     );
 
@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     setState(() {
       tabs = Set.from(dTabs)..addAll(pTabs);
       tabCtrl = TabController(
-          length: tabs.length, initialIndex: homeIndex, vsync: this);
+          length: tabs.length, initialIndex: defaultTabIndex, vsync: this);
     });
   }
 
@@ -210,7 +210,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         return clientList(
           clients.where((e) => e.session == 'Evening').toList(),
         );
-      } else if (t == 'Home') {
+      } else if (t == 'All') {
         return clientList(clients);
       } else if (t.contains('Month Plan')) {
         final int mounth = int.parse(t.split(" ")[0]);
@@ -273,7 +273,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
             subtitle: Text(
               (planMonth != null)
-                  ? '$session ($planMonth Month Plan)'
+                  ? '$session - $planMonth Month Plan'
                   : session,
               style: TextStyle(fontSize: 10.0),
             ),
@@ -421,7 +421,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       setState(() {
         refreshClients();
         resetSelection();
-        tabCtrl.index = homeIndex;
+        tabCtrl.index = defaultTabIndex;
       });
     }
   }

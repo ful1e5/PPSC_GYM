@@ -186,6 +186,7 @@ class SearchClient extends SearchDelegate<Client?> {
         .where((e) => e.name.toLowerCase().contains(query.toLowerCase()));
 
     return ListView(
+      physics: BouncingScrollPhysics(),
       children: filteredList
           .map(
             (client) => clientCard(client, context),
@@ -197,6 +198,7 @@ class SearchClient extends SearchDelegate<Client?> {
   @override
   Widget buildResults(BuildContext context) {
     return ListView(
+      physics: BouncingScrollPhysics(),
       children: filteredList
           .map(
             (client) => clientCard(client, context),

@@ -62,7 +62,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       tabs = Set.from(dTabs)..addAll(pTabs);
       tabCtrl = TabController(
           length: tabs.length, initialIndex: homeIndex, vsync: this);
-      print(tabs);
     });
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
+import 'package:ppscgym/styles.dart';
 
 import 'package:ppscgym/utils.dart';
 import 'package:ppscgym/widgets.dart';
@@ -50,7 +51,9 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
   Widget _buildListView(AsyncSnapshot<List<Payment>> snapshot) {
     if (snapshot.data?.length == 0) {
       return Container(
-          height: 250.0, child: centerMessageWidget(nonFoundMessage));
+        height: 250.0,
+        child: centerMessageWidget(nonFoundMessage),
+      );
     } else {
       return Column(
         children: [
@@ -68,80 +71,89 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
 
               bool isExpired = isDatePassed(endDate);
 
-              return Card(
-                color: isExpired ? Colors.red : Colors.green,
+              final normalTextStyle = TextStyle(
+                color: Colors.white,
+                fontSize: 14.0,
+                fontWeight: FontWeight.w300,
+              );
+              final boldTextStyle = TextStyle(
+                color: Colors.white,
+                fontSize: 14.0,
+                overflow: TextOverflow.visible,
+                fontWeight: FontWeight.bold,
+              );
+
+              return Container(
                 margin: EdgeInsets.fromLTRB(35.0, 15.0, 35.0, 15.0),
-                semanticContainer: true,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-                child: Column(
-                  children: [
-                    Row(
+                child: PhysicalShape(
+                  color: isExpired ? Colors.red : Colors.green,
+                  clipper: TicketClipper(),
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 25.0, horizontal: 18.0),
+                    child: Column(
                       children: [
-                        Container(
-                          padding: EdgeInsets.all(20.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '$months Months Plan',
-                                style: TextStyle(
-                                    fontSize: 22.0,
-                                    fontWeight: FontWeight.w300),
-                              ),
-                              Text(
-                                '$money\u20B9',
-                                style: TextStyle(
-                                    fontSize: 13.0,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              gapWidget(10.0),
-                              Text(
-                                '$startDate to $endDate',
-                                style: TextStyle(
-                                    fontSize: 11.0,
-                                    fontWeight: FontWeight.w900),
-                              ),
-                            ],
-                          ),
-                        ),
-                        isExpired
-                            ? Container()
-                            : Expanded(
-                                child: IconButton(
-                                  onPressed: () {
-                                    handleDelete(data);
-                                  },
-                                  icon: Icon(
-                                    Icons.delete_rounded,
-                                    color: Colors.white,
-                                    size: 25.0,
-                                  ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            cardSections(
+                              children: [
+                                Text(
+                                  'Starting Date',
+                                  style: normalTextStyle,
                                 ),
-                              ),
+                                gapWidget(8.0),
+                                Text(
+                                  startDate,
+                                  style: boldTextStyle,
+                                ),
+                                gapWidget(20.0),
+                                Text(
+                                  'Plan',
+                                  style: normalTextStyle,
+                                ),
+                                gapWidget(8.0),
+                                Text(
+                                  '$months Months',
+                                  style: boldTextStyle,
+                                ),
+                              ],
+                            ),
+                            SizedBox(width: 28.0),
+                            cardSections(
+                              children: [
+                                Text(
+                                  'Ending Date',
+                                  style: normalTextStyle,
+                                ),
+                                gapWidget(8.0),
+                                Text(
+                                  endDate,
+                                  style: boldTextStyle,
+                                ),
+                                gapWidget(20.0),
+                                Text(
+                                  'Payment',
+                                  style: normalTextStyle,
+                                ),
+                                gapWidget(8.0),
+                                Text(
+                                  '$money \u20B9',
+                                  style: boldTextStyle,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        ...buildNote(note, normalTextStyle, boldTextStyle),
+                        gapWidget(18.0),
+                        (isDatePassed(endDate))
+                            ? Container()
+                            : deleteButton(data)
                       ],
                     ),
-                    (note != null)
-                        ? Container(
-                            padding: EdgeInsets.only(
-                              top: 4.0,
-                              bottom: 20.0,
-                              right: 20.0,
-                              left: 20.0,
-                            ),
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Note: $note",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black87,
-                              ),
-                            ),
-                          )
-                        : Container(),
-                  ],
+                  ),
                 ),
               );
             },
@@ -149,6 +161,73 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
         ],
       );
     }
+  }
+
+  Widget cardSections({List<Widget>? children}) {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: children ?? const <Widget>[],
+      ),
+    );
+  }
+
+  List<Widget> buildNote(
+    String? note,
+    TextStyle normalTextStyle,
+    TextStyle boldTextStyle,
+  ) {
+    if (note == null) {
+      return [Container()];
+    } else {
+      return [
+        gapWidget(20.0),
+        Text(
+          "Note",
+          style: normalTextStyle,
+        ),
+        gapWidget(8.0),
+        Text(
+          note,
+          style: boldTextStyle,
+        ),
+      ];
+    }
+  }
+
+  Widget deleteButton(Payment payment) {
+    return OutlinedButton(
+      style: materialButtonStyle(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.red,
+        padding: EdgeInsets.symmetric(
+          horizontal: 15.0,
+          vertical: 10.0,
+        ),
+      ),
+      child: RichText(
+        text: TextSpan(
+          style: TextStyle(
+            color: Colors.red,
+            fontSize: 15.5,
+            fontWeight: FontWeight.w900,
+          ),
+          children: [
+            WidgetSpan(
+              child: const Icon(
+                Icons.delete,
+                size: 18.0,
+              ),
+            ),
+            TextSpan(text: ' Delete'),
+          ],
+        ),
+      ),
+      onPressed: () {
+        handleDelete(payment);
+      },
+    );
   }
 
   void handleDelete(Payment payment) {
@@ -198,4 +277,30 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
       },
     );
   }
+}
+
+class TicketClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final Path path = Path();
+    path.lineTo(0.0, 55);
+    path.relativeArcToPoint(const Offset(0, 40),
+        radius: const Radius.circular(10.0), largeArc: true);
+    path.lineTo(0.0, size.height - 10);
+    path.quadraticBezierTo(0.0, size.height, 10.0, size.height);
+    path.lineTo(size.width - 10.0, size.height);
+    path.quadraticBezierTo(
+        size.width, size.height, size.width, size.height - 10);
+    path.lineTo(size.width, 95);
+    path.arcToPoint(Offset(size.width, 55),
+        radius: const Radius.circular(10.0), clockwise: true);
+    path.lineTo(size.width, 10.0);
+    path.quadraticBezierTo(size.width, 0.0, size.width - 10.0, 0.0);
+    path.lineTo(10.0, 0.0);
+    path.quadraticBezierTo(0.0, 0.0, 0.0, 10.0);
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }

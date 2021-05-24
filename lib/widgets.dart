@@ -209,7 +209,12 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
 class CountDown extends StatefulWidget {
   final DateTime time;
   final Function onTimeout;
-  CountDown({Key? key, required this.time, required this.onTimeout})
+  final String text;
+  CountDown(
+      {Key? key,
+      required this.time,
+      required this.onTimeout,
+      required this.text})
       : super(key: key);
 
   @override
@@ -266,7 +271,7 @@ class _CountDownState extends State<CountDown> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Recharge Countdown',
+              widget.text,
               style: TextStyle(fontSize: 15.8, fontWeight: FontWeight.w600),
             ),
             gapWidget(2.0),

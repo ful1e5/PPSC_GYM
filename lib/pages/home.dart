@@ -85,6 +85,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
+          title: Text('PPSC GYM'),
           actions: buildActions(),
           bottom: tabBarWidget(
             controller: tabCtrl,
@@ -224,8 +225,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   Widget clientList(List<Client> clients) {
     return RefreshIndicator(
-      color: Colors.black,
-      backgroundColor: Colors.white,
+      color: Colors.white,
+      backgroundColor: Colors.blue,
+      displacement: 2.0,
+      edgeOffset: 2.0,
       onRefresh: () async {
         setState(() {
           refreshClients();

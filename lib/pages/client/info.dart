@@ -130,6 +130,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
           (isPlanExpired)
               ? rechargeButton()
               : CountDown(
+                  text: 'Plan Countdown',
                   time: stringToDateTime(clientData.planExpiryDate!),
                   onTimeout: refreshAllData,
                 ),
@@ -270,23 +271,29 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
 
   Widget rechargeButton() {
     return OutlinedButton(
+      style: materialButtonStyle(
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+        padding: EdgeInsets.symmetric(
+          horizontal: 20.0,
+          vertical: 13.0,
+        ),
+      ),
       child: RichText(
         text: TextSpan(
-          style: TextStyle(fontSize: 20.0),
+          style: TextStyle(
+            fontSize: 19.5,
+            fontWeight: FontWeight.w900,
+          ),
           children: [
             WidgetSpan(
-              child: const Icon(Icons.flash_on_rounded),
+              child: const Icon(
+                Icons.flash_on,
+                size: 22.0,
+              ),
             ),
             TextSpan(text: ' Recharge Plan'),
           ],
-        ),
-      ),
-      style: materialButtonStyle(
-        backgroundColor: Colors.blueAccent,
-        foregroundColor: Colors.white,
-        padding: EdgeInsets.symmetric(
-          horizontal: 22.0,
-          vertical: 12.0,
         ),
       ),
       onPressed: () async {

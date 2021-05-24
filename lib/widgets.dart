@@ -253,7 +253,7 @@ class _CountDownState extends State<CountDown> {
     final seconds = remaining.inSeconds - remaining.inMinutes * 60;
 
     return Card(
-      color: Colors.blue.withOpacity(0.35),
+      color: Colors.blueGrey.withOpacity(0.35),
       margin: EdgeInsets.symmetric(horizontal: 70.0),
       semanticContainer: true,
       shape: RoundedRectangleBorder(
@@ -324,13 +324,13 @@ TabBar tabBarWidget({TabController? controller, List<Widget>? tabs}) {
   return TabBar(
     controller: controller,
     isScrollable: true,
-    unselectedLabelColor: Colors.redAccent,
     physics: BouncingScrollPhysics(),
     overlayColor: MaterialStateProperty.all(Colors.transparent),
     automaticIndicatorColorAdjustment: true,
+    unselectedLabelColor: Colors.blueGrey,
     indicator: BoxDecoration(
-      borderRadius: BorderRadius.circular(100.0),
-      color: Colors.redAccent,
+      borderRadius: BorderRadius.circular(12.0),
+      color: Colors.blue,
     ),
     tabs: tabs ?? [Tab(text: 'Home')],
   );

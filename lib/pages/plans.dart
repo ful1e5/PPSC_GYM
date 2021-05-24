@@ -118,19 +118,14 @@ class _PlansPageState extends State<PlansPage> {
             child: Card(
               color: Colors.blue,
               semanticContainer: true,
-              margin: EdgeInsets.only(
-                top: 10.0,
-                bottom: 10.0,
-                left: 32.0,
-                right: 32.0,
-              ),
+              margin: EdgeInsets.symmetric(vertical: 15.0, horizontal: 32.0),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25.0),
+                borderRadius: BorderRadius.circular(12.0),
               ),
               child: Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.all(20.0),
+                    padding: EdgeInsets.all(15.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,14 +133,14 @@ class _PlansPageState extends State<PlansPage> {
                         Text(
                           '$months Month Plan',
                           style: TextStyle(
-                            fontSize: 27.0,
+                            fontSize: 28.0,
                             fontWeight: FontWeight.w300,
                           ),
                         ),
                         Text(
                           '$money \u20B9',
                           style: TextStyle(
-                            fontSize: 14.5,
+                            fontSize: 16.0,
                             fontWeight: FontWeight.w800,
                           ),
                         ),

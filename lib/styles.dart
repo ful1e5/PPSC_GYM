@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
 final TextStyle slightBoldText = TextStyle(
-    fontSize: 16.0, color: Colors.white12, fontWeight: FontWeight.bold);
+  fontSize: 16.0,
+  color: Colors.white12,
+  fontWeight: FontWeight.bold,
+);
 
-ButtonStyle materialButtonStyle(
-    {Color? backgroundColor,
-    Color? foregroundColor,
-    EdgeInsetsGeometry? padding}) {
+ButtonStyle materialButtonStyle({
+  Color? backgroundColor,
+  Color? foregroundColor,
+  EdgeInsetsGeometry? padding,
+  double? borderRadius,
+}) {
   return ButtonStyle(
     backgroundColor:
         MaterialStateProperty.all<Color>(backgroundColor ?? Colors.white),
@@ -15,7 +20,7 @@ ButtonStyle materialButtonStyle(
     padding: MaterialStateProperty.all<EdgeInsetsGeometry?>(padding),
     shape: MaterialStateProperty.all(
       RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(borderRadius ?? 12.0),
       ),
     ),
   );

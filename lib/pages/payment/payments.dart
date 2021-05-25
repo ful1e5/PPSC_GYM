@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
-import 'package:ppscgym/styles.dart';
 
+import 'package:ppscgym/styles.dart';
 import 'package:ppscgym/utils.dart';
 import 'package:ppscgym/widgets.dart';
 
@@ -73,24 +73,28 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
 
               final normalTextStyle = TextStyle(
                 color: Colors.white,
-                fontSize: 14.0,
+                fontSize: 12.0,
                 fontWeight: FontWeight.w300,
               );
               final boldTextStyle = TextStyle(
                 color: Colors.white,
-                fontSize: 14.0,
+                fontSize: 12.0,
                 overflow: TextOverflow.visible,
                 fontWeight: FontWeight.bold,
               );
 
               return Container(
-                margin: EdgeInsets.fromLTRB(35.0, 15.0, 35.0, 15.0),
+                margin: EdgeInsets.symmetric(horizontal: 25.0, vertical: 20.0),
                 child: PhysicalShape(
                   color: isExpired ? Colors.red : Colors.green,
                   clipper: TicketClipper(),
                   child: Container(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 25.0, horizontal: 18.0),
+                    padding: EdgeInsets.only(
+                      top: 30.0,
+                      left: 20.0,
+                      right: 20.0,
+                      bottom: 25.0,
+                    ),
                     child: Column(
                       children: [
                         Row(
@@ -120,7 +124,7 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
                                 ),
                               ],
                             ),
-                            SizedBox(width: 28.0),
+                            SizedBox(width: 35.0),
                             cardSections(
                               children: [
                                 Text(
@@ -146,11 +150,8 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
                             ),
                           ],
                         ),
-                        ...buildNote(note, normalTextStyle, boldTextStyle),
-                        gapWidget(18.0),
-                        (isDatePassed(endDate))
-                            ? Container()
-                            : deleteButton(data)
+                        ...buildNote(note),
+                        ...deleteButton(data, isExpired)
                       ],
                     ),
                   ),
@@ -173,61 +174,47 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
     );
   }
 
-  List<Widget> buildNote(
-    String? note,
-    TextStyle normalTextStyle,
-    TextStyle boldTextStyle,
-  ) {
+  List<Widget> buildNote(String? note) {
     if (note == null) {
       return [Container()];
     } else {
       return [
-        gapWidget(20.0),
-        Text(
-          "Note",
-          style: normalTextStyle,
-        ),
-        gapWidget(8.0),
-        Text(
-          note,
-          style: boldTextStyle,
-        ),
+        gapWidget(25.0),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 35.0),
+          child: Text(
+            'Note : $note',
+            textAlign: TextAlign.justify,
+            style: TextStyle(
+              fontSize: 11.0,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        )
       ];
     }
   }
 
-  Widget deleteButton(Payment payment) {
-    return OutlinedButton(
-      style: materialButtonStyle(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.red,
-        padding: EdgeInsets.symmetric(
-          horizontal: 15.0,
-          vertical: 10.0,
-        ),
-      ),
-      child: RichText(
-        text: TextSpan(
-          style: TextStyle(
-            color: Colors.red,
-            fontSize: 15.5,
-            fontWeight: FontWeight.w900,
+  List<Widget> deleteButton(Payment payment, bool isExpired) {
+    if (isExpired) {
+      return [Container()];
+    } else {
+      return [
+        gapWidget(20.0),
+        OutlinedButton(
+          style: materialButtonStyle(
+            borderRadius: 50.0,
+            padding: EdgeInsets.all(15.0),
+            backgroundColor: Colors.black54,
+            foregroundColor: Colors.white,
           ),
-          children: [
-            WidgetSpan(
-              child: const Icon(
-                Icons.delete,
-                size: 18.0,
-              ),
-            ),
-            TextSpan(text: ' Delete'),
-          ],
+          child: Icon(Icons.clear),
+          onPressed: () {
+            handleDelete(payment);
+          },
         ),
-      ),
-      onPressed: () {
-        handleDelete(payment);
-      },
-    );
+      ];
+    }
   }
 
   void handleDelete(Payment payment) {
@@ -284,20 +271,30 @@ class TicketClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     final Path path = Path();
     path.lineTo(0.0, 55);
-    path.relativeArcToPoint(const Offset(0, 40),
-        radius: const Radius.circular(10.0), largeArc: true);
-    path.lineTo(0.0, size.height - 10);
-    path.quadraticBezierTo(0.0, size.height, 10.0, size.height);
-    path.lineTo(size.width - 10.0, size.height);
+    path.relativeArcToPoint(
+      const Offset(0, 40),
+      radius: const Radius.circular(10),
+      largeArc: true,
+    );
+    path.lineTo(0.0, size.height - 20.0);
+    path.quadraticBezierTo(0.0, size.height, 20.0, size.height);
+    path.lineTo(size.width - 20.0, size.height);
     path.quadraticBezierTo(
-        size.width, size.height, size.width, size.height - 10);
+      size.width,
+      size.height,
+      size.width,
+      size.height - 20.0,
+    );
     path.lineTo(size.width, 95);
-    path.arcToPoint(Offset(size.width, 55),
-        radius: const Radius.circular(10.0), clockwise: true);
-    path.lineTo(size.width, 10.0);
-    path.quadraticBezierTo(size.width, 0.0, size.width - 10.0, 0.0);
-    path.lineTo(10.0, 0.0);
-    path.quadraticBezierTo(0.0, 0.0, 0.0, 10.0);
+    path.arcToPoint(
+      Offset(size.width, 55),
+      radius: const Radius.circular(10.0),
+      clockwise: true,
+    );
+    path.lineTo(size.width, 20.0);
+    path.quadraticBezierTo(size.width, 0.0, size.width - 20.0, 0.0);
+    path.lineTo(20.0, 0.0);
+    path.quadraticBezierTo(0.0, 0.0, 0.0, 20.0);
     return path;
   }
 

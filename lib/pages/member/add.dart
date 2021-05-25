@@ -77,9 +77,7 @@ class _AddMemberPageState extends State<AddMemberPage> {
     return AppBar(
       centerTitle: true,
       backgroundColor: Colors.transparent,
-      title: (update)
-          ? const Text('Edit Member Details')
-          : const Text('Add Member Details'),
+      title: (update) ? const Text('Edit Member') : const Text('New Member'),
       actions: <Widget>[
         saveButton(),
       ],
@@ -286,19 +284,31 @@ class _AddMemberPageState extends State<AddMemberPage> {
   Future<void> handleSave() async {
     // Validate returns true if the form is valid, or false otherwise.
     if (formKey.currentState!.validate()) {
-      final member = Member(
-        id: int.parse(idCtrl.text),
-        name: formatName(nameCtrl.text),
-        gender: getGenderString(genderOptions),
-        dob: dobCtrl.text,
-        mobile: int.parse(mobileCtrl.text),
-        session: getSessionString(sessionOptions),
-      );
-
+      late Member member;
       late String? error;
       if (update) {
+        member = Member(
+          id: int.parse(idCtrl.text),
+          name: formatName(nameCtrl.text),
+          gender: getGenderString(genderOptions),
+          dob: dobCtrl.text,
+          mobile: int.parse(mobileCtrl.text),
+          session: getSessionString(sessionOptions),
+          planExpiryDate: widget.data!.planExpiryDate,
+          planMonth: widget.data!.planMonth,
+          totalMoney: widget.data!.totalMoney,
+        );
         error = await updateMember(member);
       } else {
+        member = Member(
+          id: int.parse(idCtrl.text),
+          name: formatName(nameCtrl.text),
+          gender: getGenderString(genderOptions),
+          dob: dobCtrl.text,
+          mobile: int.parse(mobileCtrl.text),
+          session: getSessionString(sessionOptions),
+        );
+
         error = await insertMember(member);
       }
 
@@ -308,11 +318,11 @@ class _AddMemberPageState extends State<AddMemberPage> {
         if (update) {
           // only appear on if values are not same
           if (!mapEquals(widget.data!.toMap(), member.toMap())) {
-            infoPopup(context, 'Entry Updated');
+            infoPopup(context, "${member.name}'s details Updated");
             Navigator.pop(context, 'member updated');
           }
         } else {
-          successPopup(context, 'Entry Created');
+          successPopup(context, '${member.name} is now member of the club.');
           Navigator.pop(context, 'member added');
         }
       }

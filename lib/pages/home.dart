@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:ppscgym/search.dart';
 
 import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
 
 import 'package:ppscgym/pages/member/add.dart';
 import 'package:ppscgym/pages/member/info.dart';
-import 'package:ppscgym/pages/plans.dart';
+import 'package:ppscgym/pages/setting.dart';
+import 'package:ppscgym/search.dart';
 
 import 'package:ppscgym/utils.dart';
 import 'package:ppscgym/widgets.dart';
@@ -144,12 +144,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     } else {
       return [
         IconButton(
-          icon: const Icon(Icons.insert_chart_rounded),
-          tooltip: 'Plans',
+          icon: const Icon(Icons.settings),
+          tooltip: 'Setting',
           onPressed: () async {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => PlansPage()),
+              MaterialPageRoute(builder: (context) => SettingPage()),
             ).then((context) {
               setState(() {
                 refreshPlans();
@@ -157,6 +157,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             });
           },
         ),
+
+        // TODO: Remove from here
+        // IconButton(
+        //   icon: const Icon(Icons.insert_chart_rounded),
+        //   tooltip: 'Plans',
+        //   onPressed: () async {
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => PlansPage()),
+        //     ).then((context) {
+        //       setState(() {
+        //         refreshPlans();
+        //       });
+        //     });
+        //   },
+        // ),
       ];
     }
   }

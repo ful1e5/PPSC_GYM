@@ -128,6 +128,7 @@ class _MemberInfoPageState extends State<MemberInfoPage> {
 
           // CoolDown Widget
           (isPlanExpired)
+              //TODO: Test real time
               ? membershipButton()
               : CountDown(
                   text: 'Plan Countdown',

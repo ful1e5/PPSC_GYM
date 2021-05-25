@@ -1,12 +1,12 @@
 import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
 
-String handleClientErrors(String error, Client client) {
+String handleMemberErrors(String error, Member member) {
   if (error.contains('UNIQUE constraint failed:')) {
-    if (error.contains("$clientTable.id")) {
-      return "Error: Duplicate identification found for ${client.id}";
-    } else if (error.contains("$clientTable.mobile")) {
-      return "Error: Duplicate mobile number ${client.mobile}";
+    if (error.contains("$memberTable.id")) {
+      return "Error: Duplicate identification found for ${member.id}";
+    } else if (error.contains("$memberTable.mobile")) {
+      return "Error: Duplicate mobile number ${member.mobile}";
     } else {
       return "Error: Unhandled Unique Constraint";
     }

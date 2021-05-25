@@ -7,18 +7,18 @@ import 'package:ppscgym/styles.dart';
 import 'package:ppscgym/utils.dart';
 import 'package:ppscgym/widgets.dart';
 
-class ClientPaymentHistory extends StatefulWidget {
+class PaymentHistory extends StatefulWidget {
   final Future<List<Payment>> future;
   final Function onDelete;
 
-  ClientPaymentHistory({Key? key, required this.onDelete, required this.future})
+  PaymentHistory({Key? key, required this.onDelete, required this.future})
       : super(key: key);
 
   @override
-  _ClientPaymentHistoryState createState() => _ClientPaymentHistoryState();
+  _PaymentHistoryState createState() => _PaymentHistoryState();
 }
 
-class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
+class _PaymentHistoryState extends State<PaymentHistory> {
   final String nonFoundMessage = "0 Payments";
   final String errorMessage = "Error Occurred";
 

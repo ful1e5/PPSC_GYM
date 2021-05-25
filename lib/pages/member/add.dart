@@ -8,15 +8,15 @@ import 'package:ppscgym/services/database/models.dart';
 import 'package:ppscgym/utils.dart';
 import 'package:ppscgym/widgets.dart';
 
-class AddClientPage extends StatefulWidget {
-  final Client? data;
-  AddClientPage({Key? key, this.data}) : super(key: key);
+class AddMemberPage extends StatefulWidget {
+  final Member? data;
+  AddMemberPage({Key? key, this.data}) : super(key: key);
 
   @override
-  _AddClientPageState createState() => _AddClientPageState();
+  _AddMemberPageState createState() => _AddMemberPageState();
 }
 
-class _AddClientPageState extends State<AddClientPage> {
+class _AddMemberPageState extends State<AddMemberPage> {
   late bool update;
 
   late List<bool> sessionOptions;
@@ -77,7 +77,9 @@ class _AddClientPageState extends State<AddClientPage> {
     return AppBar(
       centerTitle: true,
       backgroundColor: Colors.transparent,
-      title: (update) ? const Text('Edit Client') : const Text('Add Client'),
+      title: (update)
+          ? const Text('Edit Member Details')
+          : const Text('Add Member Details'),
       actions: <Widget>[
         saveButton(),
       ],
@@ -103,7 +105,7 @@ class _AddClientPageState extends State<AddClientPage> {
           child: Column(
             children: <Widget>[
               //
-              // Client Gender (default: Male)
+              // Member Gender (default: Male)
               //
 
               ToggleButtons(
@@ -123,7 +125,7 @@ class _AddClientPageState extends State<AddClientPage> {
               gapWidget(40.0),
 
               //
-              // Client Workout Session (default: Morning)
+              // Member Workout Session (default: Morning)
               //
 
               ToggleButtons(
@@ -143,7 +145,7 @@ class _AddClientPageState extends State<AddClientPage> {
               gapWidget(40.0),
 
               //
-              // Client ID
+              // Member ID
               //
 
               TextFormFieldWidget(
@@ -168,7 +170,7 @@ class _AddClientPageState extends State<AddClientPage> {
               gapWidget(20.0),
 
               //
-              // Client Name
+              // Member Name
               //
 
               TextFormFieldWidget(
@@ -223,7 +225,7 @@ class _AddClientPageState extends State<AddClientPage> {
               gapWidget(20.0),
 
               //
-              // Client Mob.No.
+              // Member Mob.No.
               //
 
               TextFormFieldWidget(
@@ -271,20 +273,20 @@ class _AddClientPageState extends State<AddClientPage> {
   // Database Methods
   //
 
-  insertClient(Client client) async {
+  insertMember(Member member) async {
     final DatabaseHandler handler = DatabaseHandler();
-    return await handler.insertClient(client);
+    return await handler.insertMember(member);
   }
 
-  updateClient(Client client) async {
+  updateMember(Member member) async {
     final DatabaseHandler handler = DatabaseHandler();
-    return await handler.updateClient(client);
+    return await handler.updateMember(member);
   }
 
   Future<void> handleSave() async {
     // Validate returns true if the form is valid, or false otherwise.
     if (formKey.currentState!.validate()) {
-      final client = Client(
+      final member = Member(
         id: int.parse(idCtrl.text),
         name: formatName(nameCtrl.text),
         gender: getGenderString(genderOptions),
@@ -295,9 +297,9 @@ class _AddClientPageState extends State<AddClientPage> {
 
       late String? error;
       if (update) {
-        error = await updateClient(client);
+        error = await updateMember(member);
       } else {
-        error = await insertClient(client);
+        error = await insertMember(member);
       }
 
       if (error != null) {
@@ -305,13 +307,13 @@ class _AddClientPageState extends State<AddClientPage> {
       } else {
         if (update) {
           // only appear on if values are not same
-          if (!mapEquals(widget.data!.toMap(), client.toMap())) {
+          if (!mapEquals(widget.data!.toMap(), member.toMap())) {
             infoPopup(context, 'Entry Updated');
-            Navigator.pop(context, 'client updated');
+            Navigator.pop(context, 'member updated');
           }
         } else {
           successPopup(context, 'Entry Created');
-          Navigator.pop(context, 'client added');
+          Navigator.pop(context, 'member added');
         }
       }
     }

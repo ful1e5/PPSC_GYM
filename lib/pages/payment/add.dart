@@ -9,9 +9,9 @@ import 'package:ppscgym/widgets.dart';
 import 'package:ppscgym/utils.dart';
 
 class AddPaymentPage extends StatefulWidget {
-  final int clientId;
+  final int memberId;
   final Plan plan;
-  AddPaymentPage({Key? key, required this.clientId, required this.plan})
+  AddPaymentPage({Key? key, required this.memberId, required this.plan})
       : super(key: key);
 
   @override
@@ -309,7 +309,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
           ),
           onPressed: () async {
             Payment payment = Payment(
-              clientId: widget.clientId,
+              memberId: widget.memberId,
               months: widget.plan.months,
               startDate: startdateCtrl.text,
               endDate: enddateCtrl.text,

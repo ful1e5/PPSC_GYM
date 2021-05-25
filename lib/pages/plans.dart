@@ -12,8 +12,8 @@ import 'package:ppscgym/widgets.dart';
 
 class PlansPage extends StatefulWidget {
   final bool? select;
-  final int? clientId;
-  PlansPage({Key? key, this.select, this.clientId}) : super(key: key);
+  final int? memberId;
+  PlansPage({Key? key, this.select, this.memberId}) : super(key: key);
 
   @override
   _PlansPageState createState() => _PlansPageState();
@@ -164,7 +164,7 @@ class _PlansPageState extends State<PlansPage> {
         MaterialPageRoute(
           builder: (context) => AddPaymentPage(
             plan: plan,
-            clientId: widget.clientId!,
+            memberId: widget.memberId!,
           ),
         ),
       );

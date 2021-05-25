@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ppscgym/services/database/models.dart';
 import 'package:ppscgym/services/database/handler.dart';
 
-import 'package:ppscgym/pages/client/add.dart';
+import 'package:ppscgym/pages/member/add.dart';
 import 'package:ppscgym/pages/payment/payments.dart';
 import 'package:ppscgym/pages/plans.dart';
 
@@ -11,33 +11,33 @@ import 'package:ppscgym/styles.dart';
 import 'package:ppscgym/widgets.dart';
 import 'package:ppscgym/utils.dart';
 
-class ClientInfoPage extends StatefulWidget {
-  final int clientId;
+class MemberInfoPage extends StatefulWidget {
+  final int memberId;
 
-  const ClientInfoPage({Key? key, required this.clientId}) : super(key: key);
+  const MemberInfoPage({Key? key, required this.memberId}) : super(key: key);
 
   @override
-  _ClientInfoPageState createState() => _ClientInfoPageState();
+  _MemberInfoPageState createState() => _MemberInfoPageState();
 }
 
-class _ClientInfoPageState extends State<ClientInfoPage> {
-  late Future<Client> infoFuture;
+class _MemberInfoPageState extends State<MemberInfoPage> {
+  late Future<Member> infoFuture;
   late Future<List<Payment>> paymentsFuture;
   late bool isPlanExpired;
 
   @override
   void initState() {
     super.initState();
-    refreshClientData(0);
+    refreshMemberData(0);
     refreshPaymentsData(0);
   }
 
-  refreshClientData(int seconds) {
+  refreshMemberData(int seconds) {
     final DatabaseHandler handler = DatabaseHandler();
 
-    infoFuture = Future<Client>.delayed(
+    infoFuture = Future<Member>.delayed(
       Duration(seconds: seconds, microseconds: 10),
-      () => handler.retrieveClient(widget.clientId),
+      () => handler.retrieveMember(widget.memberId),
     );
   }
 
@@ -45,13 +45,13 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
     final DatabaseHandler handler = DatabaseHandler();
     paymentsFuture = Future<List<Payment>>.delayed(
       Duration(seconds: seconds, microseconds: 20),
-      () => handler.retriveClientPayments(widget.clientId),
+      () => handler.retriveMemberPayments(widget.memberId),
     );
   }
 
   void refreshAllData() {
     setState(() {
-      refreshClientData(0);
+      refreshMemberData(0);
       refreshPaymentsData(0);
     });
   }
@@ -70,20 +70,20 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: infoFuture,
-      builder: (BuildContext context, AsyncSnapshot<Client> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<Member> snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return loaderWidget();
         } else if (snapshot.hasError) {
           return centerMessageWidget('Error !');
         } else if (snapshot.hasData) {
           //Initiating plan expiry boolean
-          Client clientData = snapshot.data!;
-          setPlanExpiry(clientData.planExpiryDate);
+          Member member = snapshot.data!;
+          setPlanExpiry(member.planExpiryDate);
 
           return Scaffold(
             backgroundColor: Colors.black,
-            appBar: buildAppBar(clientData),
-            body: buildBody(clientData),
+            appBar: buildAppBar(member),
+            body: buildBody(member),
           );
         } else {
           return centerMessageWidget('Data Not Found.');
@@ -92,7 +92,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
     );
   }
 
-  AppBar buildAppBar(Client client) {
+  AppBar buildAppBar(Member member) {
     return AppBar(
       backgroundColor: Colors.black,
       actions: [
@@ -103,13 +103,13 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
             final result = await Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AddClientPage(data: client),
+                builder: (context) => AddMemberPage(data: member),
               ),
             );
 
-            if (result == 'client updated') {
+            if (result == 'member updated') {
               setState(() {
-                refreshClientData(0);
+                refreshMemberData(0);
               });
             }
           },
@@ -118,25 +118,25 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
     );
   }
 
-  Widget buildBody(Client clientData) {
+  Widget buildBody(Member member) {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
         children: [
-          clientInfo(clientData),
+          memberInfo(member),
           gapWidget(7.0),
 
           // CoolDown Widget
           (isPlanExpired)
-              ? rechargeButton()
+              ? membershipButton()
               : CountDown(
                   text: 'Plan Countdown',
-                  time: stringToDateTime(clientData.planExpiryDate!),
+                  time: stringToDateTime(member.planExpiryDate!),
                   onTimeout: refreshAllData,
                 ),
           gapWidget(10.0),
 
-          ClientPaymentHistory(
+          PaymentHistory(
             future: paymentsFuture,
             onDelete: refreshAllData,
           ),
@@ -145,15 +145,15 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
     );
   }
 
-  Widget clientInfo(Client client) {
-    String id = client.id.toString();
-    String name = client.name;
-    String gender = client.gender;
-    String session = client.session;
-    String dob = client.dob.toString();
-    String mobile = client.mobile.toString();
-    String? planExpiryDate = client.planExpiryDate;
-    String totalMoney = client.totalMoney.toString();
+  Widget memberInfo(Member member) {
+    String id = member.id.toString();
+    String name = member.name;
+    String gender = member.gender;
+    String session = member.session;
+    String dob = member.dob.toString();
+    String mobile = member.mobile.toString();
+    String? planExpiryDate = member.planExpiryDate;
+    String totalMoney = member.totalMoney.toString();
 
     //Styling
     TextStyle cardTextStyle = TextStyle(fontSize: 17.0);
@@ -269,7 +269,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
     );
   }
 
-  Widget rechargeButton() {
+  Widget membershipButton() {
     return OutlinedButton(
       style: materialButtonStyle(
         backgroundColor: Colors.blue,
@@ -283,16 +283,16 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
         text: TextSpan(
           style: TextStyle(
             fontSize: 19.5,
-            fontWeight: FontWeight.w900,
+            fontWeight: FontWeight.w800,
           ),
           children: [
             WidgetSpan(
               child: const Icon(
-                Icons.flash_on,
-                size: 22.0,
+                Icons.assignment_ind,
+                size: 26.0,
               ),
             ),
-            TextSpan(text: ' Recharge Plan'),
+            TextSpan(text: '  Get Membership'),
           ],
         ),
       ),
@@ -302,7 +302,7 @@ class _ClientInfoPageState extends State<ClientInfoPage> {
           MaterialPageRoute(
             builder: (context) => PlansPage(
               select: true,
-              clientId: widget.clientId,
+              memberId: widget.memberId,
             ),
           ),
         );

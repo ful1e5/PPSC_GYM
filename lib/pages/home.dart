@@ -5,8 +5,8 @@ import 'package:ppscgym/search.dart';
 import 'package:ppscgym/services/database/handler.dart';
 import 'package:ppscgym/services/database/models.dart';
 
-import 'package:ppscgym/pages/client/add.dart';
-import 'package:ppscgym/pages/client/info.dart';
+import 'package:ppscgym/pages/member/add.dart';
+import 'package:ppscgym/pages/member/info.dart';
 import 'package:ppscgym/pages/plans.dart';
 
 import 'package:ppscgym/utils.dart';
@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  late Future<List<Client>> clientsFuture;
+  late Future<List<Member>> membersFuture;
 
   late Map<int, bool> selectedFlag;
   late bool isSelectionMode;
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     refreshPlans();
 
-    refreshClients();
+    refreshMembers();
     resetSelection();
   }
 
@@ -65,11 +65,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     });
   }
 
-  refreshClients() {
+  refreshMembers() {
     final handler = DatabaseHandler();
-    clientsFuture = Future<List<Client>>.delayed(
+    membersFuture = Future<List<Member>>.delayed(
       Duration.zero,
-      () => handler.retrieveClients(),
+      () => handler.retrieveMembers(),
     );
   }
 
@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add_rounded, size: 32.0),
           backgroundColor: Colors.white,
-          onPressed: () async => await toAddClientPage(),
+          onPressed: () async => await toAddMemberPage(),
         ),
       ),
       onWillPop: () async {
@@ -163,24 +163,24 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   Widget buildTabView() {
     return FutureBuilder(
-      future: clientsFuture,
-      builder: (BuildContext context, AsyncSnapshot<List<Client>> snapshot) {
+      future: membersFuture,
+      builder: (BuildContext context, AsyncSnapshot<List<Member>> snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return loaderWidget();
         } else if (snapshot.hasError) {
           return centerMessageWidget('Error !');
         } else if (snapshot.hasData) {
-          final clients = snapshot.data!;
+          final members = snapshot.data!;
           if (snapshot.data?.length == 0) {
             return centerMessageWidget(nonFoundMessage);
           } else {
             return Column(
               children: [
                 SearchBar(
-                  clients: clients,
+                  members: members,
                   syncFunction: () {
                     setState(() {
-                      refreshClients();
+                      refreshMembers();
                     });
                   },
                 ),
@@ -188,7 +188,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   child: TabBarView(
                     physics: BouncingScrollPhysics(),
                     controller: tabCtrl,
-                    children: tabViewChildren(clients),
+                    children: tabViewChildren(members),
                   ),
                 ),
               ],
@@ -201,29 +201,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  List<Widget> tabViewChildren(List<Client> clients) {
+  List<Widget> tabViewChildren(List<Member> members) {
     return tabs.map((t) {
       if (t == 'Morning') {
-        return clientList(
-          clients.where((e) => e.session == 'Morning').toList(),
+        return memberList(
+          members.where((e) => e.session == 'Morning').toList(),
         );
       } else if (t == 'Evening') {
-        return clientList(
-          clients.where((e) => e.session == 'Evening').toList(),
+        return memberList(
+          members.where((e) => e.session == 'Evening').toList(),
         );
       } else if (t == 'All') {
-        return clientList(clients);
+        return memberList(members);
       } else if (t.contains('Month Plan')) {
         final int mounth = int.parse(t.split(" ")[0]);
-        final fclients = clients.where((c) => c.planMonth == mounth).toList();
-        return clientList(fclients);
+        final fmembers = members.where((c) => c.planMonth == mounth).toList();
+        return memberList(fmembers);
       } else {
         return centerMessageWidget("No Data Found");
       }
     }).toList();
   }
 
-  Widget clientList(List<Client> clients) {
+  Widget memberList(List<Member> members) {
     return RefreshIndicator(
       color: Colors.white,
       backgroundColor: Colors.blue,
@@ -231,7 +231,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       edgeOffset: 2.0,
       onRefresh: () async {
         setState(() {
-          refreshClients();
+          refreshMembers();
         });
       },
       child: GestureDetector(
@@ -240,23 +240,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             resetSelection();
           });
         },
-        child: buildClientsCard(clients),
+        child: buildMembersCard(members),
       ),
     );
   }
 
-  Widget buildClientsCard(List<Client> clients) {
+  Widget buildMembersCard(List<Member> members) {
     return ListView.builder(
       physics: BouncingScrollPhysics(),
-      itemCount: clients.length,
+      itemCount: members.length,
       itemBuilder: (BuildContext context, int index) {
-        Client client = clients[index];
-        int id = client.id;
-        String name = client.name;
-        String session = client.session;
-        String gender = client.gender;
-        String? exDate = client.planExpiryDate;
-        int? planMonth = client.planMonth;
+        Member member = members[index];
+        int id = member.id;
+        String name = member.name;
+        String session = member.session;
+        String gender = member.gender;
+        String? exDate = member.planExpiryDate;
+        int? planMonth = member.planMonth;
 
         selectedFlag[id] = selectedFlag[id] ?? false;
         bool isSelected = selectedFlag[id] ?? false;
@@ -295,10 +295,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     } else {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ClientInfoPage(clientId: id)),
+        MaterialPageRoute(builder: (context) => MemberInfoPage(memberId: id)),
       ).then((context) async {
         setState(() {
-          refreshClients();
+          refreshMembers();
           refreshPlans();
         });
       });
@@ -348,9 +348,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     }
   }
 
-  deleteClient(int id) async {
+  deleteMember(int id) async {
     final handler = DatabaseHandler();
-    await handler.deleteClient(id);
+    await handler.deleteMember(id);
   }
 
   Future<void> deleteDialog() async {
@@ -387,7 +387,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       : 'entries are ' 'selected. ',
                 ),
                 TextSpan(
-                  text: "All client's payment informations are wiped "
+                  text: "All member's payment informations are wiped "
                       'out permanently from memory. Type ',
                 ),
                 TextSpan(text: 'confirm ', style: boldTextStyle),
@@ -398,11 +398,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           onConfirm: () async {
             for (MapEntry e in selectedFlag.entries) {
               if (e.value) {
-                await deleteClient(e.key);
+                await deleteMember(e.key);
               }
             }
             setState(() {
-              refreshClients();
+              refreshMembers();
               resetSelection();
             });
             Navigator.pop(dialogContext);
@@ -412,17 +412,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  Future<void> toAddClientPage() async {
-    final String? newClient = await Navigator.push(
+  Future<void> toAddMemberPage() async {
+    final String? newMember = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AddClientPage(),
+        builder: (context) => AddMemberPage(),
       ),
     );
 
-    if (newClient == 'client added') {
+    if (newMember == 'member added') {
       setState(() {
-        refreshClients();
+        refreshMembers();
         resetSelection();
         tabCtrl.index = defaultTabIndex;
       });

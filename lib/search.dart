@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:ppscgym/pages/client/info.dart';
+import 'package:ppscgym/pages/member/info.dart';
 
 import 'package:ppscgym/services/database/models.dart';
 
@@ -9,10 +9,10 @@ import 'package:ppscgym/widgets.dart';
 import 'package:ppscgym/utils.dart';
 
 class SearchBar extends StatelessWidget {
-  final List<Client> clients;
+  final List<Member> members;
   final Function syncFunction;
 
-  const SearchBar({Key? key, required this.clients, required this.syncFunction})
+  const SearchBar({Key? key, required this.members, required this.syncFunction})
       : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class SearchBar extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         showSearch(
-            context: context, delegate: SearchClient(clients, syncFunction));
+            context: context, delegate: SearchMember(members, syncFunction));
       },
       child: Card(
         color: Colors.white12,
@@ -42,7 +42,7 @@ class SearchBar extends StatelessWidget {
               ),
               SizedBox(width: 15.0),
               Text(
-                '${clients.length} members',
+                '${members.length} members',
                 style: TextStyle(
                   fontSize: 16.4,
                   color: Colors.white38,
@@ -57,11 +57,11 @@ class SearchBar extends StatelessWidget {
   }
 }
 
-class SearchClient extends SearchDelegate<Client?> {
-  final List<Client> clientsData;
+class SearchMember extends SearchDelegate<Member?> {
+  final List<Member> membersData;
   final Function syncFunction;
 
-  SearchClient(this.clientsData, this.syncFunction);
+  SearchMember(this.membersData, this.syncFunction);
 
   @override
   String get searchFieldLabel => '';
@@ -144,12 +144,12 @@ class SearchClient extends SearchDelegate<Client?> {
     );
   }
 
-  Widget clientCard(Client client, BuildContext context) {
-    int id = client.id;
-    String name = client.name;
-    String session = client.session;
-    String gender = client.gender;
-    String? exDate = client.planExpiryDate;
+  Widget memberCard(Member member, BuildContext context) {
+    int id = member.id;
+    String name = member.name;
+    String session = member.session;
+    String gender = member.gender;
+    String? exDate = member.planExpiryDate;
 
     return Card(
       color: Colors.black,
@@ -159,7 +159,7 @@ class SearchClient extends SearchDelegate<Client?> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ClientInfoPage(clientId: id)),
+                builder: (context) => MemberInfoPage(memberId: id)),
           ).then((context) {
             syncFunction();
           });
@@ -178,18 +178,18 @@ class SearchClient extends SearchDelegate<Client?> {
     );
   }
 
-  late Iterable<Client> filteredList;
+  late Iterable<Member> filteredList;
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    filteredList = clientsData
+    filteredList = membersData
         .where((e) => e.name.toLowerCase().contains(query.toLowerCase()));
 
     return ListView(
       physics: BouncingScrollPhysics(),
       children: filteredList
           .map(
-            (client) => clientCard(client, context),
+            (member) => memberCard(member, context),
           )
           .toList(),
     );
@@ -201,7 +201,7 @@ class SearchClient extends SearchDelegate<Client?> {
       physics: BouncingScrollPhysics(),
       children: filteredList
           .map(
-            (client) => clientCard(client, context),
+            (member) => memberCard(member, context),
           )
           .toList(),
     );

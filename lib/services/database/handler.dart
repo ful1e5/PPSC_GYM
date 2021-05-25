@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:ppscgym/services/errors.dart';
 import 'package:ppscgym/services/database/models.dart';
 
-final String clientTable = "client";
+final String memberTable = "member";
 final String planTable = "plan";
 final String paymentTable = "payment";
 
@@ -16,7 +16,7 @@ class DatabaseHandler {
       join(path, 'ppscgym.db'),
       onCreate: (database, version) async {
         await database.execute('PRAGMA foreign_keys = ON;');
-        await database.execute("CREATE TABLE $clientTable("
+        await database.execute("CREATE TABLE $memberTable("
             "id INTEGER PRIMARY KEY,"
             "name TEXT NOT NULL,"
             "gender TEXT NOT NULL,"
@@ -34,7 +34,7 @@ class DatabaseHandler {
             "money INTEGER NOT NULL"
             ")");
 
-        // Client -> Payments (one to many relation)
+        // Member -> Payments (one to many relation)
 
         await database.execute("CREATE TABLE $paymentTable("
             "id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -43,8 +43,8 @@ class DatabaseHandler {
             "endDate TEXT NOT NULL,"
             "money INTEGER NOT NULL,"
             "note TEXT,"
-            "clientId INTEGER NOT NULL,"
-            "FOREIGN KEY (clientId) REFERENCES $clientTable (id) ON DELETE CASCADE"
+            "memberId INTEGER NOT NULL,"
+            "FOREIGN KEY (memberId) REFERENCES $memberTable (id) ON DELETE CASCADE"
             ")");
       },
       version: 1,
@@ -52,59 +52,59 @@ class DatabaseHandler {
   }
 
   //
-  // Client
+  // Member
   //
 
-  Future<String?> insertClient(Client client) async {
+  Future<String?> insertMember(Member member) async {
     final Database db = await initializeDB();
     try {
-      await db.insert(clientTable, client.toMap());
+      await db.insert(memberTable, member.toMap());
       return null;
     } catch (e) {
-      return handleClientErrors(e.toString(), client);
+      return handleMemberErrors(e.toString(), member);
     }
   }
 
-  Future<String?> updateClient(Client client) async {
+  Future<String?> updateMember(Member member) async {
     final Database db = await initializeDB();
     try {
       await db.update(
-        clientTable,
-        client.toMap(),
+        memberTable,
+        member.toMap(),
         where: "id = ?",
-        whereArgs: [client.id],
+        whereArgs: [member.id],
       );
       return null;
     } catch (e) {
-      return handleClientErrors(e.toString(), client);
+      return handleMemberErrors(e.toString(), member);
     }
   }
 
-  Future<void> deleteClient(int id) async {
+  Future<void> deleteMember(int id) async {
     final db = await initializeDB();
     await db.delete(
-      clientTable,
+      memberTable,
       where: "id = ?",
       whereArgs: [id],
     );
     await db.delete(
       paymentTable,
-      where: "clientId = ?",
+      where: "memberId = ?",
       whereArgs: [id],
     );
   }
 
-  Future<List<Client>> retrieveClients() async {
+  Future<List<Member>> retrieveMembers() async {
     final Database db = await initializeDB();
-    final List<Map<String, Object?>> queryResult = await db.query(clientTable);
-    return queryResult.map((e) => Client.fromMap(e)).toList();
+    final List<Map<String, Object?>> queryResult = await db.query(memberTable);
+    return queryResult.map((e) => Member.fromMap(e)).toList();
   }
 
-  Future<Client> retrieveClient(int id) async {
+  Future<Member> retrieveMember(int id) async {
     final Database db = await initializeDB();
     final List<Map<String, Object?>> result =
-        await db.query(clientTable, where: "id = ?", whereArgs: [id]);
-    return Client.fromMap(result.first);
+        await db.query(memberTable, where: "id = ?", whereArgs: [id]);
+    return Member.fromMap(result.first);
   }
 
   //
@@ -114,7 +114,7 @@ class DatabaseHandler {
   Future<void> insertPayment(Payment payment) async {
     final Database db = await initializeDB();
     await db.insert(paymentTable, payment.toMap());
-    await updateClientInfo(payment.clientId);
+    await updateMemberInfo(payment.memberId);
   }
 
   Future<void> deletePayment(Payment payment) async {
@@ -124,20 +124,20 @@ class DatabaseHandler {
       where: "id = ?",
       whereArgs: [payment.id],
     );
-    await updateClientInfo(payment.clientId);
+    await updateMemberInfo(payment.memberId);
   }
 
-  Future<List<Payment>> retriveClientPayments(int clientId) async {
+  Future<List<Payment>> retriveMemberPayments(int memberId) async {
     final Database db = await initializeDB();
     final List<Map<String, Object?>> queryResult = await db.query(paymentTable,
-        where: "clientId = ?", whereArgs: [clientId], orderBy: "id DESC");
+        where: "memberId = ?", whereArgs: [memberId], orderBy: "id DESC");
     return queryResult.map((e) => Payment.fromMap(e)).toList();
   }
 
-  Future<void> updateClientInfo(int clientId) async {
+  Future<void> updateMemberInfo(int memberId) async {
     final Database db = await initializeDB();
     final List<Map<String, Object?>> queryResult = await db.query(paymentTable,
-        where: "clientId = ?", whereArgs: [clientId], orderBy: "endDate DESC");
+        where: "memberId = ?", whereArgs: [memberId], orderBy: "endDate DESC");
 
     final List<List> dates = queryResult
         .map(
@@ -153,9 +153,9 @@ class DatabaseHandler {
     int totalMoney = 0;
     queryResult.forEach((e) => totalMoney += Payment.fromMap(e).money);
 
-    // Updating client info
+    // Updating member info
     final List<Map<String, Object?>> result =
-        await db.query(clientTable, where: "id = ?", whereArgs: [clientId]);
+        await db.query(memberTable, where: "id = ?", whereArgs: [memberId]);
     Map<String, Object?> map = Map<String, Object?>.from(result.first);
 
     if (dates.isNotEmpty) {
@@ -167,13 +167,13 @@ class DatabaseHandler {
     }
     map['totalMoney'] = totalMoney;
 
-    final Client client = Client.fromMap(map);
+    final Member member = Member.fromMap(map);
 
     await db.update(
-      clientTable,
-      client.toMap(),
+      memberTable,
+      member.toMap(),
       where: "id = ?",
-      whereArgs: [client.id],
+      whereArgs: [member.id],
     );
   }
 

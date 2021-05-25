@@ -83,79 +83,92 @@ class _ClientPaymentHistoryState extends State<ClientPaymentHistory> {
                 fontWeight: FontWeight.bold,
               );
 
-              return Container(
-                margin: EdgeInsets.symmetric(horizontal: 25.0, vertical: 20.0),
-                child: PhysicalShape(
-                  color: isExpired ? Colors.red : Colors.green,
-                  clipper: TicketClipper(),
-                  child: Container(
-                    padding: EdgeInsets.only(
-                      top: 30.0,
-                      left: 20.0,
-                      right: 20.0,
-                      bottom: 25.0,
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+              return Stack(
+                children: [
+                  Container(
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 25.0, vertical: 20.0),
+                    child: PhysicalShape(
+                      color: isExpired ? Colors.red : Colors.green,
+                      clipper: TicketClipper(),
+                      child: Container(
+                        padding: EdgeInsets.only(
+                          top: 30.0,
+                          left: 20.0,
+                          right: 20.0,
+                          bottom: 25.0,
+                        ),
+                        child: Column(
                           children: [
-                            cardSections(
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  'Starting Date',
-                                  style: normalTextStyle,
+                                cardSections(
+                                  children: [
+                                    Text(
+                                      'Starting Date',
+                                      style: normalTextStyle,
+                                    ),
+                                    gapWidget(8.0),
+                                    Text(
+                                      startDate,
+                                      style: boldTextStyle,
+                                    ),
+                                    gapWidget(20.0),
+                                    Text(
+                                      'Plan',
+                                      style: normalTextStyle,
+                                    ),
+                                    gapWidget(8.0),
+                                    Text(
+                                      '$months Months',
+                                      style: boldTextStyle,
+                                    ),
+                                  ],
                                 ),
-                                gapWidget(8.0),
-                                Text(
-                                  startDate,
-                                  style: boldTextStyle,
-                                ),
-                                gapWidget(20.0),
-                                Text(
-                                  'Plan',
-                                  style: normalTextStyle,
-                                ),
-                                gapWidget(8.0),
-                                Text(
-                                  '$months Months',
-                                  style: boldTextStyle,
+                                SizedBox(width: 35.0),
+                                cardSections(
+                                  children: [
+                                    Text(
+                                      'Ending Date',
+                                      style: normalTextStyle,
+                                    ),
+                                    gapWidget(8.0),
+                                    Text(
+                                      endDate,
+                                      style: boldTextStyle,
+                                    ),
+                                    gapWidget(20.0),
+                                    Text(
+                                      'Payment',
+                                      style: normalTextStyle,
+                                    ),
+                                    gapWidget(8.0),
+                                    Text(
+                                      '$money \u20B9',
+                                      style: boldTextStyle,
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                            SizedBox(width: 35.0),
-                            cardSections(
-                              children: [
-                                Text(
-                                  'Ending Date',
-                                  style: normalTextStyle,
-                                ),
-                                gapWidget(8.0),
-                                Text(
-                                  endDate,
-                                  style: boldTextStyle,
-                                ),
-                                gapWidget(20.0),
-                                Text(
-                                  'Payment',
-                                  style: normalTextStyle,
-                                ),
-                                gapWidget(8.0),
-                                Text(
-                                  '$money \u20B9',
-                                  style: boldTextStyle,
-                                ),
-                              ],
-                            ),
+                            ...buildNote(note),
+                            ...deleteButton(data, isExpired)
                           ],
                         ),
-                        ...buildNote(note),
-                        ...deleteButton(data, isExpired)
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 37.0,
+                      vertical: 32.0,
+                    ),
+                    alignment: Alignment.centerRight,
+                    child: Icon(isExpired ? Icons.verified : null, size: 18.0),
+                  ),
+                ],
               );
             },
           ),

@@ -109,14 +109,12 @@ Widget gapWidget(double height) {
 }
 
 class ConfirmDialog extends StatefulWidget {
-  final double height;
   final Widget child;
   final String confirmText;
   final VoidCallback onConfirm;
 
   const ConfirmDialog({
     Key? key,
-    required this.height,
     required this.child,
     required this.confirmText,
     required this.onConfirm,
@@ -144,11 +142,11 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
         side: BorderSide(width: 1.5, color: Colors.white10),
       ),
       child: Container(
-        height: widget.height,
         color: Colors.transparent,
         child: Padding(
           padding: EdgeInsets.all(20),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               gapWidget(10.0),
 

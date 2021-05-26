@@ -249,7 +249,6 @@ class _PaymentHistoryState extends State<PaymentHistory> {
       builder: (BuildContext context) {
         dialogContext = context;
         return ConfirmDialog(
-          height: 250.0,
           confirmText: "Delete",
           child: RichText(
             text: TextSpan(

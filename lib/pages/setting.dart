@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ppscgym/styles.dart';
+
 import 'package:ppscgym/widgets.dart';
 
 class SettingPage extends StatefulWidget {
@@ -24,11 +24,20 @@ class _SettingPageState extends State<SettingPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              sectionTag(tag: 'Plan'),
               cardWidget(
-                color: Colors.blue,
                 icon: Icons.bar_chart,
                 title: Text('Customize Plan'),
-              )
+              ),
+              sectionTag(tag: 'Backup'),
+              cardWidget(
+                icon: Icons.backup_rounded,
+                title: Text('Backup'),
+              ),
+              cardWidget(
+                icon: Icons.settings_backup_restore_rounded,
+                title: Text('Restore'),
+              ),
             ],
           ),
         ),
@@ -50,7 +59,7 @@ class _SettingPageState extends State<SettingPage> {
       child: ListTile(
         onTap: onTap,
         leading: avatarWidget(
-          color: color,
+          color: color ?? Colors.blue,
           child: Icon(
             icon,
             size: 25,
@@ -58,6 +67,20 @@ class _SettingPageState extends State<SettingPage> {
           ),
         ),
         title: title,
+      ),
+    );
+  }
+
+  Widget sectionTag({String? tag}) {
+    return Container(
+      padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
+      child: Text(
+        tag ?? "Tag",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 28.0,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

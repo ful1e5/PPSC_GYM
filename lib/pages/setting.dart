@@ -17,6 +17,8 @@ class _SettingPageState extends State<SettingPage> {
         backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
+          centerTitle: true,
+          title: Text('Settings'),
         ),
         body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
@@ -54,7 +56,7 @@ class _SettingPageState extends State<SettingPage> {
   }) {
     return Card(
       color: Colors.transparent,
-      margin: EdgeInsets.all(20),
+      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
       semanticContainer: true,
       child: ListTile(
         onTap: onTap,
@@ -73,12 +75,12 @@ class _SettingPageState extends State<SettingPage> {
 
   Widget sectionTag({String? tag}) {
     return Container(
-      padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
+      padding: EdgeInsets.only(top: 30.0, bottom: 5.0),
       child: Text(
         tag ?? "Tag",
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: 28.0,
+          fontSize: 30.0,
           fontWeight: FontWeight.bold,
         ),
       ),

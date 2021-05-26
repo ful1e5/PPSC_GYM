@@ -224,7 +224,7 @@ class DatabaseHandler {
     return queryResult.map((e) => Plan.fromMap(e)).toList();
   }
 
-// Backup
+  // Backup
 
   Future<String?> backup() async {
     final Database db = await initializeDB();

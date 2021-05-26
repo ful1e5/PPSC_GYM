@@ -1,28 +1,39 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'package:ppscgym/services/database/handler.dart';
 
 import 'package:ppscgym/widgets.dart';
 
-final String ext = '.ppbak';
+final String ext = '.bak';
 
 Future<String?> backup() async {
   final handler = DatabaseHandler();
   return await handler.backup();
 }
 
-takeBackup(BuildContext context) async {
-  String? backupDir = await FilePicker.platform.getDirectoryPath();
-
+Future<String?> getBackupDir() async {
+  final backupDir = await getExternalStorageDirectory();
   if (backupDir != null) {
-    final file = File('$backupDir/ppscgym$ext');
+    return backupDir.path;
+  } else {
+    return null;
+  }
+}
+
+takeBackup(BuildContext context) async {
+  final backupDir = await getBackupDir();
+  if (backupDir != null) {
+    final bacupFilePath = File('$backupDir/ppscgym$ext');
     final String? csvData = await backup();
     if (csvData != null) {
-      file.writeAsString(csvData);
+      await bacupFilePath.writeAsString(csvData);
+      successPopup(context, 'Data Exported at $backupDir');
     } else {
-      errorPopup(context, 'Backup Error');
+      errorPopup(context, 'Backup Failed');
     }
+  } else {
+    errorPopup(context, 'Unable to retrieve backup directory');
   }
 }

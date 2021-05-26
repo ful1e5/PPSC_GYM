@@ -228,7 +228,33 @@ class DatabaseHandler {
 
   Future<String?> backup() async {
     final Database db = await initializeDB();
-    final result = await db.query('$memberTable');
-    return mapListToCsv(result);
+
+    final members = await db.query(memberTable);
+    final memberData = mapListToCsv(members);
+
+    final payments = await db.query(paymentTable);
+    final paymentData = mapListToCsv(payments);
+
+    final plans = await db.query(planTable);
+    final planData = mapListToCsv(plans);
+
+    late String csv = '';
+    // CSV DATA:
+    // memebersDATA--PaymentDATA--planData
+    // notEmpty--emptyPossible-emptyPossible
+    //
+
+    if (memberData == null || memberData.isEmpty) {
+      return null;
+    } else {
+      csv = memberData;
+      csv += '--' + paymentData!;
+      csv += '--' + planData!;
+    }
+
+    //TODO :remove print statement
+    print(csv);
+
+    return csv;
   }
 }

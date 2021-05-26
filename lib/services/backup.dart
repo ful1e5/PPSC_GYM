@@ -31,7 +31,7 @@ takeBackup(BuildContext context) async {
       await bacupFilePath.writeAsString(csvData);
       successPopup(context, 'Data Exported at $backupDir');
     } else {
-      errorPopup(context, 'Backup Failed');
+      successPopup(context, 'Nothing to Backup');
     }
   } else {
     errorPopup(context, 'Unable to retrieve backup directory');

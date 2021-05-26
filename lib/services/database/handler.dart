@@ -1,9 +1,11 @@
 import 'package:path/path.dart';
-import 'package:ppscgym/utils.dart';
+
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_porter/utils/csv_utils.dart';
 
 import 'package:ppscgym/services/errors.dart';
 import 'package:ppscgym/services/database/models.dart';
+import 'package:ppscgym/utils.dart';
 
 final String memberTable = "member";
 final String planTable = "plan";
@@ -220,5 +222,13 @@ class DatabaseHandler {
     final List<Map<String, Object?>> queryResult =
         await db.query(planTable, orderBy: "months ASC");
     return queryResult.map((e) => Plan.fromMap(e)).toList();
+  }
+
+// Backup
+
+  Future<String?> backup() async {
+    final Database db = await initializeDB();
+    final result = await db.query('$memberTable');
+    return mapListToCsv(result);
   }
 }

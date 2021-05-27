@@ -284,6 +284,8 @@ class _CountDownState extends State<CountDown> {
   }
 }
 
+// TODO: Animated icon popups
+// TODO: Change times for each categories
 errorPopup(BuildContext context, String msg) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(

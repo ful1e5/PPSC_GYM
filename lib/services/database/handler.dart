@@ -1,5 +1,5 @@
-import 'package:path/path.dart';
 import 'dart:convert';
+import 'package:path/path.dart';
 
 import 'package:sqflite/sqflite.dart';
 
@@ -249,7 +249,9 @@ class DatabaseHandler {
     }
   }
 
-  Future<void> restoreBackup(String jsonData) async {
+  Future<void> restoreBackup(
+    String jsonData,
+  ) async {
     final data = BackupFileData.fromJson(jsonDecode(jsonData));
 
     // TODO :Exceptions handling

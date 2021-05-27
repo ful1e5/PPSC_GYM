@@ -1,7 +1,7 @@
 import 'package:path/path.dart';
+import 'dart:convert';
 
 import 'package:sqflite/sqflite.dart';
-import 'package:sqflite_porter/utils/csv_utils.dart';
 
 import 'package:ppscgym/services/errors.dart';
 import 'package:ppscgym/services/database/models.dart';
@@ -229,28 +229,24 @@ class DatabaseHandler {
   Future<String?> backup(String sep) async {
     final Database db = await initializeDB();
 
-    final members = await db.query(memberTable);
-    final memberData = mapListToCsv(members);
-
-    final payments = await db.query(paymentTable);
-    final paymentData = mapListToCsv(payments);
-
-    final plans = await db.query(planTable);
-    final planData = mapListToCsv(plans);
-
-    late String csv = '';
-
-    if (memberData == null || memberData.isEmpty) {
+    final members = await this.retrieveMembers();
+    if (members.isEmpty) {
       return null;
     } else {
-      // CSV DATA:
-      // memebersDATA + sep +  PaymentDATA + sep +  planData
-      //   notEmpty           emptyPossible       emptyPossible
-      //
-      csv = memberData + sep + paymentData! + sep + planData!;
-    }
+      final paymentsRes = await db.query(paymentTable);
+      final payments = paymentsRes.map((e) => Payment.fromMap(e)).toList();
 
-    return csv;
+      final plansRes = await db.query(planTable);
+      final plans = plansRes.map((e) => Plan.fromMap(e)).toList();
+
+      final backupFile = BackupFile(
+        members: members,
+        payments: payments,
+        plans: plans,
+      );
+
+      return jsonEncode(backupFile);
+    }
   }
 
   Future<void> restoreBackup(String data) async {}

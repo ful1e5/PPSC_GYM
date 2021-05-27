@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Member {
   final int id;
   final String name;
@@ -45,6 +47,34 @@ class Member {
       'totalMoney': totalMoney,
     };
   }
+
+  factory Member.fromJson(Map<String, dynamic> json) {
+    return Member(
+      id: json['id'],
+      name: json['name'],
+      gender: json['gender'],
+      dob: json['dob'],
+      session: json['session'],
+      mobile: json['mobile'],
+      planExpiryDate: json['planExpiryDate'],
+      planMonth: json['planMonth'],
+      totalMoney: json['totalMoney'],
+    );
+  }
+
+  Map toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'gender': gender,
+      'dob': dob,
+      'session': session,
+      'mobile': mobile,
+      'planExpiryDate': planExpiryDate,
+      'planMonth': planMonth,
+      'totalMoney': totalMoney,
+    };
+  }
 }
 
 class Plan {
@@ -52,14 +82,30 @@ class Plan {
   final int months;
   final int money;
 
-  Plan({this.id, required this.months, required this.money});
-
   Plan.fromMap(Map<String, dynamic> res)
       : id = res['id'],
         months = res['months'],
         money = res['money'];
 
+  Plan({this.id, required this.months, required this.money});
+
+  factory Plan.fromJson(Map<String, dynamic> json) {
+    return Plan(
+      id: json['id'],
+      months: json['months'],
+      money: json['money'],
+    );
+  }
+
   Map<String, Object?> toMap() {
+    return {
+      'id': id,
+      'months': months,
+      'money': money,
+    };
+  }
+
+  Map toJson() {
     return {
       'id': id,
       'months': months,
@@ -105,6 +151,58 @@ class Payment {
       'endDate': endDate,
       'money': money,
       'note': note,
+    };
+  }
+
+  factory Payment.fromJson(Map<String, dynamic> json) {
+    return Payment(
+      id: json['id'],
+      memberId: json['memberId'],
+      months: json['months'],
+      startDate: json['startDate'],
+      endDate: json['endDate'],
+      money: json['money'],
+      note: json['note'],
+    );
+  }
+
+  Map toJson() {
+    return {
+      'id': id,
+      'memberId': memberId,
+      'months': months,
+      'startDate': startDate,
+      'endDate': endDate,
+      'money': money,
+      'note': note,
+    };
+  }
+}
+
+class BackupFile {
+  final List<Member> members;
+  final List<Plan> plans;
+  final List<Payment> payments;
+
+  BackupFile({
+    required this.members,
+    required this.plans,
+    required this.payments,
+  });
+
+  factory BackupFile.fromJson(Map<String, dynamic> json) {
+    return BackupFile(
+      members: jsonDecode(json['members']),
+      plans: jsonDecode(json['plans']),
+      payments: jsonDecode(json['payments']),
+    );
+  }
+
+  Map toJson() {
+    return {
+      'members': jsonEncode(members),
+      'plans': jsonEncode(plans),
+      'payments': jsonEncode(payments),
     };
   }
 }

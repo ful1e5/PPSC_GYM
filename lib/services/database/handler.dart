@@ -226,7 +226,7 @@ class DatabaseHandler {
 
   // Backup
 
-  Future<String?> backup() async {
+  Future<String?> backup(String sep) async {
     final Database db = await initializeDB();
 
     final members = await db.query(memberTable);
@@ -239,22 +239,19 @@ class DatabaseHandler {
     final planData = mapListToCsv(plans);
 
     late String csv = '';
-    // CSV DATA:
-    // memebersDATA--PaymentDATA--planData
-    // notEmpty--emptyPossible-emptyPossible
-    //
 
     if (memberData == null || memberData.isEmpty) {
       return null;
     } else {
-      csv = memberData;
-      csv += '--' + paymentData!;
-      csv += '--' + planData!;
+      // CSV DATA:
+      // memebersDATA + sep +  PaymentDATA + sep +  planData
+      //   notEmpty           emptyPossible       emptyPossible
+      //
+      csv = memberData + sep + paymentData! + sep + planData!;
     }
-
-    //TODO :remove print statement
-    print(csv);
 
     return csv;
   }
+
+  Future<void> restoreBackup(String data) async {}
 }

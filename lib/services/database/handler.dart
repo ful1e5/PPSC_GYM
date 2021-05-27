@@ -226,7 +226,7 @@ class DatabaseHandler {
 
   // Backup
 
-  Future<String?> backup(String sep) async {
+  Future<String?> backup() async {
     final Database db = await initializeDB();
 
     final members = await this.retrieveMembers();

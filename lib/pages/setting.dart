@@ -46,6 +46,9 @@ class _SettingPageState extends State<SettingPage> {
               cardWidget(
                 icon: Icons.settings_backup_restore_rounded,
                 title: Text('Restore'),
+                onTap: () async {
+                  await restoreBackup(context);
+                },
               ),
             ],
           ),

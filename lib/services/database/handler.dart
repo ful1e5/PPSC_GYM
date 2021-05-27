@@ -239,7 +239,7 @@ class DatabaseHandler {
       final plansRes = await db.query(planTable);
       final plans = plansRes.map((e) => Plan.fromMap(e)).toList();
 
-      final backupFile = BackupFile(
+      final backupFile = BackupFileData(
         members: members,
         payments: payments,
         plans: plans,
@@ -249,5 +249,12 @@ class DatabaseHandler {
     }
   }
 
-  Future<void> restoreBackup(String data) async {}
+  Future<void> restoreBackup(String jsonData) async {
+    final data = BackupFileData.fromJson(jsonDecode(jsonData));
+
+    // TODO :Exceptions handling
+    data.members.forEach((member) => this.insertMember(member));
+    data.payments.forEach((payment) => this.insertPayment(payment));
+    data.plans.forEach((plans) => this.insertPlan(plans));
+  }
 }

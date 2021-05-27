@@ -37,7 +37,6 @@ takeBackup(BuildContext context) async {
     final file = File('$dir/ppscgym$ext');
     final String? data = await backup();
 
-    print(data);
     if (data != null) {
       await file.writeAsString(data);
       successPopup(context, 'Data Exported at $dir');

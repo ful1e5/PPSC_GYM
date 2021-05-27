@@ -152,27 +152,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               MaterialPageRoute(builder: (context) => SettingPage()),
             ).then((context) {
               setState(() {
+                refreshMembers();
                 refreshPlans();
               });
             });
           },
         ),
-
-        // TODO: Remove from here
-        // IconButton(
-        //   icon: const Icon(Icons.insert_chart_rounded),
-        //   tooltip: 'Plans',
-        //   onPressed: () async {
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(builder: (context) => PlansPage()),
-        //     ).then((context) {
-        //       setState(() {
-        //         refreshPlans();
-        //       });
-        //     });
-        //   },
-        // ),
       ];
     }
   }

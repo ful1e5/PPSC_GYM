@@ -179,30 +179,32 @@ class Payment {
   }
 }
 
-class BackupFile {
+class BackupFileData {
   final List<Member> members;
   final List<Plan> plans;
   final List<Payment> payments;
 
-  BackupFile({
+  BackupFileData({
     required this.members,
     required this.plans,
     required this.payments,
   });
 
-  factory BackupFile.fromJson(Map<String, dynamic> json) {
-    return BackupFile(
-      members: jsonDecode(json['members']),
-      plans: jsonDecode(json['plans']),
-      payments: jsonDecode(json['payments']),
+  factory BackupFileData.fromJson(Map<String, dynamic> json) {
+    return BackupFileData(
+      members:
+          List<Member>.from(json['members'].map((x) => Member.fromJson(x))),
+      plans: List<Plan>.from(json['plans'].map((x) => Plan.fromJson(x))),
+      payments:
+          List<Payment>.from(json['payments'].map((x) => Payment.fromJson(x))),
     );
   }
 
   Map toJson() {
     return {
-      'members': jsonEncode(members),
-      'plans': jsonEncode(plans),
-      'payments': jsonEncode(payments),
+      'members': members,
+      'plans': plans,
+      'payments': payments,
     };
   }
 }

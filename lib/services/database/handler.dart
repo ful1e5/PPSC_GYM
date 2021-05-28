@@ -249,19 +249,44 @@ class DatabaseHandler {
     }
   }
 
+  Future<bool> isPaymentExits(Payment payment) async {
+    final db = await initializeDB();
+
+    final List<Map<String, Object?>> queryResult = await db.query(paymentTable,
+        where: "memberId = ?, startDate = ?, endDate = ?",
+        whereArgs: [
+          payment.memberId,
+          payment.startDate,
+          payment.endDate,
+        ]);
+    final payments = queryResult.map((e) => Payment.fromMap(e)).toList();
+    return payments.isNotEmpty;
+  }
+
   Future<void> restoreBackup(String jsonData, bool replace) async {
     final data = BackupFileData.fromJson(jsonDecode(jsonData));
 
-    // TODO :Exceptions handling
-    data.members.forEach((member) {
+    // Inserting Member and payment data
+    data.members.forEach((member) async {
+      final payments = data.payments.where(
+        (payment) => payment.memberId == member.id,
+      );
+
       if (replace) {
-        this.deleteMember(member.id);
-        this.insertMember(member);
+        await this.deleteMember(member.id);
+        await this.insertMember(member);
+        payments.forEach((e) async => await this.insertPayment(e));
       } else {
         this.insertMember(member);
+        payments.forEach((e) async {
+          if (await this.isPaymentExits(e)) {
+            await this.deletePayment(e);
+          }
+          await this.insertPayment(e);
+        });
       }
     });
-    data.payments.forEach((payment) => this.insertPayment(payment));
+
     data.plans.forEach((plans) => this.insertPlan(plans));
   }
 }

@@ -44,16 +44,10 @@ class _SettingPageState extends State<SettingPage> {
                   await takeBackup(context);
                 },
               ),
-
-              //TODO: Add replace or merge dialog
-
               cardWidget(
                 icon: Icons.settings_backup_restore_rounded,
                 title: Text('Restore'),
-                onTap: () async {
-                  restoreDialog();
-                  // await restoreBackup(context);
-                },
+                onTap: restoreDialog,
               ),
             ],
           ),
@@ -161,7 +155,9 @@ class _SettingPageState extends State<SettingPage> {
             foregroundColor: Colors.blueGrey,
             padding: EdgeInsets.symmetric(horizontal: 65.0, vertical: 12.0),
           ),
-          onPressed: () async {},
+          onPressed: () async {
+            await restoreBackup(context);
+          },
         ),
         gapWidget(10.0),
         OutlinedButton(
@@ -177,7 +173,9 @@ class _SettingPageState extends State<SettingPage> {
             backgroundColor: Colors.black54,
             padding: EdgeInsets.symmetric(horizontal: 65.0, vertical: 12.0),
           ),
-          onPressed: () async {},
+          onPressed: () async {
+            await restoreBackup(context, replace: true);
+          },
         ),
       ],
     );

@@ -249,13 +249,18 @@ class DatabaseHandler {
     }
   }
 
-  Future<void> restoreBackup(
-    String jsonData,
-  ) async {
+  Future<void> restoreBackup(String jsonData, bool replace) async {
     final data = BackupFileData.fromJson(jsonDecode(jsonData));
 
     // TODO :Exceptions handling
-    data.members.forEach((member) => this.insertMember(member));
+    data.members.forEach((member) {
+      if (replace) {
+        this.deleteMember(member.id);
+        this.insertMember(member);
+      } else {
+        this.insertMember(member);
+      }
+    });
     data.payments.forEach((payment) => this.insertPayment(payment));
     data.plans.forEach((plans) => this.insertPlan(plans));
   }

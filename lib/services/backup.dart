@@ -36,7 +36,7 @@ takeBackup(BuildContext context) async {
   }
 }
 
-restoreBackup(BuildContext context) async {
+restoreBackup(BuildContext context, {bool replace = false}) async {
   final file = await getBackupFile();
   try {
     if (file == null) {
@@ -44,7 +44,7 @@ restoreBackup(BuildContext context) async {
     }
     if (await file.exists()) {
       final jsonData = await file.readAsString(encoding: utf8);
-      await handler.restoreBackup(jsonData);
+      await handler.restoreBackup(jsonData, replace);
       successPopup(context, 'data imported');
     } else {
       infoPopup(context, 'Unable to find backup file');

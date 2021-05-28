@@ -249,18 +249,29 @@ class DatabaseHandler {
     }
   }
 
-  Future<bool> isPaymentExits(Payment payment) async {
+  Future<void> mergePayment(Payment payment) async {
     final db = await initializeDB();
 
     final List<Map<String, Object?>> queryResult = await db.query(paymentTable,
-        where: "memberId = ?, startDate = ?, endDate = ?",
+        where: "memberId = ? AND startDate = ? AND endDate = ?",
         whereArgs: [
           payment.memberId,
           payment.startDate,
           payment.endDate,
         ]);
     final payments = queryResult.map((e) => Payment.fromMap(e)).toList();
-    return payments.isNotEmpty;
+
+    if (payments.isNotEmpty) {
+      await db.delete(paymentTable,
+          where: "memberId = ? AND startDate = ? AND endDate = ?",
+          whereArgs: [
+            payment.memberId,
+            payment.startDate,
+            payment.endDate,
+          ]);
+    }
+
+    await this.insertPayment(payment);
   }
 
   Future<void> restoreBackup(String jsonData, bool replace) async {
@@ -279,10 +290,7 @@ class DatabaseHandler {
       } else {
         this.insertMember(member);
         payments.forEach((e) async {
-          if (await this.isPaymentExits(e)) {
-            await this.deletePayment(e);
-          }
-          await this.insertPayment(e);
+          await this.mergePayment(e);
         });
       }
     });

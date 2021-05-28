@@ -274,6 +274,22 @@ class DatabaseHandler {
     await this.insertPayment(payment);
   }
 
+  Future<void> mergePlan(Plan plan) async {
+    final db = await initializeDB();
+
+    final List<Map<String, Object?>> queryResult = await db.query(
+      planTable,
+      where: "months = ?",
+      whereArgs: [plan.months],
+    );
+    final plans = queryResult.map((e) => Plan.fromMap(e)).toList();
+
+    if (plans.isNotEmpty) {
+      await db.delete(planTable, where: "months = ?", whereArgs: [plan.months]);
+    }
+    await this.insertPlan(plan);
+  }
+
   Future<void> restoreBackup(String jsonData, bool replace) async {
     final data = BackupFileData.fromJson(jsonDecode(jsonData));
 
@@ -289,12 +305,18 @@ class DatabaseHandler {
         payments.forEach((e) async => await this.insertPayment(e));
       } else {
         this.insertMember(member);
-        payments.forEach((e) async {
-          await this.mergePayment(e);
+        payments.forEach((payment) async {
+          await this.mergePayment(payment);
         });
       }
     });
 
-    data.plans.forEach((plans) => this.insertPlan(plans));
+    data.plans.forEach((plan) async {
+      if (replace) {
+        await this.insertPlan(plan);
+      } else {
+        await this.mergePlan(plan);
+      }
+    });
   }
 }

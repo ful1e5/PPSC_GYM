@@ -1,6 +1,6 @@
 name: ppscgym
-description: A new Flutter project.
-version: 1.0.0+1
+description: PPSC GYM record maintaining application
+version: 1.0.1+1
 
 environment:
   sdk: ">=2.12.0 <3.0.0"

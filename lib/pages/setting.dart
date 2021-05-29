@@ -4,6 +4,7 @@ import 'package:ppscgym/services/backup.dart';
 
 import 'package:ppscgym/pages/plans.dart';
 import 'package:ppscgym/widgets.dart';
+import 'package:ppscgym/info.dart';
 
 class SettingPage extends StatefulWidget {
   SettingPage({Key? key}) : super(key: key);
@@ -15,43 +16,52 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
         backgroundColor: Colors.black,
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          centerTitle: true,
-          title: Text('Settings'),
-        ),
-        body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              sectionTag(tag: 'Plan'),
-              cardWidget(
-                icon: Icons.bar_chart,
-                title: Text('Customize Plan'),
-                onTap: gotoPlanPage,
-              ),
-              sectionTag(tag: 'Backup'),
-              cardWidget(
-                icon: Icons.backup_rounded,
-                title: Text('Backup'),
-                onTap: () async {
-                  await backupDialog(context);
-                },
-              ),
-              cardWidget(
-                icon: Icons.settings_backup_restore_rounded,
-                title: Text('Restore'),
-                onTap: () async {
-                  await restoreDialog(context);
-                },
-              ),
-            ],
-          ),
+        centerTitle: true,
+        title: Text('Settings'),
+      ),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            sectionTag(tag: 'Plan'),
+            cardWidget(
+              icon: Icons.bar_chart,
+              title: Text('Customize Plan'),
+              onTap: gotoPlanPage,
+            ),
+            sectionTag(tag: 'Backup'),
+            cardWidget(
+              icon: Icons.backup_rounded,
+              title: Text('Backup'),
+              onTap: () async {
+                await backupDialog(context);
+              },
+            ),
+            cardWidget(
+              icon: Icons.settings_backup_restore_rounded,
+              title: Text('Restore'),
+              onTap: () async {
+                await restoreDialog(context);
+              },
+            ),
+            sectionTag(tag: 'About App'),
+            cardWidget(
+              icon: Icons.info_rounded,
+              title: Text('Info'),
+              onTap: gotoAboutPage,
+            ),
+            cardWidget(
+              icon: Icons.list,
+              title: Text('License'),
+              onTap: gotoLicensePage,
+            ),
+          ],
         ),
       ),
     );
@@ -100,7 +110,41 @@ class _SettingPageState extends State<SettingPage> {
   gotoPlanPage() async {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PlansPage()),
+      MaterialPageRoute(builder: (context) => InfoPage(text: aboutApp)),
+    );
+  }
+
+  gotoLicensePage() async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => InfoPage(text: license)),
+    );
+  }
+
+  gotoAboutPage() async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => InfoPage(text: 'Licence')),
+    );
+  }
+}
+
+class InfoPage extends StatelessWidget {
+  final String text;
+  const InfoPage({Key? key, required this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        centerTitle: true,
+        title: Text('License'),
+      ),
+      body: Container(
+        child: Text(text),
+      ),
     );
   }
 }

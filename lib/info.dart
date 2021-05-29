@@ -1,0 +1,11 @@
+String license = """
+
+
+
+""";
+
+String aboutApp = """
+
+
+
+""";

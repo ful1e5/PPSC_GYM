@@ -318,11 +318,11 @@ class _AddMemberPageState extends State<AddMemberPage> {
         if (update) {
           // only appear on if values are not same
           if (!mapEquals(widget.data!.toMap(), member.toMap())) {
-            infoPopup(context, "${member.name}'s details Updated");
+            infoPopup(context, "${member.name}'s details updated");
             Navigator.pop(context, 'member updated');
           }
         } else {
-          successPopup(context, '${member.name} is now member of the club.');
+          successPopup(context, '${member.name} is new member of the gym');
           Navigator.pop(context, 'member added');
         }
       }

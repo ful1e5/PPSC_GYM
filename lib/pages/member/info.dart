@@ -129,7 +129,7 @@ class _MemberInfoPageState extends State<MemberInfoPage> {
           // CoolDown Widget
           (isPlanExpired)
               //TODO: Test real time
-              ? membershipButton()
+              ? membershipButton(member)
               : CountDown(
                   text: 'Plan Countdown',
                   time: stringToDateTime(member.planExpiryDate!),
@@ -270,7 +270,7 @@ class _MemberInfoPageState extends State<MemberInfoPage> {
     );
   }
 
-  Widget membershipButton() {
+  Widget membershipButton(Member member) {
     return OutlinedButton(
       style: materialButtonStyle(
         backgroundColor: Colors.blue,
@@ -303,7 +303,7 @@ class _MemberInfoPageState extends State<MemberInfoPage> {
           MaterialPageRoute(
             builder: (context) => PlansPage(
               select: true,
-              memberId: widget.memberId,
+              member: member,
             ),
           ),
         );

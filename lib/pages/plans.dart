@@ -12,8 +12,8 @@ import 'package:ppscgym/widgets.dart';
 
 class PlansPage extends StatefulWidget {
   final bool? select;
-  final int? memberId;
-  PlansPage({Key? key, this.select, this.memberId}) : super(key: key);
+  final Member? member;
+  PlansPage({Key? key, this.select, this.member}) : super(key: key);
 
   @override
   _PlansPageState createState() => _PlansPageState();
@@ -164,7 +164,7 @@ class _PlansPageState extends State<PlansPage> {
         MaterialPageRoute(
           builder: (context) => AddPaymentPage(
             plan: plan,
-            memberId: widget.memberId!,
+            member: widget.member!,
           ),
         ),
       );
@@ -265,9 +265,11 @@ class _PlansPageState extends State<PlansPage> {
               if (value == null || value.isEmpty) {
                 return 'This field required';
               } else if (int.parse(value) == 0) {
-                return 'Not A Valid Count';
+                return 'Not a valid count';
+              } else if (int.parse(value) < 50) {
+                return 'Minimum money is set to 50\u20B9';
               } else if (int.parse(value) > 50000) {
-                return 'Max Money is set to 50,000\u20B9';
+                return 'Maximum money is set to 50,000\u20B9';
               }
               return null;
             },
@@ -323,7 +325,7 @@ class _PlansPageState extends State<PlansPage> {
 
   Future<void> handleDelete(Plan plan) async {
     await deletePlan(plan.id ?? 0);
-    successPopup(context, '${plan.months} Plan Deleted');
+    successPopup(context, '${plan.months} months plan deleted');
 
     setState(() {
       refreshPlanData(0);
@@ -366,13 +368,13 @@ class _PlansPageState extends State<PlansPage> {
       } else {
         if (oldData != null) {
           if (!mapEquals(oldData.toMap(), plan.toMap())) {
-            infoPopup(context, 'Plan Edited');
+            infoPopup(context, '${plan.months} months plan updated');
             setState(() {
               refreshPlanData(0);
             });
           }
         } else {
-          successPopup(context, 'Plan Created');
+          successPopup(context, '${plan.months} months plan created');
           setState(() {
             refreshPlanData(0);
           });

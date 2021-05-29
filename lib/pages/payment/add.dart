@@ -9,9 +9,9 @@ import 'package:ppscgym/widgets.dart';
 import 'package:ppscgym/utils.dart';
 
 class AddPaymentPage extends StatefulWidget {
-  final int memberId;
+  final Member member;
   final Plan plan;
-  AddPaymentPage({Key? key, required this.memberId, required this.plan})
+  AddPaymentPage({Key? key, required this.member, required this.plan})
       : super(key: key);
 
   @override
@@ -309,7 +309,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
           ),
           onPressed: () async {
             Payment payment = Payment(
-              memberId: widget.memberId,
+              memberId: widget.member.id,
               months: widget.plan.months,
               startDate: startdateCtrl.text,
               endDate: enddateCtrl.text,
@@ -318,7 +318,10 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
             );
 
             await insertPayment(payment);
-            successPopup(context, '${widget.plan.months} Months Plan Active');
+            successPopup(
+              context,
+              '${widget.member.name} get ${widget.plan.months} months membership',
+            );
 
             Navigator.pop(context); // Popup Dialog
             Navigator.pop(context, 'payment added'); // Popup Widget

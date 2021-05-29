@@ -50,16 +50,16 @@ class _SettingPageState extends State<SettingPage> {
                 await restoreDialog(context);
               },
             ),
-            sectionTag(tag: 'About App'),
+            sectionTag(tag: 'About'),
+            cardWidget(
+              icon: Icons.pageview_sharp,
+              title: Text('License'),
+              onTap: gotoLicensePage,
+            ),
             cardWidget(
               icon: Icons.info_rounded,
               title: Text('Info'),
               onTap: gotoAboutPage,
-            ),
-            cardWidget(
-              icon: Icons.list,
-              title: Text('License'),
-              onTap: gotoLicensePage,
             ),
           ],
         ),
@@ -110,28 +110,32 @@ class _SettingPageState extends State<SettingPage> {
   gotoPlanPage() async {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => InfoPage(text: aboutApp)),
+      MaterialPageRoute(builder: (context) => PlansPage()),
     );
   }
 
   gotoLicensePage() async {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => InfoPage(text: license)),
+      MaterialPageRoute(
+          builder: (context) => InfoPage(title: 'Licence', text: license)),
     );
   }
 
   gotoAboutPage() async {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => InfoPage(text: 'Licence')),
+      MaterialPageRoute(
+          builder: (context) => InfoPage(title: 'About', text: aboutApp)),
     );
   }
 }
 
 class InfoPage extends StatelessWidget {
+  final String title;
   final String text;
-  const InfoPage({Key? key, required this.text}) : super(key: key);
+  const InfoPage({Key? key, required this.title, required this.text})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -140,10 +144,14 @@ class InfoPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black,
         centerTitle: true,
-        title: Text('License'),
+        title: Text(title),
       ),
-      body: Container(
-        child: Text(text),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Container(
+          padding: EdgeInsets.all(20.0),
+          child: Text(text),
+        ),
       ),
     );
   }

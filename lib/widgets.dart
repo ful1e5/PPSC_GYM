@@ -286,30 +286,64 @@ class _CountDownState extends State<CountDown> {
 
 // TODO: Animated icon popups
 // TODO: Change times for each categories
-errorPopup(BuildContext context, String msg) {
+
+popUp(BuildContext context,
+    {Color? color, Color? fontColor, IconData? icon, String? text}) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      backgroundColor: Colors.red,
-      content: Text(msg),
+      backgroundColor: color ?? Colors.white,
+      content: Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon ?? Icons.info,
+              size: 30.0,
+              color: fontColor ?? Colors.black,
+            ),
+            SizedBox(width: 10.0),
+            Text(
+              text ?? "",
+              style: TextStyle(
+                color: fontColor ?? Colors.black,
+                fontSize: 12.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
     ),
+  );
+}
+
+errorPopup(BuildContext context, String msg) {
+  popUp(
+    context,
+    color: Colors.red,
+    icon: Icons.clear_rounded,
+    text: msg,
   );
 }
 
 infoPopup(BuildContext context, String msg) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      backgroundColor: Colors.amber,
-      content: Text(msg),
-    ),
+  popUp(
+    context,
+    color: Colors.amber,
+    icon: Icons.info_outline,
+    fontColor: Colors.black,
+    text: msg,
   );
 }
 
 successPopup(BuildContext context, String msg) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      backgroundColor: Colors.green,
-      content: Text(msg),
-    ),
+  popUp(
+    context,
+    color: Colors.green,
+    icon: Icons.check_rounded,
+    text: msg,
   );
 }
 

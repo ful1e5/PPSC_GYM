@@ -212,6 +212,26 @@ Future<void> restoreDialog(BuildContext context) async {
   );
 }
 
+wipeDataDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return ConfirmDialog(
+        buttonText: 'Wipe All Data',
+        child: Text(
+          "All informations are wiped out permanently "
+          'from memory. Type "confirm" to proceed.',
+        ),
+        onConfirm: () async {
+          await handler.wipeDatabase();
+          successPopup(context, 'All data wiped out');
+          Navigator.pop(context);
+        },
+      );
+    },
+  );
+}
+
 takeBackup(BuildContext context) async {
   final file = await getBackupFile();
   if (file != null) {

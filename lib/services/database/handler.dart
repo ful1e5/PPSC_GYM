@@ -319,4 +319,11 @@ class DatabaseHandler {
       }
     });
   }
+
+  Future<void> wipeDatabase() async {
+    final db = await initializeDB();
+    await db.delete(memberTable);
+    await db.delete(paymentTable);
+    await db.delete(planTable);
+  }
 }

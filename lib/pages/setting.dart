@@ -35,7 +35,7 @@ class _SettingPageState extends State<SettingPage> {
               title: Text('Customize Plan'),
               onTap: gotoPlanPage,
             ),
-            sectionTag(tag: 'Backup'),
+            sectionTag(tag: 'Services'),
             cardWidget(
               icon: Icons.backup_rounded,
               title: Text('Backup'),
@@ -50,7 +50,14 @@ class _SettingPageState extends State<SettingPage> {
                 await restoreDialog(context);
               },
             ),
-            sectionTag(tag: 'About'),
+            cardWidget(
+              icon: Icons.cleaning_services_rounded,
+              title: Text('Wipe all data'),
+              onTap: () async {
+                await wipeDataDialog(context);
+              },
+            ),
+            sectionTag(tag: 'Details'),
             cardWidget(
               icon: Icons.pageview_sharp,
               title: Text('License'),
@@ -58,7 +65,7 @@ class _SettingPageState extends State<SettingPage> {
             ),
             cardWidget(
               icon: Icons.info_rounded,
-              title: Text('Info'),
+              title: Text('About'),
               onTap: gotoAboutPage,
             ),
           ],

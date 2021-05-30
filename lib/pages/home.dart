@@ -283,7 +283,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
             subtitle: Text(
-              (planMonth != null)
+              (planMonth != null && !isDatePassed(exDate!))
                   ? '$session - $planMonth Month Plan'
                   : session,
               style: TextStyle(fontSize: 10.0),

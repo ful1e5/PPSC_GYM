@@ -149,6 +149,7 @@ class SearchMember extends SearchDelegate<Member?> {
     String name = member.name;
     String session = member.session;
     String gender = member.gender;
+    int? planMonth = member.planMonth;
     String? exDate = member.planExpiryDate;
 
     return Card(
@@ -171,7 +172,9 @@ class SearchMember extends SearchDelegate<Member?> {
           style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
-          session,
+          (planMonth != null && !isDatePassed(exDate!))
+              ? '$session - $planMonth Month Plan'
+              : session,
           style: TextStyle(fontSize: 10.0),
         ),
       ),

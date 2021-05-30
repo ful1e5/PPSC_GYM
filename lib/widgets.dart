@@ -110,13 +110,13 @@ Widget gapWidget(double height) {
 
 class ConfirmDialog extends StatefulWidget {
   final Widget child;
-  final String confirmText;
+  final String buttonText;
   final VoidCallback onConfirm;
 
   const ConfirmDialog({
     Key? key,
     required this.child,
-    required this.confirmText,
+    required this.buttonText,
     required this.onConfirm,
   }) : super(key: key);
 
@@ -186,7 +186,7 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
 
               OutlinedButton(
                 child: Text(
-                  widget.confirmText,
+                  widget.buttonText,
                 ),
                 style: materialButtonStyle(
                   padding:

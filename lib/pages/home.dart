@@ -374,7 +374,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       builder: (BuildContext context) {
         dialogContext = context;
         return ConfirmDialog(
-          confirmText: 'Delete',
+          buttonText: 'Delete',
           child: RichText(
             textAlign: TextAlign.left,
             text: TextSpan(

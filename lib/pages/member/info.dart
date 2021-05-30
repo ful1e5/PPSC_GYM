@@ -28,8 +28,7 @@ class _MemberInfoPageState extends State<MemberInfoPage> {
   @override
   void initState() {
     super.initState();
-    refreshMemberData(0);
-    refreshPaymentsData(0);
+    refreshAllData();
   }
 
   refreshMemberData(int seconds) {
@@ -128,10 +127,9 @@ class _MemberInfoPageState extends State<MemberInfoPage> {
 
           // CoolDown Widget
           (isPlanExpired)
-              //TODO: Test real time
               ? membershipButton(member)
               : CountDown(
-                  text: 'Plan Countdown',
+                  text: 'Membership Countdown',
                   time: stringToDateTime(member.planExpiryDate!),
                   onTimeout: refreshAllData,
                 ),

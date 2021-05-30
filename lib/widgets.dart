@@ -237,19 +237,17 @@ class _CountDownState extends State<CountDown> {
   }
 
   void _onTimeChange(Timer timer) {
+    if (widget.time.difference(DateTime.now()).inMilliseconds <= -1) {
+      widget.onTimeout();
+    }
     setState(() {
-      if (widget.time.compareTo(DateTime.now()) == 0) {
-        widget.onTimeout();
-      } else {
-        _currentTime = DateTime.now();
-      }
+      _currentTime = DateTime.now();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final remaining = widget.time.difference(_currentTime);
-
     final days = remaining.inDays;
     final hours = remaining.inHours - remaining.inDays * 24;
     final minutes = remaining.inMinutes - remaining.inHours * 60;
@@ -257,7 +255,7 @@ class _CountDownState extends State<CountDown> {
 
     return Card(
       color: Colors.blueGrey.withOpacity(0.35),
-      margin: EdgeInsets.symmetric(horizontal: 70.0),
+      margin: EdgeInsets.symmetric(horizontal: 60.0),
       semanticContainer: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
@@ -284,36 +282,34 @@ class _CountDownState extends State<CountDown> {
   }
 }
 
-// TODO: Animated icon popups
-// TODO: Change times for each categories
-
 popUp(BuildContext context,
     {Color? color, Color? fontColor, IconData? icon, String? text}) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       backgroundColor: color ?? Colors.white,
-      content: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon ?? Icons.info,
-              size: 30.0,
-              color: fontColor ?? Colors.black,
-            ),
-            SizedBox(width: 10.0),
-            Text(
+      content: Wrap(
+        spacing: 10.0, // gap between adjacent chips
+        runSpacing: 8.0, // gap between lines
+        direction: Axis.horizontal,
+        children: [
+          Icon(
+            icon ?? Icons.info,
+            size: 30.0,
+            color: fontColor ?? Colors.black,
+          ),
+          Container(
+            padding: EdgeInsets.all(6.0),
+            child: Text(
               text ?? "",
+              overflow: TextOverflow.visible,
               style: TextStyle(
                 color: fontColor ?? Colors.black,
                 fontSize: 12.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-          ],
-        ),
+          )
+        ],
       ),
     ),
   );

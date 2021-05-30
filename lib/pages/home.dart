@@ -27,10 +27,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   final String nonFoundMessage = 'No Records Found';
 
-  late Set<String> dTabs = {'Morning', 'Evening', 'All'};
+  late Set<String> dTabs = {'Morning', 'Evening', 'Expired', 'All'};
   late Set<String> tabs = dTabs;
   late TabController tabCtrl;
-  final int defaultTabIndex = 2;
+  final int defaultTabIndex = 3;
 
   @override
   void initState() {
@@ -211,6 +211,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       } else if (t == 'Evening') {
         return memberList(
           members.where((e) => e.session == 'Evening').toList(),
+        );
+      } else if (t == 'Expired') {
+        return memberList(
+          members
+              .where((e) =>
+                  e.planExpiryDate != null && isDatePassed(e.planExpiryDate!))
+              .toList(),
         );
       } else if (t == 'All') {
         return memberList(members);

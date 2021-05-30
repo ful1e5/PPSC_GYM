@@ -42,7 +42,7 @@ class SearchBar extends StatelessWidget {
               ),
               SizedBox(width: 15.0),
               Text(
-                '${members.length} members',
+                '${members.length} member',
                 style: TextStyle(
                   fontSize: 16.4,
                   color: Colors.white38,

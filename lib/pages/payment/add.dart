@@ -257,7 +257,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          backgroundColor: Colors.blueGrey,
+          backgroundColor: Colors.blue,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(40.0)),
           ),
@@ -304,7 +304,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
             ),
           ),
           style: materialButtonStyle(
-            foregroundColor: Colors.blueGrey,
+            foregroundColor: Colors.blue,
             padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 12.0),
           ),
           onPressed: () async {

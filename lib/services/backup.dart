@@ -35,9 +35,10 @@ dialog(BuildContext context, Widget child) {
     context: context,
     builder: (BuildContext context) {
       return Dialog(
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.black87,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(40.0)),
+          side: BorderSide(width: 1.5, color: Colors.white10),
         ),
         child: Container(
           color: Colors.transparent,
@@ -58,6 +59,7 @@ Future<void> backupDialog(BuildContext context) async {
       Icons.backup_rounded,
       size: 80.0,
     ),
+    gapWidget(5.0),
     Text(
       'Backup File Location',
       style: TextStyle(
@@ -65,9 +67,17 @@ Future<void> backupDialog(BuildContext context) async {
         fontWeight: FontWeight.bold,
       ),
     ),
-    gapWidget(15.0),
+    gapWidget(25.0),
     Container(
-      color: (fname == null) ? Colors.red : Colors.green,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: (fname == null) ? Colors.red : Colors.green,
+        ),
+        color: (fname == null) ? Colors.red : Colors.green,
+        borderRadius: BorderRadius.all(
+          Radius.circular(15.0),
+        ),
+      ),
       padding: EdgeInsets.all(10.0),
       child: Text(
         (fname == null) ? 'Unable to retrieve backup location.' : fname,
@@ -88,7 +98,8 @@ Future<void> backupDialog(BuildContext context) async {
               ),
             ),
             style: materialButtonStyle(
-              foregroundColor: Colors.blueGrey,
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
               padding: EdgeInsets.symmetric(horizontal: 65.0, vertical: 12.0),
             ),
             onPressed: () async {
@@ -152,8 +163,8 @@ Future<void> restoreDialog(BuildContext context) async {
     ),
     gapWidget(15.0),
     Text(
-      'Choose Restore behaviour. This operation affect existing data. '
-      "Both restoration operations are behaves same, If no data exists.",
+      'Choose Restore behaviour. This operation affect on existing data. '
+      "Both restoration operations are behaves same, If there is zero data.",
       overflow: TextOverflow.visible,
       textAlign: TextAlign.center,
       style: TextStyle(fontSize: 11.3),
@@ -168,7 +179,8 @@ Future<void> restoreDialog(BuildContext context) async {
         ),
       ),
       style: materialButtonStyle(
-        foregroundColor: Colors.blueGrey,
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
         padding: EdgeInsets.symmetric(horizontal: 65.0, vertical: 12.0),
       ),
       onPressed: () async {
@@ -186,8 +198,8 @@ Future<void> restoreDialog(BuildContext context) async {
         ),
       ),
       style: materialButtonStyle(
+        backgroundColor: Colors.deepOrange,
         foregroundColor: Colors.white,
-        backgroundColor: Colors.black54,
         padding: EdgeInsets.symmetric(horizontal: 65.0, vertical: 12.0),
       ),
       onPressed: () async {

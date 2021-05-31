@@ -232,7 +232,7 @@ class _MemberInfoPageState extends State<MemberInfoPage> {
             ),
             cardGroup(
               [
-                infoCard(Icon(Icons.phone, size: 25.0), mobile),
+                infoCard(Icon(Icons.contact_phone_rounded, size: 25.0), mobile),
                 infoCard(Icon(Icons.timelapse, size: 25.0), session),
                 infoCard(Icon(Icons.cake, size: 25.0), dob),
               ],

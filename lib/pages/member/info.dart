@@ -100,7 +100,7 @@ class _MemberInfoPageState extends State<MemberInfoPage> {
           tooltip: 'Call',
           icon: Icon(Icons.call),
           onPressed: () {
-            launch('tel://${member.mobile}');
+            launch('tel:${member.mobile}');
           },
         ),
         IconButton(

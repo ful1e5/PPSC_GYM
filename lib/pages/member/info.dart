@@ -52,7 +52,7 @@ class _MemberInfoPageState extends State<MemberInfoPage> {
   void refreshAllData() {
     setState(() {
       refreshMemberData(0);
-      refreshPaymentsData(0);
+      refreshPaymentsData(1);
     });
   }
 

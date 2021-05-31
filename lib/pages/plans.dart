@@ -267,11 +267,12 @@ class _PlansPageState extends State<PlansPage> {
               } else if (int.parse(value) == 0) {
                 return 'Not a valid count';
               } else if (int.parse(value) < 50) {
-                return 'Minimum money is set to 50\u20B9';
+                return 'Minimum money is set to \u20B9 50';
               } else if (int.parse(value) > 50000) {
-                return 'Maximum money is set to 50,000\u20B9';
+                return 'Maximum money is set to \u20B9 50,000';
+              } else {
+                return null;
               }
-              return null;
             },
           ),
           gapWidget(30.0),

@@ -146,7 +146,7 @@ class _PaymentHistoryState extends State<PaymentHistory> {
                                     ),
                                     gapWidget(8.0),
                                     Text(
-                                      '$money \u20B9',
+                                      '\u20B9 $money',
                                       style: boldTextStyle,
                                     ),
                                   ],

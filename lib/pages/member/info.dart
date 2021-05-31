@@ -226,7 +226,7 @@ class _MemberInfoPageState extends State<MemberInfoPage> {
                 ),
                 infoCard(
                   Text('Total', style: cardTextStyle),
-                  '$totalMoney \u20B9',
+                  '\u20B9 $totalMoney',
                 ),
               ],
             ),

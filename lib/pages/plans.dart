@@ -138,7 +138,7 @@ class _PlansPageState extends State<PlansPage> {
                           ),
                         ),
                         Text(
-                          '$money \u20B9',
+                          '\u20B9 $money',
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w800,

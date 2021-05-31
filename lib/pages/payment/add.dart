@@ -203,8 +203,10 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'This field required';
+                  } else if (int.parse(value) < 50) {
+                    return 'Minimum Money set to \u20B9 50';
                   } else if (int.parse(value) > 50000) {
-                    return 'Max Money set to 50,000\u20B9';
+                    return 'Maximum Money set to \u20B9 50,000';
                   } else {
                     return null;
                   }

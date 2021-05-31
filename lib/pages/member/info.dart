@@ -10,6 +10,7 @@ import 'package:ppscgym/pages/plans.dart';
 import 'package:ppscgym/styles.dart';
 import 'package:ppscgym/widgets.dart';
 import 'package:ppscgym/utils.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MemberInfoPage extends StatefulWidget {
   final int memberId;
@@ -95,6 +96,13 @@ class _MemberInfoPageState extends State<MemberInfoPage> {
     return AppBar(
       backgroundColor: Colors.black,
       actions: [
+        IconButton(
+          tooltip: 'Call',
+          icon: Icon(Icons.call),
+          onPressed: () {
+            launch('tel://${member.mobile}');
+          },
+        ),
         IconButton(
           tooltip: 'Edit',
           icon: Icon(Icons.edit),

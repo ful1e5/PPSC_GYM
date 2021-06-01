@@ -1,4 +1,4 @@
-package com.example.ppscgym
+package com.ppsc.ppscgym
 
 import io.flutter.embedding.android.FlutterActivity
 

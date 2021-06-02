@@ -73,12 +73,12 @@ class _PaymentHistoryState extends State<PaymentHistory> {
 
               final normalTextStyle = TextStyle(
                 color: Colors.white,
-                fontSize: 12.0,
+                fontSize: 14.0,
                 fontWeight: FontWeight.w300,
               );
               final boldTextStyle = TextStyle(
                 color: Colors.white,
-                fontSize: 12.0,
+                fontSize: 14.0,
                 overflow: TextOverflow.visible,
                 fontWeight: FontWeight.bold,
               );
@@ -199,7 +199,7 @@ class _PaymentHistoryState extends State<PaymentHistory> {
             'Note : $note',
             textAlign: TextAlign.justify,
             style: TextStyle(
-              fontSize: 11.0,
+              fontSize: 12.0,
               fontWeight: FontWeight.w300,
             ),
           ),

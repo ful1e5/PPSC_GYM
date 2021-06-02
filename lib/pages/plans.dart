@@ -122,11 +122,11 @@ class _PlansPageState extends State<PlansPage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              child: Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(15.0),
-                    child: Column(
+              child: Container(
+                padding: EdgeInsets.all(15.0),
+                child: Row(
+                  children: [
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -146,9 +146,10 @@ class _PlansPageState extends State<PlansPage> {
                         ),
                       ],
                     ),
-                  ),
-                  planEditButton(plan),
-                ],
+                    Spacer(),
+                    planEditButton(plan),
+                  ],
+                ),
               ),
             ),
           ),
@@ -174,17 +175,15 @@ class _PlansPageState extends State<PlansPage> {
 
   Widget planEditButton(Plan plan) {
     if (!select) {
-      return Expanded(
-        child: IconButton(
-          icon: Icon(
-            Icons.edit,
-            color: Colors.white,
-            size: 25.0,
-          ),
-          onPressed: () {
-            planDialog(oldData: plan);
-          },
+      return IconButton(
+        icon: Icon(
+          Icons.edit,
+          color: Colors.white,
+          size: 25.0,
         ),
+        onPressed: () {
+          planDialog(oldData: plan);
+        },
       );
     } else {
       return Container();

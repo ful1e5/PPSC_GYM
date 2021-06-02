@@ -10,7 +10,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'PPSC GYM',
+      theme: ThemeData.dark(),
       darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.dark,
       home: HomePage(),
       debugShowCheckedModeBanner: false,
     );
